@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSky — Section 6: Customer Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f4f7;--surface:#fff;--surface2:#f7f8fa;--border:#e3e7ef;--border2:#c8cdd8;
+  --text:#111827;--text2:#4b5563;--text3:#9ca3af;
+  --green:#0a7c45;--green-bg:#eaf7f0;--green-bd:#a7dfc4;
+  --red:#b91c1c;--red-bg:#fef2f2;--red-bd:#fca5a5;
+  --amber:#92600a;--amber-bg:#fffbeb;--amber-bd:#fcd34d;
+  --blue:#1d4ed8;--blue-bg:#eff6ff;--blue-bd:#93c5fd;
+  --purple:#6d28d9;--purple-bg:#f5f3ff;--purple-bd:#c4b5fd;
+  --teal:#0d7f78;--teal-bg:#e8f7f6;--teal-bd:#9de0db;
+  --mono:'IBM Plex Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:13px;line-height:1.5;min-height:100vh;}
+
+/* ── HEADER ── */
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
+.logo{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--green);letter-spacing:.08em;}
+.logo em{color:var(--text3);font-style:normal;}
+.hdr-right{display:flex;align-items:center;gap:12px;}
+.section-badge{font-family:var(--mono);font-size:10px;padding:4px 12px;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd);}
+.btn-play{font-family:var(--sans);font-size:12px;font-weight:600;padding:7px 18px;border-radius:7px;border:none;background:var(--green);color:#fff;cursor:pointer;transition:all .15s;}
+.btn-play:hover{background:#0d9e56;}
+.btn-play.stop{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.btn-reset{font-family:var(--sans);font-size:12px;padding:7px 14px;border-radius:7px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:pointer;}
+
+/* ── PAGE ── */
+.page{max-width:1280px;margin:0 auto;padding:32px 24px 80px;}
+
+/* ── SECTION HEADER ── */
+.sec-header{margin-bottom:40px;}
+.sec-label{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:8px;}
+.sec-title{font-size:28px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:12px;}
+.sec-desc{font-size:14px;color:var(--text2);max-width:700px;line-height:1.65;}
+
+/* ── PROFILE CARD ── */
+.profile-row{display:grid;grid-template-columns:360px 1fr;gap:20px;margin-bottom:36px;align-items:start;}
+.profile-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;}
+.pc-top{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.pc-avatar{width:48px;height:48px;border-radius:50%;background:var(--green-bg);border:2px solid var(--green-bd);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.pc-avatar.anon{background:var(--bg);border-color:var(--border2);filter:grayscale(1);}
+.pc-name{font-size:15px;font-weight:700;color:var(--text);}
+.pc-name.anon{color:var(--text3);font-style:italic;font-weight:400;}
+.pc-sub{font-family:var(--mono);font-size:10px;color:var(--text3);}
+.pc-fields{display:flex;flex-direction:column;gap:6px;}
+.pc-field{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);}
+.pc-field:last-child{border-bottom:none;}
+.pc-fl{font-size:11px;color:var(--text3);}
+.pc-fv{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--text);}
+.pc-fv.anon{color:var(--text3);font-style:italic;}
+.pc-fv.green{color:var(--green);}
+.pc-fv.red{color:var(--red);}
+.pc-fv.blue{color:var(--blue);}
+.pc-fv.amber{color:#d97706;}
+.pc-fv.purple{color:var(--purple);}
+
+/* LIVE SCORE PANEL */
+.live-score-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;}
+.lsp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.lsp-title{font-size:13px;font-weight:600;color:var(--text);}
+.lsp-time{font-family:var(--mono);font-size:10px;color:var(--text3);}
+.lsp-scores{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+.lsp-score{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;}
+.lsp-score-label{font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+.lsp-score-val{font-family:var(--mono);font-size:22px;font-weight:600;line-height:1;}
+.lsp-score-sub{font-size:10px;color:var(--text3);margin-top:2px;}
+.bucket-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;padding:4px 12px;border-radius:4px;}
+.bp-anon{background:var(--bg);color:var(--text3);border:1px solid var(--border2);}
+.bp-res{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.bp-cmp{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+.bp-act{background:var(--amber-bg);color:#d97706;border:1px solid var(--amber-bd);}
+.bp-emg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.bp-dot{width:6px;height:6px;border-radius:50%;}
+.bp-dot.res{background:var(--green);}
+.bp-dot.cmp{background:var(--blue);}
+.bp-dot.act{background:#d97706;}
+.bp-dot.emg{background:var(--red);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.id-tier-strip{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.id-tier{font-family:var(--mono);font-size:10px;font-weight:600;padding:3px 10px;border-radius:3px;}
+.it-1{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.it-2{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+.it-3{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-bd);}
+.it-5{background:var(--bg);color:var(--text3);border:1px solid var(--border2);}
+.it-label{font-size:10px;color:var(--text3);}
+
+/* ── TIMELINE ── */
+.timeline-section{position:relative;}
+.timeline-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.tl-title{font-size:16px;font-weight:600;color:var(--text);}
+.tl-subtitle{font-size:12px;color:var(--text2);}
+.tl-step-counter{font-family:var(--mono);font-size:11px;color:var(--text3);}
+
+/* Timeline track */
+.timeline-track{position:relative;padding-left:60px;}
+.tl-spine{position:absolute;left:22px;top:28px;bottom:28px;width:2px;background:var(--border);border-radius:1px;}
+.tl-spine-fill{position:absolute;left:0;top:0;width:100%;background:var(--green);border-radius:1px;transition:height 1.2s ease;height:0%;}
+
+/* Timeline node */
+.tl-node{position:relative;margin-bottom:0;}
+.tl-node-connector{position:absolute;left:-60px;top:24px;width:60px;display:flex;align-items:center;gap:0;}
+.tl-dot{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:2px solid transparent;transition:all .4s;position:absolute;left:-60px;top:4px;}
+.tl-dot.inactive{background:var(--bg);border-color:var(--border2);filter:grayscale(1);opacity:.5;}
+.tl-dot.active{transform:scale(1.1);}
+.tl-dot.res{background:var(--green-bg);border-color:var(--green-bd);}
+.tl-dot.cmp{background:var(--blue-bg);border-color:var(--blue-bd);}
+.tl-dot.act{background:var(--amber-bg);border-color:var(--amber-bd);}
+.tl-dot.emg{background:var(--red-bg);border-color:var(--red);}
+.tl-dot.conv{background:var(--teal-bg);border-color:var(--teal-bd);}
+.tl-dot.post{background:var(--purple-bg);border-color:var(--purple-bd);}
+.tl-dot.repeat{background:var(--green-bg);border-color:var(--green);box-shadow:0 0 0 4px rgba(10,124,69,.15);}
+
+/* Card */
+.tl-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0;margin-bottom:16px;overflow:hidden;transition:all .3s;opacity:.45;transform:translateX(8px);}
+.tl-card.active{opacity:1;transform:translateX(0);border-color:var(--border2);box-shadow:0 4px 20px rgba(0,0,0,.07);}
+.tl-card.done{opacity:.75;transform:translateX(0);}
+.tl-card-head{padding:14px 18px 10px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.tl-card-head-left{flex:1;}
+.tl-phase-label{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.tl-phase-label.res{color:var(--green);}
+.tl-phase-label.cmp{color:var(--blue);}
+.tl-phase-label.act{color:#d97706;}
+.tl-phase-label.emg{color:var(--red);}
+.tl-phase-label.conv{color:var(--teal);}
+.tl-phase-label.post{color:var(--purple);}
+.tl-phase-label.repeat{color:var(--green);}
+.tl-card-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.tl-card-sub{font-size:12px;color:var(--text2);}
+.tl-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tl-date{font-family:var(--mono);font-size:10px;color:var(--text3);}
+
+/* Card body */
+.tl-card-body{padding:0 18px 14px;display:none;}
+.tl-card.active .tl-card-body, .tl-card.done .tl-card-body{display:block;}
+
+/* Event chips */
+.event-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.event-chip{font-family:var(--mono);font-size:9px;font-weight:500;padding:3px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--border);color:var(--text2);}
+.event-chip.pos{background:var(--green-bg);color:var(--green);border-color:var(--green-bd);}
+.event-chip.neg{background:var(--red-bg);color:var(--red);border-color:var(--red-bd);}
+.event-chip.sys{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-bd);}
+.event-chip.key{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-bd);}
+.event-chip.conv{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-bd);font-weight:700;}
+
+/* Score delta row */
+.score-delta-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.sdr-from{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text3);}
+.sdr-arrow{font-size:14px;color:var(--text3);}
+.sdr-to{font-family:var(--mono);font-size:16px;font-weight:700;}
+.sdr-to.res{color:var(--green);}
+.sdr-to.cmp{color:var(--blue);}
+.sdr-to.act{color:#d97706;}
+.sdr-to.emg{color:var(--red);}
+.sdr-to.conv{color:var(--teal);}
+.sdr-to.post{color:var(--purple);}
+.sdr-to.repeat{color:var(--green);}
+.sdr-delta{font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 8px;border-radius:3px;}
+.sdr-delta.pos{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.sdr-delta.neg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.sdr-delta.neutral{background:var(--bg);color:var(--text3);border:1px solid var(--border);}
+.sdr-bucket{margin-left:4px;}
+
+/* System action strip */
+.sys-action{display:flex;align-items:flex-start;gap:8px;background:var(--bg);border-radius:7px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--border);}
+.sa-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+.sa-body{flex:1;}
+.sa-label{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px;}
+.sa-label.green{color:var(--green);}
+.sa-label.blue{color:var(--blue);}
+.sa-label.amber{color:#d97706;}
+.sa-label.red{color:var(--red);}
+.sa-label.purple{color:var(--purple);}
+.sa-label.teal{color:var(--teal);}
+.sa-text{font-size:11px;color:var(--text2);line-height:1.5;}
+
+/* Identity transition */
+.id-transition{background:var(--teal-bg);border:1px solid var(--teal-bd);border-radius:7px;padding:10px 14px;margin-bottom:8px;}
+.idt-label{font-family:var(--mono);font-size:9px;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+.idt-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.idt-tier{font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 10px;border-radius:3px;}
+.idt-arrow{color:var(--teal);font-weight:700;}
+.idt-desc{font-size:11px;color:var(--teal);}
+
+/* Score bar */
+.score-bar-wrap{width:100%;height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin:6px 0;}
+.score-bar-fill{height:100%;border-radius:3px;transition:width 1s ease;}
+.sbf-res{background:var(--green);}
+.sbf-cmp{background:var(--blue);}
+.sbf-act{background:#d97706;}
+.sbf-emg{background:var(--red);}
+.sbf-conv{background:var(--teal);}
+.sbf-post{background:var(--purple);}
+.sbf-repeat{background:var(--green);}
+
+/* Fingerprint reveal */
+.fp-reveal{background:var(--purple-bg);border:1px solid var(--purple-bd);border-radius:7px;padding:10px 14px;margin-bottom:8px;}
+.fp-label{font-family:var(--mono);font-size:9px;font-weight:600;color:var(--purple);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+.fp-rows{display:flex;flex-direction:column;gap:4px;}
+.fp-row{display:flex;align-items:center;justify-content:space-between;font-size:11px;}
+.fp-rl{color:var(--text3);}
+.fp-rv{font-family:var(--mono);font-size:10px;color:var(--purple);font-weight:600;}
+
+/* Profile merge */
+.merge-strip{background:var(--green-bg);border:1px solid var(--green-bd);border-radius:7px;padding:10px 14px;margin-bottom:8px;}
+.merge-label{font-family:var(--mono);font-size:9px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+.merge-rows{display:flex;flex-direction:column;gap:3px;}
+.merge-row{font-size:11px;color:var(--text2);display:flex;align-items:flex-start;gap:6px;}
+.merge-check{color:var(--green);font-weight:700;flex-shrink:0;}
+
+/* Outcome tag */
+.outcome-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;padding:4px 12px;border-radius:4px;margin-top:4px;}
+.ot-booked{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.ot-review{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-bd);}
+.ot-repeat{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd);}
+.ot-pending{background:var(--amber-bg);color:#d97706;border:1px solid var(--amber-bd);}
+
+/* ── BOTTOM SUMMARY ── */
+.summary-section{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:40px;}
+.sum-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.sum-card-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.sum-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);}
+.sum-row:last-child{border-bottom:none;}
+.sum-rl{font-size:11px;color:var(--text3);}
+.sum-rv{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text);}
+.sum-rv.green{color:var(--green);}
+.sum-rv.blue{color:var(--blue);}
+.sum-rv.amber{color:#d97706;}
+.sum-rv.purple{color:var(--purple);}
+
+/* ── DIVIDER ── */
+.sec-divider{height:1px;background:var(--border);margin:32px 0;}
+
+/* ── ANIMATION KEYFRAMES ── */
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.anim-in{animation:fadeSlideIn .4s ease forwards;}
+
+/* ── MERGE STEPS ── */
+.merge-step-card{display:flex;align-items:flex-start;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;transition:all .3s;opacity:.5;}
+.merge-step-card.active{opacity:1;border-color:var(--green-bd);box-shadow:0 2px 12px rgba(10,124,69,.1);}
+.merge-step-card.done{opacity:.8;border-color:var(--green-bd);}
+.ms-num{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--border2);min-width:32px;line-height:1;margin-top:2px;transition:color .3s;}
+.merge-step-card.active .ms-num,.merge-step-card.done .ms-num{color:var(--green);}
+.ms-body{flex:1;}
+.ms-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.ms-desc{font-size:11px;color:var(--text2);line-height:1.55;margin-bottom:8px;}
+.ms-mono{font-family:var(--mono);font-size:10px;color:var(--purple);}
+.ms-code{font-family:var(--mono);font-size:10px;color:var(--teal);background:var(--teal-bg);border:1px solid var(--teal-bd);border-radius:5px;padding:8px 10px;line-height:1.6;white-space:pre-wrap;display:none;}
+.merge-step-card.active .ms-code,.merge-step-card.done .ms-code{display:block;}
+.ms-status{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 10px;border-radius:3px;white-space:nowrap;align-self:flex-start;margin-top:4px;}
+.ms-status.pending{background:var(--bg);color:var(--text3);border:1px solid var(--border2);}
+.ms-status.running{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd);animation:blink-status 0.7s infinite;}
+.ms-status.done{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+@keyframes blink-status{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── SCENARIO C ── */
+.sc-row{display:flex;align-items:flex-start;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);gap:8px;}
+.sc-row:last-child{border-bottom:none;}
+.sc-l{font-size:11px;color:var(--text3);flex-shrink:0;}
+.sc-v{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--text);text-align:right;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">CLEAR<em>SKY</em></div>
+  <div class="hdr-right">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text3);">Section 6 — Customer Journey</div>
+    <button class="btn-reset" id="btnReset" onclick="resetJourney()">↺ Reset</button>
+    <button class="btn-play" id="btnPlay" onclick="togglePlay()">▶ Play Journey</button>
+    <div class="section-badge">BI Platform · Session 6</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="sec-header">
+    <div class="sec-label">Section 6 of 8 — Narrative Arc</div>
+    <div class="sec-title">Customer Journey</div>
+    <div class="sec-desc">One named customer. The complete arc from anonymous first touch to repeat booking. Every system decision, every touchpoint, every identity transition visible in sequence. This is what ClearSky does — told as a single story.</div>
+  </div>
+
+  <!-- PROFILE + LIVE SCORE -->
+  <div class="profile-row">
+    <div class="profile-card">
+      <div class="pc-top">
+        <div class="pc-avatar anon" id="pc-avatar">👤</div>
+        <div>
+          <div class="pc-name anon" id="pc-name">Anonymous visitor</div>
+          <div class="pc-sub" id="pc-sub">No profile yet</div>
+        </div>
+      </div>
+      <div class="pc-fields">
+        <div class="pc-field"><span class="pc-fl">Session ID</span><span class="pc-fv anon" id="pc-sessid">cs_7f3a…9b2c</span></div>
+        <div class="pc-field"><span class="pc-fl">Fingerprint</span><span class="pc-fv anon" id="pc-fp">—</span></div>
+        <div class="pc-field"><span class="pc-fl">Hub Profile</span><span class="pc-fv anon" id="pc-hub">Not yet created</span></div>
+        <div class="pc-field"><span class="pc-fl">Device</span><span class="pc-fv" id="pc-device">📱 Mobile · iOS Safari</span></div>
+        <div class="pc-field"><span class="pc-fl">Location</span><span class="pc-fv">Timmins, ON</span></div>
+        <div class="pc-field"><span class="pc-fl">Source</span><span class="pc-fv" id="pc-source">Google organic</span></div>
+        <div class="pc-field"><span class="pc-fl">Sessions</span><span class="pc-fv green" id="pc-sessions">1</span></div>
+        <div class="pc-field"><span class="pc-fl">Total jobs booked</span><span class="pc-fv green" id="pc-jobs">0</span></div>
+      </div>
+    </div>
+
+    <div class="live-score-panel">
+      <div class="lsp-top">
+        <div class="lsp-title">Live Profile State</div>
+        <div class="lsp-time" id="lsp-time">March 3, 2026 · 7:42 AM</div>
+      </div>
+      <div class="lsp-scores">
+        <div class="lsp-score">
+          <div class="lsp-score-label">score_raw</div>
+          <div class="lsp-score-val" id="lsp-raw" style="color:var(--text3)">0</div>
+          <div class="lsp-score-sub">Cumulative · never decays</div>
+        </div>
+        <div class="lsp-score">
+          <div class="lsp-score-label">score_live</div>
+          <div class="lsp-score-val" id="lsp-live" style="color:var(--text3)">0</div>
+          <div class="lsp-score-sub">Orchestrator reads this</div>
+        </div>
+        <div class="lsp-score">
+          <div class="lsp-score-label">Velocity</div>
+          <div class="lsp-score-val" id="lsp-vel" style="color:var(--text3);font-size:16px;">—</div>
+          <div class="lsp-score-sub" id="lsp-vel-sub">No signal yet</div>
+        </div>
+        <div class="lsp-score">
+          <div class="lsp-score-label">Identity Tier</div>
+          <div class="lsp-score-val" id="lsp-tier" style="color:var(--text3);font-size:16px;">Tier 5</div>
+          <div class="lsp-score-sub" id="lsp-tier-sub">First touch · anonymous</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div id="lsp-bucket-pill" class="bucket-pill bp-anon">UNCLASSIFIED</div>
+        <div id="lsp-id-tier" class="id-tier it-5">Tier 5 — First touch</div>
+        <span class="it-label" id="lsp-id-desc">No prior signal. Anonymous session active.</span>
+      </div>
+      <div class="score-bar-wrap">
+        <div class="score-bar-fill sbf-res" id="lsp-bar" style="width:0%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline-section">
+    <div class="timeline-header">
+      <div>
+        <div class="tl-title">Journey Timeline — Marie Tremblay</div>
+        <div class="tl-subtitle">Tim Hortons · Office · Home WiFi · Laptop · One day · Conversion that evening</div>
+      </div>
+      <div class="tl-step-counter" id="step-counter">Step 0 of 9</div>
+    </div>
+
+    <div class="timeline-track">
+      <div class="tl-spine"><div class="tl-spine-fill" id="spine-fill"></div></div>
+
+      <!-- NODES injected by JS -->
+      <div id="timeline-nodes"></div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <!-- SUMMARY -->
+  <div class="summary-section" id="summary-section" style="display:none;">
+    <div class="sum-card">
+      <div class="sum-card-title">📊 Journey Metrics — One Day</div>
+      <div class="sum-row"><span class="sum-rl">Total duration</span><span class="sum-rv green">~12 hours</span></div>
+      <div class="sum-row"><span class="sum-rl">Touchpoints</span><span class="sum-rv">7</span></div>
+      <div class="sum-row"><span class="sum-rl">Devices involved</span><span class="sum-rv">2 (iPhone + laptop)</span></div>
+      <div class="sum-row"><span class="sum-rl">Networks crossed</span><span class="sum-rv">3 (LTE · office WiFi · home WiFi)</span></div>
+      <div class="sum-row"><span class="sum-rl">Jobs booked</span><span class="sum-rv green">1</span></div>
+      <div class="sum-row"><span class="sum-rl">score_raw at conversion</span><span class="sum-rv">71</span></div>
+      <div class="sum-row"><span class="sum-rl">Confirmed sessions stitched</span><span class="sum-rv green">3 (cookie continuity)</span></div>
+      <div class="sum-row"><span class="sum-rl">Probable sessions stitched</span><span class="sum-rv amber">1 (IP co-occurrence · 62%)</span></div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-card-title">🔐 Identity Arc — Honest View</div>
+      <div class="sum-row"><span class="sum-rl">Tim Hortons · LTE</span><span class="sum-rv" style="color:var(--text3);">Tier 5 · carrier NAT · cookie set · FP collected</span></div>
+      <div class="sum-row"><span class="sum-rl">Office · corporate WiFi</span><span class="sum-rv blue">Tier 3 · cookie match · FP confirmed · 90%</span></div>
+      <div class="sum-row"><span class="sum-rl">Lunch · same iPhone</span><span class="sum-rv blue">Tier 3 · cookie + FP · continuous</span></div>
+      <div class="sum-row"><span class="sum-rl">Home · home WiFi · iPhone</span><span class="sum-rv blue">Tier 3 · cookie + FP + residential IP</span></div>
+      <div class="sum-row"><span class="sum-rl">Home · laptop · no cookie</span><span class="sum-rv amber">Tier 3 · IP co-occur · 62% · fresh session</span></div>
+      <div class="sum-row"><span class="sum-rl">Laptop form submit</span><span class="sum-rv green">Tier 1 · hub_rf_0091 created</span></div>
+      <div class="sum-row"><span class="sum-rl">iPhone sessions retrospective</span><span class="sum-rv amber">Probable link · flagged · not confirmed</span></div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-card-title">⚙️ System Actions Fired</div>
+      <div class="sum-row"><span class="sum-rl">Cookie set</span><span class="sum-rv green">✓ Session 1 · Tim Hortons</span></div>
+      <div class="sum-row"><span class="sum-rl">FP collected · no match</span><span class="sum-rv green">✓ Session 1</span></div>
+      <div class="sum-row"><span class="sum-rl">Cookie + FP confirmed</span><span class="sum-rv green">✓ Sessions 2–4 · same device</span></div>
+      <div class="sum-row"><span class="sum-rl">IP block classified residential</span><span class="sum-rv green">✓ Session 4 · home WiFi</span></div>
+      <div class="sum-row"><span class="sum-rl">IP co-occurrence flagged</span><span class="sum-rv amber">✓ Session 5 · laptop · 7 min gap</span></div>
+      <div class="sum-row"><span class="sum-rl">FotoJobber prompt surfaced</span><span class="sum-rv green">✓ Session 5 · laptop</span></div>
+      <div class="sum-row"><span class="sum-rl">Profile merge · hub_rf_0091</span><span class="sum-rv green">✓ Laptop form submit</span></div>
+      <div class="sum-row"><span class="sum-rl">A2P confirmation sent</span><span class="sum-rv green">✓ Booking confirmed</span></div>
+    </div>
+  </div>
+
+  <!-- ── PROFILE CREATION SEQUENCE ───────────────────────────────────────── -->
+  <div class="sec-divider" style="margin-top:48px;"></div>
+
+  <div style="margin-bottom:32px;">
+    <div class="sec-label">Profile Creation — What Actually Happens at Form Submit</div>
+    <div style="font-size:22px;font-weight:600;color:var(--text);margin-bottom:10px;">The Six-Step Merge Sequence</div>
+    <div style="font-size:13px;color:var(--text2);max-width:700px;line-height:1.65;margin-bottom:28px;">The hub profile does not exist until this sequence completes. Every step is a discrete operation. Any step can fail independently. The sequence is the same whether the visitor is new or has converted before.</div>
+
+    <div id="merge-steps" style="display:flex;flex-direction:column;gap:12px;max-width:860px;">
+
+      <div class="merge-step-card" data-step="0">
+        <div class="ms-num">01</div>
+        <div class="ms-body">
+          <div class="ms-title">Conversion detected — pixel fires immediately</div>
+          <div class="ms-desc">The form submit event fires before anything else. <span class="ms-mono">form_submitted</span> logged to ClearSky event stream. Score delta +20 applied. Conversion moment flag set. This step cannot fail — it is a client-side write only.</div>
+          <div class="ms-code">{ event: "form_submitted", sessionId: "cs_b22f…7a91", bucket: "active", delta: 20, conversionMoment: true }</div>
+        </div>
+        <div class="ms-status pending" id="mss-0">PENDING</div>
+      </div>
+
+      <div class="merge-step-card" data-step="1">
+        <div class="ms-num">02</div>
+        <div class="ms-body">
+          <div class="ms-title">Contact details extracted and hashed client-side</div>
+          <div class="ms-desc">Name, phone, and email read from the form. Phone normalised to E.164 format. Email lowercased and trimmed. Both SHA-256 hashed <strong>in the browser before transmission</strong>. PII never travels in plaintext. Hash convention must match hub team exactly — a mismatch creates silent duplicate profiles.</div>
+          <div class="ms-code">name: "Marie Tremblay" (plaintext — display only)<br>emailHash: sha256("m.tremblay@gmail.com") → "a7f3c…"<br>phoneHash: sha256("+17052740988") → "9b2e1…"</div>
+        </div>
+        <div class="ms-status pending" id="mss-1">PENDING</div>
+      </div>
+
+      <div class="merge-step-card" data-step="2">
+        <div class="ms-num">03</div>
+        <div class="ms-body">
+          <div class="ms-title">Hub resolve call — does this person already exist?</div>
+          <div class="ms-desc"><span class="ms-mono">GET /hub/profiles/resolve</span> called with hashed email and phone. Three possible responses. Single match: existing profile found — proceed to stitch. No match: new person — create profile. Multiple matches: conflict — hold, flag, escalate to support. Never auto-merge on conflict.</div>
+          <div class="ms-code">GET /hub/profiles/resolve?email=a7f3c…&phone=9b2e1…<br><br>→ Response: { "profileId": null, "isNew": true }<br>   No existing match — new profile will be created</div>
+        </div>
+        <div class="ms-status pending" id="mss-2">PENDING</div>
+      </div>
+
+      <div class="merge-step-card" data-step="3">
+        <div class="ms-num">04</div>
+        <div class="ms-body">
+          <div class="ms-title">Profile created + session history attached</div>
+          <div class="ms-desc"><span class="ms-mono">POST /hub/profiles/merge</span> creates <span class="ms-mono">hub_rf_0091</span>. Complete anonymous session history from this browser sent in the payload — all four iPhone sessions via cookie continuity plus this laptop session. Hub appends history in chronological order, interleaved with any prior communication history. Profile is now Tier 1.</div>
+          <div class="ms-code">POST /hub/profiles/merge<br>{ profileId: "hub_rf_0091", anonymousId: "cs_b22f…7a91",<br>  sessionHistory: [ session_1, session_2, session_3, session_4 ],<br>  contactDetails: { emailHash: "a7f3c…", phoneHash: "9b2e1…", nameProvided: "Marie" }}<br><br>→ Response: { "merged": true, "profileId": "hub_rf_0091" }</div>
+        </div>
+        <div class="ms-status pending" id="mss-3">PENDING</div>
+      </div>
+
+      <div class="merge-step-card" data-step="4">
+        <div class="ms-num">05</div>
+        <div class="ms-body">
+          <div class="ms-title">Cookie updated — anonymous ID retired</div>
+          <div class="ms-desc">The <span class="ms-mono">cs_b22f…7a91</span> anonymous cookie is updated to carry <span class="ms-mono">hub_rf_0091</span>. Any future session from this browser is immediately Tier 1 — no form needed. Anonymous records retained 30 days for audit trail then expired per tiered schedule. The anonymous ID is never deleted immediately — it is the audit chain.</div>
+          <div class="ms-code">Cookie before: { anonymousId: "cs_b22f…7a91", hubProfileId: null }<br>Cookie after:  { anonymousId: "cs_b22f…7a91", hubProfileId: "hub_rf_0091" }<br><br>Next visit from this browser → Tier 1 from first pageview</div>
+        </div>
+        <div class="ms-status pending" id="mss-4">PENDING</div>
+      </div>
+
+      <div class="merge-step-card" data-step="5">
+        <div class="ms-num">06</div>
+        <div class="ms-body">
+          <div class="ms-title">Push engine notified — full hub context now available</div>
+          <div class="ms-desc">Push engine receives notification: session is now named. Full hub profile context available for the remainder of the visit — communication history, prior conversations, open quotes, FotoJobber submissions. The website can now personalise to Marie specifically, not just to her behavioural bucket. Rep is notified in hub dashboard.</div>
+          <div class="ms-code">Push engine context update:<br>{ profileId: "hub_rf_0091", name: "Marie Tremblay",<br>  tier: 1, bucket: "active", score: 74,<br>  priorSessions: 5, fotojobberSubmitted: true }<br><br>→ Rep notified. Full context active. Sequence complete.</div>
+        </div>
+        <div class="ms-status pending" id="mss-5">PENDING</div>
+      </div>
+
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:16px;align-items:center;">
+      <button onclick="runMerge()" id="btnMerge" style="font-family:var(--sans);font-size:12px;font-weight:600;padding:9px 22px;border-radius:7px;border:none;background:var(--green);color:#fff;cursor:pointer;">▶ Run Merge Sequence</button>
+      <button onclick="resetMerge()" style="font-family:var(--sans);font-size:12px;padding:9px 16px;border-radius:7px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:pointer;">↺ Reset</button>
+      <span style="font-family:var(--mono);font-size:10px;color:var(--text3);" id="mergeStatus">Tap to run the 6-step merge sequence</span>
+    </div>
+  </div>
+
+  <!-- ── SCENARIO C — TWO PEOPLE SAME HOUSEHOLD ─────────────────────────── -->
+  <div class="sec-divider"></div>
+
+  <div style="margin-bottom:40px;">
+    <div class="sec-label">Scenario C — The False Positive Risk</div>
+    <div style="font-size:22px;font-weight:600;color:var(--text);margin-bottom:10px;">Two People · Same Household · Same IP</div>
+    <div style="font-size:13px;color:var(--text2);max-width:700px;line-height:1.65;margin-bottom:28px;">Marie is browsing RightFlush on her iPhone at home. Her husband opens the same site on the family laptop seven minutes later from the same WiFi. The co-occurrence register fires on both devices. Does the system incorrectly merge them into one profile?</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+
+      <!-- Marie iPhone -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <div style="padding:14px 18px;background:var(--green-bg);border-bottom:1px solid var(--green-bd);display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;">📱</span>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--green);">Marie — iPhone · iOS Safari</div>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--green);">7:15 PM · cs_7f3a…9b2c · fp_3d9a…c14e · 205.x.x.x</div>
+          </div>
+        </div>
+        <div style="padding:14px 18px;">
+          <div class="sc-row"><span class="sc-l">Cookie</span><span class="sc-v green">cs_7f3a…9b2c · session 4</span></div>
+          <div class="sc-row"><span class="sc-l">Fingerprint</span><span class="sc-v green">fp_3d9a…c14e · 94%</span></div>
+          <div class="sc-row"><span class="sc-l">IP</span><span class="sc-v green">205.x.x.x · residential · logged</span></div>
+          <div class="sc-row"><span class="sc-l">Score</span><span class="sc-v" style="color:#d97706;">77 · Active Project</span></div>
+          <div class="sc-row"><span class="sc-l">Tier</span><span class="sc-v green">Tier 3 · 94% · same device</span></div>
+          <div class="sc-row"><span class="sc-l">Hub profile</span><span class="sc-v" style="color:var(--text3);">Not yet created</span></div>
+          <div class="sc-row"><span class="sc-l">Co-occur flag</span><span class="sc-v" style="color:var(--amber);">Stored · window open 30 min</span></div>
+        </div>
+      </div>
+
+      <!-- Husband laptop -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <div style="padding:14px 18px;background:var(--amber-bg);border-bottom:1px solid var(--amber-bd);display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;">💻</span>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--amber);">Husband — Laptop · Desktop Chrome</div>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--amber);">7:22 PM · cs_c44e…1f8d · fp_5a2b…7c3f · 205.x.x.x</div>
+          </div>
+        </div>
+        <div style="padding:14px 18px;">
+          <div class="sc-row"><span class="sc-l">Cookie</span><span class="sc-v" style="color:var(--text3);">None — fresh browser</span></div>
+          <div class="sc-row"><span class="sc-l">Fingerprint</span><span class="sc-v" style="color:var(--red);">fp_5a2b…7c3f · no match</span></div>
+          <div class="sc-row"><span class="sc-l">IP</span><span class="sc-v" style="color:var(--amber);">205.x.x.x · residential · co-occur flag fires</span></div>
+          <div class="sc-row"><span class="sc-l">Score</span><span class="sc-v" style="color:var(--text3);">0 · fresh session</span></div>
+          <div class="sc-row"><span class="sc-l">Tier</span><span class="sc-v" style="color:var(--amber);">Tier 3 · 62% · IP only · probable</span></div>
+          <div class="sc-row"><span class="sc-l">Score restored?</span><span class="sc-v" style="color:var(--red);">No — 62% insufficient · fresh session</span></div>
+          <div class="sc-row"><span class="sc-l">Sessions stitched?</span><span class="sc-v" style="color:var(--red);">No — candidate only · awaiting conversion</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What happens next -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px;">What happens at each possible outcome</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;background:var(--green-bg);border:1px solid var(--green-bd);border-radius:8px;">
+          <span style="font-size:16px;flex-shrink:0;">✓</span>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--green);margin-bottom:3px;">Husband submits form with his own contact details</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.5;">Hub resolve call fires with his phone and email hashes. No match found in hub. New profile created — <span style="font-family:var(--mono);font-size:10px;">hub_rf_0092</span>. Co-occurrence candidate between his laptop and Marie's iPhone evaluated: his form data does not match Marie's hub record. Candidate link discarded. Two separate profiles. No merge. No false positive.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;background:var(--teal-bg);border:1px solid var(--teal-bd);border-radius:8px;">
+          <span style="font-size:16px;flex-shrink:0;">→</span>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:3px;">Neither person submits a form that evening</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.5;">Both sessions expire independently per bucket grace period. Co-occurrence flag expires with the 30-minute window. Nothing is stitched. Nothing is merged. The husband's session is a fresh anonymous visit. Marie's iPhone sessions remain exactly as they were — linked to her cookie and fingerprint, unaffected.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:8px;">
+          <span style="font-size:16px;flex-shrink:0;">⚠</span>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:3px;">Husband submits form with Marie's contact details</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.5;">Hub resolve call finds Marie's existing profile <span style="font-family:var(--mono);font-size:10px;">hub_rf_0091</span>. System flags a merge conflict — existing profile plus new session from different fingerprint. Does not auto-merge. Holds the stitch and escalates to the rep for manual confirmation. Rep sees both sessions and makes the decision. This is the one edge case that requires human review.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px;background:var(--red-bg);border:1px solid var(--red-bd);border-radius:8px;">
+          <span style="font-size:16px;flex-shrink:0;">✗</span>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:3px;">What the system will never do</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.5;">Auto-merge two profiles based on IP co-occurrence alone. Transfer Marie's score or history to the husband's session. Treat the 62% co-occurrence flag as a confirmed identity match. Take any customer-facing action on the husband's session beyond serving the website — no A2P, no cross-channel contact, no push engine personalisation beyond the Orchestrator's normal bucket-based content decisions.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- The architectural principle -->
+    <div style="background:var(--blue-bg);border:1px solid var(--blue-bd);border-radius:10px;padding:16px 20px;">
+      <div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:6px;">The architectural principle that prevents false positives</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.65;">The co-occurrence flag is a <strong>candidate only</strong>. It never triggers a stitch. It never transfers history. It never upgrades identity. It sits in the session store and waits. Conversion data is the only arbiter of identity. A hub resolve call with matching contact details is the only event that can stitch sessions together. The IP match tells the system to watch — it does not tell the system to act.</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ── JOURNEY DATA ─────────────────────────────────────────────────────────────
+const NODES = [
+  // ── NODE 0 — TIM HORTONS · BELL LTE ──────────────────────────────────────
+  {
+    id:0, phase:'res', icon:'☕',
+    title:'Tim Hortons Drive-Through — Bell LTE',
+    sub:'rightflush.ca/blog/frozen-pipe-prevention · iOS Safari · 7:42 AM',
+    date:'March 3, 2026 · 7:42 AM',
+    events:[
+      {label:'page_load', type:''},
+      {label:'IP: Bell Mobility CGNAT → discarded', type:'neg'},
+      {label:'cookie set: cs_7f3a…9b2c', type:'sys'},
+      {label:'FP collected: fp_3d9a…c14e', type:'sys'},
+      {label:'scroll_75 +7', type:'pos'},
+      {label:'dwell_60 +7', type:'pos'},
+      {label:'ai_widget_question +10', type:'pos'},
+    ],
+    scoreFrom:0, scoreTo:24, phase_cls:'res',
+    deltaLabel:'+24', deltaType:'pos',
+    profile:{
+      name:'Anonymous visitor', nameAnon:true,
+      sub:'Session 1 · Tim Hortons · Bell LTE',
+      sessid:'cs_7f3a…9b2c', fp:'fp_3d9a…c14e (new)',
+      hub:'Not yet created', device:'📱 iPhone · iOS Safari',
+      source:'Google organic', sessions:1, jobs:0,
+      raw:24, live:24, vel:'📈 Rising', velSub:'First session · carrier NAT · no IP signal',
+      tier:'Tier 5', tierSub:'First touch · anonymous · carrier NAT',
+      bucket:'res', bucketClass:'bp-res', bucketLabel:'RESEARCH',
+    },
+    sysActions:[
+      {icon:'🌐', label:'IP Block Classification', labelClass:'red', text:'Server sees Bell Mobility CGNAT IP — 174.x.x.x. IP block classifier returns: mobile-carrier. Shared across thousands of subscribers. IP discarded as identity signal immediately. No co-occurrence value.'},
+      {icon:'🍪', label:'Cookie set', labelClass:'teal', text:'First-party cookie cs_7f3a…9b2c written to iOS Safari. This is the primary session anchor. Persists across sessions on same browser unless manually cleared.'},
+      {icon:'⬡', label:'Fingerprint collected — no match', labelClass:'purple', text:'fp_3d9a…c14e generated. Canvas hash, screen resolution (390×844), timezone America/Toronto, user agent iOS Safari 17. No prior match in registry. New visitor record created.'},
+      {icon:'⚙️', label:'Orchestrator decision', labelClass:'blue', text:'Research bucket · Tier 5 · no IP signal · no prior cookie. Content served. No conversion action. System waits for return signal.'},
+    ],
+    fpReveal:null, idTransition:null, mergEvent:null, outcome:null,
+  },
+
+  // ── NODE 1 — OFFICE · CORPORATE WIFI · SAME iPHONE ───────────────────────
+  {
+    id:1, phase:'res', icon:'🏢',
+    title:'At the Office — Corporate WiFi · Same iPhone',
+    sub:'rightflush.ca/reviews · iOS Safari · same cookie · same FP · 9:15 AM',
+    date:'March 3, 2026 · 9:15 AM',
+    events:[
+      {label:'cookie match: cs_7f3a…9b2c ✓', type:'sys'},
+      {label:'FP match: fp_3d9a…c14e ✓ 94%', type:'sys'},
+      {label:'IP: corporate block → discarded', type:'neg'},
+      {label:'review_section_dwell +8', type:'pos'},
+      {label:'service_card_click +6', type:'pos'},
+      {label:'faq_open +5', type:'pos'},
+    ],
+    scoreFrom:24, scoreTo:43, phase_cls:'cmp',
+    deltaLabel:'+19 · cookie + FP confirm same device',
+    deltaType:'pos',
+    profile:{
+      name:'Anonymous visitor', nameAnon:true,
+      sub:'Session 2 · Office · corporate WiFi',
+      sessid:'cs_7f3a…9b2c', fp:'fp_3d9a…c14e',
+      hub:'Not yet created', device:'📱 iPhone · iOS Safari',
+      source:'Direct navigation', sessions:2, jobs:0,
+      raw:43, live:43, vel:'📈 Rising', velSub:'Cookie + FP confirmed · same device · no cross-device claim',
+      tier:'Tier 3', tierSub:'Cookie + FP match · 94% · same device',
+      bucket:'cmp', bucketClass:'bp-cmp', bucketLabel:'COMPARISON',
+    },
+    sysActions:[
+      {icon:'🍪', label:'Cookie match — primary anchor', labelClass:'green', text:'cs_7f3a…9b2c found in request. Same session resumed. This is not a return visit — it is a continuation of the same browser session from Tim Hortons. Score continuity maintained.'},
+      {icon:'⬡', label:'Fingerprint match — 94% · same device', labelClass:'purple', text:'fp_3d9a…c14e matched at 94% confidence. Same iPhone, same canvas hash, same screen resolution. No ambiguity — this is the same physical device. Tier 3 assigned.'},
+      {icon:'🌐', label:'IP Block Classification', labelClass:'red', text:'Server sees corporate IP block — business classification. Shared across the entire office. Discarded as identity signal. No cross-device value, no household signal. Cookie and FP do the work here.'},
+      {icon:'⚙️', label:'Orchestrator decision', labelClass:'blue', text:'Same device confirmed. Bucket promoted Research → Comparison on review section dwell. FotoJobber prompt queued for next qualifying session. No A2P — Tier 3, not Tier 1.'},
+    ],
+    fpReveal:{
+      rows:[
+        {label:'Match type', val:'Cookie primary · FP secondary'},
+        {label:'Cookie', val:'cs_7f3a…9b2c · exact match'},
+        {label:'FP confidence', val:'94% · same device confirmed'},
+        {label:'IP', val:'Corporate block · discarded'},
+        {label:'Cross-device claim?', val:'None — same iPhone'},
+      ]
+    },
+    idTransition:{from:'Tier 5', to:'Tier 3', desc:'Cookie match confirmed same browser. FP match confirmed same device. 94% confidence. No cross-device inference needed.'},
+    mergEvent:null, outcome:null,
+  },
+
+  // ── NODE 2 — LUNCH · SAME iPHONE · SAME COOKIE ───────────────────────────
+  {
+    id:2, phase:'cmp', icon:'🥪',
+    title:'Lunch Break — Same iPhone · Cookie Continuity',
+    sub:'rightflush.ca/before-after-gallery · iOS Safari · 12:30 PM',
+    date:'March 3, 2026 · 12:30 PM',
+    events:[
+      {label:'cookie match: cs_7f3a…9b2c ✓', type:'sys'},
+      {label:'FP match: fp_3d9a…c14e ✓', type:'sys'},
+      {label:'ba_slider_drag ×3', type:'pos'},
+      {label:'PATH: post-gallery review 2.5× ⚡', type:'key'},
+      {label:'review_read +8 → ×2.5 = +20', type:'pos'},
+      {label:'service_areas_click +6', type:'pos'},
+    ],
+    scoreFrom:43, scoreTo:63, phase_cls:'cmp',
+    deltaLabel:'+20 · path multiplier 2.5× fired',
+    deltaType:'pos',
+    profile:{
+      name:'Anonymous visitor', nameAnon:true,
+      sub:'Session 3 · Lunch · same iPhone',
+      sessid:'cs_7f3a…9b2c', fp:'fp_3d9a…c14e',
+      hub:'Not yet created', device:'📱 iPhone · iOS Safari',
+      source:'Direct navigation', sessions:3, jobs:0,
+      raw:63, live:63, vel:'📈 Rising fast · path mult. fired', velSub:'Gallery → review path confirmed',
+      tier:'Tier 3', tierSub:'Cookie + FP · continuous · same device',
+      bucket:'cmp', bucketClass:'bp-cmp', bucketLabel:'COMPARISON',
+    },
+    sysActions:[
+      {icon:'⚡', label:'Path multiplier fired — 2.5×', labelClass:'purple', text:'Post-gallery review check path matched: ba_slider_drag → review_read. Multiplier 2.5×. review_read delta +8 becomes +20. This is the comparison finaliser pattern — someone who looked at the work then checked the reviews.'},
+      {icon:'⚙️', label:'Orchestrator decision', labelClass:'blue', text:'Score 63 · Comparison · strong trajectory · path multiplier confirmed depth of engagement. FotoJobber prompt now active — will surface on next visit to a conversion-eligible page. Awaiting return.'},
+    ],
+    fpReveal:null, idTransition:null, mergEvent:null, outcome:null,
+  },
+
+  // ── NODE 3 — HOME · HOME WIFI · SAME iPHONE ──────────────────────────────
+  {
+    id:3, phase:'cmp', icon:'🏠',
+    title:'After Supper — Home WiFi · iPhone · Residential IP',
+    sub:'rightflush.ca/bathroom-renovations · iOS Safari · 7:15 PM',
+    date:'March 3, 2026 · 7:15 PM',
+    events:[
+      {label:'cookie match: cs_7f3a…9b2c ✓', type:'sys'},
+      {label:'FP match: fp_3d9a…c14e ✓', type:'sys'},
+      {label:'IP: residential Bell broadband ✓ logged', type:'pos'},
+      {label:'scroll_75 +7', type:'pos'},
+      {label:'hero_cta_click +12', type:'pos'},
+      {label:'form_name_focus +8', type:'pos'},
+    ],
+    scoreFrom:63, scoreTo:77, phase_cls:'act',
+    deltaLabel:'+14 · residential IP logged for co-occurrence',
+    deltaType:'pos',
+    profile:{
+      name:'Anonymous visitor', nameAnon:true,
+      sub:'Session 4 · Home WiFi · iPhone',
+      sessid:'cs_7f3a…9b2c', fp:'fp_3d9a…c14e',
+      hub:'Not yet created', device:'📱 iPhone · iOS Safari',
+      source:'Direct navigation', sessions:4, jobs:0,
+      raw:77, live:77, vel:'📈 Rising · Active Project signals', velSub:'CTA click · form engagement',
+      tier:'Tier 3', tierSub:'Cookie + FP + residential IP logged',
+      bucket:'act', bucketClass:'bp-act', bucketLabel:'ACTIVE PROJECT',
+    },
+    sysActions:[
+      {icon:'🌐', label:'Residential IP logged — key moment', labelClass:'green', text:'Server sees Bell home broadband IP — 205.x.x.x. IP block classifier returns: residential-broadband. This IP is stored to the session co-occurrence register with timestamp 7:15 PM. It will be used to evaluate any other session arriving from this IP within a short window.'},
+      {icon:'📈', label:'Bucket upgrade · Active Project', labelClass:'amber', text:'hero_cta_click + form_name_focus in same session crosses the Active Project threshold. Score 77. Bucket upgrades from Comparison to Active Project. FotoJobber prompt now primary CTA.'},
+      {icon:'⚙️', label:'Orchestrator decision', labelClass:'blue', text:'Active Project · Tier 3 · residential IP logged. FotoJobber surfaced. Awaiting form completion or return. Co-occurrence window open — any session from same residential IP in next 30 minutes will be flagged.'},
+    ],
+    fpReveal:{
+      rows:[
+        {label:'Cookie', val:'cs_7f3a…9b2c · exact match · session 4'},
+        {label:'FP', val:'fp_3d9a…c14e · 94% · same iPhone'},
+        {label:'IP this session', val:'205.x.x.x · residential Bell'},
+        {label:'IP stored to register', val:'Yes · timestamp 7:15 PM · 30min window'},
+        {label:'Cross-device window open', val:'Yes · any new device from this IP'},
+      ]
+    },
+    idTransition:null, mergEvent:null, outcome:null,
+  },
+
+  // ── NODE 4 — HOME · LAPTOP · NO COOKIE · IP CO-OCCURRENCE ────────────────
+  {
+    id:4, phase:'cmp', icon:'💻',
+    title:'Marie Opens the Laptop — Shows Husband · No Cookie',
+    sub:'rightflush.ca · Desktop Chrome · same home WiFi · 7:22 PM',
+    date:'March 3, 2026 · 7:22 PM',
+    events:[
+      {label:'no cookie — fresh browser', type:'neg'},
+      {label:'FP: different device — no match', type:'neg'},
+      {label:'IP: 205.x.x.x · residential ✓ co-occur flag', type:'key'},
+      {label:'7 min gap · same residential IP', type:'key'},
+      {label:'confidence: 62% · Tier 3 probable', type:'sys'},
+      {label:'scroll_75 +7', type:'pos'},
+      {label:'ba_slider_drag ×2', type:'pos'},
+      {label:'dwell_120 +10', type:'pos'},
+    ],
+    scoreFrom:0, scoreTo:24, phase_cls:'res',
+    deltaLabel:'Fresh session — score 0 · laptop not linked yet',
+    deltaType:'neutral',
+    profile:{
+      name:'Anonymous visitor', nameAnon:true,
+      sub:'Session 5 · Laptop · home WiFi · fresh browser',
+      sessid:'cs_b22f…7a91', fp:'fp_9c1b…4e2a (new device)',
+      hub:'Not yet created', device:'💻 Desktop · Chrome',
+      source:'Direct navigation', sessions:1, jobs:0,
+      raw:24, live:24, vel:'—', velSub:'Fresh session · no prior history on this device',
+      tier:'Tier 3', tierSub:'IP co-occurrence · 62% · probable same household',
+      bucket:'res', bucketClass:'bp-res', bucketLabel:'RESEARCH',
+    },
+    sysActions:[
+      {icon:'🍪', label:'No cookie — fresh browser', labelClass:'red', text:'Desktop Chrome has never visited rightflush.ca. No cs_ cookie present. Fresh anonymous session started: cs_b22f…7a91. This device has no history.'},
+      {icon:'⬡', label:'Fingerprint — new device · no match', labelClass:'red', text:'fp_9c1b…4e2a generated. Desktop Chrome on different hardware — different canvas hash, different screen resolution (1920×1080 vs 390×844), different user agent. No match to fp_3d9a…c14e. These are genuinely different devices.'},
+      {icon:'🌐', label:'IP co-occurrence — 62% confidence', labelClass:'amber', text:'Server sees 205.x.x.x — same residential IP as Session 4, seven minutes ago. IP block confirmed residential. Co-occurrence register finds a match: fp_3d9a…c14e was active from this IP at 7:15 PM. Gap: 7 minutes. Pattern: probable same household. Confidence: 62%. Tier 3 assigned — probable link, not confirmed. iPhone sessions NOT stitched yet. Score NOT restored. Fresh session continues independently.'},
+      {icon:'📌', label:'Co-occurrence flag stored', labelClass:'purple', text:'cs_b22f…7a91 (laptop) flagged as probable co-occurrence with cs_7f3a…9b2c (iPhone). If a conversion event fires on the laptop, system will attempt retrospective stitch of iPhone sessions. Confidence 62% — marked as inferred history, not confirmed.'},
+      {icon:'📸', label:'FotoJobber prompt surfaced', labelClass:'amber', text:'Orchestrator serving Comparison + Active Project content to this IP\'s household pattern. FotoJobber CTA visible. Bathroom renovation content matched to gallery browsing behaviour.'},
+    ],
+    fpReveal:{
+      rows:[
+        {label:'Cookie', val:'None — fresh desktop browser'},
+        {label:'FP match', val:'No match — different device'},
+        {label:'IP match', val:'205.x.x.x · residential · 7 min gap'},
+        {label:'Confidence source', val:'IP co-occurrence only'},
+        {label:'Confidence', val:'62% · Tier 3 · probable'},
+        {label:'Score restored?', val:'No — 62% not sufficient to restore'},
+        {label:'iPhone sessions stitched?', val:'Not yet — flagged for post-conversion'},
+      ]
+    },
+    idTransition:null, mergEvent:null, outcome:null,
+  },
+
+  // ── NODE 5 — LAPTOP · FORM SUBMIT · CONVERSION ───────────────────────────
+  {
+    id:5, phase:'conv', icon:'✅',
+    title:'Laptop — Form Submitted · Tier 1 · Profile Created',
+    sub:'rightflush.ca/contact · Marie Tremblay · 705-274-0988 · 7:45 PM',
+    date:'March 3, 2026 · 7:45 PM',
+    events:[
+      {label:'form_name_focus +8', type:'pos'},
+      {label:'form_phone_focus +12', type:'pos'},
+      {label:'fotojobber_upload +10', type:'pos'},
+      {label:'form_submitted +20', type:'conv'},
+      {label:'hub resolve: no match → new profile', type:'sys'},
+      {label:'hub_rf_0091 created', type:'sys'},
+      {label:'Tier 1 confirmed', type:'sys'},
+    ],
+    scoreFrom:24, scoreTo:74, phase_cls:'conv',
+    deltaLabel:'+50 · form + FotoJobber · Tier 1',
+    deltaType:'pos',
+    profile:{
+      name:'Marie Tremblay', nameAnon:false,
+      sub:'Tier 1 — Named · hub_rf_0091',
+      sessid:'cs_b22f…7a91', fp:'fp_9c1b…4e2a (laptop)',
+      hub:'hub_rf_0091', device:'💻 Desktop · Chrome',
+      source:'Direct navigation', sessions:1, jobs:0,
+      raw:74, live:74, vel:'📈 Conversion confirmed', velSub:'Form submitted · Tier 1 · named',
+      tier:'Tier 1', tierSub:'Named · 100% · form submission',
+      bucket:'act', bucketClass:'bp-act', bucketLabel:'ACTIVE PROJECT',
+    },
+    sysActions:[
+      {icon:'🔑', label:'Tier 1 — named at conversion', labelClass:'green', text:'Form submitted: Marie Tremblay · 705-274-0988 · m.tremblay@gmail.com. Phone and email SHA-256 hashed client-side before transmission. Hub resolve called with hashed values. No existing match found. New profile created: hub_rf_0091.'},
+      {icon:'🔗', label:'Retrospective stitch — iPhone sessions', labelClass:'amber', text:'Co-occurrence flag found: cs_7f3a…9b2c (iPhone) was flagged as probable match at 62% from same residential IP. iPhone sessions appended to hub_rf_0091 timeline marked as INFERRED — 62% confidence. Rep can see them but they carry the confidence caveat. Not treated as confirmed history.'},
+      {icon:'📸', label:'FotoJobber submitted', labelClass:'amber', text:'Bathroom renovation photos uploaded. Job description: "full bathroom renovation — new tub, vanity, tile." Scope logged to hub_rf_0091 for rep review.'},
+      {icon:'💬', label:'A2P confirmation queued', labelClass:'teal', text:'Booking confirmation SMS queued for rep to review and send. Not auto-fired — rep sees FotoJobber submission first.'},
+    ],
+    fpReveal:null,
+    idTransition:{from:'Tier 3 (laptop)', to:'Tier 1', desc:'Form submission with name, phone, email. Hub profile hub_rf_0091 created. Laptop session confirmed named. iPhone sessions retrospectively linked at 62% — marked inferred.'},
+    mergEvent:{
+      rows:[
+        {text:'Marie Tremblay · 705-274-0988 · m.tremblay@gmail.com — captured on laptop'},
+        {text:'Hub resolve: no existing match → hub_rf_0091 created'},
+        {text:'Laptop session cs_b22f…7a91 → Tier 1 confirmed'},
+        {text:'iPhone sessions cs_7f3a…9b2c linked at 62% — marked INFERRED in hub timeline'},
+        {text:'fp_9c1b…4e2a (laptop) linked permanently to hub_rf_0091'},
+        {text:'fp_3d9a…c14e (iPhone) linked to hub_rf_0091 as probable — awaiting confirmation'},
+      ]
+    },
+    outcome:{label:'✓ Profile Created · Job Scoped', cls:'ot-booked'},
+  },
+
+  // ── NODE 6 — REP CALLS · APPOINTMENT BOOKED ──────────────────────────────
+  {
+    id:6, phase:'conv', icon:'📞',
+    title:'Rep Reviews FotoJobber · Calls Marie · Job Booked',
+    sub:'Rep calls 705-274-0988 · appointment confirmed · 8:20 PM',
+    date:'March 3, 2026 · 8:20 PM',
+    events:[
+      {label:'hub: rep viewed FotoJobber', type:'sys'},
+      {label:'hub: rep called 705-274-0988', type:'sys'},
+      {label:'appointment_booked +20', type:'conv'},
+      {label:'A2P confirmation SMS fired', type:'sys'},
+      {label:'hub_rf_0091: job #001 created', type:'sys'},
+      {label:'iPhone FP fp_3d9a…c14e confirmed Tier 1', type:'sys'},
+    ],
+    scoreFrom:74, scoreTo:94, phase_cls:'conv',
+    deltaLabel:'+20 · appointment_booked · capped at 94',
+    deltaType:'pos',
+    profile:{
+      name:'Marie Tremblay', nameAnon:false,
+      sub:'Tier 1 — Named · job booked · iPhone FP confirmed',
+      sessid:'—', fp:'fp_3d9a…c14e + fp_9c1b…4e2a',
+      hub:'hub_rf_0091', device:'📞 Phone call',
+      source:'Rep outbound call', sessions:5, jobs:1,
+      raw:94, live:94, vel:'📈 Peak · conversion complete', velSub:'Appointment booked',
+      tier:'Tier 1', tierSub:'Named · 100% · booking confirmed',
+      bucket:'act', bucketClass:'bp-act', bucketLabel:'ACTIVE PROJECT',
+    },
+    sysActions:[
+      {icon:'📋', label:'Rep context — full history visible', labelClass:'blue', text:'Rep opens hub_rf_0091. Sees FotoJobber submission with bathroom photos. Sees laptop session history. Sees iPhone sessions marked INFERRED at 62%. Calls Marie at 705-274-0988.'},
+      {icon:'📞', label:'Phone call — Tier 1 iPhone confirmed', labelClass:'green', text:'Rep calls 705-274-0988. Marie answers on her iPhone. The phone call itself is a Tier 1 event — phone number confirmed as belonging to this hub profile. iPhone fingerprint fp_3d9a…c14e now upgraded from INFERRED to CONFIRMED on hub_rf_0091. All prior iPhone sessions promoted from 62% inferred to confirmed history.'},
+      {icon:'💬', label:'A2P confirmation sent', labelClass:'teal', text:'"Hi Marie! Confirmed — bathroom renovation consultation Thursday March 21 at 9am. We\'ll review your photos and walk through options. See you then! — RightFlush Plumbing"'},
+      {icon:'📁', label:'Job #001 created', labelClass:'green', text:'Scope: full bathroom renovation. Scheduled: March 21, 9am. All four iPhone sessions now confirmed history in hub timeline. Complete journey visible to rep.'},
+    ],
+    fpReveal:{
+      rows:[
+        {label:'fp_9c1b…4e2a (laptop)', val:'Confirmed Tier 1 at form submit'},
+        {label:'fp_3d9a…c14e (iPhone)', val:'Promoted to confirmed at phone call'},
+        {label:'iPhone sessions', val:'Upgraded: INFERRED → CONFIRMED'},
+        {label:'Full journey', val:'Tim Hortons → Office → Lunch → Home → Laptop → Booked'},
+        {label:'Confidence', val:'100% · all sessions now verified'},
+      ]
+    },
+    idTransition:null, mergEvent:null,
+    outcome:{label:'✓ Job Booked', cls:'ot-booked'},
+  },
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let currentStep = -1;
+let playing = false;
+let autoTimer = null;
+
+// ── BUILD TIMELINE ─────────────────────────────────────────────────────────────
+function buildTimeline(){
+  const container = document.getElementById('timeline-nodes');
+  container.innerHTML = '';
+  NODES.forEach((node, i) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'tl-node';
+    wrapper.id = 'node-' + i;
+
+    wrapper.innerHTML = `
+      <div class="tl-dot inactive" id="dot-${i}">${node.icon}</div>
+      <div class="tl-card" id="card-${i}">
+        <div class="tl-card-head">
+          <div class="tl-card-head-left">
+            <div class="tl-phase-label ${node.phase}">${phaseLabel(node.phase)}</div>
+            <div class="tl-card-title">${node.title}</div>
+            <div class="tl-card-sub">${node.sub}</div>
+          </div>
+          <div class="tl-card-meta">
+            <div class="tl-date">${node.date}</div>
+          </div>
+        </div>
+        <div class="tl-card-body" id="body-${i}">
+          ${buildCardBody(node)}
+        </div>
+      </div>`;
+
+    container.appendChild(wrapper);
+  });
+}
+
+function phaseLabel(p){
+  const labels = {res:'Research',cmp:'Comparison',act:'Active Project',emg:'Emergency',conv:'Conversion',post:'Post-Job',repeat:'Repeat Booking'};
+  return labels[p] || p;
+}
+
+function buildCardBody(node){
+  let html = '';
+
+  // Score delta
+  html += `<div class="score-delta-row">
+    <span class="sdr-from">${node.scoreFrom}</span>
+    <span class="sdr-arrow">→</span>
+    <span class="sdr-to ${node.phase_cls}">${node.scoreTo}</span>
+    <span class="sdr-delta ${node.deltaType}">${node.deltaLabel}</span>
+    <span class="sdr-bucket"><div class="bucket-pill bp-${node.phase_cls === 'conv'||node.phase_cls==='post'||node.phase_cls==='repeat'?'act':node.phase_cls}" style="font-size:9px;padding:2px 8px;">${phaseLabel(node.phase_cls === 'conv'?'act':node.phase_cls === 'post'?'act':node.phase_cls === 'repeat'?'act':node.phase_cls).toUpperCase()}</div></span>
+  </div>
+  <div class="score-bar-wrap"><div class="score-bar-fill sbf-${node.phase_cls}" style="width:${node.scoreTo}%;"></div></div>`;
+
+  // Event chips
+  html += `<div class="event-chips">`;
+  node.events.forEach(e => {
+    html += `<div class="event-chip ${e.type}">${e.label}</div>`;
+  });
+  html += `</div>`;
+
+  // FP reveal
+  if(node.fpReveal){
+    html += `<div class="fp-reveal"><div class="fp-label">⬡ Fingerprint Registry — Match Found</div><div class="fp-rows">`;
+    node.fpReveal.rows.forEach(r => {
+      html += `<div class="fp-row"><span class="fp-rl">${r.label}</span><span class="fp-rv">${r.val}</span></div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Identity transition
+  if(node.idTransition){
+    html += `<div class="id-transition">
+      <div class="idt-label">Identity Tier Transition</div>
+      <div class="idt-flow">
+        <span class="idt-tier it-${node.idTransition.from.split(' ')[1]}">${node.idTransition.from}</span>
+        <span class="idt-arrow">→</span>
+        <span class="idt-tier it-${node.idTransition.to.split(' ')[1]}">${node.idTransition.to}</span>
+        <span class="idt-desc">— ${node.idTransition.desc}</span>
+      </div>
+    </div>`;
+  }
+
+  // Profile merge
+  if(node.mergEvent){
+    html += `<div class="merge-strip"><div class="merge-label">✓ Profile Merge — hub_rf_0091 Created</div><div class="merge-rows">`;
+    node.mergEvent.rows.forEach(r => {
+      html += `<div class="merge-row"><span class="merge-check">✓</span><span>${r.text}</span></div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // System actions
+  node.sysActions.forEach(a => {
+    html += `<div class="sys-action">
+      <div class="sa-icon">${a.icon}</div>
+      <div class="sa-body">
+        <div class="sa-label ${a.labelClass}">${a.label}</div>
+        <div class="sa-text">${a.text}</div>
+      </div>
+    </div>`;
+  });
+
+  // Outcome
+  if(node.outcome){
+    html += `<div><span class="outcome-tag ${node.outcome.cls}">${node.outcome.label}</span></div>`;
+  }
+
+  return html;
+}
+
+// ── NAVIGATION ─────────────────────────────────────────────────────────────────
+function goToStep(idx){
+  if(idx < 0 || idx >= NODES.length) return;
+  currentStep = idx;
+
+  NODES.forEach((node, i) => {
+    const card = document.getElementById('card-' + i);
+    const dot  = document.getElementById('dot-' + i);
+    if(i < idx){
+      card.className = 'tl-card done';
+      dot.className = `tl-dot ${node.phase} active`;
+    } else if(i === idx){
+      card.className = 'tl-card active anim-in';
+      dot.className = `tl-dot ${node.phase} active`;
+    } else {
+      card.className = 'tl-card';
+      dot.className = 'tl-dot inactive';
+    }
+  });
+
+  // Spine fill
+  const pct = idx === 0 ? 5 : Math.round((idx / (NODES.length - 1)) * 100);
+  document.getElementById('spine-fill').style.height = pct + '%';
+
+  // Step counter
+  document.getElementById('step-counter').textContent = `Step ${idx + 1} of ${NODES.length}`;
+
+  // Update profile panel
+  updateProfile(NODES[idx].profile);
+
+  // Show summary at last step
+  if(idx === NODES.length - 1){
+    document.getElementById('summary-section').style.display = 'grid';
+  }
+}
+
+function updateProfile(p){
+  const avatar = document.getElementById('pc-avatar');
+  const name   = document.getElementById('pc-name');
+  const sub    = document.getElementById('pc-sub');
+  const sessid = document.getElementById('pc-sessid');
+  const fp     = document.getElementById('pc-fp');
+  const hub    = document.getElementById('pc-hub');
+  const device = document.getElementById('pc-device');
+  const sessions=document.getElementById('pc-sessions');
+  const jobs   = document.getElementById('pc-jobs');
+  const source = document.getElementById('pc-source');
+
+  if(p.nameAnon){
+    avatar.className = 'pc-avatar anon';
+    name.className = 'pc-name anon';
+  } else {
+    avatar.className = 'pc-avatar';
+    avatar.textContent = '👩';
+    name.className = 'pc-name';
+  }
+  name.textContent = p.name;
+  sub.textContent = p.sub;
+  sessid.textContent = p.sessid;
+  sessid.className = p.sessid === '—' ? 'pc-fv anon' : 'pc-fv';
+  fp.textContent = p.fp;
+  fp.className = p.fp === '—' ? 'pc-fv anon' : 'pc-fv purple';
+  hub.textContent = p.hub;
+  hub.className = p.hub === 'Not yet created' ? 'pc-fv anon' : 'pc-fv green';
+  device.textContent = p.device;
+  source.textContent = p.source;
+  sessions.textContent = p.sessions;
+  jobs.textContent = p.jobs;
+  jobs.className = p.jobs > 0 ? 'pc-fv green' : 'pc-fv';
+
+  // Live score panel
+  document.getElementById('lsp-raw').textContent = p.raw;
+  document.getElementById('lsp-raw').style.color = p.raw > 0 ? 'var(--text)' : 'var(--text3)';
+  document.getElementById('lsp-live').textContent = p.live;
+
+  const liveColors = {res:'var(--green)',cmp:'var(--blue)',act:'#d97706',emg:'var(--red)',conv:'var(--teal)',post:'var(--purple)',repeat:'var(--green)'};
+  document.getElementById('lsp-live').style.color = liveColors[p.bucket] || 'var(--text3)';
+
+  document.getElementById('lsp-vel').textContent = p.vel;
+  document.getElementById('lsp-vel-sub').textContent = p.velSub;
+  document.getElementById('lsp-tier').textContent = p.tier;
+  document.getElementById('lsp-tier').style.color = p.tier==='Tier 1'?'var(--green)':p.tier==='Tier 3'?'var(--blue)':'var(--text3)';
+  document.getElementById('lsp-tier-sub').textContent = p.tierSub;
+  document.getElementById('lsp-time').textContent = NODES[currentStep].date;
+
+  const pill = document.getElementById('lsp-bucket-pill');
+  pill.className = `bucket-pill ${p.bucketClass}`;
+  pill.innerHTML = `<div class="bp-dot ${p.bucket}"></div>${p.bucketLabel}`;
+
+  const tierEl = document.getElementById('lsp-id-tier');
+  const tierMap = {1:'it-1',3:'it-3',5:'it-5'};
+  const tierNum = parseInt(p.tier.split(' ')[1]);
+  tierEl.className = 'id-tier ' + (tierMap[tierNum] || 'it-5');
+  tierEl.textContent = p.tier + (p.tier==='Tier 1'?' — Named':p.tier==='Tier 3'?' — Device recognised':' — First touch');
+  document.getElementById('lsp-id-desc').textContent = p.tierSub;
+
+  const bar = document.getElementById('lsp-bar');
+  bar.style.width = p.live + '%';
+  const barClsMap = {res:'sbf-res',cmp:'sbf-cmp',act:'sbf-act',emg:'sbf-emg',conv:'sbf-conv',post:'sbf-post',repeat:'sbf-repeat'};
+  bar.className = 'score-bar-fill ' + (barClsMap[p.bucket] || 'sbf-res');
+}
+
+// ── AUTOPLAY ──────────────────────────────────────────────────────────────────
+function togglePlay(){
+  const btn = document.getElementById('btnPlay');
+  if(playing){
+    clearInterval(autoTimer);
+    playing = false;
+    btn.textContent = '▶ Play Journey';
+    btn.className = 'btn-play';
+  } else {
+    playing = true;
+    btn.textContent = '⏹ Stop';
+    btn.className = 'btn-play stop';
+    const startIdx = currentStep < 0 ? 0 : (currentStep < NODES.length - 1 ? currentStep + 1 : 0);
+    if(startIdx === 0 && currentStep >= 0) resetJourney();
+    goToStep(startIdx > 0 ? startIdx : 0);
+    if(startIdx === 0) {
+      autoTimer = setInterval(() => {
+        const next = currentStep + 1;
+        if(next >= NODES.length){
+          clearInterval(autoTimer);
+          playing = false;
+          btn.textContent = '▶ Play Journey';
+          btn.className = 'btn-play';
+          return;
+        }
+        goToStep(next);
+      }, 2800);
+    } else {
+      autoTimer = setInterval(() => {
+        const next = currentStep + 1;
+        if(next >= NODES.length){
+          clearInterval(autoTimer);
+          playing = false;
+          btn.textContent = '▶ Play Journey';
+          btn.className = 'btn-play';
+          return;
+        }
+        goToStep(next);
+      }, 2800);
+    }
+  }
+}
+
+function resetJourney(){
+  clearInterval(autoTimer);
+  playing = false;
+  currentStep = -1;
+  document.getElementById('btnPlay').textContent = '▶ Play Journey';
+  document.getElementById('btnPlay').className = 'btn-play';
+  document.getElementById('summary-section').style.display = 'none';
+  document.getElementById('spine-fill').style.height = '0%';
+  document.getElementById('step-counter').textContent = `Step 0 of ${NODES.length}`;
+
+  NODES.forEach((node, i) => {
+    document.getElementById('card-' + i).className = 'tl-card';
+    document.getElementById('dot-' + i).className = 'tl-dot inactive';
+  });
+
+  // Reset profile to initial state
+  updateProfile(NODES[0].profile);
+  // Reset all fields to anon
+  document.getElementById('pc-avatar').className = 'pc-avatar anon';
+  document.getElementById('pc-avatar').textContent = '👤';
+  document.getElementById('pc-name').className = 'pc-name anon';
+  document.getElementById('pc-name').textContent = 'Anonymous visitor';
+  document.getElementById('pc-sub').textContent = 'No profile yet';
+  document.getElementById('pc-fp').textContent = '—';
+  document.getElementById('pc-fp').className = 'pc-fv anon';
+  document.getElementById('pc-hub').textContent = 'Not yet created';
+  document.getElementById('pc-hub').className = 'pc-fv anon';
+  document.getElementById('pc-sessions').textContent = '1';
+  document.getElementById('pc-jobs').textContent = '0';
+  document.getElementById('pc-jobs').className = 'pc-fv';
+  document.getElementById('lsp-raw').textContent = '0';
+  document.getElementById('lsp-raw').style.color = 'var(--text3)';
+  document.getElementById('lsp-live').textContent = '0';
+  document.getElementById('lsp-live').style.color = 'var(--text3)';
+  document.getElementById('lsp-vel').textContent = '—';
+  document.getElementById('lsp-tier').textContent = 'Tier 5';
+  document.getElementById('lsp-tier').style.color = 'var(--text3)';
+  document.getElementById('lsp-tier-sub').textContent = 'First touch · anonymous';
+  document.getElementById('lsp-bucket-pill').className = 'bucket-pill bp-anon';
+  document.getElementById('lsp-bucket-pill').textContent = 'UNCLASSIFIED';
+  document.getElementById('lsp-id-tier').className = 'id-tier it-5';
+  document.getElementById('lsp-id-tier').textContent = 'Tier 5 — First touch';
+  document.getElementById('lsp-id-desc').textContent = 'No prior signal. Anonymous session active.';
+  document.getElementById('lsp-bar').style.width = '0%';
+  document.getElementById('lsp-time').textContent = 'March 3, 2026 · 7:42 AM';
+}
+
+// Allow clicking each node card to jump
+function attachNodeClicks(){
+  NODES.forEach((_, i) => {
+    const card = document.getElementById('card-' + i);
+    card.addEventListener('click', () => goToStep(i));
+    card.style.cursor = 'pointer';
+  });
+}
+
+// ── PROFILE MERGE SEQUENCE ────────────────────────────────────────────────────
+let mergeRunning = false;
+let mergeStep = -1;
+
+const MERGE_LABELS = ['Conversion detected','Hashing contact details','Hub resolve call','Profile created + history attached','Cookie updated','Push engine notified'];
+const MERGE_DELAYS = [600, 900, 1400, 1200, 800, 900];
+
+function runMerge(){
+  if(mergeRunning) return;
+  mergeRunning = true;
+  mergeStep = -1;
+  document.getElementById('btnMerge').disabled = true;
+  document.getElementById('btnMerge').style.opacity = '0.5';
+  document.querySelectorAll('.merge-step-card').forEach(el => {
+    el.className = 'merge-step-card';
+    el.querySelector('.ms-status').className = 'ms-status pending';
+    el.querySelector('.ms-status').textContent = 'PENDING';
+  });
+  document.getElementById('mergeStatus').textContent = 'Running merge sequence…';
+  advanceMerge();
+}
+
+function advanceMerge(){
+  mergeStep++;
+  if(mergeStep >= 6){
+    document.getElementById('mergeStatus').textContent = '✓ Merge complete — hub_rf_0091 created · Tier 1 active · push engine notified';
+    document.getElementById('mergeStatus').style.color = 'var(--green)';
+    document.getElementById('btnMerge').disabled = false;
+    document.getElementById('btnMerge').style.opacity = '1';
+    document.getElementById('btnMerge').textContent = '↺ Run Again';
+    mergeRunning = false;
+    return;
+  }
+  const cards = document.querySelectorAll('.merge-step-card');
+  // Mark prior as done
+  if(mergeStep > 0){
+    const prev = cards[mergeStep - 1];
+    prev.className = 'merge-step-card done';
+    prev.querySelector('.ms-status').className = 'ms-status done';
+    prev.querySelector('.ms-status').textContent = '✓ DONE';
+  }
+  // Mark current as running
+  const card = cards[mergeStep];
+  card.className = 'merge-step-card active';
+  card.querySelector('.ms-status').className = 'ms-status running';
+  card.querySelector('.ms-status').textContent = 'RUNNING';
+  document.getElementById('mergeStatus').textContent = `Step ${mergeStep + 1} of 6 — ${MERGE_LABELS[mergeStep]}…`;
+  setTimeout(advanceMerge, MERGE_DELAYS[mergeStep]);
+}
+
+function resetMerge(){
+  mergeRunning = false;
+  mergeStep = -1;
+  document.querySelectorAll('.merge-step-card').forEach(el => {
+    el.className = 'merge-step-card';
+    el.querySelector('.ms-status').className = 'ms-status pending';
+    el.querySelector('.ms-status').textContent = 'PENDING';
+  });
+  document.getElementById('mergeStatus').textContent = 'Tap to run the 6-step merge sequence';
+  document.getElementById('mergeStatus').style.color = '';
+  document.getElementById('btnMerge').disabled = false;
+  document.getElementById('btnMerge').style.opacity = '1';
+  document.getElementById('btnMerge').textContent = '▶ Run Merge Sequence';
+}
+buildTimeline();
+attachNodeClicks();
+</script>
+</body>
+</html>

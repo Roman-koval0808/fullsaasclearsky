@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Guarantee &amp; Standards — Total Trades Solutions Timmins</title>
+<meta name="description" content="Total Trades Solutions guarantees every job in Timmins. Workmanship guarantee, flat-rate pricing, licensed and insured, 15-minute emergency response. Read what we commit to before we start.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:#FFFFFF;--surface:#F8F6F1;--border:#E8E4DC;--text:#111714;--text2:#4A5E52;--text3:#8A9E92;
+  --green:#1B5E3B;--green-mid:#2D7A52;--green-lt:#EBF5EF;--green-dk:#0D3B27;
+  --rust:#C24A1E;--rust-mid:#A83818;--rust-lt:#FAEDE8;--gold:#B8862A;--gold-lt:#FBF5E6;--ink:#0D1F14;
+  --sans:'Barlow',sans-serif;--cond:'Barlow Condensed',sans-serif;--nav-h:68px;--trust-h:40px;--col:1180px;--radius:6px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:var(--sans);background:var(--white);color:var(--text);overflow-x:hidden;}
+img{max-width:100%;display:block;}a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:inherit;}
+.page-content{margin-top:calc(var(--trust-h) + var(--nav-h));}
+
+/* TRUST BAR */
+.trust-bar{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--trust-h);background:var(--ink);display:flex;align-items:center;padding:0 24px;}
+.trust-bar-inner{max-width:var(--col);margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;}
+.trust-items{display:flex;align-items:center;}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.75);padding:0 18px;border-right:1px solid rgba(255,255,255,0.1);}
+.trust-item:first-child{padding-left:0;}.trust-item:last-child{border-right:none;}
+.trust-item svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.trust-item .stars{color:var(--gold);font-size:11px;letter-spacing:1px;}
+.trust-right{display:flex;align-items:center;}
+.trust-phone{font-family:var(--cond);font-size:15px;font-weight:700;color:#fff;letter-spacing:0.04em;}
+
+/* NAV */
+nav{position:fixed;top:var(--trust-h);left:0;right:0;z-index:190;height:var(--nav-h);background:var(--white);border-bottom:1px solid var(--border);transition:box-shadow 0.3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.08);}
+.nav-inner{max-width:var(--col);margin:0 auto;width:100%;height:100%;display:flex;align-items:center;padding:0 24px;gap:32px;}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-logo-mark{width:38px;height:38px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.nav-logo-mark svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.nav-logo-name{font-family:var(--cond);font-size:20px;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:0.02em;}
+.nav-logo-tag{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:0.06em;text-transform:uppercase;}
+.nav-services{display:flex;align-items:center;gap:2px;flex:1;}
+.nav-svc{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:var(--radius);transition:background 0.2s;text-decoration:none;}
+.nav-svc:hover{background:var(--green-lt);}
+.nav-svc-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;}
+.nav-svc-icon svg{width:22px;height:22px;stroke:var(--green);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;}
+.nav-svc-label{font-size:10px;font-weight:600;color:var(--text2);letter-spacing:0.03em;white-space:nowrap;}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-emergency{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius);background:var(--rust-lt);border:1.5px solid var(--rust);font-size:13px;font-weight:600;color:var(--rust);transition:all 0.2s;text-decoration:none;}
+.nav-emergency:hover{background:var(--rust);color:#fff;}
+.nav-emergency svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.nav-book{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:var(--radius);background:var(--green);color:#fff;font-size:13px;font-weight:600;text-decoration:none;transition:background 0.2s;}
+.nav-book:hover{background:var(--green-mid);}
+
+/* MOBILE */
+.mobile-header{display:none;position:fixed;top:0;left:0;right:0;z-index:200;height:60px;background:var(--white);border-bottom:1px solid var(--border);padding:0 16px;align-items:center;justify-content:space-between;}
+.mobile-hamburger{width:40px;height:40px;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.mobile-hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:all 0.3s;transform-origin:center;}
+.mobile-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.mobile-hamburger.open span:nth-child(2){opacity:0;}
+.mobile-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-logo-name{font-family:var(--cond);font-size:18px;font-weight:800;color:var(--ink);text-transform:uppercase;}
+.mobile-right{display:flex;align-items:center;gap:8px;}
+.mobile-emergency-btn{display:flex;align-items:center;gap:5px;background:var(--rust);color:#fff;font-family:var(--cond);font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:7px 12px;border-radius:var(--radius);text-decoration:none;}
+.mobile-emergency-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.mobile-call-btn{width:36px;height:36px;border-radius:50%;background:var(--green);border:none;display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.mobile-call-btn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;bottom:0;z-index:180;background:var(--white);overflow-y:auto;border-top:1px solid var(--border);flex-direction:column;}
+.mobile-menu.open{display:flex;}
+.mobile-menu-emergency{display:flex;align-items:center;gap:10px;padding:18px 20px;background:var(--rust-lt);border-bottom:1px solid rgba(194,74,30,0.15);font-family:var(--cond);font-size:17px;font-weight:700;color:var(--rust);text-transform:uppercase;text-decoration:none;}
+.mobile-menu-emergency svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.mobile-menu-section{padding:16px 20px 8px;}
+.mobile-menu-section-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
+.mobile-menu-link{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px;font-weight:500;color:var(--text);text-decoration:none;}
+.mobile-menu-link svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:1.75;flex-shrink:0;}
+.mobile-menu-book{margin:16px 20px 20px;display:block;text-align:center;background:var(--green);color:#fff;font-family:var(--cond);font-size:17px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:14px;border-radius:var(--radius);text-decoration:none;}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+/* ═══ GUARANTEE PAGE ═══ */
+
+/* HERO */
+.guar-hero{background:var(--ink);padding:80px 24px 72px;position:relative;overflow:hidden;}
+.guar-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,rgba(27,94,59,0.2) 0%,transparent 55%),radial-gradient(ellipse at 5% 80%,rgba(184,134,42,0.06) 0%,transparent 40%);}
+.guar-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:60px 60px;}
+.guar-hero-inner{position:relative;z-index:2;max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.guar-hero-label{font-size:11px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.guar-hero-label::before{content:'';display:block;width:20px;height:2px;background:rgba(255,255,255,0.25);}
+.guar-hero-headline{font-family:var(--cond);font-weight:900;font-size:clamp(44px,6vw,80px);line-height:0.9;text-transform:uppercase;color:#fff;margin-bottom:20px;}
+.guar-hero-headline em{font-style:normal;color:var(--gold);}
+.guar-hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:32px;}
+.guar-hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:0.05em;text-transform:uppercase;padding:13px 24px;border-radius:var(--radius);text-decoration:none;transition:background 0.2s;}
+.guar-hero-cta:hover{background:var(--green-mid);}
+.guar-hero-cta svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.5;}
+
+/* Hero right — guarantee shield card */
+.guar-shield-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px;text-align:center;}
+.guar-shield-icon{width:80px;height:80px;border-radius:50%;background:rgba(27,94,59,0.3);border:2px solid rgba(27,94,59,0.5);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.guar-shield-icon svg{width:44px;height:44px;stroke:#4ade80;fill:none;stroke-width:1.5;}
+.guar-shield-title{font-family:var(--cond);font-weight:900;font-size:32px;color:#fff;text-transform:uppercase;line-height:1;margin-bottom:8px;}
+.guar-shield-sub{font-size:14px;color:rgba(255,255,255,0.4);line-height:1.5;margin-bottom:24px;}
+.guar-shield-items{display:flex;flex-direction:column;gap:10px;text-align:left;}
+.guar-shield-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,255,255,0.05);border-radius:var(--radius);}
+.guar-shield-item svg{width:16px;height:16px;stroke:#4ade80;fill:none;stroke-width:2.5;flex-shrink:0;}
+.guar-shield-item span{font-size:13px;color:rgba(255,255,255,0.75);font-weight:500;}
+
+/* CORE GUARANTEE SECTIONS */
+.guar-section{padding:80px 24px;}
+.guar-section-surface{background:var(--surface);}
+.guar-section-white{background:var(--white);}
+.guar-section-inner{max-width:var(--col);margin:0 auto;}
+.section-label-green{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;}
+.section-label-green::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.section-headline{font-family:var(--cond);font-weight:800;font-size:clamp(34px,4.5vw,54px);line-height:0.95;text-transform:uppercase;color:var(--ink);margin-bottom:16px;}
+.section-sub{font-size:17px;font-weight:300;color:var(--text2);line-height:1.7;max-width:580px;margin-bottom:48px;}
+
+/* Two-col layout */
+.guar-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.guar-layout.reverse{direction:rtl;}.guar-layout.reverse>*{direction:ltr;}
+
+/* Guarantee detail card */
+.guar-detail-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.guar-detail-header{background:var(--green);padding:20px 24px;display:flex;align-items:center;gap:14px;}
+.guar-detail-icon{width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.guar-detail-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.75;}
+.guar-detail-title{font-family:var(--cond);font-size:18px;font-weight:700;color:#fff;text-transform:uppercase;}
+.guar-detail-body{padding:24px;}
+.guar-detail-items{display:flex;flex-direction:column;gap:14px;}
+.guar-detail-item{display:flex;align-items:flex-start;gap:12px;}
+.guar-detail-check{width:20px;height:20px;border-radius:50%;background:var(--green-lt);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.guar-detail-check svg{width:11px;height:11px;stroke:var(--green);fill:none;stroke-width:3;}
+.guar-detail-text{font-size:14px;color:var(--text2);line-height:1.6;}
+.guar-detail-text strong{color:var(--text);font-weight:600;}
+.guar-detail-note{margin-top:20px;padding:14px;background:var(--gold-lt);border:1px solid rgba(184,134,42,0.2);border-radius:var(--radius);font-size:13px;color:var(--text2);line-height:1.6;}
+.guar-detail-note strong{color:var(--gold);font-weight:700;}
+
+/* Standards grid */
+.guar-standards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.guar-std-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px;}
+.guar-std-icon{width:44px;height:44px;border-radius:10px;background:var(--green-lt);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.guar-std-icon svg{width:24px;height:24px;stroke:var(--green);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;}
+.guar-std-name{font-family:var(--cond);font-size:17px;font-weight:700;color:var(--ink);text-transform:uppercase;margin-bottom:8px;}
+.guar-std-desc{font-size:13px;color:var(--text2);line-height:1.65;}
+
+/* Commitment table */
+.guar-table{width:100%;border-collapse:collapse;margin-top:40px;}
+.guar-table th{background:var(--ink);color:#fff;font-family:var(--cond);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:14px 20px;text-align:left;}
+.guar-table th:last-child{text-align:right;}
+.guar-table tr:nth-child(even) td{background:var(--surface);}
+.guar-table td{padding:16px 20px;font-size:14px;color:var(--text2);border-bottom:1px solid var(--border);}
+.guar-table td:first-child{font-weight:500;color:var(--text);}
+.guar-table td:last-child{text-align:right;}
+.guar-check{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--green-lt);}
+.guar-check svg{width:12px;height:12px;stroke:var(--green);fill:none;stroke-width:3;}
+
+/* PROOF / QUOTE */
+.guar-proof{background:var(--ink);padding:64px 24px;}
+.guar-proof-inner{max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.guar-proof-quote-mark{font-family:var(--cond);font-size:140px;font-weight:900;color:rgba(255,255,255,0.04);line-height:0.7;margin-bottom:-20px;}
+.guar-proof-quote{font-size:20px;font-weight:300;font-style:italic;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:20px;}
+.guar-proof-attr{display:flex;align-items:center;gap:10px;}
+.guar-proof-stars{color:var(--gold);font-size:13px;letter-spacing:2px;}
+.guar-proof-name{font-size:12px;font-weight:600;color:rgba(255,255,255,0.35);letter-spacing:0.04em;text-transform:uppercase;}
+.guar-proof-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);}
+.guar-proof-stat{background:rgba(255,255,255,0.03);padding:28px 24px;}
+.guar-proof-num{font-family:var(--cond);font-weight:900;font-size:48px;color:#fff;line-height:1;margin-bottom:6px;}
+.guar-proof-num em{font-style:normal;color:var(--gold);font-size:32px;}
+.guar-proof-label{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;}
+
+/* CTA */
+.guar-cta{background:var(--green);padding:56px 24px;}
+.guar-cta-inner{max-width:var(--col);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap;}
+.guar-cta-headline{font-family:var(--cond);font-weight:800;font-size:clamp(28px,3.5vw,44px);color:#fff;text-transform:uppercase;line-height:0.95;margin-bottom:10px;}
+.guar-cta-sub{font-size:15px;color:rgba(255,255,255,0.65);font-weight:300;}
+.guar-cta-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.guar-cta-primary{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--green);font-family:var(--cond);font-weight:800;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;padding:14px 26px;border-radius:var(--radius);text-decoration:none;transition:all 0.2s;}
+.guar-cta-primary:hover{background:rgba(255,255,255,0.9);}
+.guar-cta-secondary{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:14px;font-weight:500;padding:14px 22px;border-radius:var(--radius);text-decoration:none;transition:all 0.2s;}
+.guar-cta-secondary:hover{background:rgba(255,255,255,0.18);}
+
+/* FOOTER */
+footer{background:var(--ink);padding:64px 24px 32px;}
+.footer-inner{max-width:var(--col);margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:32px;}
+.footer-brand-name{font-family:var(--cond);font-size:24px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.02em;margin-bottom:6px;}
+.footer-brand-tag{font-size:12px;color:rgba(255,255,255,0.3);margin-bottom:20px;}
+.footer-brand-phone{font-family:var(--cond);font-size:26px;font-weight:700;color:var(--gold);letter-spacing:0.02em;display:block;margin-bottom:4px;}
+.footer-brand-email{font-size:13px;color:rgba(255,255,255,0.35);}
+.footer-col-title{font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;}
+.footer-links{display:flex;flex-direction:column;gap:8px;}
+.footer-link{font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.2s;}
+.footer-link:hover{color:#fff;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.2);}
+
+/* FLOATING TOOLS */
+.lead-grabber{position:fixed;bottom:96px;right:24px;z-index:490;width:56px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.lg-btn{width:56px;height:56px;border-radius:50%;background:var(--rust);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(194,74,30,0.35);cursor:pointer;transition:all 0.2s;}
+.lg-btn:hover{background:var(--rust-mid);transform:scale(1.05);}
+.lg-btn svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.lg-label{font-size:9px;font-weight:600;color:var(--rust);letter-spacing:0.04em;text-align:center;white-space:nowrap;}
+.lg-panel{position:fixed;bottom:90px;right:90px;z-index:490;width:300px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.12);overflow:hidden;display:none;}
+.lg-panel.open{display:block;animation:slideUp 0.3s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.lg-header{background:var(--rust);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.lg-header-title{font-family:var(--cond);font-size:18px;font-weight:700;color:#fff;text-transform:uppercase;}
+.lg-header-sub{font-size:11px;color:rgba(255,255,255,0.65);}
+.lg-close{background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;}
+.lg-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.lg-body{padding:16px;}
+.lg-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.lg-option{padding:12px;border:1.5px solid var(--border);border-radius:var(--radius);text-align:center;cursor:pointer;transition:all 0.2s;}
+.lg-option:hover,.lg-option.selected{border-color:var(--rust);background:var(--rust-lt);}
+.lg-option svg{width:22px;height:22px;stroke:var(--rust);fill:none;stroke-width:2;margin:0 auto 6px;display:block;}
+.lg-option span{font-size:12px;font-weight:600;color:var(--rust);}
+.lg-input{width:100%;border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:13px;font-family:inherit;outline:none;margin-bottom:8px;}
+.lg-input:focus{border-color:var(--rust);}
+.lg-submit{width:100%;background:var(--rust);color:#fff;border:none;border-radius:var(--radius);padding:12px;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;}
+.chat-widget{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px;}
+.chat-bubble{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(27,94,59,0.4);cursor:pointer;transition:all 0.2s;}
+.chat-bubble:hover{background:var(--green-mid);transform:scale(1.05);}
+.chat-bubble svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.chat-panel{width:320px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.12);overflow:hidden;display:none;}
+.chat-panel.open{display:flex;flex-direction:column;animation:slideUp 0.3s ease;}
+.chat-panel-header{background:var(--green);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.chat-header-info{display:flex;align-items:center;gap:10px;}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;}
+.chat-avatar svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;}
+.chat-name{font-size:14px;font-weight:600;color:#fff;}
+.chat-status{font-size:11px;color:rgba(255,255,255,0.65);}
+.chat-close{background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;}
+.chat-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.chat-messages{padding:16px;min-height:100px;display:flex;flex-direction:column;gap:10px;}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;}
+.chat-msg.bot{background:var(--surface);color:var(--text);border-bottom-left-radius:4px;align-self:flex-start;}
+.chat-msg.user{background:var(--green);color:#fff;border-bottom-right-radius:4px;align-self:flex-end;}
+.chat-quick{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:6px;}
+.chat-quick-btn{background:var(--green-lt);border:1px solid rgba(27,94,59,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:var(--green);font-weight:500;cursor:pointer;transition:all 0.2s;}
+.chat-quick-btn:hover{background:var(--green);color:#fff;}
+.chat-input-row{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);}
+.chat-input{flex:1;border:1px solid var(--border);border-radius:100px;padding:8px 14px;font-size:13px;font-family:inherit;outline:none;}
+.chat-input:focus{border-color:var(--green);}
+.chat-send{width:36px;height:36px;border-radius:50%;background:var(--green);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.chat-send svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;}
+.pixel-toast{position:fixed;bottom:24px;left:24px;z-index:600;background:var(--ink);color:#fff;font-family:var(--cond);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:10px 16px;border-radius:var(--radius);display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;pointer-events:none;max-width:280px;}
+.pixel-toast.show{opacity:1;transform:translateY(0);}
+.pixel-toast-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 1.2s infinite;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+@media(max-width:1024px){.guar-hero-inner,.guar-layout,.guar-proof-inner{grid-template-columns:1fr;}.guar-standards-grid{grid-template-columns:1fr 1fr;}.guar-cta-inner{flex-direction:column;}.footer-top{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){:root{--trust-h:0px;--nav-h:60px;}.trust-bar{display:none;}nav{display:none;}.mobile-header{display:flex;}.page-content{margin-top:60px;}.guar-standards-grid{grid-template-columns:1fr;}.guar-proof-stats{grid-template-columns:1fr 1fr;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}.footer-bottom{flex-direction:column;gap:8px;text-align:center;}.guar-table{font-size:12px;}.guar-table td,.guar-table th{padding:12px;}}
+@media(max-width:480px){.footer-top{grid-template-columns:1fr;}.guar-cta-actions{flex-direction:column;}.guar-cta-primary,.guar-cta-secondary{justify-content:center;}}
+</style>
+</head>
+<body>
+
+<div class="trust-bar"><div class="trust-bar-inner"><div class="trust-items"><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Licensed &amp; Insured</div><div class="trust-item"><span class="stars">★★★★★</span>4.7 · 64 Reviews</div><div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24/7 Emergency</div><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Free Estimates</div><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins &amp; Area</div></div><div class="trust-right"><a href="tel:7057001234" class="trust-phone">(705) 700-1234</a></div></div></div>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><div class="nav-logo-mark"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nav-logo-text"><span class="nav-logo-name">Total Trades</span><span class="nav-logo-tag">Timmins ON</span></div></a>
+    <div class="nav-services">
+      <a href="/hot-water" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="nav-svc-label">Hot Water</span></a>
+      <a href="/blocked-drains" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div><span class="nav-svc-label">Drains</span></a>
+      <a href="/bathroom-renovations" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg></div><span class="nav-svc-label">Bathrooms</span></a>
+      <a href="/leak-detection" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="nav-svc-label">Leaks</span></a>
+      <a href="/gas-plumbing" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><span class="nav-svc-label">Gas</span></a>
+      <a href="/pipe-repair" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div><span class="nav-svc-label">Pipes</span></a>
+      <a href="/reviews" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="nav-svc-label">Reviews</span></a>
+      <a href="/blog" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="nav-svc-label">Blog</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>Emergency</a>
+      <a href="/book" class="nav-book" id="navBookBtn">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-header" id="mobileHeader">
+  <button class="mobile-hamburger" id="mobileHamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+  <span class="mobile-logo-name">Total Trades Solutions</span>
+  <div class="mobile-right"><a href="/emergency" class="mobile-emergency-btn"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency</a><a href="tel:7057001234" class="mobile-call-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></a></div>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/emergency" class="mobile-menu-emergency" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency 24/7 — We answer now</a>
+  <div class="mobile-menu-section"><div class="mobile-menu-section-title">Services</div>
+    <a href="/hot-water" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hot Water Systems</a>
+    <a href="/blocked-drains" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>Blocked Drains</a>
+    <a href="/bathroom-renovations" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg>Bathroom Renovations</a>
+  </div>
+  <div class="mobile-menu-section"><div class="mobile-menu-section-title">Company</div>
+    <a href="/about" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>About Us</a>
+    <a href="/reviews" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Reviews</a>
+    <a href="/our-guarantee" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Our Guarantee</a>
+  </div>
+  <a href="/book" class="mobile-menu-book" onclick="closeMobileMenu()">Book Appointment</a>
+</div>
+
+<main class="page-content">
+
+  <!-- HERO -->
+  <section class="guar-hero">
+    <div class="guar-hero-bg"></div>
+    <div class="guar-hero-grid"></div>
+    <div class="guar-hero-inner">
+      <div>
+        <div class="guar-hero-label">Our Guarantee &amp; Standards</div>
+        <h1 class="guar-hero-headline">What we<br>commit to<br><em>before we start.</em></h1>
+        <p class="guar-hero-sub">Flat-rate pricing. Licensed plumbers. A workmanship guarantee you can actually rely on. These aren't marketing claims — they're the standards every Total Trades Solutions job is held to, without exception.</p>
+        <a href="/contact" class="guar-hero-cta"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Book a free estimate</a>
+      </div>
+      <div>
+        <div class="guar-shield-card">
+          <div class="guar-shield-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="guar-shield-title">Guaranteed.</div>
+          <div class="guar-shield-sub">Every job. Every plumber. Every time.</div>
+          <div class="guar-shield-items">
+            <div class="guar-shield-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Workmanship guaranteed — 1 year on installations</span></div>
+            <div class="guar-shield-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Flat-rate pricing — quote before we start</span></div>
+            <div class="guar-shield-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Licensed plumbers on every job</span></div>
+            <div class="guar-shield-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>15-minute emergency response</span></div>
+            <div class="guar-shield-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>No call-out fee on estimates over $500</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKMANSHIP GUARANTEE -->
+  <section class="guar-section guar-section-surface" data-pixel-event="guar_workmanship" data-pixel-label="Workmanship section" data-pixel-delta="6" data-pixel-bucket="comparison">
+    <div class="guar-section-inner">
+      <div class="guar-layout">
+        <div class="reveal">
+          <div class="section-label-green">Workmanship guarantee</div>
+          <h2 class="section-headline">If it's not right,<br>we come back.</h2>
+          <p class="section-sub">Every Total Trades Solutions installation is backed by a written workmanship guarantee. If something we installed fails due to our work — we return to fix it. No charge. No questions.</p>
+          <p style="font-size:15px;color:var(--text2);line-height:1.7;">This covers defects in workmanship — how we installed something, how we connected it, how we sealed it. It does not cover manufacturer part failure, damage caused after we left, or normal wear and tear. If you're ever unsure whether something is covered, call us — we'll tell you straight.</p>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="guar-detail-card">
+            <div class="guar-detail-header">
+              <div class="guar-detail-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="guar-detail-title">Workmanship guarantee terms</div>
+            </div>
+            <div class="guar-detail-body">
+              <div class="guar-detail-items">
+                <div class="guar-detail-item"><div class="guar-detail-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="guar-detail-text"><strong>Installations — 1 year.</strong> All plumbing installations including water heaters, fixtures, pipe work, and connections. If our installation causes a failure within 12 months, we fix it at no charge.</div></div>
+                <div class="guar-detail-item"><div class="guar-detail-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="guar-detail-text"><strong>Service calls — 90 days.</strong> Repairs, drain clearing, diagnostics, and service work. If the issue returns within 90 days due to our repair, we come back and fix it at no charge.</div></div>
+                <div class="guar-detail-item"><div class="guar-detail-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="guar-detail-text"><strong>Parts — manufacturer warranty.</strong> Parts carry the original manufacturer warranty, which we register on your behalf where applicable. We'll assist with any manufacturer warranty claim.</div></div>
+                <div class="guar-detail-item"><div class="guar-detail-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="guar-detail-text"><strong>No charge callbacks.</strong> If you call us about a guarantee issue, we diagnose it for free even if it turns out to be outside coverage. We won't send you a bill for showing up.</div></div>
+              </div>
+              <div class="guar-detail-note"><strong>The fine print, plainly:</strong> The guarantee covers our work, not parts that fail independently or problems caused by events after we left (third-party damage, flooding, freezing of pipes we didn't work on). When in doubt — call us and we'll tell you whether it's covered before we visit.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLAT-RATE PRICING -->
+  <section class="guar-section guar-section-white" data-pixel-event="guar_pricing" data-pixel-label="Flat-rate pricing section" data-pixel-delta="6" data-pixel-bucket="comparison">
+    <div class="guar-section-inner">
+      <div class="guar-layout reverse">
+        <div class="reveal">
+          <div class="section-label-green">Flat-rate pricing</div>
+          <h2 class="section-headline">The quote is<br>the invoice.</h2>
+          <p class="section-sub">We price the job, not the hour. Before any work starts, you have a flat-rate price in writing. That number does not change unless the scope changes — and if it does, you approve it before we continue.</p>
+          <p style="font-size:15px;color:var(--text2);line-height:1.7;">No hourly rate that stretches. No parts markups buried in the back of the invoice. No call-out fees layered on top. One number, agreed upfront, paid when the job is done to your satisfaction.</p>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="guar-detail-card">
+            <div class="guar-detail-header" style="background:var(--ink);">
+              <div class="guar-detail-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div class="guar-detail-title">How flat-rate pricing works</div>
+            </div>
+            <div class="guar-detail-body">
+              <div class="guar-detail-items">
+                <div class="guar-detail-item"><div class="guar-detail-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="guar-detail-text"><strong>We assess the full job first.</strong> Before quoting, we look at the problem, confirm what's needed, and price the complete scope — not an estimate of what we think it might be.</div></div>
+                <div class="guar-detail-item"><div class="guar-detail-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="guar-detail-text"><strong>You approve before we start.</strong> The price is presented clearly. You decide whether to proceed. No pressure, no commitment until you say yes.</div></div>
+                <div class="guar-detail-item"><div class="guar-detail-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="guar-detail-text"><strong>Scope changes are communicated immediately.</strong> If we open something up and find a problem that changes the scope, we stop, tell you, and get your approval before continuing.</div></div>
+                <div class="guar-detail-item"><div class="guar-detail-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="guar-detail-text"><strong>Free estimates on jobs over $500.</strong> The estimate visit costs nothing. We assess, we quote, you decide. No call-out fee.</div></div>
+              </div>
+              <div class="guar-detail-note"><strong>On FotoJobber quotes:</strong> photo quotes are accurate assessments based on what we can see. If we arrive and find the job is significantly different from what the photo showed, we tell you before starting. The quote is revised with your approval.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LICENSING AND INSURANCE -->
+  <section class="guar-section guar-section-surface" data-pixel-event="guar_licensing" data-pixel-label="Licensing section" data-pixel-delta="5" data-pixel-bucket="comparison">
+    <div class="guar-section-inner">
+      <div class="section-label-green reveal">Licensing &amp; insurance</div>
+      <h2 class="section-headline reveal">Licensed. Insured.<br>No exceptions.</h2>
+      <p class="section-sub reveal">Every plumbing job performed by Total Trades Solutions is done by a fully licensed plumber under Ontario College of Trades certification. No unlicensed helpers on technical work. No subcontracting to unchecked trades.</p>
+      <div class="guar-standards-grid">
+        <div class="guar-std-card reveal">
+          <div class="guar-std-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="guar-std-name">Ontario College of Trades</div>
+          <p class="guar-std-desc">Both Total Trades Solutions plumbers hold current Ontario College of Trades certification. Licence numbers available on request. We don't send anyone who isn't fully certified to do technical work.</p>
+        </div>
+        <div class="guar-std-card reveal reveal-delay-1">
+          <div class="guar-std-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+          <div class="guar-std-name">TSSA gas certification</div>
+          <p class="guar-std-desc">All gas fitting work in Ontario must be performed by a TSSA-certified contractor. Both Total Trades Solutions plumbers hold current TSSA certification. No gas work is done by anyone without it.</p>
+        </div>
+        <div class="guar-std-card reveal reveal-delay-2">
+          <div class="guar-std-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+          <div class="guar-std-name">$2M liability insurance</div>
+          <p class="guar-std-desc">Full commercial general liability insurance to $2 million. If something goes wrong on your property as a result of our work, you are covered. Insurance certificate available on request.</p>
+        </div>
+        <div class="guar-std-card reveal">
+          <div class="guar-std-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="guar-std-name">Permits pulled and managed</div>
+          <p class="guar-std-desc">Any work requiring a permit — rough-in, gas lines, drain alterations — we pull the permit and manage the inspection process from start to sign-off. Permit cost is included in the quote.</p>
+        </div>
+        <div class="guar-std-card reveal reveal-delay-1">
+          <div class="guar-std-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="guar-std-name">Owner on the tools</div>
+          <p class="guar-std-desc">The owner still takes jobs. You may well deal directly with the same person who started the company in 2018. Personal accountability on every job — not delegated down the chain.</p>
+        </div>
+        <div class="guar-std-card reveal reveal-delay-2">
+          <div class="guar-std-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></div>
+          <div class="guar-std-name">Real person answers</div>
+          <p class="guar-std-desc">During business hours, a real person answers every call. No voicemail, no phone tree. Emergency calls are answered 24/7. The person on the phone can answer your questions and book your job.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESPONSE STANDARDS TABLE -->
+  <section class="guar-section guar-section-white" data-pixel-event="guar_standards" data-pixel-label="Response standards" data-pixel-delta="5" data-pixel-bucket="comparison">
+    <div class="guar-section-inner">
+      <div class="section-label-green reveal">Response standards</div>
+      <h2 class="section-headline reveal">What you can<br>expect and when.</h2>
+      <p class="section-sub reveal">We hold ourselves to specific response commitments. These aren't aspirations — they're operational standards we track against and report on.</p>
+      <table class="guar-table reveal">
+        <thead>
+          <tr>
+            <th>Contact type</th>
+            <th>Response commitment</th>
+            <th>Method</th>
+            <th style="text-align:right">Guaranteed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Emergency call (24/7)</td>
+            <td>Plumber dispatched within 15 minutes of call</td>
+            <td>Phone — direct pickup</td>
+            <td><div class="guar-check" style="margin-left:auto"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></td>
+          </tr>
+          <tr>
+            <td>FotoJobber photo submission</td>
+            <td>Detailed quote returned within 2 hours</td>
+            <td>Phone or email</td>
+            <td><div class="guar-check" style="margin-left:auto"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></td>
+          </tr>
+          <tr>
+            <td>Estimate booking request</td>
+            <td>Confirmed by phone within 2 hours</td>
+            <td>Phone call</td>
+            <td><div class="guar-check" style="margin-left:auto"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></td>
+          </tr>
+          <tr>
+            <td>Contact form or email</td>
+            <td>Response by end of same business day</td>
+            <td>Phone or email</td>
+            <td><div class="guar-check" style="margin-left:auto"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></td>
+          </tr>
+          <tr>
+            <td>After-hours non-emergency</td>
+            <td>Response by 9am next business day</td>
+            <td>Phone call</td>
+            <td><div class="guar-check" style="margin-left:auto"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></td>
+          </tr>
+          <tr>
+            <td>Workmanship guarantee claim</td>
+            <td>Diagnosed within 48 hours, repair scheduled</td>
+            <td>Phone — priority scheduling</td>
+            <td><div class="guar-check" style="margin-left:auto"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PROOF BAND -->
+  <div class="guar-proof" data-pixel-event="guar_proof" data-pixel-label="Guarantee proof" data-pixel-delta="5" data-pixel-bucket="comparison">
+    <div class="guar-proof-inner">
+      <div class="reveal">
+        <div class="guar-proof-quote-mark">"</div>
+        <p class="guar-proof-quote">There was a small drip at the connection about 3 weeks after the install. I called, they came back the next day, fixed it in 20 minutes, and never mentioned a charge. That's what a guarantee is supposed to mean. Not a fight — just showing up.</p>
+        <div class="guar-proof-attr">
+          <span class="guar-proof-stars">★★★★★</span>
+          <span class="guar-proof-name">Janet K. · Timmins · Google Review</span>
+        </div>
+      </div>
+      <div class="guar-proof-stats reveal reveal-delay-1">
+        <div class="guar-proof-stat"><div class="guar-proof-num">4.7<em>★</em></div><div class="guar-proof-label">Google rating</div></div>
+        <div class="guar-proof-stat"><div class="guar-proof-num">64</div><div class="guar-proof-label">Verified reviews</div></div>
+        <div class="guar-proof-stat"><div class="guar-proof-num">6<em>yr</em></div><div class="guar-proof-label">In business</div></div>
+        <div class="guar-proof-stat"><div class="guar-proof-num">0<em>$</em></div><div class="guar-proof-label">Call-out fee</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="guar-cta">
+    <div class="guar-cta-inner">
+      <div>
+        <div class="guar-cta-headline">Covered before<br>we start.</div>
+        <div class="guar-cta-sub">Free estimate · Flat-rate price · Workmanship guaranteed</div>
+      </div>
+      <div class="guar-cta-actions">
+        <a href="/contact" class="guar-cta-primary"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Book free estimate</a>
+        <a href="tel:7057001234" class="guar-cta-secondary" id="ctaCallBtn"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>Call (705) 700-1234</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer><div class="footer-inner"><div class="footer-top"><div><div class="footer-brand-name">Total Trades Solutions</div><div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div><a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a><div class="footer-brand-email">info@totaltradessolutions.ca</div></div><div><div class="footer-col-title">Services</div><div class="footer-links"><a href="/emergency" class="footer-link">Emergency 24/7</a><a href="/hot-water" class="footer-link">Hot Water Systems</a><a href="/blocked-drains" class="footer-link">Blocked Drains</a><a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a><a href="/leak-detection" class="footer-link">Leak Detection</a><a href="/gas-plumbing" class="footer-link">Gas Plumbing</a><a href="/pipe-repair" class="footer-link">Pipe Repair</a><a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a></div></div><div><div class="footer-col-title">Company</div><div class="footer-links"><a href="/about" class="footer-link">About Us</a><a href="/reviews" class="footer-link">Reviews</a><a href="/our-guarantee" class="footer-link">Our Guarantee</a><a href="/blog" class="footer-link">Blog</a><a href="/faq" class="footer-link">FAQ</a><a href="/book" class="footer-link">Book Appointment</a><a href="/privacy" class="footer-link">Privacy Policy</a></div></div><div><div class="footer-col-title">Service Areas</div><div class="footer-links"><a href="/timmins" class="footer-link">Timmins</a><a href="/cochrane" class="footer-link">Cochrane</a><a href="/south-porcupine" class="footer-link">South Porcupine</a><a href="/iroquois-falls" class="footer-link">Iroquois Falls</a><a href="/kapuskasing" class="footer-link">Kapuskasing</a><a href="/matheson" class="footer-link">Matheson</a><a href="/kirkland-lake" class="footer-link">Kirkland Lake</a></div></div></div><div class="footer-bottom"><span>© 2026 Total Trades Solutions. All rights reserved.</span><span>Licensed · Insured · Ontario College of Trades</span></div></div></footer>
+
+<div class="lead-grabber"><button class="lg-btn" id="lgBtn" onclick="toggleLG()"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></button><span class="lg-label">Get help</span></div>
+<div class="lg-panel" id="lgPanel"><div class="lg-header"><div><div class="lg-header-title">Get help now</div><div class="lg-header-sub">Choose how to connect</div></div><button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="lg-body"><div class="lg-options"><div class="lg-option selected" id="lgSpeak" onclick="selectLGMode('speak')"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg><span>Call me back</span></div><div class="lg-option" id="lgEmail" onclick="selectLGMode('email')"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Email me</span></div></div><input class="lg-input" type="text" placeholder="Your name" id="lgName"><input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone"><input class="lg-input" type="text" placeholder="What's the job?" id="lgJob"><button class="lg-submit" onclick="submitLG()">Send request</button></div></div>
+
+<div class="chat-widget"><div class="chat-panel" id="chatPanel"><div class="chat-panel-header"><div class="chat-header-info"><div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div><div class="chat-name">Total Trades Solutions Assistant</div><div class="chat-status">Online · guarantee questions welcome</div></div></div><button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="chat-messages" id="chatMessages"><div class="chat-msg bot">Hi — I can answer questions about our guarantee, pricing, or licensing. What would you like to know?</div></div><div class="chat-quick"><button class="chat-quick-btn" onclick="quickAsk('What does the workmanship guarantee cover?')">What's covered?</button><button class="chat-quick-btn" onclick="quickAsk('How does flat-rate pricing work?')">Flat-rate pricing</button><button class="chat-quick-btn" onclick="quickAsk('Are your plumbers licensed?')">Licensing</button></div><div class="chat-input-row"><input class="chat-input" type="text" placeholder="Ask a question…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div></div><button class="chat-bubble" id="chatBubble" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button></div>
+
+<div class="pixel-toast" id="pixelToast"><div class="pixel-toast-dot"></div><span id="pixelToastText">Pixel fired</span></div>
+
+<script>
+window.addEventListener('scroll',()=>{const nav=document.getElementById('mainNav');if(nav){if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled');}document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*0.9)el.classList.add('visible');});});
+document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*0.9)el.classList.add('visible');});
+function toggleMobileMenu(){const m=document.getElementById('mobileMenu'),b=document.getElementById('mobileHamburger');const o=m.classList.toggle('open');b.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
+function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('mobileHamburger').classList.remove('open');document.body.style.overflow='';}
+let _score=0,_bucket='unclassified',_scrollDepth=0,_dwellStart=Date.now(),_toastTimeout;
+const _bp=['emergency','active','comparison','research','unclassified'];
+function firePixel(event,label,delta,bucket){_score=Math.min(_score+delta,100);if(bucket&&bucket!=='unclassified'){const c=_bp.indexOf(_bucket),n=_bp.indexOf(bucket);if(c===-1||n<c||_bucket==='unclassified')_bucket=bucket;}const t=document.getElementById('pixelToast');document.getElementById('pixelToastText').textContent=label+(delta>0?' +'+delta:'');t.classList.add('show');clearTimeout(_toastTimeout);_toastTimeout=setTimeout(()=>t.classList.remove('show'),2200);console.log('[ClearSky Pixel]',{event,score:_score,bucket:_bucket,delta,label});}
+window.addEventListener('scroll',()=>{const doc=document.documentElement.scrollHeight-window.innerHeight;if(doc<=0)return;const pct=Math.round((window.scrollY/doc)*100);if(pct>_scrollDepth){if(pct>=25&&_scrollDepth<25)firePixel('scroll_25','Scroll 25%',3,'research');if(pct>=50&&_scrollDepth<50)firePixel('scroll_50','Scroll 50%',5,'comparison');if(pct>=75&&_scrollDepth<75)firePixel('scroll_75','Scroll 75%',7,'comparison');if(pct>=90&&_scrollDepth<90)firePixel('scroll_90','Scroll 90%',8,'comparison');_scrollDepth=pct;}});
+let _d30=false,_d60=false,_d120=false;
+setInterval(()=>{const s=Math.round((Date.now()-_dwellStart)/1000);if(s>=30&&!_d30){_d30=true;firePixel('dwell_30','30s dwell',4,'research');}if(s>=60&&!_d60){_d60=true;firePixel('dwell_60','60s dwell',7,'comparison');}if(s>=120&&!_d120){_d120=true;firePixel('dwell_120','2min dwell',8,'comparison');}},1000);
+const _obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,evt=el.dataset.pixelEvent;if(evt){firePixel(evt,el.dataset.pixelLabel||evt,parseInt(el.dataset.pixelDelta||'0'),el.dataset.pixelBucket||'comparison');_obs.unobserve(el);}}});},{threshold:0.3});
+document.querySelectorAll('[data-pixel-event]').forEach(el=>_obs.observe(el));
+firePixel('page_load','Our Guarantee — Comparison bucket',4,'comparison');
+const _ne=document.getElementById('navEmergencyBtn'),_nb=document.getElementById('navBookBtn');
+if(_ne)_ne.addEventListener('click',()=>firePixel('nav_emergency','Nav: Emergency',15,'emergency'));
+if(_nb)_nb.addEventListener('click',()=>firePixel('nav_book','Nav: Book Now',10,'active'));
+document.getElementById('ctaCallBtn').addEventListener('click',()=>firePixel('cta_call','Guarantee: call CTA',15,'active'));
+let _lgOpen=false,_lgMode='speak';
+function toggleLG(){_lgOpen=!_lgOpen;document.getElementById('lgPanel').classList.toggle('open',_lgOpen);if(_lgOpen)firePixel('lg_open','Lead Grabber opened',8,'active');}
+function selectLGMode(mode){_lgMode=mode;document.getElementById('lgSpeak').classList.toggle('selected',mode==='speak');document.getElementById('lgEmail').classList.toggle('selected',mode==='email');const p=document.getElementById('lgPhone');if(mode==='speak'){p.placeholder='Phone — (705) 000-0000';p.type='tel';}else{p.placeholder='Email address';p.type='email';}}
+function submitLG(){firePixel('lg_submit','Lead Grabber submitted',15,'active');const btn=document.querySelector('.lg-submit');btn.textContent='Request sent ✓';btn.style.background='var(--green)';setTimeout(()=>{btn.textContent='Send request';btn.style.background='';},3000);}
+let _chatOpen=false;
+function toggleChat(){_chatOpen=!_chatOpen;document.getElementById('chatPanel').classList.toggle('open',_chatOpen);if(_chatOpen)firePixel('chat_open','AI Chat opened',6,'comparison');}
+function quickAsk(q){_addChatMsg(q,'user');firePixel('chat_question','Chat: '+q.substring(0,30),10,'comparison');const r={'What does the workmanship guarantee cover?':'The guarantee covers defects in our workmanship — 1 year on installations, 90 days on service calls. If something we installed or repaired fails because of how we did the work, we come back and fix it at no charge.','How does flat-rate pricing work?':'We assess the full job, give you a fixed price, and get your approval before starting. That number doesn\'t change unless the scope changes — and if it does, you approve it before we continue. The quote is the invoice.','Are your plumbers licensed?':'Yes — both Total Trades Solutions plumbers hold Ontario College of Trades certification, and both are TSSA certified for gas work. Licence numbers available on request.'};setTimeout(()=>_addChatMsg(r[q]||'Our team can answer that directly — call (705) 700-1234 or send a message through our contact page.','bot'),800);}
+function sendChat(){const inp=document.getElementById('chatInput');if(!inp.value.trim())return;_addChatMsg(inp.value,'user');firePixel('chat_question','Chat question asked',10,'comparison');inp.value='';setTimeout(()=>_addChatMsg('Our team will follow up. For immediate help call (705) 700-1234.','bot'),800);}
+function _addChatMsg(text,type){const msgs=document.getElementById('chatMessages');const div=document.createElement('div');div.className='chat-msg '+type;div.textContent=text;msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
+</script>
+</body>
+</html>

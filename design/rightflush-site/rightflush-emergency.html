@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergency Plumber Timmins — 24/7 Response | Total Trades Solutions</title>
+<meta name="description" content="Total Trades Solutions — Timmins emergency plumber available 24/7. Burst pipes, flooding, no hot water. 15-minute response commitment. We answer every call. (705) 700-1234.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS ── */
+:root {
+  --white:      #FFFFFF;
+  --surface:    #F8F6F1;
+  --border:     #E8E4DC;
+  --text:       #111714;
+  --text2:      #4A5E52;
+  --text3:      #8A9E92;
+  --green:      #1B5E3B;
+  --green-mid:  #2D7A52;
+  --green-lt:   #EBF5EF;
+  --green-dk:   #0D3B27;
+  --rust:       #C24A1E;
+  --rust-mid:   #A83818;
+  --rust-lt:    #FAEDE8;
+  --rust-dk:    #7A2910;
+  --gold:       #B8862A;
+  --gold-lt:    #FBF5E6;
+  --ink:        #0D1F14;
+  --sans:       'Barlow', sans-serif;
+  --cond:       'Barlow Condensed', sans-serif;
+  --nav-h:      68px;
+  --trust-h:    40px;
+  --col:        1180px;
+  --radius:     6px;
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--sans); background: var(--white); color: var(--text); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+
+.page-content { margin-top: calc(var(--trust-h) + var(--nav-h)); }
+
+/* ── TRUST BAR ── */
+.trust-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--trust-h); background: var(--ink); display: flex; align-items: center; padding: 0 24px; }
+.trust-bar-inner { max-width: var(--col); margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.trust-items { display: flex; align-items: center; }
+.trust-item { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.75); padding: 0 18px; border-right: 1px solid rgba(255,255,255,0.1); }
+.trust-item:first-child { padding-left: 0; }
+.trust-item:last-child { border-right: none; }
+.trust-item svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.trust-item .stars { color: var(--gold); font-size: 11px; letter-spacing: 1px; }
+.trust-right { display: flex; align-items: center; }
+.trust-phone { font-family: var(--cond); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.04em; }
+
+/* ── NAV ── */
+nav { position: fixed; top: var(--trust-h); left: 0; right: 0; z-index: 190; height: var(--nav-h); background: var(--white); border-bottom: 1px solid var(--border); transition: box-shadow 0.3s; }
+nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.nav-inner { max-width: var(--col); margin: 0 auto; width: 100%; height: 100%; display: flex; align-items: center; padding: 0 24px; gap: 32px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-logo-mark { width: 38px; height: 38px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.nav-logo-mark svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.nav-logo-name { font-family: var(--cond); font-size: 20px; font-weight: 800; color: var(--ink); text-transform: uppercase; letter-spacing: 0.02em; }
+.nav-logo-tag { font-size: 10px; color: var(--text3); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+.nav-services { display: flex; align-items: center; gap: 2px; flex: 1; }
+.nav-svc { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 12px; border-radius: var(--radius); transition: background 0.2s; text-decoration: none; }
+.nav-svc:hover { background: var(--green-lt); }
+.nav-svc.active { background: var(--rust-lt); }
+.nav-svc-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+.nav-svc-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.nav-svc.active .nav-svc-icon svg { stroke: var(--rust); }
+.nav-svc-label { font-size: 10px; font-weight: 600; color: var(--text2); letter-spacing: 0.03em; white-space: nowrap; }
+.nav-svc.active .nav-svc-label { color: var(--rust); }
+.nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-emergency { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--radius); background: var(--rust); border: 1.5px solid var(--rust); font-size: 13px; font-weight: 600; color: #fff; text-decoration: none; }
+.nav-emergency svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.nav-book { display: flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: var(--radius); background: var(--green); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; }
+.nav-book:hover { background: var(--green-mid); }
+
+/* ── MOBILE ── */
+.mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 60px; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 16px; align-items: center; justify-content: space-between; }
+.mobile-hamburger { width: 40px; height: 40px; border: none; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+.mobile-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); transition: all 0.3s; transform-origin: center; }
+.mobile-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mobile-hamburger.open span:nth-child(2) { opacity: 0; }
+.mobile-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-logo-name { font-family: var(--cond); font-size: 18px; font-weight: 800; color: var(--ink); text-transform: uppercase; letter-spacing: 0.02em; }
+.mobile-right { display: flex; align-items: center; gap: 8px; }
+.mobile-emergency-btn { display: flex; align-items: center; gap: 5px; background: var(--rust); color: #fff; font-family: var(--cond); font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 7px 12px; border-radius: var(--radius); text-decoration: none; }
+.mobile-emergency-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.mobile-call-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--green); border: none; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+.mobile-call-btn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0; z-index: 180; background: var(--white); overflow-y: auto; border-top: 1px solid var(--border); flex-direction: column; }
+.mobile-menu.open { display: flex; }
+.mobile-menu-emergency { display: flex; align-items: center; gap: 10px; padding: 18px 20px; background: var(--rust-lt); border-bottom: 1px solid rgba(194,74,30,0.15); font-family: var(--cond); font-size: 17px; font-weight: 700; color: var(--rust); text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; }
+.mobile-menu-emergency svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.mobile-menu-section { padding: 16px 20px 8px; }
+.mobile-menu-section-title { font-size: 10px; font-weight: 700; color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+.mobile-menu-link { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px; font-weight: 500; color: var(--text); text-decoration: none; }
+.mobile-menu-link svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 1.75; flex-shrink: 0; }
+.mobile-menu-book { margin: 16px 20px 20px; display: block; text-align: center; background: var(--green); color: #fff; font-family: var(--cond); font-size: 17px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px; border-radius: var(--radius); text-decoration: none; }
+
+/* ── SECTION COMMONS ── */
+.section { padding: 88px 24px; }
+.section-inner { max-width: var(--col); margin: 0 auto; }
+.section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+.section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--green); }
+.section-label.rust { color: var(--rust); }
+.section-label.rust::before { background: var(--rust); }
+.section-headline { font-family: var(--cond); font-weight: 800; font-size: clamp(36px, 4.5vw, 56px); line-height: 0.95; text-transform: uppercase; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 16px; }
+.section-sub { font-size: 17px; font-weight: 300; color: var(--text2); line-height: 1.7; max-width: 580px; margin-bottom: 52px; }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ════════════════════════════════════════
+   EMERGENCY PAGE — SPECIFIC STYLES
+   ════════════════════════════════════════ */
+
+/* ── LIVE STATUS BAR ── */
+.live-bar {
+  background: var(--rust);
+  padding: 0;
+  overflow: hidden;
+}
+.live-bar-inner {
+  max-width: var(--col); margin: 0 auto;
+  display: flex; align-items: center; gap: 20px;
+  padding: 10px 24px;
+}
+.live-indicator {
+  display: flex; align-items: center; gap: 8px;
+  flex-shrink: 0;
+}
+.live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #fff;
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+.live-text {
+  font-family: var(--cond); font-size: 13px; font-weight: 700;
+  color: #fff; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.live-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.3); flex-shrink: 0; }
+.live-detail { font-size: 13px; color: rgba(255,255,255,0.85); font-weight: 400; }
+.live-clock { font-family: var(--cond); font-size: 14px; font-weight: 700; color: #fff; margin-left: auto; flex-shrink: 0; }
+
+/* ── EMERGENCY HERO ── */
+.emg-hero {
+  background: var(--ink);
+  position: relative; overflow: hidden;
+  min-height: calc(100vh - var(--trust-h) - var(--nav-h) - 40px);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.emg-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 40%, rgba(194,74,30,0.2) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 80%, rgba(184,134,42,0.06) 0%, transparent 40%);
+}
+.emg-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+/* Animated rust sweep */
+.emg-hero-sweep {
+  position: absolute; top: 0; right: 0;
+  width: 50%; height: 100%;
+  background: linear-gradient(135deg, transparent 40%, rgba(194,74,30,0.06) 100%);
+  pointer-events: none;
+}
+
+.emg-hero-inner {
+  position: relative; z-index: 2;
+  max-width: var(--col); margin: 0 auto; width: 100%;
+  padding: 72px 24px;
+  display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: center;
+}
+
+/* Left — headline + actions */
+.emg-hero-left {}
+.emg-hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(194,74,30,0.2); border: 1px solid rgba(194,74,30,0.5);
+  border-radius: 100px; padding: 6px 14px;
+  font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.emg-hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rust); animation: livePulse 1.2s infinite; }
+
+.emg-hero-headline {
+  font-family: var(--cond); font-weight: 900;
+  font-size: clamp(52px, 7vw, 96px);
+  line-height: 0.88; text-transform: uppercase;
+  color: #fff; letter-spacing: -0.01em;
+  margin-bottom: 28px;
+}
+.emg-hero-headline em { font-style: normal; color: var(--rust); display: block; }
+.emg-hero-headline .dim { color: rgba(255,255,255,0.28); }
+
+.emg-hero-sub {
+  font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.6);
+  line-height: 1.65; max-width: 480px; margin-bottom: 44px;
+}
+
+/* Primary call action — phone number above fold */
+.emg-call-block { margin-bottom: 24px; }
+.emg-call-label {
+  font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px;
+}
+.emg-call-number {
+  display: flex; align-items: center; gap: 16px;
+}
+.emg-call-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--rust); color: #fff;
+  font-family: var(--cond); font-weight: 900; font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: 0.02em;
+  padding: 18px 32px; border-radius: var(--radius);
+  border: none; text-decoration: none;
+  transition: all 0.2s; line-height: 1;
+  box-shadow: 0 8px 32px rgba(194,74,30,0.4);
+}
+.emg-call-btn:hover { background: var(--rust-mid); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(194,74,30,0.5); }
+.emg-call-btn svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.emg-call-or { font-size: 13px; color: rgba(255,255,255,0.25); font-weight: 400; }
+
+/* Response commitment */
+.emg-commitment {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 14px 18px;
+  margin-bottom: 32px;
+}
+.emg-commitment svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.emg-commitment-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+.emg-commitment-text strong { color: #fff; font-weight: 600; }
+
+/* Secondary — callback request */
+.emg-callback-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; color: rgba(255,255,255,0.45);
+  transition: color 0.2s; cursor: pointer;
+  background: none; border: none; padding: 0;
+}
+.emg-callback-link:hover { color: rgba(255,255,255,0.75); }
+.emg-callback-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* Right — emergency card */
+.emg-hero-right {}
+.emg-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 32px;
+  backdrop-filter: blur(4px);
+}
+.emg-card-title {
+  font-family: var(--cond); font-size: 14px; font-weight: 700;
+  color: rgba(255,255,255,0.4); letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.emg-card-items { display: flex; flex-direction: column; gap: 0; }
+.emg-card-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer; transition: all 0.2s;
+  text-decoration: none;
+}
+.emg-card-item:last-child { border-bottom: none; }
+.emg-card-item:hover { padding-left: 4px; }
+.emg-card-item:hover .emg-card-icon { background: rgba(194,74,30,0.3); border-color: rgba(194,74,30,0.5); }
+.emg-card-icon {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: all 0.2s;
+}
+.emg-card-icon svg { width: 20px; height: 20px; stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.emg-card-item:hover .emg-card-icon svg { stroke: var(--rust); }
+.emg-card-name { font-family: var(--cond); font-size: 17px; font-weight: 700; color: #fff; text-transform: uppercase; line-height: 1; margin-bottom: 4px; }
+.emg-card-desc { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+
+.emg-card-footer {
+  margin-top: 24px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; gap: 10px;
+}
+.emg-card-footer svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2; flex-shrink: 0; }
+.emg-card-footer-text { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+.emg-card-footer-text strong { color: rgba(255,255,255,0.7); }
+
+/* ── CALLBACK FORM (inline, shown on demand) ── */
+.emg-callback-form {
+  display: none;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius); padding: 20px;
+  margin-top: 16px;
+  animation: slideDown 0.3s ease;
+}
+@keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+.emg-callback-form.open { display: block; }
+.emg-form-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+.emg-form-input {
+  width: 100%; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius);
+  padding: 12px 16px; font-size: 15px; font-family: var(--sans); color: #fff;
+  outline: none; margin-bottom: 10px;
+  transition: border-color 0.2s;
+}
+.emg-form-input::placeholder { color: rgba(255,255,255,0.25); }
+.emg-form-input:focus { border-color: var(--rust); }
+.emg-form-submit {
+  width: 100%; background: var(--rust); color: #fff; border: none;
+  border-radius: var(--radius); padding: 14px;
+  font-family: var(--cond); font-weight: 700; font-size: 16px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s;
+}
+.emg-form-submit:hover { background: var(--rust-mid); }
+
+/* ── RESPONSE PROOF SECTION ── */
+.emg-proof { background: var(--surface); padding: 72px 24px; }
+.emg-proof-inner { max-width: var(--col); margin: 0 auto; }
+.emg-proof-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border-radius: var(--radius); overflow: hidden;
+  margin-bottom: 56px;
+}
+.emg-proof-stat {
+  background: var(--white); padding: 32px 28px;
+  text-align: center;
+}
+.emg-proof-num {
+  font-family: var(--cond); font-weight: 900; font-size: 52px;
+  color: var(--ink); line-height: 1; margin-bottom: 6px;
+}
+.emg-proof-num span { color: var(--rust); }
+.emg-proof-label { font-size: 12px; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+
+/* Testimonials */
+.emg-testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.emg-testimonial {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+}
+.emg-testimonial-stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; margin-bottom: 12px; }
+.emg-testimonial-text { font-size: 14px; color: var(--text2); line-height: 1.65; margin-bottom: 16px; font-style: italic; }
+.emg-testimonial-attr { display: flex; align-items: center; gap: 8px; }
+.emg-testimonial-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rust); flex-shrink: 0; }
+.emg-testimonial-name { font-size: 12px; color: var(--text3); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* ── WHAT TO DO SECTION ── */
+.emg-steps { background: var(--white); padding: 80px 24px; }
+.emg-steps-inner { max-width: var(--col); margin: 0 auto; }
+.emg-steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.emg-step { position: relative; }
+.emg-step-num {
+  font-family: var(--cond); font-size: 64px; font-weight: 900;
+  color: var(--rust-lt); line-height: 1; margin-bottom: -12px;
+}
+.emg-step-content { position: relative; z-index: 1; }
+.emg-step-title { font-family: var(--cond); font-weight: 700; font-size: 19px; color: var(--ink); text-transform: uppercase; margin-bottom: 8px; }
+.emg-step-desc { font-size: 14px; color: var(--text2); line-height: 1.65; }
+.emg-step-arrow { position: absolute; top: 32px; right: -16px; width: 32px; display: flex; align-items: center; z-index: 2; }
+.emg-step-arrow svg { width: 20px; height: 20px; stroke: var(--border); fill: none; stroke-width: 2; stroke-linecap: round; }
+
+/* ── SERVICE AREA CONFIRMATION ── */
+.emg-areas { background: var(--green-lt); padding: 48px 24px; border-top: 1px solid rgba(27,94,59,0.12); }
+.emg-areas-inner { max-width: var(--col); margin: 0 auto; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.emg-areas-label { font-family: var(--cond); font-size: 16px; font-weight: 700; color: var(--green); text-transform: uppercase; flex-shrink: 0; }
+.emg-areas-divider { width: 1px; height: 20px; background: rgba(27,94,59,0.2); flex-shrink: 0; }
+.emg-area-chip { display: flex; align-items: center; gap: 5px; background: #fff; border: 1px solid rgba(27,94,59,0.2); border-radius: 100px; padding: 5px 14px; font-size: 13px; font-weight: 500; color: var(--green); text-decoration: none; transition: all 0.2s; }
+.emg-area-chip:hover { background: var(--green); color: #fff; }
+.emg-area-chip svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+/* ── BIG CTA BAND ── */
+.emg-cta-band { background: var(--rust); padding: 0 24px; }
+.emg-cta-inner {
+  max-width: var(--col); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 48px 0; gap: 32px;
+}
+.emg-cta-left {}
+.emg-cta-headline { font-family: var(--cond); font-weight: 900; font-size: clamp(28px, 4vw, 48px); color: #fff; text-transform: uppercase; line-height: 0.95; margin-bottom: 8px; }
+.emg-cta-sub { font-size: 15px; color: rgba(255,255,255,0.7); font-weight: 300; }
+.emg-cta-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.emg-cta-btn-primary { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: var(--rust); font-family: var(--cond); font-weight: 800; font-size: 18px; letter-spacing: 0.04em; text-transform: uppercase; padding: 18px 32px; border-radius: var(--radius); text-decoration: none; white-space: nowrap; transition: all 0.2s; }
+.emg-cta-btn-primary:hover { background: rgba(255,255,255,0.92); transform: translateY(-1px); }
+.emg-cta-btn-primary svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.emg-cta-btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 14px; font-weight: 500; padding: 18px 24px; border-radius: var(--radius); text-decoration: none; white-space: nowrap; transition: all 0.2s; cursor: pointer; }
+.emg-cta-btn-secondary:hover { background: rgba(255,255,255,0.22); }
+.emg-cta-btn-secondary svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* ── FOOTER ── */
+footer { background: var(--ink); padding: 64px 24px 32px; }
+.footer-inner { max-width: var(--col); margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 32px; }
+.footer-brand-name { font-family: var(--cond); font-size: 24px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 6px; }
+.footer-brand-tag { font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+.footer-brand-phone { font-family: var(--cond); font-size: 26px; font-weight: 700; color: var(--gold); letter-spacing: 0.02em; display: block; margin-bottom: 4px; }
+.footer-brand-email { font-size: 13px; color: rgba(255,255,255,0.35); }
+.footer-col-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+.footer-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-link { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+.footer-link:hover { color: #fff; }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.2); }
+
+/* ── LEAD GRABBER (speak-now only on this page) ── */
+.lead-grabber { position: fixed; bottom: 96px; right: 24px; z-index: 490; width: 56px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.lg-btn { width: 56px; height: 56px; border-radius: 50%; background: var(--rust); color: #fff; border: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(194,74,30,0.4); cursor: pointer; transition: all 0.2s; }
+.lg-btn:hover { background: var(--rust-mid); transform: scale(1.05); }
+.lg-btn svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lg-label { font-size: 9px; font-weight: 700; color: var(--rust); letter-spacing: 0.04em; text-align: center; white-space: nowrap; }
+.lg-panel { position: fixed; bottom: 90px; right: 90px; z-index: 490; width: 300px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); overflow: hidden; display: none; }
+.lg-panel.open { display: block; animation: slideUp 0.3s ease; }
+@keyframes slideUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.lg-header { background: var(--rust); padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; }
+.lg-header-title { font-family: var(--cond); font-size: 18px; font-weight: 700; color: #fff; text-transform: uppercase; }
+.lg-header-sub { font-size: 11px; color: rgba(255,255,255,0.65); }
+.lg-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; }
+.lg-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.lg-body { padding: 16px; }
+.lg-emergency-note { display: flex; align-items: center; gap: 10px; background: var(--rust-lt); border: 1px solid rgba(194,74,30,0.2); border-radius: var(--radius); padding: 12px; margin-bottom: 12px; }
+.lg-emergency-note svg { width: 16px; height: 16px; stroke: var(--rust); fill: none; stroke-width: 2; flex-shrink: 0; }
+.lg-emergency-note span { font-size: 12px; color: var(--rust); font-weight: 500; line-height: 1.4; }
+.lg-input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-size: 13px; font-family: inherit; outline: none; margin-bottom: 8px; }
+.lg-input:focus { border-color: var(--rust); }
+.lg-submit { width: 100%; background: var(--rust); color: #fff; border: none; border-radius: var(--radius); padding: 12px; font-family: var(--cond); font-weight: 700; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+.lg-submit:hover { background: var(--rust-mid); }
+
+/* ── AI CHAT ── */
+.chat-widget { position: fixed; bottom: 24px; right: 24px; z-index: 500; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.chat-bubble { width: 56px; height: 56px; border-radius: 50%; background: var(--green); color: #fff; border: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(27,94,59,0.4); cursor: pointer; transition: all 0.2s; }
+.chat-bubble:hover { background: var(--green-mid); transform: scale(1.05); }
+.chat-bubble svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.chat-panel { width: 320px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); overflow: hidden; display: none; }
+.chat-panel.open { display: flex; flex-direction: column; animation: slideUp 0.3s ease; }
+.chat-panel-header { background: var(--green); padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; }
+.chat-header-info { display: flex; align-items: center; gap: 10px; }
+.chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+.chat-avatar svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; }
+.chat-name { font-size: 14px; font-weight: 600; color: #fff; }
+.chat-status { font-size: 11px; color: rgba(255,255,255,0.65); }
+.chat-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; }
+.chat-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.chat-messages { padding: 16px; min-height: 100px; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
+.chat-msg.bot { background: var(--surface); color: var(--text); border-bottom-left-radius: 4px; align-self: flex-start; }
+.chat-msg.user { background: var(--green); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+.chat-quick { padding: 0 16px 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chat-quick-btn { background: var(--green-lt); border: 1px solid rgba(27,94,59,0.2); border-radius: 100px; padding: 5px 12px; font-size: 12px; color: var(--green); font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.chat-quick-btn:hover { background: var(--green); color: #fff; }
+.chat-input-row { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); }
+.chat-input { flex: 1; border: 1px solid var(--border); border-radius: 100px; padding: 8px 14px; font-size: 13px; font-family: inherit; outline: none; }
+.chat-input:focus { border-color: var(--green); }
+.chat-send { width: 36px; height: 36px; border-radius: 50%; background: var(--green); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.chat-send svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; }
+
+/* ── PIXEL TOAST ── */
+.pixel-toast { position: fixed; bottom: 24px; left: 24px; z-index: 600; background: var(--ink); color: #fff; font-family: var(--cond); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 16px; border-radius: var(--radius); display: flex; align-items: center; gap: 8px; opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; max-width: 280px; }
+.pixel-toast.show { opacity: 1; transform: translateY(0); }
+.pixel-toast-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rust); animation: livePulse 1.2s infinite; flex-shrink: 0; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .emg-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .emg-hero-right { max-width: 480px; }
+  .emg-proof-grid { grid-template-columns: repeat(2, 1fr); }
+  .emg-testimonials { grid-template-columns: 1fr 1fr; }
+  .emg-steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  :root { --trust-h: 0px; --nav-h: 60px; }
+  .trust-bar { display: none; }
+  nav { display: none; }
+  .mobile-header { display: flex; }
+  .page-content { margin-top: 60px; }
+  .emg-hero-inner { grid-template-columns: 1fr; }
+  .emg-call-btn { font-size: 26px; padding: 16px 24px; }
+  .emg-testimonials { grid-template-columns: 1fr; }
+  .emg-steps-grid { grid-template-columns: 1fr; }
+  .emg-cta-inner { flex-direction: column; text-align: center; }
+  .emg-cta-right { justify-content: center; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .live-bar-inner { flex-wrap: wrap; gap: 8px; }
+  .live-clock { display: none; }
+}
+@media (max-width: 480px) {
+  .emg-proof-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr; }
+  .emg-cta-right { width: 100%; }
+  .emg-cta-btn-primary, .emg-cta-btn-secondary { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-items">
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Licensed &amp; Insured</div>
+      <div class="trust-item"><span class="stars">★★★★★</span>4.7 · 64 Reviews</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24/7 Emergency</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>15-Min Response</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins &amp; Area</div>
+    </div>
+    <div class="trust-right">
+      <a href="tel:7057001234" class="trust-phone">(705) 700-1234</a>
+    </div>
+  </div>
+</div>
+
+<!-- DESKTOP NAV — Emergency active state -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Total Trades</span>
+        <span class="nav-logo-tag">Timmins ON</span>
+      </div>
+    </a>
+    <div class="nav-services">
+      <a href="/hot-water" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="nav-svc-label">Hot Water</span></a>
+      <a href="/blocked-drains" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div><span class="nav-svc-label">Drains</span></a>
+      <a href="/bathroom-renovations" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg></div><span class="nav-svc-label">Bathrooms</span></a>
+      <a href="/leak-detection" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="nav-svc-label">Leaks</span></a>
+      <a href="/gas-plumbing" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><span class="nav-svc-label">Gas</span></a>
+      <a href="/pipe-repair" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div><span class="nav-svc-label">Pipes</span></a>
+      <a href="/reviews" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="nav-svc-label">Reviews</span></a>
+      <a href="/blog" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="nav-svc-label">Blog</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+        Emergency
+      </a>
+      <a href="/book" class="nav-book" id="navBookBtn">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header" id="mobileHeader">
+  <button class="mobile-hamburger" id="mobileHamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+  <span class="mobile-logo-name">Total Trades Solutions</span>
+  <div class="mobile-right">
+    <a href="/emergency" class="mobile-emergency-btn"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency</a>
+    <a href="tel:7057001234" class="mobile-call-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></a>
+  </div>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/emergency" class="mobile-menu-emergency" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency 24/7 — We answer now</a>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Services</div>
+    <a href="/hot-water" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hot Water Systems</a>
+    <a href="/blocked-drains" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>Blocked Drains</a>
+    <a href="/bathroom-renovations" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg>Bathroom Renovations</a>
+    <a href="/leak-detection" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>Leak Detection</a>
+    <a href="/gas-plumbing" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Gas Plumbing</a>
+    <a href="/pipe-repair" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg>Pipe Repair</a>
+  </div>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Company</div>
+    <a href="/about" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>About Us</a>
+    <a href="/reviews" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Reviews</a>
+    <a href="/our-guarantee" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Our Guarantee</a>
+  </div>
+  <a href="/book" class="mobile-menu-book" onclick="closeMobileMenu()">Book Appointment</a>
+</div>
+
+<!-- PAGE CONTENT -->
+<main class="page-content">
+
+  <!-- LIVE STATUS BAR -->
+  <div class="live-bar">
+    <div class="live-bar-inner">
+      <div class="live-indicator">
+        <div class="live-dot"></div>
+        <span class="live-text">We're available now</span>
+      </div>
+      <div class="live-divider"></div>
+      <span class="live-detail">Emergency line answered within 15 minutes · (705) 700-1234</span>
+      <span class="live-clock" id="liveClock"></span>
+    </div>
+  </div>
+
+  <!-- EMERGENCY HERO -->
+  <section class="emg-hero" id="emgHero">
+    <div class="emg-hero-bg"></div>
+    <div class="emg-hero-grid"></div>
+    <div class="emg-hero-sweep"></div>
+    <div class="emg-hero-inner">
+
+      <!-- LEFT -->
+      <div class="emg-hero-left">
+        <div class="emg-hero-tag">
+          <div class="emg-hero-tag-dot"></div>
+          Emergency Plumbing · Timmins, Ontario
+        </div>
+
+        <h1 class="emg-hero-headline">
+          We answer.<br>
+          <em>Right now.</em><br>
+          <span class="dim">24 hours.</span>
+        </h1>
+
+        <p class="emg-hero-sub">
+          Burst pipe. Flooding. No hot water. No voicemail. A licensed Total Trades Solutions plumber answers every emergency call — day or night — and is on their way within 15 minutes.
+        </p>
+
+        <!-- PHONE NUMBER ABOVE FOLD — highest priority element -->
+        <div class="emg-call-block">
+          <div class="emg-call-label">Call now — we pick up</div>
+          <div class="emg-call-number">
+            <a href="tel:7057001234" class="emg-call-btn" id="heroCallBtn">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+              (705) 700-1234
+            </a>
+            <span class="emg-call-or">or</span>
+          </div>
+        </div>
+
+        <div class="emg-commitment">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div class="emg-commitment-text">
+            <strong>15-minute response commitment.</strong> A licensed plumber is dispatched immediately. No call centre. No answering service. The owner answers emergency calls personally.
+          </div>
+        </div>
+
+        <button class="emg-callback-link" onclick="toggleCallbackForm()" id="callbackToggle">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Can't call right now? Request a callback
+        </button>
+
+        <!-- INLINE CALLBACK FORM -->
+        <div class="emg-callback-form" id="callbackForm">
+          <label class="emg-form-label">Your name</label>
+          <input class="emg-form-input" type="text" placeholder="First name" id="cbName">
+          <label class="emg-form-label">Your phone number</label>
+          <input class="emg-form-input" type="tel" placeholder="(705) 000-0000" id="cbPhone">
+          <label class="emg-form-label">What's the emergency?</label>
+          <input class="emg-form-input" type="text" placeholder="e.g. burst pipe, no hot water, flooding" id="cbIssue">
+          <button class="emg-form-submit" onclick="submitCallback()">Request callback — we'll call within 15 minutes</button>
+        </div>
+      </div>
+
+      <!-- RIGHT — Emergency type selector -->
+      <div class="emg-hero-right">
+        <div class="emg-card">
+          <div class="emg-card-title">What's the emergency?</div>
+          <div class="emg-card-items">
+            <a href="tel:7057001234" class="emg-card-item" id="emgBurstPipe">
+              <div class="emg-card-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div>
+              <div>
+                <div class="emg-card-name">Burst Pipe</div>
+                <div class="emg-card-desc">Water spraying or flooding — shut off main valve first, then call</div>
+              </div>
+            </a>
+            <a href="tel:7057001234" class="emg-card-item" id="emgFlooding">
+              <div class="emg-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+              <div>
+                <div class="emg-card-name">Flooding / Water Damage</div>
+                <div class="emg-card-desc">Active flooding inside the home — we dispatch immediately</div>
+              </div>
+            </a>
+            <a href="tel:7057001234" class="emg-card-item" id="emgHotWater">
+              <div class="emg-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <div>
+                <div class="emg-card-name">No Hot Water</div>
+                <div class="emg-card-desc">Water heater failure — same-day replacement available</div>
+              </div>
+            </a>
+            <a href="tel:7057001234" class="emg-card-item" id="emgSewer">
+              <div class="emg-card-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+              <div>
+                <div class="emg-card-name">Sewage Backup</div>
+                <div class="emg-card-desc">Raw sewage in the home is a health emergency — call now</div>
+              </div>
+            </a>
+            <a href="tel:7057001234" class="emg-card-item" id="emgGas">
+              <div class="emg-card-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+              <div>
+                <div class="emg-card-name">Gas Leak / Smell</div>
+                <div class="emg-card-desc">Leave the building immediately — call 911 first, then us</div>
+              </div>
+            </a>
+          </div>
+          <div class="emg-card-footer">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="emg-card-footer-text">Every call connects to a <strong>licensed Total Trades Solutions plumber</strong> — not a call centre. Available 24 hours, 7 days a week, 365 days a year.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROOF SECTION -->
+  <section class="emg-proof" data-pixel-event="proof_section" data-pixel-label="Emergency proof section" data-pixel-delta="3" data-pixel-bucket="emergency">
+    <div class="emg-proof-inner">
+      <div class="emg-proof-grid reveal">
+        <div class="emg-proof-stat">
+          <div class="emg-proof-num">15<span>min</span></div>
+          <div class="emg-proof-label">Response commitment</div>
+        </div>
+        <div class="emg-proof-stat">
+          <div class="emg-proof-num">24<span>/7</span></div>
+          <div class="emg-proof-label">Always available</div>
+        </div>
+        <div class="emg-proof-stat">
+          <div class="emg-proof-num">6<span>yr</span></div>
+          <div class="emg-proof-label">Serving Timmins</div>
+        </div>
+        <div class="emg-proof-stat">
+          <div class="emg-proof-num">4.7<span>★</span></div>
+          <div class="emg-proof-label">64 verified reviews</div>
+        </div>
+      </div>
+
+      <div class="emg-testimonials">
+        <div class="emg-testimonial reveal">
+          <div class="emg-testimonial-stars">★★★★★</div>
+          <p class="emg-testimonial-text">"Burst pipe at 11pm on a Sunday. Called Total Trades Solutions and they were at my door in under 20 minutes. Fixed it, cleaned up, price was exactly what they quoted. Won't call anyone else."</p>
+          <div class="emg-testimonial-attr"><div class="emg-testimonial-dot"></div><span class="emg-testimonial-name">Sarah T. · Timmins · Google Review</span></div>
+        </div>
+        <div class="emg-testimonial reveal reveal-delay-1">
+          <div class="emg-testimonial-stars">★★★★★</div>
+          <p class="emg-testimonial-text">"No hot water on Christmas morning with four kids in the house. One call and they had it sorted by noon. The owner came himself. That says everything about how they run their business."</p>
+          <div class="emg-testimonial-attr"><div class="emg-testimonial-dot"></div><span class="emg-testimonial-name">Mark R. · South Porcupine · Google Review</span></div>
+        </div>
+        <div class="emg-testimonial reveal reveal-delay-2">
+          <div class="emg-testimonial-stars">★★★★★</div>
+          <p class="emg-testimonial-text">"Sewage backup on a Saturday afternoon. I called three plumbers before Total Trades Solutions — all voicemail. These guys picked up on the second ring. Sorted in three hours. Incredible service."</p>
+          <div class="emg-testimonial-attr"><div class="emg-testimonial-dot"></div><span class="emg-testimonial-name">Lisa M. · Cochrane · Google Review</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT TO DO SECTION -->
+  <section class="emg-steps" data-pixel-event="steps_section" data-pixel-label="What to do section" data-pixel-delta="2" data-pixel-bucket="emergency">
+    <div class="emg-steps-inner">
+      <div class="section-label rust reveal">While you wait</div>
+      <h2 class="section-headline reveal">What to do right now</h2>
+      <p class="section-sub reveal">While we're on our way — steps to protect your home in the next 15 minutes.</p>
+      <div class="emg-steps-grid">
+        <div class="emg-step reveal">
+          <div class="emg-step-num">01</div>
+          <div class="emg-step-content">
+            <div class="emg-step-title">Shut off the water</div>
+            <p class="emg-step-desc">Find your main water shutoff valve — usually in the basement near the foundation wall or under the kitchen sink. Turn clockwise to close. This stops flooding immediately.</p>
+          </div>
+          <div class="emg-step-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="emg-step reveal reveal-delay-1">
+          <div class="emg-step-num">02</div>
+          <div class="emg-step-content">
+            <div class="emg-step-title">Turn off the hot water tank</div>
+            <p class="emg-step-desc">If you have a gas water heater, set the dial to Pilot. Electric? Switch off the breaker labelled Water Heater. Prevents the tank from running dry and burning out the element.</p>
+          </div>
+          <div class="emg-step-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="emg-step reveal reveal-delay-2">
+          <div class="emg-step-num">03</div>
+          <div class="emg-step-content">
+            <div class="emg-step-title">Move what you can</div>
+            <p class="emg-step-desc">Get valuables, documents, and electronics off the floor. Water damage spreads fast — furniture, rugs, and stored items can be saved if moved quickly.</p>
+          </div>
+          <div class="emg-step-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="emg-step reveal reveal-delay-3">
+          <div class="emg-step-num">04</div>
+          <div class="emg-step-content">
+            <div class="emg-step-title">We're on our way</div>
+            <p class="emg-step-desc">A licensed plumber is dispatched the moment you call. They'll confirm their ETA and call you when they're 5 minutes out. Keep your phone close.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREAS -->
+  <div class="emg-areas reveal">
+    <div class="emg-areas-inner">
+      <span class="emg-areas-label">We respond to</span>
+      <div class="emg-areas-divider"></div>
+      <a href="/timmins" class="emg-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins</a>
+      <a href="/cochrane" class="emg-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Cochrane</a>
+      <a href="/south-porcupine" class="emg-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>South Porcupine</a>
+      <a href="/iroquois-falls" class="emg-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Iroquois Falls</a>
+      <a href="/kapuskasing" class="emg-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Kapuskasing</a>
+      <a href="/matheson" class="emg-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Matheson</a>
+      <a href="/kirkland-lake" class="emg-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Kirkland Lake</a>
+    </div>
+  </div>
+
+  <!-- BOTTOM CTA BAND -->
+  <div class="emg-cta-band">
+    <div class="emg-cta-inner">
+      <div class="emg-cta-left">
+        <div class="emg-cta-headline">Still need help?<br>We're still here.</div>
+        <div class="emg-cta-sub">No voicemail. No call centre. A plumber picks up.</div>
+      </div>
+      <div class="emg-cta-right">
+        <a href="tel:7057001234" class="emg-cta-btn-primary" id="ctaCallBtn">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+          Call (705) 700-1234
+        </a>
+        <button class="emg-cta-btn-secondary" onclick="toggleLG()">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Request callback
+        </button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Total Trades Solutions</div>
+        <div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div>
+        <a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a>
+        <div class="footer-brand-email">info@totaltradessolutions.ca</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/emergency" class="footer-link">Emergency 24/7</a>
+          <a href="/hot-water" class="footer-link">Hot Water Systems</a>
+          <a href="/blocked-drains" class="footer-link">Blocked Drains</a>
+          <a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a>
+          <a href="/leak-detection" class="footer-link">Leak Detection</a>
+          <a href="/gas-plumbing" class="footer-link">Gas Plumbing</a>
+          <a href="/pipe-repair" class="footer-link">Pipe Repair</a>
+          <a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a>
+          <a href="/specials" class="footer-link">Specials</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about" class="footer-link">About Us</a>
+          <a href="/reviews" class="footer-link">Reviews</a>
+          <a href="/our-guarantee" class="footer-link">Our Guarantee</a>
+          <a href="/blog" class="footer-link">Blog</a>
+          <a href="/faq" class="footer-link">FAQ</a>
+          <a href="/book" class="footer-link">Book Appointment</a>
+          <a href="/privacy" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Service Areas</div>
+        <div class="footer-links">
+          <a href="/timmins" class="footer-link">Timmins</a>
+          <a href="/cochrane" class="footer-link">Cochrane</a>
+          <a href="/south-porcupine" class="footer-link">South Porcupine</a>
+          <a href="/iroquois-falls" class="footer-link">Iroquois Falls</a>
+          <a href="/kapuskasing" class="footer-link">Kapuskasing</a>
+          <a href="/matheson" class="footer-link">Matheson</a>
+          <a href="/kirkland-lake" class="footer-link">Kirkland Lake</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Total Trades Solutions. All rights reserved.</span>
+      <span>Licensed · Insured · Ontario College of Trades</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LEAD GRABBER — speak-now only on emergency pages -->
+<div class="lead-grabber">
+  <button class="lg-btn" id="lgBtn" onclick="toggleLG()">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+  </button>
+  <span class="lg-label">Call back</span>
+</div>
+<div class="lg-panel" id="lgPanel">
+  <div class="lg-header">
+    <div>
+      <div class="lg-header-title">Call back request</div>
+      <div class="lg-header-sub">We'll call within 15 minutes</div>
+    </div>
+    <button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="lg-body">
+    <div class="lg-emergency-note">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <span>A licensed plumber will call you back within 15 minutes — day or night.</span>
+    </div>
+    <input class="lg-input" type="text" placeholder="Your name" id="lgName">
+    <input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone">
+    <input class="lg-input" type="text" placeholder="What's the emergency?" id="lgIssue">
+    <button class="lg-submit" onclick="submitLG()">Request call back now</button>
+  </div>
+</div>
+
+<!-- AI CHAT -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div>
+          <div class="chat-name">Total Trades Solutions Assistant</div>
+          <div class="chat-status">Online · call (705) 700-1234 for emergencies</div>
+        </div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">Hi — for emergencies, please call (705) 700-1234 directly. A plumber answers 24/7. How can I help you right now?</div>
+    </div>
+    <div class="chat-quick">
+      <button class="chat-quick-btn" onclick="quickAsk('How do I shut off my main water valve?')">Shut off water</button>
+      <button class="chat-quick-btn" onclick="quickAsk('What should I do about a burst pipe?')">Burst pipe</button>
+      <button class="chat-quick-btn" onclick="quickAsk('Is there a gas leak what do I do?')">Gas leak</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" placeholder="Ask a question…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+  <button class="chat-bubble" id="chatBubble" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+</div>
+
+<!-- PIXEL TOAST -->
+<div class="pixel-toast" id="pixelToast">
+  <div class="pixel-toast-dot"></div>
+  <span id="pixelToastText">Pixel fired</span>
+</div>
+
+<script>
+/* ── LIVE CLOCK ── */
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  const s = now.getSeconds().toString().padStart(2,'0');
+  const el = document.getElementById('liveClock');
+  if (el) el.textContent = h + ':' + m + ':' + s;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  if (nav) { if (window.scrollY > 20) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+  });
+});
+document.querySelectorAll('.reveal').forEach(el => {
+  if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+});
+
+/* ── MOBILE MENU ── */
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('mobileHamburger');
+  const isOpen = menu.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileHamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── CLEARSKY PIXEL ──
+   Emergency page: bucket fires as 'emergency' immediately on load.
+   No-downgrade rule still applies — stays emergency for session lifetime.
+*/
+let _score = 0;
+let _bucket = 'unclassified';
+let _scrollDepth = 0;
+let _dwellStart = Date.now();
+let _toastTimeout;
+const _bucketPriority = ['emergency','active','comparison','research','unclassified'];
+
+function firePixel(event, label, delta, bucket) {
+  _score = Math.min(_score + delta, 100);
+  if (bucket && bucket !== 'unclassified') {
+    const cur = _bucketPriority.indexOf(_bucket);
+    const nxt = _bucketPriority.indexOf(bucket);
+    if (cur === -1 || nxt < cur || _bucket === 'unclassified') _bucket = bucket;
+  }
+  const toast = document.getElementById('pixelToast');
+  document.getElementById('pixelToastText').textContent = label + (delta > 0 ? ' +' + delta : '');
+  toast.classList.add('show');
+  clearTimeout(_toastTimeout);
+  _toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200);
+  console.log('[ClearSky Pixel]', { event, score: _score, bucket: _bucket, delta, label });
+}
+
+/* ── SCROLL DEPTH ── */
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement.scrollHeight - window.innerHeight;
+  if (doc <= 0) return;
+  const pct = Math.round((window.scrollY / doc) * 100);
+  if (pct > _scrollDepth) {
+    if (pct >= 25 && _scrollDepth < 25) firePixel('scroll_25', 'Scroll 25%', 3, 'emergency');
+    if (pct >= 50 && _scrollDepth < 50) firePixel('scroll_50', 'Scroll 50%', 5, 'emergency');
+    if (pct >= 75 && _scrollDepth < 75) firePixel('scroll_75', 'Scroll 75%', 7, 'emergency');
+    if (pct >= 90 && _scrollDepth < 90) firePixel('scroll_90', 'Scroll 90%', 10, 'emergency');
+    _scrollDepth = pct;
+  }
+});
+
+/* ── DWELL ── */
+let _d30=false,_d60=false,_d120=false;
+setInterval(() => {
+  const s = Math.round((Date.now() - _dwellStart) / 1000);
+  if (s >= 30  && !_d30)  { _d30  = true; firePixel('dwell_30',  '30s dwell',  4,  'emergency'); }
+  if (s >= 60  && !_d60)  { _d60  = true; firePixel('dwell_60',  '60s dwell',  7,  'emergency'); }
+  if (s >= 120 && !_d120) { _d120 = true; firePixel('dwell_120', '2min dwell', 10, 'emergency'); }
+}, 1000);
+
+/* ── SECTION VISIBILITY ── */
+const _obs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const evt = el.dataset.pixelEvent;
+      if (evt) {
+        firePixel(evt, el.dataset.pixelLabel || evt, parseInt(el.dataset.pixelDelta || '0'), el.dataset.pixelBucket || 'emergency');
+        _obs.unobserve(el);
+      }
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-pixel-event]').forEach(el => _obs.observe(el));
+
+/* ── PAGE LOAD — Emergency page fires emergency bucket immediately ── */
+firePixel('page_load', 'Emergency page — session started', 20, 'emergency');
+
+/* ── EMERGENCY PAGE CTA EVENTS ── */
+const heroCallBtn = document.getElementById('heroCallBtn');
+const ctaCallBtn = document.getElementById('ctaCallBtn');
+const navEmergencyBtn = document.getElementById('navEmergencyBtn');
+const navBookBtn = document.getElementById('navBookBtn');
+
+if (heroCallBtn) heroCallBtn.addEventListener('click', () => firePixel('hero_call_click', 'Call CTA — hero', 20, 'emergency'));
+if (ctaCallBtn) ctaCallBtn.addEventListener('click', () => firePixel('cta_call_click', 'Call CTA — bottom band', 20, 'emergency'));
+if (navEmergencyBtn) navEmergencyBtn.addEventListener('click', () => firePixel('nav_emergency', 'Nav: Emergency', 15, 'emergency'));
+if (navBookBtn) navBookBtn.addEventListener('click', () => firePixel('nav_book', 'Nav: Book Now', 10, 'active'));
+
+/* Emergency type card clicks */
+['emgBurstPipe','emgFlooding','emgHotWater','emgSewer','emgGas'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('click', () => firePixel('emg_type_click', 'Emergency type: ' + id, 20, 'emergency'));
+});
+
+/* ── CALLBACK FORM ── */
+function toggleCallbackForm() {
+  const form = document.getElementById('callbackForm');
+  const toggle = document.getElementById('callbackToggle');
+  const isOpen = form.classList.toggle('open');
+  if (isOpen) {
+    firePixel('callback_form_open', 'Callback form opened', 12, 'emergency');
+    toggle.textContent = '↑ Hide callback form';
+  } else {
+    toggle.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Can\'t call right now? Request a callback';
+  }
+}
+function submitCallback() {
+  firePixel('callback_submit', 'Callback form submitted', 20, 'emergency');
+  const btn = document.querySelector('.emg-form-submit');
+  btn.textContent = 'Request sent — we\'ll call within 15 minutes ✓';
+  btn.style.background = 'var(--green)';
+}
+
+/* ── LEAD GRABBER (speak-now only) ── */
+let _lgOpen = false;
+function toggleLG() {
+  _lgOpen = !_lgOpen;
+  document.getElementById('lgPanel').classList.toggle('open', _lgOpen);
+  if (_lgOpen) firePixel('lg_open', 'Lead Grabber opened', 12, 'emergency');
+}
+function submitLG() {
+  firePixel('lg_submit', 'Lead Grabber submitted', 20, 'emergency');
+  const btn = document.querySelector('.lg-submit');
+  btn.textContent = 'Received — calling within 15 minutes ✓';
+  btn.style.background = 'var(--green)';
+  setTimeout(() => { btn.textContent = 'Request call back now'; btn.style.background = ''; }, 4000);
+}
+
+/* ── AI CHAT ── */
+let _chatOpen = false;
+function toggleChat() {
+  _chatOpen = !_chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', _chatOpen);
+  if (_chatOpen) firePixel('chat_open', 'AI Chat opened', 6, 'emergency');
+}
+function quickAsk(q) {
+  _addChatMsg(q, 'user');
+  firePixel('chat_question', 'Emergency question: ' + q.substring(0,30), 10, 'emergency');
+  setTimeout(() => _addChatMsg('For emergencies, please call (705) 700-1234 — a plumber answers 24/7. I can answer general questions here but calling is always faster.', 'bot'), 800);
+}
+function sendChat() {
+  const inp = document.getElementById('chatInput');
+  if (!inp.value.trim()) return;
+  _addChatMsg(inp.value, 'user');
+  firePixel('chat_question', 'Emergency chat question', 10, 'emergency');
+  inp.value = '';
+  setTimeout(() => _addChatMsg('For emergencies, please call (705) 700-1234 directly — a licensed plumber will answer. For general questions I\'m here to help.', 'bot'), 800);
+}
+function _addChatMsg(text, type) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + type;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+/* ── RAPID SCROLL DETECTION (mobile emergency signal) ──
+   If visitor scrolls past 60% within 30 seconds on mobile — emergency bucket already set.
+   Rule confirmed in rules-config-plumbing. Already handled by page_load firing emergency.
+*/
+</script>
+</body>
+</html>

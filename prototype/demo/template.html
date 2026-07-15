@@ -1,0 +1,585 @@
+<title>ClearSky — Journey Replay</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --surface-2: #fbfcfd;
+    --ink: #111827;
+    --muted: #4b5563;
+    --faint: #9ca3af;
+    --border: #e3e7ef;
+    --border-strong: #c8cdd8;
+    --teal: #0d7f78; --teal-bg: #e8f7f6; --teal-bd: #9de0db;
+    --green: #0a7c45; --green-bg: #eaf7f0; --green-bd: #a7dfc4;
+    --red: #b91c1c; --red-bg: #fef2f2; --red-bd: #fca5a5;
+    --amber: #b45309; --amber-bg: #fef6e7; --amber-bd: #f4d290;
+    --blue: #1d4ed8; --blue-bg: #eff6ff; --blue-bd: #93c5fd;
+    --purple: #6d28d9; --purple-bg: #f5f3ff; --purple-bd: #c4b5fd;
+    --slate: #475569; --slate-bg: #f1f5f9; --slate-bd: #cbd5e1;
+    --sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --mono: ui-monospace, 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --shadow: 0 1px 2px rgba(16,24,40,.04), 0 8px 24px -12px rgba(16,24,40,.12);
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); line-height: 1.5;
+    font-feature-settings: "cv05", "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 64px; }
+
+  /* ── Masthead ─────────────────────────────────────────── */
+  header.mast { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .logo {
+    width: 34px; height: 34px; border-radius: 9px; flex: none;
+    background: linear-gradient(135deg, var(--teal), #0aa39a);
+    display: grid; place-items: center; box-shadow: var(--shadow);
+  }
+  .logo svg { width: 20px; height: 20px; }
+  .brand h1 { font-size: 1.06rem; margin: 0; letter-spacing: -.01em; font-weight: 600; }
+  .brand p { margin: 2px 0 0; font-size: .78rem; color: var(--muted); }
+  .mast-note {
+    font-family: var(--mono); font-size: .68rem; color: var(--muted);
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 11px; max-width: 320px; line-height: 1.45;
+  }
+  .mast-note b { color: var(--teal); font-weight: 600; }
+
+  /* ── Journey tabs ─────────────────────────────────────── */
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab {
+    font: inherit; font-size: .82rem; cursor: pointer;
+    background: var(--surface); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 7px 15px; transition: .16s ease; display: inline-flex; gap: 8px; align-items: center;
+  }
+  .tab .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); }
+  .tab:hover { border-color: var(--border-strong); color: var(--ink); }
+  .tab[aria-selected="true"] { background: var(--teal); border-color: var(--teal); color: #fff; font-weight: 600; }
+  .tab[aria-selected="true"] .dot { background: #fff; }
+
+  /* ── Console card ─────────────────────────────────────── */
+  .console { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+
+  /* profile bar */
+  .profile { display: flex; align-items: center; gap: 18px; padding: 14px 18px; border-bottom: 1px solid var(--border); flex-wrap: wrap; background: var(--surface-2); }
+  .who { display: flex; align-items: center; gap: 11px; min-width: 150px; }
+  .avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--slate-bg); color: var(--slate); display: grid; place-items: center; font-weight: 600; font-size: .8rem; border: 1px solid var(--border); }
+  .who .name { font-weight: 600; font-size: .92rem; }
+  .who .persona { font-size: .7rem; color: var(--faint); font-family: var(--mono); }
+  .stat { display: flex; flex-direction: column; gap: 3px; }
+  .stat .k { font-size: .6rem; text-transform: uppercase; letter-spacing: .09em; color: var(--faint); font-weight: 600; }
+  .badge { font-family: var(--mono); font-size: .78rem; font-weight: 600; padding: 3px 9px; border-radius: 6px; border: 1px solid; display: inline-block; transition: .2s ease; }
+  .score-wrap { flex: 1 1 190px; min-width: 160px; }
+  .meter { height: 8px; background: #eef1f5; border-radius: 999px; overflow: hidden; margin-top: 5px; border: 1px solid var(--border); }
+  .meter > span { display: block; height: 100%; width: 0; border-radius: 999px; transition: width .5s cubic-bezier(.2,.7,.2,1), background .3s; }
+  .score-num { font-family: var(--mono); font-weight: 600; font-size: .78rem; }
+  .stepcount { font-family: var(--mono); font-size: .72rem; color: var(--muted); margin-left: auto; }
+
+  /* controls */
+  .controls { display: flex; align-items: center; gap: 8px; padding: 11px 18px; border-bottom: 1px solid var(--border); }
+  .ctrl { font: inherit; cursor: pointer; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; font-size: .82rem; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; transition: .14s; }
+  .ctrl:hover:not(:disabled) { border-color: var(--border-strong); background: var(--surface-2); }
+  .ctrl:disabled { opacity: .4; cursor: default; }
+  .ctrl.primary { background: var(--teal); border-color: var(--teal); color: #fff; font-weight: 600; }
+  .ctrl.primary:hover:not(:disabled) { background: #0a6b65; }
+  .ctrl svg { width: 13px; height: 13px; }
+  .hint { margin-left: auto; font-size: .7rem; color: var(--faint); font-family: var(--mono); }
+
+  /* ── Stage: two columns ───────────────────────────────── */
+  .stage { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 0; min-height: 340px; }
+  .col { padding: 20px 22px; }
+  .col.trigger { border-right: 1px solid var(--border); background: var(--surface-2); }
+  .col-label { font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; color: var(--faint); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .col-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  .actor-chip { display: inline-flex; align-items: center; gap: 7px; font-size: .74rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+  .actor-chip .glyph { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+  .actor-chip.sys .glyph { background: var(--purple); }
+  .actor-chip.rep .glyph { background: var(--amber); }
+  .actor-chip.clock .glyph { background: var(--red); }
+
+  .event-tag { font-family: var(--mono); font-size: .72rem; color: var(--teal); background: var(--teal-bg); border: 1px solid var(--teal-bd); padding: 2px 8px; border-radius: 6px; }
+  .trig-head { font-size: 1.28rem; line-height: 1.25; font-weight: 600; letter-spacing: -.015em; margin: 16px 0 8px; text-wrap: balance; }
+  .trig-time { font-family: var(--mono); font-size: .74rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .trig-meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* system column blocks */
+  .block { margin-bottom: 16px; }
+  .block:last-child { margin-bottom: 0; }
+  .block-h { font-size: .6rem; text-transform: uppercase; letter-spacing: .1em; color: var(--faint); font-weight: 700; margin-bottom: 8px; }
+  .notes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .notes li { font-size: .84rem; color: var(--ink); padding-left: 16px; position: relative; }
+  .notes li::before { content: "›"; position: absolute; left: 2px; color: var(--teal); font-weight: 700; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-family: var(--mono); font-size: .72rem; font-weight: 600; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); }
+  .chip.dim { opacity: .5; }
+  .chip.sig { background: var(--blue-bg); border-color: var(--blue-bd); color: var(--blue); }
+  .chip.sig.dom { background: var(--teal-bg); border-color: var(--teal-bd); color: var(--teal); }
+  .chip.gap { background: var(--amber-bg); border-color: var(--amber-bd); color: var(--amber); cursor: help; }
+  .chip.gap.gap-new { background: var(--red-bg); border-color: var(--red-bd); color: var(--red); }
+
+  /* AI analysis dims */
+  .dims { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px,1fr)); gap: 6px; }
+  .dim { border: 1px solid var(--border); border-radius: 7px; padding: 6px 9px; background: var(--surface); }
+  .dim .dk { font-size: .56rem; text-transform: uppercase; letter-spacing: .07em; color: var(--faint); font-weight: 700; }
+  .dim .dv { font-family: var(--mono); font-size: .8rem; font-weight: 600; margin-top: 1px; }
+  .dim.hot { background: var(--red-bg); border-color: var(--red-bd); }
+  .dim.hot .dv { color: var(--red); }
+  .dim.warm { background: var(--amber-bg); border-color: var(--amber-bd); }
+  .dim.warm .dv { color: var(--amber); }
+  .dim.go .dv { color: var(--green); }
+
+  /* actions */
+  .acts { display: flex; flex-direction: column; gap: 6px; }
+  .act { display: flex; align-items: center; gap: 9px; padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+  .act .ico { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; flex: none; font-size: .7rem; font-weight: 700; }
+  .act.done .ico { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); }
+  .act.wait .ico { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-bd); }
+  .act .aid { font-family: var(--mono); font-size: .72rem; font-weight: 600; color: var(--ink); }
+  .act .aname { font-size: .8rem; color: var(--muted); }
+  .act .owner { margin-left: auto; font-family: var(--mono); font-size: .64rem; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; }
+
+  /* breach styling */
+  .col.system.breach { background: linear-gradient(180deg, var(--red-bg), var(--surface) 120px); }
+  .breach-banner { display: flex; align-items: center; gap: 9px; font-weight: 600; color: var(--red); font-size: .92rem; margin-bottom: 12px; padding: 9px 12px; background: var(--red-bg); border: 1px solid var(--red-bd); border-radius: 9px; }
+  .breach-banner svg { width: 16px; height: 16px; flex: none; }
+  .esc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .esc { display: flex; align-items: center; gap: 10px; font-size: .84rem; padding: 8px 11px; border: 1px solid var(--red-bd); border-radius: 8px; background: var(--surface); }
+  .esc .n { font-family: var(--mono); font-weight: 700; color: var(--red); font-size: .78rem; width: 16px; }
+  .bridge-note { margin-top: 14px; padding: 11px 13px; border: 1px dashed var(--teal-bd); background: var(--teal-bg); border-radius: 9px; font-size: .84rem; color: #0a5f5a; }
+  .bridge-note b { color: var(--teal); }
+
+  /* fade */
+  .fade { animation: fade .28s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  /* ── Timeline ─────────────────────────────────────────── */
+  .timeline { display: flex; align-items: center; gap: 0; padding: 16px 18px 6px; overflow-x: auto; }
+  .tl-track { display: flex; align-items: center; gap: 0; min-width: max-content; }
+  .tl-node { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; background: none; border: none; font: inherit; padding: 0 3px; }
+  .tl-dot { width: 13px; height: 13px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border-strong); transition: .18s; }
+  .tl-node:hover .tl-dot { border-color: var(--teal); }
+  .tl-node[aria-current="true"] .tl-dot { background: var(--teal); border-color: var(--teal); transform: scale(1.25); box-shadow: 0 0 0 4px var(--teal-bg); }
+  .tl-node.breach .tl-dot { border-color: var(--red); }
+  .tl-node.breach[aria-current="true"] .tl-dot { background: var(--red); box-shadow: 0 0 0 4px var(--red-bg); }
+  .tl-node.convert .tl-dot { border-color: var(--green); }
+  .tl-node.convert[aria-current="true"] .tl-dot { background: var(--green); box-shadow: 0 0 0 4px var(--green-bg); }
+  .tl-node.done .tl-dot::after { }
+  .tl-node.passed .tl-dot { background: var(--teal-bd); border-color: var(--teal-bd); }
+  .tl-seg { width: 26px; height: 2px; background: var(--border); }
+  .tl-seg.passed { background: var(--teal-bd); }
+  .tl-cap { font-family: var(--mono); font-size: .58rem; color: var(--faint); white-space: nowrap; max-width: 64px; overflow: hidden; text-overflow: ellipsis; }
+  .tl-node[aria-current="true"] .tl-cap { color: var(--ink); font-weight: 600; }
+
+  /* legend / footer */
+  .footer { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 18px; font-size: .74rem; color: var(--muted); }
+  .leg { display: inline-flex; align-items: center; gap: 6px; }
+  .leg .sw { width: 10px; height: 10px; border-radius: 3px; }
+  .gapcount { margin-left: auto; font-family: var(--mono); }
+  .gapcount b { color: var(--amber); }
+
+  @media (max-width: 720px) {
+    .stage { grid-template-columns: 1fr; }
+    .col.trigger { border-right: none; border-bottom: 1px solid var(--border); }
+    .stepcount { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 6px; }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 15a4 4 0 013.8-4 5 5 0 019.7-1.3A3.5 3.5 0 0119 16H7a3 3 0 01-3-1z" fill="#fff" opacity=".95"/></svg>
+      </div>
+      <div>
+        <h1>ClearSky — AI Decision System</h1>
+        <p>Journey replay · one customer, walked through the seven-stage pipeline</p>
+      </div>
+    </div>
+    <div class="mast-note">
+      Every step below is produced by the <b>prototype engine</b> running the journey
+      end-to-end — not a mockup. <code>npm&nbsp;run&nbsp;sim</code>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Journeys"></nav>
+
+  <section class="console" aria-live="polite">
+    <div class="profile">
+      <div class="who">
+        <div class="avatar" id="avatar">B</div>
+        <div>
+          <div class="name" id="who-name">Barry</div>
+          <div class="persona" id="who-persona">persona: John1</div>
+        </div>
+      </div>
+      <div class="stat">
+        <span class="k">Identity tier</span>
+        <span class="badge" id="tier-badge">Tier 2B</span>
+      </div>
+      <div class="stat">
+        <span class="k">Intent bucket</span>
+        <span class="badge" id="bucket-badge">unclassified</span>
+      </div>
+      <div class="stat score-wrap">
+        <span class="k">Engagement score · <span class="score-num" id="score-num">0</span>/100</span>
+        <div class="meter"><span id="meter-fill"></span></div>
+      </div>
+      <span class="stepcount"><span id="step-i">1</span> / <span id="step-n">13</span></span>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl" id="prev" aria-label="Previous step">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 6l-6 6 6 6"/></svg> Prev
+      </button>
+      <button class="ctrl primary" id="play" aria-label="Play journey">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play
+      </button>
+      <button class="ctrl" id="next" aria-label="Next step">
+        Next <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <span class="hint">← / → to step · space to play</span>
+    </div>
+
+    <div class="stage">
+      <div class="col trigger">
+        <div class="col-label">Trigger</div>
+        <div id="trigger-body"></div>
+      </div>
+      <div class="col system" id="system-col">
+        <div class="col-label">ClearSky decides</div>
+        <div id="system-body"></div>
+      </div>
+    </div>
+
+    <div class="timeline"><div class="tl-track" id="tl-track"></div></div>
+  </section>
+
+  <div class="footer">
+    <span class="leg"><span class="sw" style="background:var(--teal)"></span> executed / identified</span>
+    <span class="leg"><span class="sw" style="background:var(--red)"></span> SLA breach</span>
+    <span class="leg"><span class="sw" style="background:var(--amber)"></span> tracker gap</span>
+    <span class="leg"><span class="sw" style="background:var(--red)"></span> NEW gap (just flagged)</span>
+    <span class="gapcount">gaps surfaced this journey: <b id="gap-total">0</b></span>
+  </div>
+</div>
+
+<script id="trace-data" type="application/json">__TRACE_JSON__</script>
+<script>
+(function () {
+  "use strict";
+  const DATA = JSON.parse(document.getElementById("trace-data").textContent);
+
+  // persona / display helpers
+  const PERSONA = { barry: { name: "Barry", tag: "John1 → Barry Smith", init: "B" }, denise: { name: "Denise", tag: "returning visitor", init: "D" }, "denise-call": { name: "Denise", tag: "Tier 1 contact", init: "D" }, "denise-review": { name: "Denise", tag: "past customer", init: "D" }, george: { name: "George", tag: "George1 — comparison shopper", init: "G" },
+    peter: { name: "Peter", tag: "Peter1 · draft — journey not yet written", init: "P" },
+    betty: { name: "Betty", tag: "Betty1 · draft — journey not yet written", init: "B" },
+    francine: { name: "Francine", tag: "Francine1 · draft — journey not yet written", init: "F" },
+    coreen: { name: "Coreen", tag: "Coreen1 · draft — journey not yet written", init: "C" } };
+
+  const EVENT_LABEL = {
+    page_load: "Page load", scroll_25: "Scrolled 25%", scroll_50: "Scrolled 50%", scroll_75: "Scrolled 75%",
+    dwell_30: "Dwelled 30s", dwell_60: "Dwelled past a minute", faq_expand: "Expanded an FAQ",
+    lg_open: "Opened the Lead Grabber", lg_submit: "Submitted the Lead Grabber",
+    email_capture: "Downloaded the guide", contact_form: "Submitted the contact form",
+    call_click: "Tapped Call Now", ivr_dtmf: "Pressed an IVR key", call_completed: "Live call — completed",
+    voicemail: "Left a voicemail", review_received: "Left a review",
+    sla_register: "Callback promised", sla_check: "Callback SLA — 15-minute check",
+    autocall_authorize: "Autocaller bridge-merge", commitment_extracted: "Commitment captured",
+    svc_click: "Opened a service page", ba_slider_drag: "Dragged before/after slider",
+    testimonials_view: "Read testimonials", fin_plan_view: "Opened a financing plan",
+    financing_guide_download: "Downloaded financing guide", tab_close: "Left the site",
+    voicemail_received: "Voicemail received", send_follow_up_message: "SMS follow-up",
+    supplier_delivery_received: "Supplier delivery", job_completed: "Job completed",
+    invoice_sent: "Invoice sent", payment_received: "Payment received",
+    outbound_call_voicemail: "Left a voicemail", scheduling_email_sent: "Scheduling email",
+    slot_selected: "Slot booked", review_request_sent: "Review request",
+    relationship_check_in_sent: "Relationship check-in", facebook_follow_ask: "Asked for a follow",
+    facebook_followed: "Followed on Facebook"
+  };
+
+  // who triggered each step
+  function actorFor(evt, persona) {
+    if (["sla_register", "commitment_extracted"].includes(evt)) return { label: "ClearSky system", cls: "sys" };
+    if (evt === "sla_check") return { label: "SLA clock", cls: "clock" };
+    if (evt === "autocall_authorize") return { label: "Bert · owner", cls: "rep" };
+    return { label: persona, cls: "" };
+  }
+
+  const TIER = {
+    T1: { label: "Tier 1", c: "var(--teal)", bg: "var(--teal-bg)", bd: "var(--teal-bd)" },
+    T2: { label: "Tier 2", c: "var(--amber)", bg: "var(--amber-bg)", bd: "var(--amber-bd)" },
+    T2B: { label: "Tier 2B", c: "var(--slate)", bg: "var(--slate-bg)", bd: "var(--slate-bd)" },
+    T3: { label: "Tier 3", c: "var(--faint)", bg: "#f3f4f6", bd: "#e5e7eb" }
+  };
+  const BUCKET = {
+    unclassified: { c: "var(--faint)", bg: "#f3f4f6", bd: "#e5e7eb" },
+    research: { c: "var(--blue)", bg: "var(--blue-bg)", bd: "var(--blue-bd)" },
+    comparison: { c: "var(--purple)", bg: "var(--purple-bg)", bd: "var(--purple-bd)" },
+    active: { c: "var(--teal)", bg: "var(--teal-bg)", bd: "var(--teal-bd)" },
+    emergency: { c: "var(--red)", bg: "var(--red-bg)", bd: "var(--red-bd)" }
+  };
+
+  const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
+
+  let journeyIdx = 0, stepIdx = 0, playing = false, timer = null;
+
+  // ── tabs ──
+  const tabsEl = document.getElementById("tabs");
+  DATA.forEach((j, i) => {
+    const b = document.createElement("button");
+    b.className = "tab"; b.setAttribute("role", "tab"); b.setAttribute("aria-selected", i === 0);
+    b.innerHTML = '<span class="dot"></span>' + esc(shortTitle(j));
+    b.onclick = () => { selectJourney(i); };
+    tabsEl.appendChild(b);
+  });
+  function shortTitle(j) {
+    if (j.id === "barry") return "Barry — Lead Grabber → SLA breach";
+    if (j.id === "denise") return "Denise — anonymous → Tier 1";
+    if (j.id === "denise-call") return "Denise — the call";
+    if (j.id === "denise-review") return "Denise — the review";
+    if (j.id === "george") return "George — active without converting";
+    if (j.id === "peter") return "Peter — research, no convert (draft)";
+    if (j.id === "betty") return "Betty — guide download (draft)";
+    if (j.id === "francine") return "Francine — Lead Grabber (draft)";
+    if (j.id === "coreen") return "Coreen — Call Now, anon (draft)";
+    return j.title;
+  }
+
+  function selectJourney(i) {
+    stopPlay();
+    journeyIdx = i; stepIdx = 0;
+    [...tabsEl.children].forEach((t, k) => t.setAttribute("aria-selected", k === i));
+    buildTimeline();
+    render();
+  }
+
+  // ── timeline ──
+  function isBreach(s) { return s.event === "sla_check" && s.notes.some((n) => /BREACH/.test(n)); }
+  function isConvert(s) { return s.profileWasNew || s.event === "commitment_extracted" || (s.pipeline && (s.pipeline.dominant || "").includes("BOOKING")); }
+
+  function buildTimeline() {
+    const track = document.getElementById("tl-track");
+    track.innerHTML = "";
+    const steps = DATA[journeyIdx].steps;
+    steps.forEach((s, i) => {
+      if (i > 0) { const seg = document.createElement("div"); seg.className = "tl-seg"; seg.dataset.i = i; track.appendChild(seg); }
+      const node = document.createElement("button");
+      node.className = "tl-node" + (isBreach(s) ? " breach" : "") + (isConvert(s) ? " convert" : "");
+      node.dataset.i = i;
+      node.setAttribute("aria-label", "Step " + (i + 1) + ": " + (EVENT_LABEL[s.event] || s.event));
+      node.innerHTML = '<span class="tl-dot"></span><span class="tl-cap">' + esc(EVENT_LABEL[s.event] || s.event) + "</span>";
+      node.onclick = () => { stopPlay(); stepIdx = i; render(); };
+      track.appendChild(node);
+    });
+  }
+
+  // ── render ──
+  function render() {
+    const j = DATA[journeyIdx];
+    const steps = j.steps;
+    const s = steps[stepIdx];
+    const prev = stepIdx > 0 ? steps[stepIdx - 1] : null;
+    const persona = PERSONA[j.id] || { name: "Visitor", tag: "", init: "?" };
+
+    // profile bar
+    document.getElementById("avatar").textContent = persona.init;
+    document.getElementById("who-name").textContent = persona.name;
+    document.getElementById("who-persona").textContent = persona.tag;
+    document.getElementById("step-i").textContent = stepIdx + 1;
+    document.getElementById("step-n").textContent = steps.length;
+
+    const tier = TIER[s.state.tier] || TIER.T2B;
+    const tb = document.getElementById("tier-badge");
+    tb.textContent = tier.label; tb.style.color = tier.c; tb.style.background = tier.bg; tb.style.borderColor = tier.bd;
+    if (prev && prev.state.tier !== s.state.tier) pulse(tb);
+
+    const buck = BUCKET[s.state.bucket] || BUCKET.unclassified;
+    const bb = document.getElementById("bucket-badge");
+    bb.textContent = s.state.bucket; bb.style.color = buck.c; bb.style.background = buck.bg; bb.style.borderColor = buck.bd;
+
+    document.getElementById("score-num").textContent = s.state.scoreRaw;
+    const fill = document.getElementById("meter-fill");
+    fill.style.width = s.state.scoreRaw + "%";
+    fill.style.background = buck.c;
+
+    renderTrigger(s, persona.name);
+    renderSystem(s, prev);
+    updateTimeline();
+    updateControls();
+
+    // gap total across journey
+    const gt = new Set();
+    steps.forEach((st) => st.gaps.forEach((g) => gt.add(g.ref)));
+    document.getElementById("gap-total").textContent = gt.size;
+  }
+
+  function pulse(el) {
+    el.animate([{ transform: "scale(1)" }, { transform: "scale(1.14)" }, { transform: "scale(1)" }], { duration: 420, easing: "ease" });
+  }
+
+  function renderTrigger(s, persona) {
+    const a = actorFor(s.event, persona);
+    let time = "day " + s.day;
+    if (s.minute !== undefined) time += " · +" + s.minute + " min";
+    const head = s.label || EVENT_LABEL[s.event] || s.event;
+    const el = document.getElementById("trigger-body");
+    el.className = "fade";
+    el.innerHTML =
+      '<span class="actor-chip ' + a.cls + '"><span class="glyph"></span>' + esc(a.label) + "</span>" +
+      '<div class="trig-head">' + esc(head) + "</div>" +
+      '<div class="trig-time">' +
+        '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg> ' +
+        esc(time) + '</div>' +
+      '<div class="trig-meta"><span class="event-tag">' + esc(s.event) + "</span>" +
+        '<span class="chip">device: ' + esc(s.state.fingerprint.replace("fp_", "")) + "</span></div>";
+    void el.offsetWidth;
+  }
+
+  function renderSystem(s, prev) {
+    const col = document.getElementById("system-col");
+    const body = document.getElementById("system-body");
+    const breach = s.event === "sla_check" && s.notes.some((n) => /BREACH/.test(n));
+    col.classList.toggle("breach", breach);
+    body.className = "fade";
+    let html = "";
+
+    // Special-case the escalation moment for drama
+    if (breach) {
+      html += '<div class="breach-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9l-8 14A2 2 0 004 21h16a2 2 0 001.7-3l-8-14a2 2 0 00-3.4 0z"/></svg> SLA breach — no callback within 15 minutes</div>';
+      html += '<ul class="esc-list">' +
+        '<li class="esc"><span class="n">1</span> SMS to the rep — “callback is overdue. Call now.”</li>' +
+        '<li class="esc"><span class="n">2</span> Push notification — same message</li>' +
+        '<li class="esc"><span class="n">3</span> Automated call — “press 1 to be connected now”</li></ul>';
+    } else {
+      // score / bucket / identity notes
+      if (s.notes && s.notes.length) {
+        const shown = s.notes.filter((n) => !/^ /.test(n) && !/escalation channels/.test(n));
+        if (shown.length) html += '<div class="block"><div class="block-h">Engine trace</div><ul class="notes">' +
+          shown.map((n) => "<li>" + esc(n) + "</li>").join("") + "</ul></div>";
+      }
+    }
+
+    if (s.event === "autocall_authorize") {
+      html += '<div class="bridge-note"><b>Autocaller bridge-merge.</b> Bert presses <b>1</b> → the autocaller connects him straight to the customer. It never dials on its own; it needs his authorization first. <span style="color:var(--muted)">(A capability RightFlush has never had before.)</span></div>';
+    }
+
+    const p = s.pipeline;
+    if (p) {
+      // AI analysis dimensions
+      if (p.analysis) {
+        const A = p.analysis;
+        const dim = (k, v, cls) => '<div class="dim ' + (cls || "") + '"><div class="dk">' + k + '</div><div class="dv">' + esc(v) + "</div></div>";
+        html += '<div class="block"><div class="block-h">S1 · AI analysis (6 dimensions)</div><div class="dims">' +
+          dim("emergency", A.emergency, A.emergency ? "hot" : "") +
+          dim("urgency", A.urgency, A.urgency === "critical" ? "hot" : A.urgency === "high" ? "warm" : "") +
+          dim("opportunity", A.opportunity, A.opportunity === "high" ? "go" : "") +
+          dim("momentum", A.momentum, A.momentum === "ready_to_book" ? "go" : "") +
+          dim("sentiment", A.sentiment) +
+          dim("risk", A.risk, A.risk === "high" ? "hot" : "") +
+          "</div></div>";
+      }
+      // signals
+      if (p.signals && p.signals.length) {
+        html += '<div class="block"><div class="block-h">S2 · signals detected → S3 dominant</div><div class="chips">' +
+          p.signals.map((sig) => '<span class="chip sig' + (sig === p.dominant ? " dom" : "") + '">' + (sig === p.dominant ? "★ " : "") + esc(sig) + "</span>").join("") +
+          "</div></div>";
+      } else if (p.analysis) {
+        html += '<div class="block"><div class="block-h">S2 · signals</div><div class="chips"><span class="chip dim">no signal fired — logged only</span></div></div>';
+      }
+      // actions
+      if (p.actions && p.actions.length) {
+        html += '<div class="block"><div class="block-h">S4 / S5 · actions</div><div class="acts">' +
+          p.actions.map((a) => {
+            const done = a.status === "completed";
+            return '<div class="act ' + (done ? "done" : "wait") + '">' +
+              '<span class="ico">' + (done ? "✓" : "⏸") + "</span>" +
+              '<span class="aid">' + esc(a.actionId) + "</span>" +
+              '<span class="aname">' + esc(a.name) + "</span>" +
+              '<span class="owner">' + (done ? "auto" : "awaits " + esc(a.owner)) + "</span></div>";
+          }).join("") + "</div></div>";
+      }
+      // feedback
+      if (p.feedback) {
+        const f = p.feedback;
+        html += '<div class="block"><div class="block-h">S7 · feedback</div><div class="chips">' +
+          '<span class="chip">signal: ' + esc(f.signalValidity) + "</span>" +
+          '<span class="chip">execution: ' + esc(f.actionExecutionQuality) + "</span>" +
+          '<span class="chip">review: ' + esc(f.humanReviewState) + "</span></div></div>";
+      }
+    }
+
+    // gaps
+    if (s.gaps && s.gaps.length) {
+      const seen = new Set();
+      const chips = s.gaps.filter((g) => { const k = g.ref; if (seen.has(k)) return false; seen.add(k); return true; })
+        .map((g) => {
+          const isNew = /^NEW/.test(g.ref);
+          const label = /^\d+$/.test(g.ref) ? "tracker #" + g.ref : (isNew ? "NEW gap" : g.ref);
+          return '<span class="chip gap' + (isNew ? " gap-new" : "") + '" title="' + esc(g.note) + '">⚑ ' + esc(label) + "</span>";
+        }).join("");
+      html += '<div class="block"><div class="block-h">Gaps flagged (hover for detail)</div><div class="chips">' + chips + "</div></div>";
+    }
+
+    if (!html) html = '<div class="block"><ul class="notes"><li>logged — no state change</li></ul></div>';
+    body.innerHTML = html;
+    void body.offsetWidth;
+  }
+
+  function updateTimeline() {
+    const nodes = document.querySelectorAll(".tl-node");
+    nodes.forEach((n) => {
+      const i = +n.dataset.i;
+      n.setAttribute("aria-current", i === stepIdx);
+      n.classList.toggle("passed", i < stepIdx);
+    });
+    document.querySelectorAll(".tl-seg").forEach((sg) => sg.classList.toggle("passed", +sg.dataset.i <= stepIdx));
+    const cur = document.querySelector('.tl-node[aria-current="true"]');
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+  }
+
+  function updateControls() {
+    document.getElementById("prev").disabled = stepIdx === 0;
+    document.getElementById("next").disabled = stepIdx === DATA[journeyIdx].steps.length - 1;
+  }
+
+  // ── controls ──
+  document.getElementById("prev").onclick = () => { stopPlay(); if (stepIdx > 0) { stepIdx--; render(); } };
+  document.getElementById("next").onclick = () => { stopPlay(); step(); };
+  document.getElementById("play").onclick = togglePlay;
+
+  function step() { const n = DATA[journeyIdx].steps.length; if (stepIdx < n - 1) { stepIdx++; render(); return true; } return false; }
+
+  function togglePlay() {
+    if (playing) { stopPlay(); return; }
+    if (stepIdx === DATA[journeyIdx].steps.length - 1) { stepIdx = 0; render(); }
+    playing = true; setPlayBtn();
+    timer = setInterval(() => { if (!step()) stopPlay(); }, 1500);
+  }
+  function stopPlay() { playing = false; if (timer) clearInterval(timer); timer = null; setPlayBtn(); }
+  function setPlayBtn() {
+    const b = document.getElementById("play");
+    b.innerHTML = playing
+      ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg> Pause'
+      : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play';
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") { e.preventDefault(); document.getElementById("next").click(); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); document.getElementById("prev").click(); }
+    else if (e.key === " ") { e.preventDefault(); togglePlay(); }
+  });
+
+  buildTimeline();
+  render();
+})();
+</script>

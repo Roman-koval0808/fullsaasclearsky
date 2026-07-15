@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSky — Section 8: Engagement Score</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f4f7;--surface:#fff;--surface2:#f7f8fa;--border:#e3e7ef;--border2:#c8cdd8;
+  --text:#111827;--text2:#4b5563;--text3:#9ca3af;
+  --green:#0a7c45;--green-bg:#eaf7f0;--green-bd:#a7dfc4;
+  --red:#b91c1c;--red-bg:#fef2f2;--red-bd:#fca5a5;
+  --amber:#92600a;--amber-bg:#fffbeb;--amber-bd:#fcd34d;
+  --blue:#1d4ed8;--blue-bg:#eff6ff;--blue-bd:#93c5fd;
+  --purple:#6d28d9;--purple-bg:#f5f3ff;--purple-bd:#c4b5fd;
+  --teal:#0d7f78;--teal-bg:#e8f7f6;--teal-bd:#9de0db;
+  --mono:'IBM Plex Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:13px;line-height:1.5;overflow-x:hidden;}
+
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.05);position:sticky;top:0;z-index:100;}
+.logo{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--green);letter-spacing:.08em;}
+.logo em{color:var(--text3);font-style:normal;}
+.section-badge{font-family:var(--mono);font-size:10px;padding:4px 12px;border-radius:4px;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+
+.page{max-width:1200px;margin:0 auto;padding:32px 24px 64px;}
+.sec-header{margin-bottom:32px;}
+.sec-label{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:8px;}
+.sec-title{font-size:28px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:12px;}
+.sec-desc{font-size:14px;color:var(--text2);max-width:680px;line-height:1.6;}
+
+.sec-divider{height:1px;background:var(--border);margin:32px 0;}
+.subsec-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.subsec-desc{font-size:12px;color:var(--text2);margin-bottom:20px;}
+.pill{display:inline-flex;align-items:center;font-family:var(--mono);font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px;}
+.p-emg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.p-act{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd);}
+.p-cmp{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+.p-res{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.p-neg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.p-sys{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd);}
+
+/* ── DUAL SCORE DISPLAY ── */
+.dual-score-section{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px;}
+.ds-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;}
+.ds-label{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:12px;}
+.ds-big{font-family:var(--mono);font-size:56px;font-weight:600;line-height:1;margin-bottom:8px;}
+.ds-big.raw{color:var(--text3);}
+.ds-big.live-green{color:var(--green);}
+.ds-big.live-blue{color:var(--blue);}
+.ds-big.live-amber{color:#d97706;}
+.ds-big.live-red{color:var(--red);}
+.ds-role{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:12px;}
+.ds-bar-wrap{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:8px;position:relative;}
+.ds-bar{height:100%;border-radius:4px;transition:width 1s ease;}
+.ds-bar.raw{background:var(--border2);}
+.ds-bar.live{background:var(--green);}
+.ds-note{font-family:var(--mono);font-size:10px;color:var(--text3);}
+
+/* DECAY SIMULATOR */
+.decay-sim{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:40px;}
+.decay-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
+.decay-slider-wrap{display:flex;flex-direction:column;gap:4px;flex:1;min-width:200px;}
+.decay-slider-label{font-size:11px;color:var(--text2);}
+.decay-slider{width:100%;accent-color:var(--blue);}
+.decay-bucket-select{display:flex;gap:6px;flex-wrap:wrap;}
+.bucket-btn{font-family:var(--mono);font-size:10px;font-weight:600;padding:6px 12px;border-radius:5px;border:1px solid var(--border2);background:none;color:var(--text3);cursor:pointer;transition:all .15s;}
+.bucket-btn.emg.sel{background:var(--red-bg);color:var(--red);border-color:var(--red);}
+.bucket-btn.act.sel{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-bd);}
+.bucket-btn.cmp.sel{background:var(--blue-bg);color:var(--blue);border-color:var(--blue);}
+.bucket-btn.res.sel{background:var(--green-bg);color:var(--green);border-color:var(--green);}
+.bucket-btn:hover{border-color:var(--text2);}
+
+.decay-display{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+.dd-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;}
+.dd-card-label{font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+.dd-card-val{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--text);line-height:1;}
+.dd-card-sub{font-size:10px;color:var(--text3);margin-top:4px;}
+.dd-card-val.decaying{color:var(--red);}
+.dd-card-val.grace{color:var(--green);}
+
+.grace-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:8px;position:relative;}
+.grace-fill{height:100%;border-radius:3px;transition:width .5s;}
+.grace-fill.in-grace{background:var(--green);}
+.grace-fill.decaying{background:var(--red);}
+
+.decay-table{width:100%;border-collapse:collapse;}
+.decay-table th{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);padding:6px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.decay-table td{font-size:11px;padding:7px 12px;border-bottom:1px solid var(--border);color:var(--text2);}
+.decay-table td:first-child{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--text);}
+.decay-table tr:last-child td{border-bottom:none;}
+.decay-table tr.highlighted td{background:var(--blue-bg);}
+
+/* DELTA TABLE */
+.delta-section{margin-bottom:40px;}
+.delta-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.delta-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.delta-panel-head{padding:12px 16px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--text);}
+.delta-table{width:100%;border-collapse:collapse;}
+.delta-table th{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);padding:6px 12px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface2);}
+.delta-table td{font-size:11px;padding:6px 12px;border-bottom:1px solid var(--border);color:var(--text2);}
+.delta-table tr:last-child td{border-bottom:none;}
+.delta-table td:first-child{font-family:var(--mono);font-size:10px;color:var(--text);}
+.delta-val{font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 7px;border-radius:3px;}
+.dv-pos{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.dv-neg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.dv-mult{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-bd);}
+.delta-bucket{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;margin-left:4px;}
+.db-emg{background:var(--red-bg);color:var(--red);}
+.db-act{background:var(--amber-bg);color:var(--amber);}
+.db-cmp{background:var(--blue-bg);color:var(--blue);}
+.db-res{background:var(--green-bg);color:var(--green);}
+
+/* PATH MULTIPLIERS */
+.path-table{width:100%;border-collapse:collapse;}
+.path-table th{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);padding:6px 12px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface2);}
+.path-table td{font-size:11px;padding:7px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;}
+.path-table tr:last-child td{border-bottom:none;}
+.path-table td:first-child{font-family:var(--mono);font-size:10px;color:var(--text);font-weight:500;}
+.mult-badge{font-family:var(--mono);font-size:12px;font-weight:600;padding:3px 10px;border-radius:4px;background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-bd);}
+.path-events{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;}
+.path-event-chip{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;background:var(--bg);border:1px solid var(--border);color:var(--text3);}
+.calib-note{font-size:10px;color:var(--amber);font-style:italic;margin-top:3px;}
+
+/* TRAJECTORY VISUALISER */
+.trajectory-section{margin-bottom:40px;}
+.traj-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
+.traj-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;}
+.traj-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
+.traj-name{font-size:13px;font-weight:600;color:var(--text);}
+.traj-sub{font-size:11px;color:var(--text3);font-family:var(--mono);}
+.traj-score-now{font-family:var(--mono);font-size:32px;font-weight:600;line-height:1;}
+.traj-score-now.rising{color:var(--green);}
+.traj-score-now.cooling{color:var(--red);}
+.traj-score-label{font-size:9px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;}
+
+/* SVG chart */
+.traj-chart{width:100%;height:120px;margin-bottom:12px;}
+
+.traj-velocity{display:flex;align-items:center;gap:6px;margin-bottom:12px;}
+.vel-icon{font-size:14px;}
+.vel-text{font-size:12px;font-weight:500;}
+.vel-text.up{color:var(--green);}
+.vel-text.dn{color:var(--red);}
+.traj-sessions{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.traj-session-chip{font-size:10px;padding:3px 8px;border-radius:4px;background:var(--bg);border:1px solid var(--border);color:var(--text2);display:flex;align-items:center;gap:4px;}
+.traj-session-chip.current{border-color:var(--green-bd);background:var(--green-bg);}
+
+.orch-action{border-radius:8px;padding:12px 14px;}
+.orch-action.act{background:var(--green-bg);border:1px solid var(--green-bd);}
+.orch-action.wait{background:var(--amber-bg);border:1px solid var(--amber-bd);}
+.oa-label{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+.oa-label.act{color:var(--green);}
+.oa-label.wait{color:var(--amber);}
+.oa-action{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.oa-reason{font-size:11px;color:var(--text2);}
+
+/* SCORE HISTORY */
+.score-history-section{margin-bottom:40px;}
+.score-history-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.sh-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.sh-head{padding:12px 16px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--text);display:flex;align-items:center;justify-content:space-between;}
+.sh-event-list{padding:0;}
+.sh-event{display:grid;grid-template-columns:60px 1fr 70px 60px;align-items:center;gap:0;padding:8px 14px;border-bottom:1px solid var(--border);}
+.sh-event:last-child{border-bottom:none;}
+.sh-event.neg{background:var(--red-bg);}
+.sh-event.path-ctx{background:var(--purple-bg);}
+.sh-event.conv{background:var(--green-bg);}
+.she-time{font-family:var(--mono);font-size:9px;color:var(--text3);}
+.she-name{font-size:11px;color:var(--text);}
+.she-name small{display:block;font-family:var(--mono);font-size:9px;color:var(--purple);font-style:italic;}
+.she-name .neg-note{color:var(--red);}
+.she-delta{font-family:var(--mono);font-size:10px;font-weight:600;text-align:right;padding:2px 6px;border-radius:3px;}
+.she-delta.pos{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.she-delta.neg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.she-score{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--text);text-align:right;}
+
+/* Neg delta callout */
+.neg-callout{background:var(--red-bg);border:1px solid var(--red-bd);border-radius:8px;padding:14px 16px;margin-bottom:16px;}
+.nc-title{font-size:12px;font-weight:600;color:var(--red);margin-bottom:4px;}
+.nc-body{font-size:11px;color:var(--text2);line-height:1.5;}
+.nc-types{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+.nc-type{font-size:11px;padding:4px 10px;border-radius:4px;border:1px solid var(--border);}
+.nc-type.friction{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-bd);}
+.nc-type.disengage{background:var(--red-bg);color:var(--red);border-color:var(--red-bd);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">CLEAR<em>SKY</em></div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text3);background:var(--blue-bg);padding:4px 12px;border-radius:4px;border:1px solid var(--blue-bd);">Section 8</div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text3);">Engagement Score</div>
+  </div>
+  <div class="section-badge">BI Platform · Session 6</div>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="sec-header">
+    <div class="sec-label">Section 8 of 8 — Foundation</div>
+    <div class="sec-title">Engagement Score</div>
+    <div class="sec-desc">The Engagement Score is a real-time number between 0 and 100 that reflects where a visitor is in the customer journey at this specific moment. It is deterministic — the same inputs always produce the same score. It is not a machine learning prediction. It is a truthful measurement. The bucket follows the score. Never the other way around.</div>
+  </div>
+
+  <!-- DUAL SCORE -->
+  <div class="subsec-title">Dual Score Fields — score_raw and score_live</div>
+  <div class="subsec-desc">Two fields replace the previous single score field. They serve completely different purposes and are never combined.</div>
+
+  <div class="dual-score-section">
+    <div class="ds-panel">
+      <div class="ds-label">score_raw — The Audit Trail</div>
+      <div class="ds-big raw" id="ds-raw">63</div>
+      <div class="ds-bar-wrap"><div class="ds-bar raw" id="ds-bar-raw" style="width:63%;"></div></div>
+      <div class="ds-role">Cumulative score at last event. <strong>Never decays.</strong> Represents everything the visitor has done — the permanent record. The audit trail the team can inspect to understand how a score was reached. score_raw only increases. It is not what the Orchestrator acts on.</div>
+      <div class="ds-note">Increases on every positive event. Floor: 0. Ceiling: 100.</div>
+    </div>
+    <div class="ds-panel">
+      <div class="ds-label">score_live — What the Orchestrator Reads</div>
+      <div class="ds-big live-blue" id="ds-live">63</div>
+      <div class="ds-bar-wrap"><div class="ds-bar live" id="ds-bar-live" style="width:63%;background:var(--blue);"></div></div>
+      <div class="ds-role">score_raw multiplied by the decay factor, <strong>calculated at read time.</strong> This is what the Orchestrator acts on. When a visitor is idle, score_live falls even though score_raw stays frozen. Calculated lazily — not a background process. Fresh on every profile read.</div>
+      <div class="ds-note" id="ds-live-note">Currently in grace period — no decay applied yet.</div>
+    </div>
+  </div>
+
+  <!-- DECAY SIMULATOR -->
+  <div class="decay-sim">
+    <div class="subsec-title" style="margin-bottom:4px;">Decay Simulator — Grace Period & Half-Life</div>
+    <div class="subsec-desc" style="margin-bottom:16px;">Adjust the days since last event to see how score_live decays while score_raw stays frozen. Change the bucket to see different grace period and half-life values.</div>
+
+    <div class="decay-controls">
+      <div class="decay-bucket-select">
+        <button class="bucket-btn emg" id="bbtn-emg" onclick="setDecayBucket('emg')">EMERGENCY</button>
+        <button class="bucket-btn act sel" id="bbtn-act" onclick="setDecayBucket('act')">ACTIVE</button>
+        <button class="bucket-btn cmp" id="bbtn-cmp" onclick="setDecayBucket('cmp')">COMPARISON</button>
+        <button class="bucket-btn res" id="bbtn-res" onclick="setDecayBucket('res')">RESEARCH</button>
+      </div>
+      <div class="decay-slider-wrap">
+        <div class="decay-slider-label">Days since last event: <strong id="slider-val">4</strong></div>
+        <input type="range" class="decay-slider" id="decay-slider" min="0" max="90" value="4" oninput="updateDecay()">
+      </div>
+    </div>
+
+    <div class="decay-display">
+      <div class="dd-card">
+        <div class="dd-card-label">score_raw</div>
+        <div class="dd-card-val" id="dc-raw">63</div>
+        <div class="dd-card-sub">Never decays</div>
+      </div>
+      <div class="dd-card">
+        <div class="dd-card-label">score_live</div>
+        <div class="dd-card-val" id="dc-live">63</div>
+        <div class="dd-card-sub" id="dc-live-sub">In grace period</div>
+        <div class="grace-bar"><div class="grace-fill in-grace" id="dc-live-bar" style="width:100%;"></div></div>
+      </div>
+      <div class="dd-card">
+        <div class="dd-card-label">Decay Applied</div>
+        <div class="dd-card-val" id="dc-pct">0%</div>
+        <div class="dd-card-sub" id="dc-pct-sub">Grace period active</div>
+      </div>
+      <div class="dd-card">
+        <div class="dd-card-label">Status</div>
+        <div class="dd-card-val grace" id="dc-status">GRACE</div>
+        <div class="dd-card-sub" id="dc-status-sub">No penalty yet</div>
+      </div>
+    </div>
+
+    <table class="decay-table" id="decay-cfg-table">
+      <thead><tr><th>Bucket</th><th>Grace Period</th><th>Half-Life</th><th>score_live @ current days</th></tr></thead>
+      <tbody id="decay-table-body"></tbody>
+    </table>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <!-- NEGATIVE DELTA EVENTS -->
+  <div class="subsec-title">Negative Delta Events</div>
+  <div class="subsec-desc">Certain visitor behaviours reduce the engagement score immediately. Two types are distinguished. Score floor is zero — the score cannot go negative.</div>
+
+  <div class="neg-callout">
+    <div class="nc-title">Two Types of Negative Signal</div>
+    <div class="nc-body">Friction signals indicate the visitor is still trying but something is in the way. Reduce score and trigger a friction intervention. Disengagement signals indicate the relationship is weakening — reduce score more aggressively and flag for reactivation.</div>
+    <div class="nc-types">
+      <div class="nc-type friction">⚠ Friction — visitor is stuck · rage click · dead click · form abandon · exit under 8s</div>
+      <div class="nc-type disengage">✗ Disengagement — relationship cooling · no-show · unsubscribe · review ignored</div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <!-- DELTA TABLE -->
+  <div class="delta-section">
+    <div class="subsec-title">Delta Table — Base Deltas and Path Multipliers</div>
+    <div class="subsec-desc">Every event carries a base delta. Path multipliers scale the delta based on what events preceded it in the session. The most specific matching path context wins.</div>
+
+    <div class="delta-grid">
+      <!-- Base deltas -->
+      <div class="delta-panel">
+        <div class="delta-panel-head">Base Deltas — Every Event</div>
+        <table class="delta-table">
+          <thead><tr><th>Event</th><th>Delta</th><th>Bucket signal</th></tr></thead>
+          <tbody>
+            <tr><td>page_load</td><td><span class="delta-val dv-pos">+0</span></td><td>—</td></tr>
+            <tr><td>scroll_25</td><td><span class="delta-val dv-pos">+3</span></td><td><span class="delta-bucket db-res">research</span></td></tr>
+            <tr><td>scroll_50</td><td><span class="delta-val dv-pos">+5</span></td><td><span class="delta-bucket db-res">research</span></td></tr>
+            <tr><td>scroll_75</td><td><span class="delta-val dv-pos">+7</span></td><td><span class="delta-bucket db-cmp">comparison</span></td></tr>
+            <tr><td>scroll_90</td><td><span class="delta-val dv-pos">+10</span></td><td><span class="delta-bucket db-cmp">comparison</span></td></tr>
+            <tr><td>dwell_30</td><td><span class="delta-val dv-pos">+4</span></td><td><span class="delta-bucket db-res">research</span></td></tr>
+            <tr><td>dwell_60</td><td><span class="delta-val dv-pos">+7</span></td><td><span class="delta-bucket db-cmp">comparison</span></td></tr>
+            <tr><td>dwell_120</td><td><span class="delta-val dv-pos">+10</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>service_card_hover</td><td><span class="delta-val dv-pos">+3</span></td><td><span class="delta-bucket db-res">research</span></td></tr>
+            <tr><td>service_card_click</td><td><span class="delta-val dv-pos">+6</span></td><td><span class="delta-bucket db-cmp">comparison</span></td></tr>
+            <tr><td>review_section_dwell</td><td><span class="delta-val dv-pos">+8</span></td><td><span class="delta-bucket db-cmp">comparison</span></td></tr>
+            <tr><td>ai_widget_question</td><td><span class="delta-val dv-pos">+10</span></td><td><span class="delta-bucket db-cmp">comparison</span></td></tr>
+            <tr><td>form_name_focus</td><td><span class="delta-val dv-pos">+8</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>form_phone_focus</td><td><span class="delta-val dv-pos">+12</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>hero_cta_click</td><td><span class="delta-val dv-pos">+12</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>fotojobber_upload</td><td><span class="delta-val dv-pos">+10</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>fotojobber_submit</td><td><span class="delta-val dv-pos">+12</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>viewroom_entered</td><td><span class="delta-val dv-pos">+10</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>appointment_booked</td><td><span class="delta-val dv-pos">+20</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>form_submitted</td><td><span class="delta-val dv-pos">+20</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>phone_number_click</td><td><span class="delta-val dv-pos">+15</span></td><td><span class="delta-bucket db-act">active</span></td></tr>
+            <tr><td>emergency_cta_click</td><td><span class="delta-val dv-pos">+20</span></td><td><span class="delta-bucket db-emg">emergency</span></td></tr>
+            <tr style="background:var(--red-bg);"><td>form_abandon</td><td><span class="delta-val dv-neg">−8</span></td><td><span class="nc-type friction" style="font-size:9px;padding:1px 5px;">friction</span></td></tr>
+            <tr style="background:var(--red-bg);"><td>rage_click</td><td><span class="delta-val dv-neg">−5</span></td><td><span class="nc-type friction" style="font-size:9px;padding:1px 5px;">friction</span></td></tr>
+            <tr style="background:var(--red-bg);"><td>dead_click</td><td><span class="delta-val dv-neg">−3</span></td><td><span class="nc-type friction" style="font-size:9px;padding:1px 5px;">friction</span></td></tr>
+            <tr style="background:var(--red-bg);"><td>exit_under_8s</td><td><span class="delta-val dv-neg">−5</span></td><td><span class="nc-type friction" style="font-size:9px;padding:1px 5px;">friction</span></td></tr>
+            <tr style="background:var(--red-bg);"><td>appt_no_show</td><td><span class="delta-val dv-neg">−15</span></td><td><span class="nc-type disengage" style="font-size:9px;padding:1px 5px;color:var(--red);">disengage</span></td></tr>
+            <tr style="background:var(--red-bg);"><td>a2p_unsubscribe</td><td><span class="delta-val dv-neg">−20</span></td><td><span class="nc-type disengage" style="font-size:9px;padding:1px 5px;color:var(--red);">disengage</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Path multipliers -->
+      <div class="delta-panel">
+        <div class="delta-panel-head">Path Multipliers — Two-Tier Scoring</div>
+        <table class="path-table">
+          <thead><tr><th>Path Context</th><th>Mult.</th><th>Sequence Required</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Comparison finaliser<div class="calib-note">* calibrate against real conversion data</div></td>
+              <td><span class="mult-badge">3.0×</span></td>
+              <td>
+                <div class="path-events"><span class="path-event-chip">review_read</span><span class="path-event-chip">ba_slider_drag</span><span class="path-event-chip">area_click</span></div>
+                <div style="font-size:9px;color:var(--text3);margin-top:4px;">Map-pack comparison fingerprint</div>
+              </td>
+            </tr>
+            <tr>
+              <td>Active project builder<div class="calib-note">* calibrate against real conversion data</div></td>
+              <td><span class="mult-badge">3.0×</span></td>
+              <td>
+                <div class="path-events"><span class="path-event-chip">scroll_75</span><span class="path-event-chip">lg_open</span><span class="path-event-chip">fotojobber_upload</span></div>
+                <div style="font-size:9px;color:var(--text3);margin-top:4px;">Visual job brief sequence</div>
+              </td>
+            </tr>
+            <tr>
+              <td>Post-gallery review check<div class="calib-note">* calibrate against real conversion data</div></td>
+              <td><span class="mult-badge">2.5×</span></td>
+              <td>
+                <div class="path-events"><span class="path-event-chip">ba_slider_drag</span><span class="path-event-chip">review_read</span></div>
+                <div style="font-size:9px;color:var(--text3);margin-top:4px;">Slider drag then review read</div>
+              </td>
+            </tr>
+            <tr>
+              <td>Return visit direct nav<div class="calib-note">* calibrate against real conversion data</div></td>
+              <td><span class="mult-badge">2.5×</span></td>
+              <td>
+                <div class="path-events"><span class="path-event-chip">return_visit</span><span class="path-event-chip">page_load</span></div>
+                <div style="font-size:9px;color:var(--text3);margin-top:4px;">Returning visitor → conversion page directly</div>
+              </td>
+            </tr>
+            <tr>
+              <td>Research → comparison<div class="calib-note">* calibrate against real conversion data</div></td>
+              <td><span class="mult-badge">2.0×</span></td>
+              <td>
+                <div class="path-events"><span class="path-event-chip">dwell_120</span><span class="path-event-chip">faq_open</span><span class="path-event-chip">review_read</span></div>
+                <div style="font-size:9px;color:var(--text3);margin-top:4px;">Research-to-comparison transition</div>
+              </td>
+            </tr>
+            <tr>
+              <td>Post-service review check<div class="calib-note">* calibrate against real conversion data</div></td>
+              <td><span class="mult-badge">2.0×</span></td>
+              <td>
+                <div class="path-events"><span class="path-event-chip">page_load</span><span class="path-event-chip">scroll_75</span><span class="path-event-chip">review_read</span></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Emergency resolver</td>
+              <td><span class="mult-badge">1.0×</span></td>
+              <td>
+                <div class="path-events"><span class="path-event-chip">nav_emergency</span><span class="path-event-chip">page_load</span><span class="path-event-chip">hero_call_click</span></div>
+                <div style="font-size:9px;color:var(--text3);margin-top:4px;">No multiplier — emergency fires on signal, not path</div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" style="background:var(--amber-bg);color:var(--amber);font-size:10px;font-style:italic;padding:8px 12px;">⚠ All multiplier values are starting points requiring calibration against real Cohort 2 conversion data. Treat as configuration parameters, not constants.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <!-- TRAJECTORY VISUALISER -->
+  <div class="trajectory-section">
+    <div class="subsec-title">Trajectory Visualiser — Same Score, Opposite Curves</div>
+    <div class="subsec-desc">Two visitors. Both at score 55. The Orchestrator does not act on the score number alone — it reads velocity and trajectory direction. A visitor rising fast toward conversion gets a different action than a visitor stalled and cooling toward demotion.</div>
+
+    <div class="traj-wrap">
+      <!-- Visitor A — Rising -->
+      <div class="traj-card">
+        <div class="traj-header">
+          <div>
+            <div class="traj-name">Visitor A — Marie T.</div>
+            <div class="traj-sub">fp_a3f9…b12c · 3 sessions</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="traj-score-label">score_live</div>
+            <div class="traj-score-now rising">55</div>
+          </div>
+        </div>
+        <svg class="traj-chart" viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad-a" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0a7c45" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#0a7c45" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- grid lines -->
+          <line x1="0" y1="96" x2="360" y2="96" stroke="#e3e7ef" stroke-width="1"/>
+          <line x1="0" y1="72" x2="360" y2="72" stroke="#e3e7ef" stroke-width="1"/>
+          <line x1="0" y1="48" x2="360" y2="48" stroke="#e3e7ef" stroke-width="1"/>
+          <line x1="0" y1="24" x2="360" y2="24" stroke="#e3e7ef" stroke-width="1"/>
+          <!-- score labels -->
+          <text x="2" y="99" fill="#9ca3af" font-size="8" font-family="IBM Plex Mono">0</text>
+          <text x="2" y="75" fill="#9ca3af" font-size="8" font-family="IBM Plex Mono">25</text>
+          <text x="2" y="51" fill="#9ca3af" font-size="8" font-family="IBM Plex Mono">50</text>
+          <text x="2" y="27" fill="#9ca3af" font-size="8" font-family="IBM Plex Mono">75</text>
+          <!-- bucket zone -->
+          <rect x="0" y="48" width="360" height="24" fill="#eff6ff" opacity=".4"/>
+          <text x="320" y="63" fill="#1d4ed8" font-size="8" font-family="IBM Plex Mono">CMP</text>
+          <!-- rising path -->
+          <path d="M20,108 L80,100 L140,90 L200,80 L260,68 L320,58" stroke="#0a7c45" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20,108 L80,100 L140,90 L200,80 L260,68 L320,58 L320,108 Z" fill="url(#grad-a)"/>
+          <!-- current point -->
+          <circle cx="320" cy="58" r="5" fill="#0a7c45"/>
+          <text x="326" y="56" fill="#0a7c45" font-size="9" font-family="IBM Plex Mono" font-weight="600">55↑</text>
+          <!-- sessions markers -->
+          <line x1="80" y1="20" x2="80" y2="108" stroke="#e3e7ef" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="72" y="17" fill="#9ca3af" font-size="7" font-family="IBM Plex Mono">S1</text>
+          <line x1="200" y1="20" x2="200" y2="108" stroke="#e3e7ef" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="192" y="17" fill="#9ca3af" font-size="7" font-family="IBM Plex Mono">S2</text>
+          <line x1="320" y1="20" x2="320" y2="108" stroke="#0a7c45" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="307" y="17" fill="#0a7c45" font-size="7" font-family="IBM Plex Mono">S3 now</text>
+        </svg>
+        <div class="traj-velocity">
+          <div class="vel-icon">📈</div>
+          <div class="vel-text up">Rising fast — +18 pts across 3 sessions — review page + gallery + FotoJobber viewed</div>
+        </div>
+        <div class="traj-sessions">
+          <div class="traj-session-chip">S1: 19 pts · Research</div>
+          <div class="traj-session-chip">S2: 38 pts · Comparison</div>
+          <div class="traj-session-chip current">S3: 55 pts · Comparison → Active ↑</div>
+        </div>
+        <div class="orch-action act">
+          <div class="oa-label act">Orchestrator Action</div>
+          <div class="oa-action">▶ FotoJobber prompt — surface now</div>
+          <div class="oa-reason">Score 55 · rising velocity · Comparison finaliser path matched (3.0×) · Tier 2 confirmed · FotoJobber not yet submitted. Push the quote initiation CTA.</div>
+        </div>
+      </div>
+
+      <!-- Visitor B — Cooling -->
+      <div class="traj-card">
+        <div class="traj-header">
+          <div>
+            <div class="traj-name">Visitor B — Anonymous</div>
+            <div class="traj-sub">fp_7c2a…e091 · 5 sessions</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="traj-score-label">score_live</div>
+            <div class="traj-score-now cooling">55</div>
+          </div>
+        </div>
+        <svg class="traj-chart" viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad-b" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#b91c1c" stop-opacity=".12"/>
+              <stop offset="100%" stop-color="#b91c1c" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <line x1="0" y1="96" x2="360" y2="96" stroke="#e3e7ef" stroke-width="1"/>
+          <line x1="0" y1="72" x2="360" y2="72" stroke="#e3e7ef" stroke-width="1"/>
+          <line x1="0" y1="48" x2="360" y2="48" stroke="#e3e7ef" stroke-width="1"/>
+          <line x1="0" y1="24" x2="360" y2="24" stroke="#e3e7ef" stroke-width="1"/>
+          <text x="2" y="99" fill="#9ca3af" font-size="8" font-family="IBM Plex Mono">0</text>
+          <text x="2" y="75" fill="#9ca3af" font-size="8" font-family="IBM Plex Mono">25</text>
+          <text x="2" y="51" fill="#9ca3af" font-size="8" font-family="IBM Plex Mono">50</text>
+          <text x="2" y="27" fill="#9ca3af" font-size="8" font-family="IBM Plex Mono">75</text>
+          <rect x="0" y="48" width="360" height="24" fill="#eff6ff" opacity=".4"/>
+          <text x="320" y="63" fill="#1d4ed8" font-size="8" font-family="IBM Plex Mono">CMP</text>
+          <!-- peak then cooling -->
+          <path d="M20,90 L70,68 L120,44 L180,40 L200,42 L240,50 L290,56 L320,58" stroke="#b91c1c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20,90 L70,68 L120,44 L180,40 L200,42 L240,50 L290,56 L320,58 L320,108 Z" fill="url(#grad-b)"/>
+          <!-- peak marker -->
+          <circle cx="180" cy="40" r="4" fill="none" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <text x="185" y="38" fill="#b91c1c" font-size="8" font-family="IBM Plex Mono">peak 72</text>
+          <!-- current point -->
+          <circle cx="320" cy="58" r="5" fill="#b91c1c"/>
+          <text x="326" y="56" fill="#b91c1c" font-size="9" font-family="IBM Plex Mono" font-weight="600">55↓</text>
+          <!-- session markers -->
+          <line x1="70" y1="20" x2="70" y2="108" stroke="#e3e7ef" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="62" y="17" fill="#9ca3af" font-size="7" font-family="IBM Plex Mono">S1</text>
+          <line x1="180" y1="20" x2="180" y2="108" stroke="#e3e7ef" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="172" y="17" fill="#9ca3af" font-size="7" font-family="IBM Plex Mono">S3</text>
+          <line x1="320" y1="20" x2="320" y2="108" stroke="#b91c1c" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="307" y="17" fill="#b91c1c" font-size="7" font-family="IBM Plex Mono">S5 now</text>
+        </svg>
+        <div class="traj-velocity">
+          <div class="vel-icon">📉</div>
+          <div class="vel-text dn">Cooling — peaked at 72 in session 3, form abandoned, −17 pts over 2 sessions</div>
+        </div>
+        <div class="traj-sessions">
+          <div class="traj-session-chip">S1–S2: 24→68 pts · fast rise</div>
+          <div class="traj-session-chip">S3: 72 pts · form_abandon −8</div>
+          <div class="traj-session-chip current">S4–S5: 72→55 · decay + idle · stalling</div>
+        </div>
+        <div class="orch-action wait">
+          <div class="oa-label wait">Orchestrator Action</div>
+          <div class="oa-action">⏸ Hold — do not push conversion CTA</div>
+          <div class="oa-reason">Score 55 · negative velocity · form_abandon in prior session · 9 days since last event (past grace) · score_live still above demotion threshold. Pushing now risks rejection. Wait for return signal or trigger soft re-engagement content.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY INSIGHT -->
+    <div style="background:var(--surface);border:1px solid var(--blue-bd);border-radius:10px;padding:20px;background:var(--blue-bg);">
+      <div style="font-size:13px;font-weight:600;color:var(--blue);margin-bottom:8px;">The Orchestrator reads velocity — not just the number</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;">Both visitors sit at score 55. Without velocity, the system would treat them identically. With velocity, the Orchestrator knows Marie is three sessions into a rising pattern and is ready for a push — while the anonymous visitor peaked, abandoned a form, and is now cooling. The same score produces completely different actions because the <strong>trajectory</strong> is what predicts conversion probability, not the number alone.</div>
+    </div>
+  </div>
+
+  <div class="sec-divider"></div>
+
+  <!-- SCORE HISTORY WITH NEGATIVE EVENTS -->
+  <div class="score-history-section">
+    <div class="subsec-title">Score History — With Negative Delta Events</div>
+    <div class="subsec-desc">The event stream shows how score_raw accumulates and where negative events apply. Both visitors at score 55 — the paths that got them there are completely different.</div>
+
+    <div class="score-history-wrap">
+      <!-- Visitor A history -->
+      <div class="sh-panel">
+        <div class="sh-head">
+          <span>Marie T. — Rising</span>
+          <span class="pill p-cmp">COMPARISON → ACTIVE</span>
+        </div>
+        <div class="sh-event-list">
+          <div class="sh-event"><div class="she-time">S1 · 09:12</div><div class="she-name">page_load<small>rightflush.ca/blog/frozen-pipe</small></div><div class="she-delta pos">+0</div><div class="she-score">0</div></div>
+          <div class="sh-event"><div class="she-time">S1 · 09:13</div><div class="she-name">scroll_75</div><div class="she-delta pos">+7</div><div class="she-score">7</div></div>
+          <div class="sh-event"><div class="she-time">S1 · 09:15</div><div class="she-name">dwell_120</div><div class="she-delta pos">+10</div><div class="she-score">17</div></div>
+          <div class="sh-event"><div class="she-time">S1 · 09:16</div><div class="she-name">ai_widget_question<small style="color:var(--text3);">cost to replace water heater?</small></div><div class="she-delta pos">+10</div><div class="she-score">27</div></div>
+          <div class="sh-event path-ctx"><div class="she-time">S2 · 14:30</div><div class="she-name">review_section_dwell<small>Path ctx: research→comparison 2.0× · delta ×2</small></div><div class="she-delta pos">+16</div><div class="she-score">43</div></div>
+          <div class="sh-event"><div class="she-time">S2 · 14:32</div><div class="she-name">ba_slider_drag</div><div class="she-delta pos">+8</div><div class="she-score">51</div></div>
+          <div class="sh-event path-ctx"><div class="she-time">S3 · 10:05</div><div class="she-name">hero_cta_click<small>Path ctx: comparison finaliser 3.0× · delta ×3</small></div><div class="she-delta pos">+36</div><div class="she-score">87</div></div>
+          <div class="sh-event conv"><div class="she-time">S3 · 10:07</div><div class="she-name">fotojobber_upload<small style="color:var(--green);">score_raw: 97 · score_live: 55 (7 days decay)</small></div><div class="she-delta pos">+10</div><div class="she-score">97</div></div>
+        </div>
+      </div>
+
+      <!-- Visitor B history -->
+      <div class="sh-panel">
+        <div class="sh-head">
+          <span>Anonymous — Cooling</span>
+          <span class="pill p-cmp">COMPARISON · stalling</span>
+        </div>
+        <div class="sh-event-list">
+          <div class="sh-event"><div class="she-time">S1 · 19:40</div><div class="she-name">page_load</div><div class="she-delta pos">+0</div><div class="she-score">0</div></div>
+          <div class="sh-event"><div class="she-time">S1 · 19:41</div><div class="she-name">scroll_90</div><div class="she-delta pos">+10</div><div class="she-score">10</div></div>
+          <div class="sh-event"><div class="she-time">S2 · 11:00</div><div class="she-name">review_section_dwell</div><div class="she-delta pos">+8</div><div class="she-score">18</div></div>
+          <div class="sh-event"><div class="she-time">S2 · 11:03</div><div class="she-name">service_card_click</div><div class="she-delta pos">+6</div><div class="she-score">24</div></div>
+          <div class="sh-event"><div class="she-time">S3 · 09:15</div><div class="she-name">hero_cta_click</div><div class="she-delta pos">+12</div><div class="she-score">36</div></div>
+          <div class="sh-event"><div class="she-time">S3 · 09:16</div><div class="she-name">form_name_focus</div><div class="she-delta pos">+8</div><div class="she-score">44</div></div>
+          <div class="sh-event"><div class="she-time">S3 · 09:17</div><div class="she-name">form_phone_focus</div><div class="she-delta pos">+12</div><div class="she-score">56</div></div>
+          <div class="sh-event neg"><div class="she-time">S3 · 09:18</div><div class="she-name">form_abandon<span class="neg-note" style="display:block;font-size:9px;">friction signal · visitor was still trying</span></div><div class="she-delta neg">−8</div><div class="she-score">48</div></div>
+          <div class="sh-event neg"><div class="she-time">S3 · 09:18</div><div class="she-name">rage_click<span class="neg-note" style="display:block;font-size:9px;">friction signal · 3 rapid clicks on submit</span></div><div class="she-delta neg">−5</div><div class="she-score">43</div></div>
+          <div class="sh-event"><div class="she-time">S4 · 20:00</div><div class="she-name">page_load<small>score_raw frozen at 43 · decay running · 6 days idle</small></div><div class="she-delta pos">+0</div><div class="she-score">43</div></div>
+          <div class="sh-event"><div class="she-time">S5 · 18:30</div><div class="she-name">scroll_50<small>score_raw: 48 · score_live: 55 (cross-session decay factored)</small></div><div class="she-delta pos">+5</div><div class="she-score">48</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── DECAY CONFIG ───
+const DECAY_CFG = {
+  emg: {graceDays:1,  halfLifeDays:2,  label:'Emergency'},
+  act: {graceDays:3,  halfLifeDays:14, label:'Active Project'},
+  cmp: {graceDays:7,  halfLifeDays:30, label:'Comparison'},
+  res: {graceDays:14, halfLifeDays:60, label:'Research'},
+};
+const SCORE_RAW = 63;
+let currentBucket = 'act';
+
+function calcLive(days, bucket){
+  const cfg = DECAY_CFG[bucket];
+  if(days <= cfg.graceDays) return {live:SCORE_RAW, pct:0, inGrace:true};
+  const elapsed = days - cfg.graceDays;
+  const halfLifeHours = cfg.halfLifeDays * 24;
+  const elapsedHours = elapsed * 24;
+  const live = Math.max(0, Math.round(SCORE_RAW * Math.pow(0.5, elapsedHours/halfLifeHours)));
+  return {live, pct:Math.round((1-(live/SCORE_RAW))*100), inGrace:false};
+}
+
+function setDecayBucket(b){
+  currentBucket = b;
+  document.querySelectorAll('.bucket-btn').forEach(el => {
+    el.classList.remove('sel');
+  });
+  document.getElementById('bbtn-' + b).classList.add('sel');
+  updateDecay();
+}
+
+function updateDecay(){
+  const days = parseInt(document.getElementById('decay-slider').value);
+  document.getElementById('slider-val').textContent = days;
+  const {live, pct, inGrace} = calcLive(days, currentBucket);
+  const cfg = DECAY_CFG[currentBucket];
+
+  // update cards
+  document.getElementById('dc-live').textContent = live;
+  document.getElementById('dc-live').className = 'dd-card-val' + (inGrace ? ' grace' : ' decaying');
+  document.getElementById('dc-live-sub').textContent = inGrace ? 'In grace period' : 'Decaying';
+  const livePct = Math.round((live/SCORE_RAW)*100);
+  document.getElementById('dc-live-bar').style.width = livePct + '%';
+  document.getElementById('dc-live-bar').className = 'grace-fill ' + (inGrace ? 'in-grace' : 'decaying');
+
+  document.getElementById('dc-pct').textContent = pct + '%';
+  document.getElementById('dc-pct').className = 'dd-card-val' + (pct > 0 ? ' decaying' : ' grace');
+  document.getElementById('dc-pct-sub').textContent = inGrace ? 'Grace period active' : 'Decaying';
+
+  document.getElementById('dc-status').textContent = inGrace ? 'GRACE' : 'DECAYING';
+  document.getElementById('dc-status').className = 'dd-card-val ' + (inGrace ? 'grace' : 'decaying');
+  document.getElementById('dc-status-sub').textContent = inGrace
+    ? (cfg.graceDays - days) + ' day(s) of grace left'
+    : (days - cfg.graceDays) + ' day(s) past grace';
+
+  // update dual score display
+  document.getElementById('ds-live').textContent = live;
+  document.getElementById('ds-bar-live').style.width = live + '%';
+  if(inGrace){
+    document.getElementById('ds-live').className = 'ds-big live-green';
+    document.getElementById('ds-live-note').textContent = 'Currently in grace period — no decay applied yet.';
+    document.getElementById('ds-bar-live').style.background = 'var(--green)';
+  } else {
+    const liveClass = live >= 50 ? 'live-blue' : live >= 35 ? 'live-amber' : 'live-red';
+    document.getElementById('ds-live').className = 'ds-big ' + liveClass;
+    document.getElementById('ds-live-note').textContent = pct + '% decay applied — ' + days + ' days idle, ' + cfg.graceDays + ' day grace, ' + cfg.halfLifeDays + '-day half-life.';
+    document.getElementById('ds-bar-live').style.background = live >= 50 ? 'var(--blue)' : live >= 35 ? '#d97706' : 'var(--red)';
+  }
+
+  // rebuild table
+  const tbody = document.getElementById('decay-table-body');
+  tbody.innerHTML = '';
+  Object.entries(DECAY_CFG).forEach(([key, cfg]) => {
+    const res = calcLive(days, key);
+    const tr = document.createElement('tr');
+    if(key === currentBucket) tr.className = 'highlighted';
+    tr.innerHTML = `
+      <td>${cfg.label}</td>
+      <td>${cfg.graceDays} day${cfg.graceDays>1?'s':''}</td>
+      <td>${cfg.halfLifeDays} days</td>
+      <td style="font-family:var(--mono);font-weight:600;color:${res.inGrace?'var(--green)':res.live<35?'var(--red)':'var(--text)'}">
+        ${res.live} ${res.inGrace ? '(grace)' : '(−'+res.pct+'%)'}
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// INIT
+updateDecay();
+</script>
+</body>
+</html>

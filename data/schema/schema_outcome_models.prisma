@@ -1,0 +1,107 @@
+// =============================================================================
+// ClearSky — Section 6 Outcome: Prisma Models
+// Add these models to your schema.prisma file
+// Run: npx prisma generate after adding
+// =============================================================================
+//
+// IMPORTANT: Also add `outcome_id String?` to the ActionExecution model
+// and add `outcomes Outcome[] and blocked_outcome_contexts BlockedOutcomeContext[]`
+// to the Event model.
+// =============================================================================
+
+
+// -----------------------------------------------------------------------------
+// Add this field to your existing ActionExecution model:
+// -----------------------------------------------------------------------------
+//
+// model ActionExecution {
+//   ...existing fields...
+//   outcome_id          String?              // written by Section 6 Step 9
+//   outcome             Outcome?             @relation(fields: [outcome_id], references: [outcome_id])
+// }
+
+
+// -----------------------------------------------------------------------------
+// Add this relation to your existing Event model:
+// -----------------------------------------------------------------------------
+//
+// model Event {
+//   ...existing fields...
+//   outcomes                    Outcome[]
+//   blocked_outcome_contexts    BlockedOutcomeContext[]
+// }
+
+
+// -----------------------------------------------------------------------------
+// New model: Outcome
+// Section 6 writes one row per eligible execution record.
+// -----------------------------------------------------------------------------
+
+model Outcome {
+  id                      String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  outcome_id              String   @unique                // out_<generated>
+  event_id                String                          // → events.event_id (TEXT)
+  decision_id             String                          // → orchestrator_decisions.decision_id
+  action_queue_id         String                          // → action_queue.action_queue_id
+  execution_id            String                          // → action_executions.action_execution_id
+  action_id               String                          // e.g. ACT-REV-001
+  outcome_type            String
+  // draft_created | approved | edited_before_approval | posted |
+  // sent | assigned | completed | rejected | failed |
+  // no_action_taken | blocked_preserved
+  outcome_status          String
+  // completed | waiting_for_approval | waiting | blocked | failed
+  time_to_response_hours  Float?
+  approval_wait_hours     Float?
+  human_edited            Boolean  @default(false)
+  posted_externally       Boolean  @default(false)        // ALWAYS false at Section 6 insert
+  do_not_count_as_success Boolean  @default(false)        // true for blocked/failed
+  details                 Json?
+  created_at              DateTime @default(now()) @db.Timestamptz(6)
+  updated_at              DateTime @default(now()) @db.Timestamptz(6)
+
+  // Relations
+  event                   Event    @relation(fields: [event_id], references: [event_id], onDelete: Cascade)
+
+  @@map("outcomes")
+}
+
+
+// -----------------------------------------------------------------------------
+// New model: BlockedOutcomeContext
+// Audit-only records for blocked actions (ACT-REV-002 etc.)
+// No corresponding outcomes row — these were never executed.
+// -----------------------------------------------------------------------------
+
+model BlockedOutcomeContext {
+  id                        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  blocked_context_id        String   @unique               // blocked_ctx_<generated>
+  event_id                  String
+  decision_id               String
+  action_id                 String                         // e.g. ACT-REV-002
+  action_name               String?
+  blocked_reason            String?
+  outcome_type              String   @default("blocked_preserved")
+  outcome_status            String   @default("blocked")
+  posted_to_google          Boolean  @default(false)
+  external_action_completed Boolean  @default(false)
+  do_not_count_as_success   Boolean  @default(true)
+  created_at                DateTime @default(now()) @db.Timestamptz(6)
+
+  // Relations
+  event                     Event    @relation(fields: [event_id], references: [event_id], onDelete: Cascade)
+
+  @@map("blocked_outcome_context")
+}
+
+
+// =============================================================================
+// After adding these models:
+//
+//   1. Run: npx prisma generate
+//   2. Run: npx prisma db push  (dev only)
+//      OR: npx prisma migrate dev --name add_outcome_models
+//   3. Open Prisma Studio and confirm both tables appear
+//   4. Confirm outcomes table has 0 rows
+//   5. Then start building section-6-outcome.ts
+// =============================================================================

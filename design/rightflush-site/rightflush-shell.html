@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><!-- PAGE TITLE --> | Total Trades Solutions — Timmins ON</title>
+<meta name="description" content="<!-- PAGE META DESCRIPTION -->">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════════════════════════
+   CLEARSKY SHELL — Total Trades Solutions
+   Shared across all 25 pages. Do not modify tokens or layout.
+   Page-specific styles go BELOW the shell styles.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── TOKENS ── */
+:root {
+  --white:      #FFFFFF;
+  --surface:    #F8F6F1;
+  --border:     #E8E4DC;
+  --text:       #111714;
+  --text2:      #4A5E52;
+  --text3:      #8A9E92;
+  --green:      #1B5E3B;
+  --green-mid:  #2D7A52;
+  --green-lt:   #EBF5EF;
+  --green-dk:   #0D3B27;
+  --rust:       #C24A1E;
+  --rust-lt:    #FAEDE8;
+  --gold:       #B8862A;
+  --gold-lt:    #FBF5E6;
+  --ink:        #0D1F14;
+  --sans:       'Barlow', sans-serif;
+  --cond:       'Barlow Condensed', sans-serif;
+  --nav-h:      68px;
+  --trust-h:    40px;
+  --col:        1180px;
+  --radius:     6px;
+}
+
+/* ── RESET ── */
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--sans); background: var(--white); color: var(--text); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ── PAGE OFFSET — accounts for fixed trust bar + nav ── */
+/* Use .page-content as wrapper on every page body */
+.page-content {
+  margin-top: calc(var(--trust-h) + var(--nav-h));
+}
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--trust-h);
+  background: var(--ink);
+  display: flex; align-items: center;
+  padding: 0 24px;
+}
+.trust-bar-inner {
+  max-width: var(--col); margin: 0 auto; width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.trust-items { display: flex; align-items: center; gap: 0; }
+.trust-item {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  padding: 0 18px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.trust-item:first-child { padding-left: 0; }
+.trust-item:last-child { border-right: none; }
+.trust-item svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.trust-item .stars { color: var(--gold); font-size: 11px; letter-spacing: 1px; }
+.trust-right { display: flex; align-items: center; gap: 12px; }
+.trust-phone { font-family: var(--cond); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.04em; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: var(--trust-h); left: 0; right: 0; z-index: 190;
+  height: var(--nav-h);
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.nav-inner {
+  max-width: var(--col); margin: 0 auto; width: 100%;
+  height: 100%; display: flex; align-items: center;
+  padding: 0 24px; gap: 32px;
+}
+
+/* Logo */
+.nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-logo-mark {
+  width: 38px; height: 38px; background: var(--green);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-mark svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.nav-logo-name { font-family: var(--cond); font-size: 20px; font-weight: 800; color: var(--ink); text-transform: uppercase; letter-spacing: 0.02em; }
+.nav-logo-tag { font-size: 10px; color: var(--text3); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* Service icon nav */
+.nav-services { display: flex; align-items: center; gap: 2px; flex: 1; }
+.nav-svc {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 8px 12px; border-radius: var(--radius);
+  transition: background 0.2s; cursor: pointer;
+  text-decoration: none; border: none; background: transparent;
+}
+.nav-svc:hover { background: var(--green-lt); }
+.nav-svc.active { background: var(--green-lt); }
+.nav-svc-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+.nav-svc-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.nav-svc-label { font-size: 10px; font-weight: 600; color: var(--text2); letter-spacing: 0.03em; white-space: nowrap; text-align: center; }
+
+/* Nav right — Emergency (always rust) + Book Now (always green) */
+.nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-emergency {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: var(--radius);
+  background: var(--rust-lt); border: 1.5px solid var(--rust);
+  font-size: 13px; font-weight: 600; color: var(--rust);
+  transition: all 0.2s; text-decoration: none;
+}
+.nav-emergency:hover { background: var(--rust); color: #fff; }
+.nav-emergency svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.nav-book {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: var(--radius);
+  background: var(--green); color: #fff;
+  font-size: 13px; font-weight: 600;
+  transition: background 0.2s; text-decoration: none; border: none;
+}
+.nav-book:hover { background: var(--green-mid); }
+
+/* ── MOBILE NAV ── */
+.mobile-header {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 60px; background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+  align-items: center; justify-content: space-between;
+}
+.mobile-hamburger {
+  width: 40px; height: 40px; border: none; background: none;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+}
+.mobile-hamburger span {
+  display: block; width: 22px; height: 2px; background: var(--ink);
+  transition: all 0.3s; transform-origin: center;
+}
+.mobile-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mobile-hamburger.open span:nth-child(2) { opacity: 0; }
+.mobile-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-logo-name { font-family: var(--cond); font-size: 18px; font-weight: 800; color: var(--ink); text-transform: uppercase; letter-spacing: 0.02em; }
+.mobile-right { display: flex; align-items: center; gap: 8px; }
+.mobile-emergency-btn {
+  display: flex; align-items: center; gap: 5px;
+  background: var(--rust); color: #fff;
+  font-family: var(--cond); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 7px 12px; border-radius: var(--radius);
+  text-decoration: none; border: none;
+}
+.mobile-emergency-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.mobile-call-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--green); border: none;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+}
+.mobile-call-btn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Mobile menu drawer */
+.mobile-menu {
+  display: none;
+  position: fixed; top: 60px; left: 0; right: 0; bottom: 0; z-index: 180;
+  background: var(--white); overflow-y: auto;
+  border-top: 1px solid var(--border);
+  flex-direction: column;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu-emergency {
+  display: flex; align-items: center; gap: 10px;
+  padding: 18px 20px;
+  background: var(--rust-lt); border-bottom: 1px solid rgba(194,74,30,0.15);
+  font-family: var(--cond); font-size: 17px; font-weight: 700;
+  color: var(--rust); text-transform: uppercase; letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.mobile-menu-emergency svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; flex-shrink: 0; }
+.mobile-menu-section { padding: 16px 20px 8px; }
+.mobile-menu-section-title { font-size: 10px; font-weight: 700; color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+.mobile-menu-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  font-size: 15px; font-weight: 500; color: var(--text);
+  text-decoration: none;
+}
+.mobile-menu-link:last-child { border-bottom: none; }
+.mobile-menu-link svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.mobile-menu-book {
+  margin: 16px 20px 20px;
+  display: block; text-align: center;
+  background: var(--green); color: #fff;
+  font-family: var(--cond); font-size: 17px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 14px; border-radius: var(--radius);
+  text-decoration: none;
+}
+
+/* ── SECTION COMMONS — available to all pages ── */
+.section { padding: 88px 24px; }
+.section-inner { max-width: var(--col); margin: 0 auto; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; color: var(--green);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;
+}
+.section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--green); }
+.section-headline {
+  font-family: var(--cond); font-weight: 800;
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 0.95; text-transform: uppercase;
+  color: var(--ink); letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 17px; font-weight: 300; color: var(--text2);
+  line-height: 1.7; max-width: 580px; margin-bottom: 52px;
+}
+.section-surface { background: var(--surface); }
+
+/* ── FOOTER ── */
+footer { background: var(--ink); padding: 64px 24px 32px; }
+.footer-inner { max-width: var(--col); margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+  padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 32px;
+}
+.footer-brand-name { font-family: var(--cond); font-size: 24px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 6px; }
+.footer-brand-tag { font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+.footer-brand-phone { font-family: var(--cond); font-size: 26px; font-weight: 700; color: var(--gold); letter-spacing: 0.02em; display: block; margin-bottom: 4px; }
+.footer-brand-email { font-size: 13px; color: rgba(255,255,255,0.35); }
+.footer-col-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+.footer-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-link { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+.footer-link:hover { color: #fff; }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.2); }
+
+/* ── AI CHAT WIDGET ── */
+.chat-widget {
+  position: fixed; bottom: 24px; right: 24px; z-index: 500;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+}
+.chat-bubble {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--green); color: #fff; border: none;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(27,94,59,0.4);
+  cursor: pointer; transition: all 0.2s;
+}
+.chat-bubble:hover { background: var(--green-mid); transform: scale(1.05); }
+.chat-bubble svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.chat-panel {
+  width: 320px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  overflow: hidden; display: none;
+}
+.chat-panel.open { display: flex; flex-direction: column; animation: slideUp 0.3s ease; }
+@keyframes slideUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.chat-panel-header {
+  background: var(--green); padding: 16px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.chat-header-info { display: flex; align-items: center; gap: 10px; }
+.chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+.chat-avatar svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.chat-name { font-size: 14px; font-weight: 600; color: #fff; }
+.chat-status { font-size: 11px; color: rgba(255,255,255,0.65); }
+.chat-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; }
+.chat-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.chat-messages { padding: 16px; min-height: 120px; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
+.chat-msg.bot { background: var(--surface); color: var(--text); border-bottom-left-radius: 4px; align-self: flex-start; }
+.chat-msg.user { background: var(--green); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+.chat-quick { padding: 0 16px 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chat-quick-btn { background: var(--green-lt); border: 1px solid rgba(27,94,59,0.2); border-radius: 100px; padding: 5px 12px; font-size: 12px; color: var(--green); font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.chat-quick-btn:hover { background: var(--green); color: #fff; }
+.chat-input-row { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); }
+.chat-input { flex: 1; border: 1px solid var(--border); border-radius: 100px; padding: 8px 14px; font-size: 13px; font-family: inherit; outline: none; }
+.chat-input:focus { border-color: var(--green); }
+.chat-send { width: 36px; height: 36px; border-radius: 50%; background: var(--green); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; }
+.chat-send:hover { background: var(--green-mid); }
+.chat-send svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; }
+
+/* ── LEAD GRABBER ── */
+.lead-grabber {
+  position: fixed; bottom: 96px; right: 24px; z-index: 490;
+  width: 56px; display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.lg-btn {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--rust); color: #fff; border: none;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(194,74,30,0.35);
+  cursor: pointer; transition: all 0.2s;
+}
+.lg-btn:hover { background: #a83818; transform: scale(1.05); }
+.lg-btn svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lg-label { font-size: 9px; font-weight: 600; color: var(--rust); letter-spacing: 0.04em; text-align: center; white-space: nowrap; }
+.lg-panel {
+  position: fixed; bottom: 90px; right: 90px; z-index: 490;
+  width: 300px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  overflow: hidden; display: none;
+}
+.lg-panel.open { display: block; animation: slideUp 0.3s ease; }
+.lg-header { background: var(--rust); padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; }
+.lg-header-title { font-family: var(--cond); font-size: 18px; font-weight: 700; color: #fff; text-transform: uppercase; }
+.lg-header-sub { font-size: 11px; color: rgba(255,255,255,0.65); }
+.lg-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; }
+.lg-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.lg-body { padding: 16px; }
+.lg-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.lg-option {
+  padding: 12px; border: 1.5px solid var(--border); border-radius: var(--radius);
+  text-align: center; cursor: pointer; transition: all 0.2s;
+}
+.lg-option:hover { border-color: var(--rust); background: var(--rust-lt); }
+.lg-option.selected { border-color: var(--rust); background: var(--rust-lt); }
+.lg-option svg { width: 22px; height: 22px; stroke: var(--rust); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin: 0 auto 6px; display: block; }
+.lg-option span { font-size: 12px; font-weight: 600; color: var(--rust); }
+.lg-input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-size: 13px; font-family: inherit; outline: none; margin-bottom: 8px; }
+.lg-input:focus { border-color: var(--rust); }
+.lg-submit { width: 100%; background: var(--rust); color: #fff; border: none; border-radius: var(--radius); padding: 12px; font-family: var(--cond); font-weight: 700; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+.lg-submit:hover { background: #a83818; }
+
+/* ── EMERGENCY PAGES — Lead Grabber speak-now only variant ── */
+/* Add class .lg-emergency-only to body on emergency pages */
+.lg-emergency-only .lg-options { display: none; }
+.lg-emergency-only .lg-header-title::after { content: ' — Call Back'; }
+
+/* ── PIXEL TOAST ── */
+.pixel-toast {
+  position: fixed; bottom: 24px; left: 24px; z-index: 600;
+  background: var(--ink); color: #fff;
+  font-family: var(--cond); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 10px 16px; border-radius: var(--radius);
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none; max-width: 280px;
+}
+.pixel-toast.show { opacity: 1; transform: translateY(0); }
+.pixel-toast-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 1.2s infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  :root { --trust-h: 0px; --nav-h: 60px; }
+  .trust-bar { display: none; }
+  nav { display: none; }
+  .mobile-header { display: flex; }
+  .page-content { margin-top: 60px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE-SPECIFIC STYLES GO BELOW THIS LINE
+   ═══════════════════════════════════════════════════════════════ */
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     TRUST BAR (desktop only)
+     ═══════════════════════════════════ -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-items">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Licensed &amp; Insured
+      </div>
+      <div class="trust-item">
+        <span class="stars">★★★★★</span>
+        4.7 · 64 Reviews
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        24/7 Emergency
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Free Estimates
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Timmins &amp; Area
+      </div>
+    </div>
+    <div class="trust-right">
+      <a href="tel:7057001234" class="trust-phone">(705) 700-1234</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     DESKTOP NAV
+     Emergency is NEVER inside a dropdown.
+     ═══════════════════════════════════ -->
+<nav id="mainNav">
+  <div class="nav-inner">
+
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Total Trades</span>
+        <span class="nav-logo-tag">Timmins ON</span>
+      </div>
+    </a>
+
+    <!-- Service icon nav — set class="nav-svc active" on the current page's icon -->
+    <div class="nav-services">
+      <a href="/hot-water" class="nav-svc" id="navHotWater">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M12 6v6l4 2"/></svg></div>
+        <span class="nav-svc-label">Hot Water</span>
+      </a>
+      <a href="/blocked-drains" class="nav-svc" id="navDrains">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div>
+        <span class="nav-svc-label">Drains</span>
+      </a>
+      <a href="/bathroom-renovations" class="nav-svc" id="navBathroom">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/><path d="M6 19v2M18 19v2"/></svg></div>
+        <span class="nav-svc-label">Bathrooms</span>
+      </a>
+      <a href="/leak-detection" class="nav-svc" id="navLeaks">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+        <span class="nav-svc-label">Leaks</span>
+      </a>
+      <a href="/gas-plumbing" class="nav-svc" id="navGas">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+        <span class="nav-svc-label">Gas</span>
+      </a>
+      <a href="/pipe-repair" class="nav-svc" id="navPipes">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div>
+        <span class="nav-svc-label">Pipes</span>
+      </a>
+      <a href="/water-filtration" class="nav-svc" id="navWater">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2z"/><path d="M6.5 11a6 6 0 1 0 11 0"/></svg></div>
+        <span class="nav-svc-label">Filtration</span>
+      </a>
+      <a href="/reviews" class="nav-svc" id="navReviews">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <span class="nav-svc-label">Reviews</span>
+      </a>
+      <a href="/blog" class="nav-svc" id="navBlog">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <span class="nav-svc-label">Blog</span>
+      </a>
+    </div>
+
+    <div class="nav-right">
+      <!-- Emergency is standalone — NEVER inside a dropdown -->
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+        Emergency
+      </a>
+      <a href="/book" class="nav-book" id="navBookBtn">Book Now</a>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════
+     MOBILE HEADER (replaces trust bar + nav on mobile)
+     Emergency always visible. Call always visible.
+     ═══════════════════════════════════ -->
+<div class="mobile-header" id="mobileHeader">
+  <button class="mobile-hamburger" id="mobileHamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="mobile-logo-name">Total Trades Solutions</span>
+  <div class="mobile-right">
+    <!-- Emergency: always rust, always visible, never inside hamburger -->
+    <a href="/emergency" class="mobile-emergency-btn">
+      <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Emergency
+    </a>
+    <a href="tel:7057001234" class="mobile-call-btn">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile menu drawer — Emergency is FIRST item -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/emergency" class="mobile-menu-emergency" onclick="closeMobileMenu()">
+    <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    Emergency 24/7 — We answer now
+  </a>
+
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Plumbing Services</div>
+    <a href="/hot-water" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hot Water Systems</a>
+    <a href="/blocked-drains" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>Blocked Drains</a>
+    <a href="/bathroom-renovations" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg>Bathroom Renovations</a>
+    <a href="/leak-detection" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>Leak Detection</a>
+    <a href="/gas-plumbing" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Gas Plumbing</a>
+    <a href="/pipe-repair" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg>Pipe Repair</a>
+    <a href="/water-filtration" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2z"/><path d="M6.5 11a6 6 0 1 0 11 0"/></svg>Water Filtration</a>
+  </div>
+
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Company</div>
+    <a href="/about" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>About Us</a>
+    <a href="/reviews" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Reviews</a>
+    <a href="/our-guarantee" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Our Guarantee</a>
+    <a href="/blog" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Blog</a>
+    <a href="/faq" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>FAQ</a>
+    <a href="/specials" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Specials</a>
+  </div>
+
+  <a href="/book" class="mobile-menu-book" onclick="closeMobileMenu()">Book Appointment</a>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE CONTENT
+     Wrap all page-specific content in .page-content
+     ═══════════════════════════════════ -->
+<main class="page-content">
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE-SPECIFIC CONTENT GOES HERE
+       Replace this comment block with the page body.
+       ═══════════════════════════════════════════════════════ -->
+
+  <div style="padding: 80px 24px; max-width: 1180px; margin: 0 auto; text-align: center;">
+    <div style="font-family: var(--cond); font-size: 13px; font-weight: 700; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px;">Shell Demo</div>
+    <h1 style="font-family: var(--cond); font-size: 56px; font-weight: 900; text-transform: uppercase; color: var(--ink); line-height: 0.95; margin-bottom: 20px;">Total Trades Solutions<br>Site Shell</h1>
+    <p style="font-size: 17px; color: var(--text2); max-width: 500px; margin: 0 auto 32px;">All shell components are live — nav, mobile header, footer, Lead Grabber, AI Chat, pixel layer. Replace this block with page content.</p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a href="/emergency" style="display:inline-flex;align-items:center;gap:8px;background:var(--rust);color:#fff;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;padding:12px 24px;border-radius:var(--radius);text-decoration:none;">Emergency 24/7</a>
+      <a href="/book" style="display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;padding:12px 24px;border-radius:var(--radius);text-decoration:none;">Book Now</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══════════════════════════════════
+     FOOTER (identical across all 25 pages)
+     ═══════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Total Trades Solutions</div>
+        <div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div>
+        <a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a>
+        <div class="footer-brand-email">info@totaltradessolutions.ca</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/emergency" class="footer-link">Emergency 24/7</a>
+          <a href="/hot-water" class="footer-link">Hot Water Systems</a>
+          <a href="/blocked-drains" class="footer-link">Blocked Drains</a>
+          <a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a>
+          <a href="/leak-detection" class="footer-link">Leak Detection</a>
+          <a href="/gas-plumbing" class="footer-link">Gas Plumbing</a>
+          <a href="/pipe-repair" class="footer-link">Pipe Repair</a>
+          <a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a>
+          <a href="/specials" class="footer-link">Specials</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about" class="footer-link">About Us</a>
+          <a href="/reviews" class="footer-link">Reviews</a>
+          <a href="/our-guarantee" class="footer-link">Our Guarantee</a>
+          <a href="/blog" class="footer-link">Blog</a>
+          <a href="/faq" class="footer-link">FAQ</a>
+          <a href="/book" class="footer-link">Book Appointment</a>
+          <a href="/privacy" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Service Areas</div>
+        <div class="footer-links">
+          <a href="/timmins" class="footer-link">Timmins</a>
+          <a href="/cochrane" class="footer-link">Cochrane</a>
+          <a href="/south-porcupine" class="footer-link">South Porcupine</a>
+          <a href="/iroquois-falls" class="footer-link">Iroquois Falls</a>
+          <a href="/kapuskasing" class="footer-link">Kapuskasing</a>
+          <a href="/matheson" class="footer-link">Matheson</a>
+          <a href="/kirkland-lake" class="footer-link">Kirkland Lake</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Total Trades Solutions. All rights reserved.</span>
+      <span>Licensed · Insured · Ontario College of Trades</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════
+     LEAD GRABBER
+     Default: both modes (speak now + email me)
+     Emergency pages: add class .lg-emergency-only to <body>
+     ═══════════════════════════════════ -->
+<div class="lead-grabber">
+  <button class="lg-btn" id="lgBtn" onclick="toggleLG()">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+  </button>
+  <span class="lg-label">Get help</span>
+</div>
+<div class="lg-panel" id="lgPanel">
+  <div class="lg-header">
+    <div>
+      <div class="lg-header-title">Get help now</div>
+      <div class="lg-header-sub">Choose how you'd like to connect</div>
+    </div>
+    <button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="lg-body">
+    <div class="lg-options">
+      <div class="lg-option selected" id="lgSpeak" onclick="selectLGMode('speak')">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+        <span>Call me back</span>
+      </div>
+      <div class="lg-option" id="lgEmail" onclick="selectLGMode('email')">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Email me</span>
+      </div>
+    </div>
+    <input class="lg-input" type="text" placeholder="Your name" id="lgName">
+    <input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone">
+    <input class="lg-input" type="text" placeholder="What's the job?" id="lgJob">
+    <button class="lg-submit" onclick="submitLG()">Send request</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     AI CHAT WIDGET
+     ═══════════════════════════════════ -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div>
+          <div class="chat-name">Total Trades Solutions Assistant</div>
+          <div class="chat-status">Online now · typically replies instantly</div>
+        </div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">Hi — I'm the Total Trades Solutions assistant. What can I help you with today?</div>
+    </div>
+    <div class="chat-quick">
+      <button class="chat-quick-btn" onclick="quickAsk('How much does a water heater replacement cost?')">Water heater cost</button>
+      <button class="chat-quick-btn" onclick="quickAsk('Do you serve Cochrane?')">Service areas</button>
+      <button class="chat-quick-btn" onclick="quickAsk('I have a burst pipe — what do I do?')">Emergency</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" placeholder="Ask a question…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+  <button class="chat-bubble" id="chatBubble" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════
+     PIXEL TOAST (demo indicator)
+     ═══════════════════════════════════ -->
+<div class="pixel-toast" id="pixelToast">
+  <div class="pixel-toast-dot"></div>
+  <span id="pixelToastText">Pixel fired</span>
+</div>
+
+<!-- ═══════════════════════════════════
+     CLEARSKY PIXEL + SHELL JS
+     ═══════════════════════════════════ -->
+<script>
+/* ── NAV SCROLL BEHAVIOUR ── */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  if (nav) {
+    if (window.scrollY > 20) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }
+  // Reveal animations
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+  });
+});
+// Initial reveal check on load
+document.querySelectorAll('.reveal').forEach(el => {
+  if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+});
+
+/* ── MOBILE MENU ── */
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('mobileHamburger');
+  const isOpen = menu.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileHamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── CLEARSKY PIXEL ──
+   Deterministic score tracking.
+   firePixel(event, label, delta, bucket)
+   - event: string identifier
+   - label: human-readable toast label
+   - delta: score points to add (0–100 cap)
+   - bucket: 'emergency' | 'active' | 'comparison' | 'research' | 'unclassified'
+   Bucket priority: emergency > active > comparison > research > unclassified
+   No-downgrade rule: bucket never moves to a lower priority within a session.
+*/
+let _score = 0;
+let _bucket = 'unclassified';
+let _scrollDepth = 0;
+let _dwellStart = Date.now();
+let _toastTimeout;
+const _bucketPriority = ['emergency','active','comparison','research','unclassified'];
+
+function firePixel(event, label, delta, bucket) {
+  _score = Math.min(_score + delta, 100);
+  // No-downgrade rule
+  if (bucket && bucket !== 'unclassified') {
+    const cur = _bucketPriority.indexOf(_bucket);
+    const nxt = _bucketPriority.indexOf(bucket);
+    if (cur === -1 || nxt < cur || _bucket === 'unclassified') _bucket = bucket;
+  }
+  // Toast
+  const toast = document.getElementById('pixelToast');
+  document.getElementById('pixelToastText').textContent = label + (delta > 0 ? ' +' + delta : '');
+  toast.classList.add('show');
+  clearTimeout(_toastTimeout);
+  _toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200);
+  // Log to console for dev / Intent Reader pickup
+  console.log('[ClearSky Pixel]', { event, score: _score, bucket: _bucket, delta, label });
+}
+
+/* ── SCROLL DEPTH ── */
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement.scrollHeight - window.innerHeight;
+  if (doc <= 0) return;
+  const pct = Math.round((window.scrollY / doc) * 100);
+  if (pct > _scrollDepth) {
+    if (pct >= 25 && _scrollDepth < 25) firePixel('scroll_25', 'Scroll 25%', 3, 'research');
+    if (pct >= 50 && _scrollDepth < 50) firePixel('scroll_50', 'Scroll 50%', 5, 'research');
+    if (pct >= 75 && _scrollDepth < 75) firePixel('scroll_75', 'Scroll 75%', 7, 'comparison');
+    if (pct >= 90 && _scrollDepth < 90) firePixel('scroll_90', 'Scroll 90%', 10, 'active');
+    _scrollDepth = pct;
+  }
+});
+
+/* ── DWELL TIMERS ── */
+let _dwell30 = false, _dwell60 = false, _dwell120 = false;
+setInterval(() => {
+  const s = Math.round((Date.now() - _dwellStart) / 1000);
+  if (s >= 30  && !_dwell30)  { _dwell30  = true; firePixel('dwell_30',  '30s dwell',  4,  'research'); }
+  if (s >= 60  && !_dwell60)  { _dwell60  = true; firePixel('dwell_60',  '60s dwell',  7,  'comparison'); }
+  if (s >= 120 && !_dwell120) { _dwell120 = true; firePixel('dwell_120', '2min dwell', 10, 'active'); }
+}, 1000);
+
+/* ── PAGE LOAD ── */
+firePixel('page_load', 'Session started', 0, 'unclassified');
+
+/* ── SHELL CTA EVENTS — wired on every page ── */
+const _navEmergency = document.getElementById('navEmergencyBtn');
+const _navBook = document.getElementById('navBookBtn');
+if (_navEmergency) _navEmergency.addEventListener('click', () => firePixel('nav_emergency', 'Nav: Emergency', 15, 'emergency'));
+if (_navBook) _navBook.addEventListener('click', () => firePixel('nav_book', 'Nav: Book Now', 10, 'active'));
+
+/* ── SECTION VISIBILITY (IntersectionObserver) ──
+   Fires when a section enters viewport. Pass data-pixel-event and data-pixel-delta attributes.
+   Example: <section data-pixel-event="reviews_section" data-pixel-label="Reviews visible" data-pixel-delta="3" data-pixel-bucket="comparison">
+*/
+const _sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const evt = el.dataset.pixelEvent;
+      const lbl = el.dataset.pixelLabel || evt;
+      const delta = parseInt(el.dataset.pixelDelta || '0');
+      const bkt = el.dataset.pixelBucket || 'research';
+      if (evt) {
+        firePixel(evt, lbl, delta, bkt);
+        _sectionObserver.unobserve(el); // fire once per session per section
+      }
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-pixel-event]').forEach(el => _sectionObserver.observe(el));
+
+/* ── AI CHAT ── */
+let _chatOpen = false;
+function toggleChat() {
+  _chatOpen = !_chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', _chatOpen);
+  if (_chatOpen) firePixel('chat_open', 'AI Chat opened', 6, 'research');
+}
+function quickAsk(q) {
+  _addChatMsg(q, 'user');
+  firePixel('chat_question', 'AI question: ' + q.substring(0, 30), 10, 'comparison');
+  setTimeout(() => _addChatMsg('Thanks for your question. A Total Trades Solutions plumber will follow up shortly. For urgent matters call (705) 700-1234.', 'bot'), 800);
+}
+function sendChat() {
+  const inp = document.getElementById('chatInput');
+  if (!inp.value.trim()) return;
+  _addChatMsg(inp.value, 'user');
+  firePixel('chat_question', 'AI question asked', 10, 'comparison');
+  inp.value = '';
+  setTimeout(() => _addChatMsg('Our team will get back to you shortly. For urgent matters call (705) 700-1234.', 'bot'), 800);
+}
+function _addChatMsg(text, type) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + type;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+/* ── LEAD GRABBER ── */
+let _lgOpen = false;
+let _lgMode = 'speak';
+function toggleLG() {
+  _lgOpen = !_lgOpen;
+  document.getElementById('lgPanel').classList.toggle('open', _lgOpen);
+  if (_lgOpen) firePixel('lg_open', 'Lead Grabber opened', 8, 'active');
+}
+function selectLGMode(mode) {
+  _lgMode = mode;
+  document.getElementById('lgSpeak').classList.toggle('selected', mode === 'speak');
+  document.getElementById('lgEmail').classList.toggle('selected', mode === 'email');
+  const phoneInput = document.getElementById('lgPhone');
+  if (mode === 'speak') {
+    phoneInput.placeholder = 'Phone — (705) 000-0000';
+    phoneInput.type = 'tel';
+  } else {
+    phoneInput.placeholder = 'Email address';
+    phoneInput.type = 'email';
+  }
+}
+function submitLG() {
+  firePixel('lg_submit', 'Lead Grabber submitted', 15, 'active');
+  const btn = document.querySelector('.lg-submit');
+  btn.textContent = 'Request sent ✓';
+  btn.style.background = 'var(--green)';
+  setTimeout(() => { btn.textContent = 'Send request'; btn.style.background = ''; }, 3000);
+}
+
+/* ── PAGE-SPECIFIC PIXEL EVENTS ──
+   Wire additional events below this line for each page.
+   This block is where page-specific JS goes.
+   ─────────────────────────────────────────────────── */
+
+</script>
+</body>
+</html>

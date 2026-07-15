@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Quote — Total Trades Solutions Timmins | Free Estimates</title>
+<meta name="description" content="Get a free quote from Total Trades Solutions in Timmins. Send a photo for a fast estimate, book an on-site visit, or call (705) 700-1234. Flat-rate pricing — no surprises.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS ── */
+:root {
+  --white:      #FFFFFF;
+  --surface:    #F8F6F1;
+  --border:     #E8E4DC;
+  --text:       #111714;
+  --text2:      #4A5E52;
+  --text3:      #8A9E92;
+  --green:      #1B5E3B;
+  --green-mid:  #2D7A52;
+  --green-lt:   #EBF5EF;
+  --green-dk:   #0D3B27;
+  --rust:       #C24A1E;
+  --rust-mid:   #A83818;
+  --rust-lt:    #FAEDE8;
+  --gold:       #B8862A;
+  --gold-lt:    #FBF5E6;
+  --ink:        #0D1F14;
+  --sans:       'Barlow', sans-serif;
+  --cond:       'Barlow Condensed', sans-serif;
+  --nav-h:      68px;
+  --trust-h:    40px;
+  --col:        1180px;
+  --radius:     6px;
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--sans); background: var(--white); color: var(--text); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+.page-content { margin-top: calc(var(--trust-h) + var(--nav-h)); }
+
+/* ── TRUST BAR ── */
+.trust-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--trust-h); background: var(--ink); display: flex; align-items: center; padding: 0 24px; }
+.trust-bar-inner { max-width: var(--col); margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.trust-items { display: flex; align-items: center; }
+.trust-item { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.75); padding: 0 18px; border-right: 1px solid rgba(255,255,255,0.1); }
+.trust-item:first-child { padding-left: 0; }
+.trust-item:last-child { border-right: none; }
+.trust-item svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.trust-item .stars { color: var(--gold); font-size: 11px; letter-spacing: 1px; }
+.trust-right { display: flex; align-items: center; }
+.trust-phone { font-family: var(--cond); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.04em; }
+
+/* ── NAV ── */
+nav { position: fixed; top: var(--trust-h); left: 0; right: 0; z-index: 190; height: var(--nav-h); background: var(--white); border-bottom: 1px solid var(--border); transition: box-shadow 0.3s; }
+nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.nav-inner { max-width: var(--col); margin: 0 auto; width: 100%; height: 100%; display: flex; align-items: center; padding: 0 24px; gap: 32px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-logo-mark { width: 38px; height: 38px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.nav-logo-mark svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.nav-logo-name { font-family: var(--cond); font-size: 20px; font-weight: 800; color: var(--ink); text-transform: uppercase; letter-spacing: 0.02em; }
+.nav-logo-tag { font-size: 10px; color: var(--text3); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+.nav-services { display: flex; align-items: center; gap: 2px; flex: 1; }
+.nav-svc { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 12px; border-radius: var(--radius); transition: background 0.2s; text-decoration: none; }
+.nav-svc:hover { background: var(--green-lt); }
+.nav-svc-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+.nav-svc-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.nav-svc-label { font-size: 10px; font-weight: 600; color: var(--text2); letter-spacing: 0.03em; white-space: nowrap; }
+.nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-emergency { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--radius); background: var(--rust-lt); border: 1.5px solid var(--rust); font-size: 13px; font-weight: 600; color: var(--rust); transition: all 0.2s; text-decoration: none; }
+.nav-emergency:hover { background: var(--rust); color: #fff; }
+.nav-emergency svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.nav-book { display: flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: var(--radius); background: var(--green); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+.nav-book:hover { background: var(--green-mid); }
+
+/* ── MOBILE ── */
+.mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 60px; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 16px; align-items: center; justify-content: space-between; }
+.mobile-hamburger { width: 40px; height: 40px; border: none; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+.mobile-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); transition: all 0.3s; transform-origin: center; }
+.mobile-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mobile-hamburger.open span:nth-child(2) { opacity: 0; }
+.mobile-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-logo-name { font-family: var(--cond); font-size: 18px; font-weight: 800; color: var(--ink); text-transform: uppercase; }
+.mobile-right { display: flex; align-items: center; gap: 8px; }
+.mobile-emergency-btn { display: flex; align-items: center; gap: 5px; background: var(--rust); color: #fff; font-family: var(--cond); font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 7px 12px; border-radius: var(--radius); text-decoration: none; }
+.mobile-emergency-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.mobile-call-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--green); border: none; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+.mobile-call-btn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; }
+.mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0; z-index: 180; background: var(--white); overflow-y: auto; border-top: 1px solid var(--border); flex-direction: column; }
+.mobile-menu.open { display: flex; }
+.mobile-menu-emergency { display: flex; align-items: center; gap: 10px; padding: 18px 20px; background: var(--rust-lt); border-bottom: 1px solid rgba(194,74,30,0.15); font-family: var(--cond); font-size: 17px; font-weight: 700; color: var(--rust); text-transform: uppercase; text-decoration: none; }
+.mobile-menu-emergency svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.mobile-menu-section { padding: 16px 20px 8px; }
+.mobile-menu-section-title { font-size: 10px; font-weight: 700; color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+.mobile-menu-link { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px; font-weight: 500; color: var(--text); text-decoration: none; }
+.mobile-menu-link svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 1.75; flex-shrink: 0; }
+.mobile-menu-book { margin: 16px 20px 20px; display: block; text-align: center; background: var(--green); color: #fff; font-family: var(--cond); font-size: 17px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px; border-radius: var(--radius); text-decoration: none; }
+
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+
+/* ════════════════════════════════════════
+   CONTACT / QUOTE PAGE STYLES
+   ════════════════════════════════════════ */
+
+/* ── PAGE HERO ── */
+.cq-hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 56px 24px 48px;
+}
+.cq-hero-inner {
+  max-width: var(--col); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+}
+.cq-hero-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
+.cq-hero-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--green); }
+.cq-hero-headline { font-family: var(--cond); font-weight: 900; font-size: clamp(40px, 5.5vw, 72px); line-height: 0.9; text-transform: uppercase; color: var(--ink); margin-bottom: 20px; }
+.cq-hero-headline em { font-style: normal; color: var(--green); }
+.cq-hero-sub { font-size: 16px; font-weight: 300; color: var(--text2); line-height: 1.7; max-width: 440px; }
+
+/* Route selector cards */
+.cq-routes { display: flex; flex-direction: column; gap: 12px; }
+.cq-route {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 18px 20px;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+}
+.cq-route:hover { border-color: var(--green); box-shadow: 0 4px 16px rgba(0,0,0,0.06); transform: translateY(-1px); }
+.cq-route.primary { border-color: var(--green); background: var(--green-lt); }
+.cq-route-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--surface); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+.cq-route.primary .cq-route-icon { background: rgba(27,94,59,0.15); }
+.cq-route:hover .cq-route-icon { background: var(--green-lt); }
+.cq-route-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.cq-route-text { flex: 1; }
+.cq-route-name { font-family: var(--cond); font-size: 17px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 3px; }
+.cq-route-desc { font-size: 12px; color: var(--text3); line-height: 1.4; }
+.cq-route-tag { font-size: 10px; font-weight: 700; color: var(--green); background: rgba(27,94,59,0.1); border-radius: 100px; padding: 3px 10px; letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+.cq-route-arrow { flex-shrink: 0; }
+.cq-route-arrow svg { width: 16px; height: 16px; stroke: var(--text3); fill: none; stroke-width: 2; transition: stroke 0.2s; }
+.cq-route:hover .cq-route-arrow svg { stroke: var(--green); }
+
+/* ── MAIN CONTENT AREA ── */
+.cq-main { padding: 64px 24px; background: var(--white); }
+.cq-main-inner { max-width: var(--col); margin: 0 auto; display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+
+/* ── LEFT — PRIMARY TOOLS ── */
+.cq-tools { display: flex; flex-direction: column; gap: 40px; }
+
+/* ── FOTOJOBBER — PRIMARY ── */
+.cq-fj {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+}
+.cq-fj-header {
+  background: var(--ink); padding: 20px 24px;
+  display: flex; align-items: center; gap: 14px;
+}
+.cq-fj-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cq-fj-icon svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; }
+.cq-fj-title-wrap { flex: 1; }
+.cq-fj-title { font-family: var(--cond); font-size: 18px; font-weight: 700; color: #fff; text-transform: uppercase; }
+.cq-fj-subtitle { font-size: 12px; color: rgba(255,255,255,0.5); }
+.cq-fj-badge { background: var(--gold); color: var(--ink); font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 100px; letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+.cq-fj-body { padding: 28px; }
+
+/* FotoJobber upload zone */
+.fj-upload-area {
+  border: 2px dashed var(--border); border-radius: var(--radius);
+  min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  cursor: pointer; transition: all 0.2s; margin-bottom: 20px; position: relative; overflow: hidden;
+  text-align: center; padding: 32px 24px;
+}
+.fj-upload-area:hover { border-color: var(--green); background: var(--green-lt); }
+.fj-upload-area.has-photo { border-style: solid; border-color: var(--green); padding: 0; align-items: stretch; justify-content: flex-start; }
+.fj-upload-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; }
+.fj-upload-icon svg { width: 26px; height: 26px; stroke: var(--green); fill: none; stroke-width: 1.5; }
+.fj-upload-title { font-family: var(--cond); font-weight: 700; font-size: 18px; color: var(--ink); text-transform: uppercase; }
+.fj-upload-sub { font-size: 13px; color: var(--text3); }
+.fj-upload-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.fj-upload-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--green); color: #fff; font-family: var(--cond); font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 10px 20px; border-radius: var(--radius); border: none; cursor: pointer; }
+.fj-upload-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.fj-camera-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); color: var(--text2); border: 1px solid var(--border); font-size: 13px; font-weight: 500; padding: 10px 18px; border-radius: var(--radius); cursor: pointer; }
+.fj-camera-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+.fj-file-input { display: none; }
+
+/* Photo preview */
+.fj-photo-preview { width: 100%; max-height: 280px; object-fit: cover; display: block; }
+.fj-photo-overlay { padding: 12px 16px; background: var(--green-lt); border-top: 1px solid rgba(27,94,59,0.15); display: flex; align-items: center; justify-content: space-between; }
+.fj-photo-status { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--green); font-weight: 500; }
+.fj-photo-status svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.fj-change-link { font-size: 12px; color: var(--text3); cursor: pointer; text-decoration: underline; }
+
+/* Annotation tool */
+.fj-annotation { margin-bottom: 16px; }
+.fj-annotation-label { font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+.fj-annotation-input {
+  width: 100%; border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 14px; font-size: 14px; font-family: inherit; outline: none;
+  resize: none; transition: border-color 0.2s; line-height: 1.5;
+}
+.fj-annotation-input:focus { border-color: var(--green); }
+.fj-annotation-hint { font-size: 12px; color: var(--text3); margin-top: 6px; font-style: italic; }
+
+/* Contact row */
+.fj-contact { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.fj-contact-input { border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 14px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+.fj-contact-input:focus { border-color: var(--green); }
+
+/* Service type chips */
+.fj-service-label { font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+.fj-service-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.fj-chip { border: 1.5px solid var(--border); border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 500; color: var(--text); cursor: pointer; transition: all 0.2s; }
+.fj-chip:hover { border-color: var(--green); color: var(--green); background: var(--green-lt); }
+.fj-chip.selected { border-color: var(--green); color: var(--green); background: var(--green-lt); font-weight: 600; }
+
+/* FotoJobber submit */
+.fj-submit-row { display: flex; align-items: center; gap: 12px; }
+.fj-submit-btn { flex: 1; background: var(--green); color: #fff; border: none; border-radius: var(--radius); padding: 15px; font-family: var(--cond); font-weight: 700; font-size: 17px; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.fj-submit-btn:hover { background: var(--green-mid); }
+.fj-submit-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.fj-submit-note { font-size: 11px; color: var(--text3); text-align: center; margin-top: 8px; }
+
+/* Photo thumbnail strip (multi-photo) */
+.fj-photo-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+.fj-photo-thumb { position: relative; width: 84px; height: 84px; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--border); cursor: pointer; flex-shrink: 0; transition: border-color 0.2s; }
+.fj-photo-thumb:hover { border-color: var(--green); }
+.fj-photo-thumb.annotated { border-color: var(--green); }
+.fj-photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fj-photo-thumb-badge { position: absolute; bottom: 3px; left: 3px; background: var(--green); color: #fff; border-radius: 100px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; }
+.fj-photo-thumb-badge svg { width: 10px; height: 10px; stroke: #fff; fill: none; stroke-width: 3; }
+.fj-photo-thumb-remove { position: absolute; top: 3px; right: 3px; width: 18px; height: 18px; border-radius: 50%; background: rgba(13,31,20,0.65); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.fj-photo-thumb-remove svg { width: 10px; height: 10px; stroke: #fff; fill: none; stroke-width: 2.5; }
+.fj-photo-thumb-add { width: 84px; height: 84px; border-radius: var(--radius); border: 2px dashed var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all 0.2s; }
+.fj-photo-thumb-add:hover { border-color: var(--green); background: var(--green-lt); }
+.fj-photo-thumb-add svg { width: 22px; height: 22px; stroke: var(--text3); fill: none; stroke-width: 2; }
+.fj-strip-hint { font-size: 12px; color: var(--text3); font-style: italic; margin-bottom: 16px; }
+
+/* Access permission modal */
+.fj-modal-overlay { position: fixed; inset: 0; z-index: 800; background: rgba(13,31,20,0.55); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.fj-modal { background: var(--white); border-radius: 14px; padding: 32px; max-width: 380px; text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.25); }
+.fj-modal-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--green-lt); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
+.fj-modal-icon svg { width: 28px; height: 28px; stroke: var(--green); fill: none; stroke-width: 1.75; }
+.fj-modal-title { font-family: var(--cond); font-size: 19px; font-weight: 700; color: var(--ink); text-transform: uppercase; margin-bottom: 10px; }
+.fj-modal-body { font-size: 13.5px; color: var(--text2); line-height: 1.6; margin-bottom: 22px; }
+.fj-modal-body strong { color: var(--ink); }
+.fj-modal-actions { display: flex; gap: 10px; }
+.fj-modal-deny { flex: 1; background: none; border: 1px solid var(--border); color: var(--text2); font-size: 13px; font-weight: 600; padding: 11px; border-radius: var(--radius); cursor: pointer; }
+.fj-modal-allow { flex: 1.3; background: var(--green); color: #fff; border: none; font-family: var(--cond); font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 11px; border-radius: var(--radius); cursor: pointer; }
+.fj-modal-allow:hover { background: var(--green-mid); }
+
+/* Annotate modal */
+.fj-annotate-panel { background: var(--white); border-radius: 14px; max-width: 460px; width: 100%; max-height: 92vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,0.25); }
+.fj-annotate-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); font-family: var(--cond); font-weight: 700; font-size: 15px; text-transform: uppercase; color: var(--ink); }
+.fj-annotate-close { background: none; border: none; color: var(--text3); cursor: pointer; padding: 4px; }
+.fj-annotate-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.25; }
+.fj-annotate-canvas-wrap { position: relative; width: 100%; background: var(--ink); touch-action: none; }
+.fj-annotate-img { width: 100%; display: block; max-height: 340px; object-fit: contain; margin: 0 auto; }
+.fj-annotate-canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; }
+.fj-annotate-hint { font-size: 12px; color: var(--text3); font-style: italic; padding: 12px 20px 0; }
+.fj-voice-row { display: flex; align-items: center; gap: 12px; padding: 14px 20px 0; }
+.fj-voice-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--rust-lt); border: 1.5px solid var(--rust); color: var(--rust); font-size: 13px; font-weight: 600; padding: 10px 16px; border-radius: 100px; cursor: pointer; transition: all 0.2s; }
+.fj-voice-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; }
+.fj-voice-btn.recording { background: var(--rust); color: #fff; animation: pulse 1s infinite; }
+.fj-voice-status { font-size: 12px; color: var(--text3); }
+.fj-transcript { padding: 12px 20px 0; }
+.fj-annotate-done { display: block; width: calc(100% - 40px); margin: 18px 20px 20px; background: var(--green); color: #fff; border: none; border-radius: var(--radius); padding: 13px; font-family: var(--cond); font-weight: 700; font-size: 15px; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
+.fj-annotate-done:hover { background: var(--green-mid); }
+
+/* ── TEXT FORM ALTERNATIVE ── */
+.cq-divider { display: flex; align-items: center; gap: 16px; }
+.cq-divider-line { flex: 1; height: 1px; background: var(--border); }
+.cq-divider-text { font-size: 12px; color: var(--text3); font-weight: 500; white-space: nowrap; }
+
+.cq-text-form { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+.cq-text-form-title { font-family: var(--cond); font-size: 18px; font-weight: 700; color: var(--ink); text-transform: uppercase; margin-bottom: 20px; }
+.cq-field { margin-bottom: 14px; }
+.cq-label { font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+.cq-input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 14px; font-size: 14px; font-family: inherit; outline: none; background: var(--white); transition: border-color 0.2s; }
+.cq-input:focus { border-color: var(--green); }
+.cq-textarea { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 14px; font-size: 14px; font-family: inherit; outline: none; background: var(--white); resize: none; transition: border-color 0.2s; line-height: 1.5; }
+.cq-textarea:focus { border-color: var(--green); }
+.cq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cq-submit { width: 100%; background: var(--ink); color: #fff; border: none; border-radius: var(--radius); padding: 14px; font-family: var(--cond); font-weight: 700; font-size: 16px; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+.cq-submit:hover { background: var(--green); }
+
+/* ── RIGHT SIDEBAR ── */
+.cq-sidebar { position: sticky; top: calc(var(--trust-h) + var(--nav-h) + 24px); display: flex; flex-direction: column; gap: 16px; }
+
+/* Call card */
+.cq-call-card { background: var(--ink); border-radius: 12px; padding: 24px; }
+.cq-call-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+.cq-call-number { font-family: var(--cond); font-size: 32px; font-weight: 900; color: var(--gold); display: block; margin-bottom: 4px; text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+.cq-call-number:hover { color: #fff; }
+.cq-call-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+.cq-call-btn { display: block; text-align: center; background: var(--rust); color: #fff; font-family: var(--cond); font-weight: 700; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; padding: 13px; border-radius: var(--radius); text-decoration: none; transition: background 0.2s; }
+.cq-call-btn:hover { background: var(--rust-mid); }
+.cq-call-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 16px 0; }
+.cq-availability { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.4); }
+.cq-avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 1.5s infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+
+/* Appointment card */
+.cq-apt-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.cq-apt-header { background: var(--green); padding: 16px 20px; display: flex; align-items: center; gap: 10px; }
+.cq-apt-header svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; flex-shrink: 0; }
+.cq-apt-header-text { font-family: var(--cond); font-size: 15px; font-weight: 700; color: #fff; text-transform: uppercase; }
+.cq-apt-body { padding: 20px; }
+.cq-apt-field { margin-bottom: 12px; }
+.cq-apt-label { font-size: 10px; font-weight: 700; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; display: block; }
+.cq-apt-input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; font-size: 13px; font-family: inherit; outline: none; background: var(--surface); }
+.cq-apt-input:focus { border-color: var(--green); background: var(--white); }
+.cq-apt-select { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; font-size: 13px; font-family: inherit; outline: none; background: var(--surface); color: var(--text); }
+.cq-apt-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cq-apt-submit { width: 100%; background: var(--green); color: #fff; border: none; border-radius: var(--radius); padding: 12px; font-family: var(--cond); font-weight: 700; font-size: 15px; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-top: 4px; }
+.cq-apt-submit:hover { background: var(--green-mid); }
+.cq-apt-note { font-size: 11px; color: var(--text3); text-align: center; margin-top: 8px; line-height: 1.5; }
+
+/* Trust card */
+.cq-trust-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.cq-trust-title { font-family: var(--cond); font-size: 13px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+.cq-trust-items { display: flex; flex-direction: column; gap: 10px; }
+.cq-trust-item { display: flex; align-items: flex-start; gap: 10px; }
+.cq-trust-icon { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.cq-trust-icon svg { width: 14px; height: 14px; stroke: var(--green); fill: none; stroke-width: 2.5; }
+.cq-trust-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+.cq-trust-text strong { color: var(--text); font-weight: 600; }
+
+/* ── RESPONSE PROMISE BAND ── */
+.cq-promise { background: var(--green); padding: 36px 24px; }
+.cq-promise-inner { max-width: var(--col); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.cq-promise-item { padding: 0 32px; border-right: 1px solid rgba(255,255,255,0.15); text-align: center; }
+.cq-promise-item:first-child { padding-left: 0; }
+.cq-promise-item:last-child { border-right: none; padding-right: 0; }
+.cq-promise-icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+.cq-promise-icon svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 1.75; }
+.cq-promise-headline { font-family: var(--cond); font-size: 18px; font-weight: 800; color: #fff; text-transform: uppercase; margin-bottom: 6px; }
+.cq-promise-sub { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+/* ── FAQ ── */
+.cq-faq { background: var(--surface); padding: 72px 24px; }
+.cq-faq-inner { max-width: var(--col); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.cq-faq-label { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.cq-faq-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--green); }
+.cq-faq-headline { font-family: var(--cond); font-weight: 800; font-size: clamp(32px, 4vw, 48px); line-height: 0.95; text-transform: uppercase; color: var(--ink); }
+.cq-faq-items { display: flex; flex-direction: column; gap: 0; }
+.cq-faq-item { border-bottom: 1px solid var(--border); }
+.cq-faq-item:first-child { border-top: 1px solid var(--border); }
+.cq-faq-q { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; cursor: pointer; user-select: none; }
+.cq-faq-q-text { font-family: var(--cond); font-size: 16px; font-weight: 700; color: var(--ink); text-transform: uppercase; }
+.cq-faq-chevron { width: 20px; height: 20px; border-radius: 50%; background: var(--green-lt); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.25s; }
+.cq-faq-chevron svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; }
+.cq-faq-item.open .cq-faq-chevron { transform: rotate(180deg); background: var(--green); }
+.cq-faq-item.open .cq-faq-chevron svg { stroke: #fff; }
+.cq-faq-a { display: none; padding-bottom: 16px; font-size: 14px; color: var(--text2); line-height: 1.7; }
+.cq-faq-item.open .cq-faq-a { display: block; }
+
+/* ── FOOTER ── */
+footer { background: var(--ink); padding: 64px 24px 32px; }
+.footer-inner { max-width: var(--col); margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 32px; }
+.footer-brand-name { font-family: var(--cond); font-size: 24px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 6px; }
+.footer-brand-tag { font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+.footer-brand-phone { font-family: var(--cond); font-size: 26px; font-weight: 700; color: var(--gold); letter-spacing: 0.02em; display: block; margin-bottom: 4px; }
+.footer-brand-email { font-size: 13px; color: rgba(255,255,255,0.35); }
+.footer-col-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+.footer-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-link { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+.footer-link:hover { color: #fff; }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.2); }
+
+/* ── LEAD GRABBER ── */
+.lead-grabber { position: fixed; bottom: 96px; right: 24px; z-index: 490; width: 56px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.lg-btn { width: 56px; height: 56px; border-radius: 50%; background: var(--rust); color: #fff; border: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(194,74,30,0.35); cursor: pointer; transition: all 0.2s; }
+.lg-btn:hover { background: var(--rust-mid); transform: scale(1.05); }
+.lg-btn svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lg-label { font-size: 9px; font-weight: 600; color: var(--rust); letter-spacing: 0.04em; text-align: center; white-space: nowrap; }
+.lg-panel { position: fixed; bottom: 90px; right: 90px; z-index: 490; width: 300px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); overflow: hidden; display: none; }
+.lg-panel.open { display: block; animation: slideUp 0.3s ease; }
+@keyframes slideUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+.lg-header { background: var(--rust); padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; }
+.lg-header-title { font-family: var(--cond); font-size: 18px; font-weight: 700; color: #fff; text-transform: uppercase; }
+.lg-header-sub { font-size: 11px; color: rgba(255,255,255,0.65); }
+.lg-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; }
+.lg-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.lg-body { padding: 16px; }
+.lg-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.lg-option { padding: 12px; border: 1.5px solid var(--border); border-radius: var(--radius); text-align: center; cursor: pointer; transition: all 0.2s; }
+.lg-option:hover, .lg-option.selected { border-color: var(--rust); background: var(--rust-lt); }
+.lg-option svg { width: 22px; height: 22px; stroke: var(--rust); fill: none; stroke-width: 2; margin: 0 auto 6px; display: block; }
+.lg-option span { font-size: 12px; font-weight: 600; color: var(--rust); }
+.lg-input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-size: 13px; font-family: inherit; outline: none; margin-bottom: 8px; }
+.lg-input:focus { border-color: var(--rust); }
+.lg-submit { width: 100%; background: var(--rust); color: #fff; border: none; border-radius: var(--radius); padding: 12px; font-family: var(--cond); font-weight: 700; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; }
+.lg-submit:hover { background: var(--rust-mid); }
+
+/* ── AI CHAT ── */
+.chat-widget { position: fixed; bottom: 24px; right: 24px; z-index: 500; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.chat-bubble { width: 56px; height: 56px; border-radius: 50%; background: var(--green); color: #fff; border: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(27,94,59,0.4); cursor: pointer; transition: all 0.2s; }
+.chat-bubble:hover { background: var(--green-mid); transform: scale(1.05); }
+.chat-bubble svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.chat-panel { width: 320px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); overflow: hidden; display: none; }
+.chat-panel.open { display: flex; flex-direction: column; animation: slideUp 0.3s ease; }
+.chat-panel-header { background: var(--green); padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; }
+.chat-header-info { display: flex; align-items: center; gap: 10px; }
+.chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+.chat-avatar svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; }
+.chat-name { font-size: 14px; font-weight: 600; color: #fff; }
+.chat-status { font-size: 11px; color: rgba(255,255,255,0.65); }
+.chat-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; }
+.chat-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.chat-messages { padding: 16px; min-height: 100px; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
+.chat-msg.bot { background: var(--surface); color: var(--text); border-bottom-left-radius: 4px; align-self: flex-start; }
+.chat-msg.user { background: var(--green); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+.chat-quick { padding: 0 16px 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chat-quick-btn { background: var(--green-lt); border: 1px solid rgba(27,94,59,0.2); border-radius: 100px; padding: 5px 12px; font-size: 12px; color: var(--green); font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.chat-quick-btn:hover { background: var(--green); color: #fff; }
+.chat-input-row { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); }
+.chat-input { flex: 1; border: 1px solid var(--border); border-radius: 100px; padding: 8px 14px; font-size: 13px; font-family: inherit; outline: none; }
+.chat-input:focus { border-color: var(--green); }
+.chat-send { width: 36px; height: 36px; border-radius: 50%; background: var(--green); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.chat-send svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; }
+
+/* ── PIXEL TOAST ── */
+.pixel-toast { position: fixed; bottom: 24px; left: 24px; z-index: 600; background: var(--ink); color: #fff; font-family: var(--cond); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 16px; border-radius: var(--radius); display: flex; align-items: center; gap: 8px; opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; max-width: 280px; }
+.pixel-toast.show { opacity: 1; transform: translateY(0); }
+.pixel-toast-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 1.2s infinite; flex-shrink: 0; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .cq-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .cq-main-inner { grid-template-columns: 1fr; }
+  .cq-sidebar { position: static; }
+  .cq-promise-inner { grid-template-columns: 1fr; gap: 24px; }
+  .cq-promise-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 0 0 24px; text-align: left; display: flex; align-items: flex-start; gap: 16px; }
+  .cq-promise-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .cq-promise-icon { margin: 0; flex-shrink: 0; }
+  .cq-faq-inner { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  :root { --trust-h: 0px; --nav-h: 60px; }
+  .trust-bar { display: none; }
+  nav { display: none; }
+  .mobile-header { display: flex; }
+  .page-content { margin-top: 60px; }
+  .fj-contact { grid-template-columns: 1fr; }
+  .cq-row { grid-template-columns: 1fr; }
+  .cq-apt-row { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .fj-upload-actions { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-items">
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Licensed &amp; Insured</div>
+      <div class="trust-item"><span class="stars">★★★★★</span>4.7 · 64 Reviews</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24/7 Emergency</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Flat-Rate Pricing</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins &amp; Area</div>
+    </div>
+    <div class="trust-right"><a href="tel:7057001234" class="trust-phone">(705) 700-1234</a></div>
+  </div>
+</div>
+
+<!-- DESKTOP NAV -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="nav-logo-text"><span class="nav-logo-name">Total Trades</span><span class="nav-logo-tag">Timmins ON</span></div>
+    </a>
+    <div class="nav-services">
+      <a href="/hot-water" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="nav-svc-label">Hot Water</span></a>
+      <a href="/blocked-drains" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div><span class="nav-svc-label">Drains</span></a>
+      <a href="/bathroom-renovations" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg></div><span class="nav-svc-label">Bathrooms</span></a>
+      <a href="/leak-detection" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="nav-svc-label">Leaks</span></a>
+      <a href="/gas-plumbing" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><span class="nav-svc-label">Gas</span></a>
+      <a href="/pipe-repair" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div><span class="nav-svc-label">Pipes</span></a>
+      <a href="/reviews" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="nav-svc-label">Reviews</span></a>
+      <a href="/blog" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="nav-svc-label">Blog</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>Emergency</a>
+      <a href="/book" class="nav-book" id="navBookBtn">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header" id="mobileHeader">
+  <button class="mobile-hamburger" id="mobileHamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+  <span class="mobile-logo-name">Total Trades Solutions</span>
+  <div class="mobile-right">
+    <a href="/emergency" class="mobile-emergency-btn"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency</a>
+    <a href="tel:7057001234" class="mobile-call-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></a>
+  </div>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/emergency" class="mobile-menu-emergency" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency 24/7 — We answer now</a>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Services</div>
+    <a href="/hot-water" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hot Water Systems</a>
+    <a href="/blocked-drains" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>Blocked Drains</a>
+    <a href="/bathroom-renovations" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg>Bathroom Renovations</a>
+    <a href="/leak-detection" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>Leak Detection</a>
+    <a href="/gas-plumbing" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Gas Plumbing</a>
+    <a href="/pipe-repair" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg>Pipe Repair</a>
+  </div>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Company</div>
+    <a href="/about" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>About Us</a>
+    <a href="/reviews" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Reviews</a>
+    <a href="/our-guarantee" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Our Guarantee</a>
+  </div>
+  <a href="/book" class="mobile-menu-book" onclick="closeMobileMenu()">Book Appointment</a>
+</div>
+
+<!-- PAGE CONTENT -->
+<main class="page-content">
+
+  <!-- HERO -->
+  <div class="cq-hero">
+    <div class="cq-hero-inner">
+      <div>
+        <div class="cq-hero-label">Contact &amp; Quote</div>
+        <h1 class="cq-hero-headline">Get a price.<br><em>Your way.</em></h1>
+        <p class="cq-hero-sub">Send a photo for a fast remote quote, book an on-site estimate, call us directly, or drop a message below. Pick whichever works for you — we respond to all of them.</p>
+      </div>
+      <!-- Route selector -->
+      <div class="cq-routes">
+        <div class="cq-route primary" onclick="scrollToFJ()">
+          <div class="cq-route-icon"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+          <div class="cq-route-text">
+            <div class="cq-route-name">Send a photo — FotoJobber</div>
+            <div class="cq-route-desc">Photo + annotation → quote within 2 hours. No visit needed.</div>
+          </div>
+          <div class="cq-route-tag">Fastest</div>
+          <div class="cq-route-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="cq-route" onclick="scrollToApt()">
+          <div class="cq-route-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="cq-route-text">
+            <div class="cq-route-name">Book an on-site estimate</div>
+            <div class="cq-route-desc">A licensed plumber visits and gives you a flat-rate price. Free.</div>
+          </div>
+          <div class="cq-route-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <a href="tel:7057001234" class="cq-route" id="heroCallBtn">
+          <div class="cq-route-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></div>
+          <div class="cq-route-text">
+            <div class="cq-route-name">Call (705) 700-1234</div>
+            <div class="cq-route-desc">We pick up. No voicemail, no call centre. 24/7 for emergencies.</div>
+          </div>
+          <div class="cq-route-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </a>
+        <div class="cq-route" onclick="scrollToForm()">
+          <div class="cq-route-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div class="cq-route-text">
+            <div class="cq-route-name">Send a message</div>
+            <div class="cq-route-desc">Name, number, and what you need — we'll call you back.</div>
+          </div>
+          <div class="cq-route-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="cq-main">
+    <div class="cq-main-inner">
+
+      <!-- LEFT — PRIMARY TOOLS -->
+      <div class="cq-tools">
+
+        <!-- ═══ FOTOJOBBER — PRIMARY ═══ -->
+        <div class="cq-fj reveal" id="fjSection">
+          <div class="cq-fj-header">
+            <div class="cq-fj-icon"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+            <div class="cq-fj-title-wrap">
+              <div class="cq-fj-title">FotoJobber — Send a photo</div>
+              <div class="cq-fj-subtitle">Annotated photo → accurate quote within 2 hours</div>
+            </div>
+            <div class="cq-fj-badge">Recommended</div>
+          </div>
+          <div class="cq-fj-body">
+
+            <!-- Upload zone -->
+            <div class="fj-upload-area" id="fjUploadArea" onclick="fjRequestAccess('library')" ondragover="fjDragOver(event)" ondrop="fjDrop(event)">
+              <div class="fj-upload-icon"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+              <div class="fj-upload-title">Take or upload photos</div>
+              <div class="fj-upload-sub">Show us exactly what needs attention — add as many angles as it takes to tell the story</div>
+              <div class="fj-upload-actions">
+                <button class="fj-upload-btn" onclick="event.stopPropagation();fjRequestAccess('library')">
+                  <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  Choose from library
+                </button>
+                <button class="fj-camera-btn" onclick="event.stopPropagation();fjRequestAccess('camera')">
+                  <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  Take a photo
+                </button>
+              </div>
+              <input type="file" class="fj-file-input" id="fjFileInput" accept="image/*" multiple onchange="handleFJFile(event)">
+              <input type="file" class="fj-file-input" id="fjCameraInput" accept="image/*" capture="environment" onchange="handleFJFile(event)">
+            </div>
+
+            <!-- Photo thumbnail strip — appears once at least one photo exists -->
+            <div class="fj-photo-strip" id="fjPhotoStrip" style="display:none"></div>
+            <div class="fj-strip-hint" id="fjStripHint" style="display:none">Tap a photo to circle the problem area and add a voice note.</div>
+
+            <!-- Annotation -->
+            <div class="fj-annotation">
+              <label class="fj-annotation-label">What do you need done?</label>
+              <textarea class="fj-annotation-input" id="fjNote" rows="3" placeholder="e.g. &quot;Tap dripping — cold side only, under the sink&quot; or &quot;Want to know cost of moving washer hookup to basement&quot;"></textarea>
+              <div class="fj-annotation-hint">The more specific you are, the more accurate your quote will be — typed, circled, or spoken all work.</div>
+            </div>
+
+            <!-- Service type -->
+            <label class="fj-service-label">Service type</label>
+            <div class="fj-service-chips">
+              <div class="fj-chip" onclick="toggleFJChip(this)">Dripping tap</div>
+              <div class="fj-chip" onclick="toggleFJChip(this)">Blocked drain</div>
+              <div class="fj-chip" onclick="toggleFJChip(this)">Burst / leaking pipe</div>
+              <div class="fj-chip selected" onclick="toggleFJChip(this)">Hot water system</div>
+              <div class="fj-chip" onclick="toggleFJChip(this)">Bathroom renovation</div>
+              <div class="fj-chip" onclick="toggleFJChip(this)">Gas fitting</div>
+              <div class="fj-chip" onclick="toggleFJChip(this)">Water filtration</div>
+              <div class="fj-chip" onclick="toggleFJChip(this)">Other</div>
+            </div>
+
+            <!-- Contact -->
+            <div class="fj-contact">
+              <input class="fj-contact-input" type="text" placeholder="First name" id="fjFirstName">
+              <input class="fj-contact-input" type="text" placeholder="Last name" id="fjLastName">
+              <input class="fj-contact-input" type="email" placeholder="Email" id="fjEmail">
+              <input class="fj-contact-input" type="tel" placeholder="Phone — (705) 000-0000" id="fjPhone">
+            </div>
+
+            <!-- Submit -->
+            <button class="fj-submit-btn" onclick="submitFJ()" id="fjSubmitBtn">
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send for quote
+            </button>
+            <div class="fj-submit-note" id="fjSubmitNote">We review every submission and reply with a detailed quote within 2 hours during business hours.</div>
+
+          </div>
+        </div>
+
+        <!-- ═══ FOTOJOBBER: ACCESS PERMISSION MODAL ═══ -->
+        <div class="fj-modal-overlay" id="fjPermModal" style="display:none">
+          <div class="fj-modal">
+            <div class="fj-modal-icon"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+            <div class="fj-modal-title">Connect to your camera and photos?</div>
+            <div class="fj-modal-body">FotoJobber needs access to your camera and photo library to attach images. Anything you share here is sent directly to <strong>Total Trades Solutions</strong> to prepare your quote — it isn't posted anywhere public.</div>
+            <div class="fj-modal-actions">
+              <button class="fj-modal-deny" onclick="fjDenyAccess()">Not now</button>
+              <button class="fj-modal-allow" onclick="fjGrantAccess()">Allow access</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ FOTOJOBBER: ANNOTATE MODAL ═══ -->
+        <div class="fj-modal-overlay" id="fjAnnotateModal" style="display:none">
+          <div class="fj-annotate-panel">
+            <div class="fj-annotate-header">
+              <span>Circle the problem area</span>
+              <button class="fj-annotate-close" onclick="fjCloseAnnotate()" aria-label="Close">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="fj-annotate-canvas-wrap" id="fjAnnotateWrap">
+              <img id="fjAnnotateImg" class="fj-annotate-img" alt="Photo being annotated">
+              <canvas id="fjAnnotateCanvas" class="fj-annotate-canvas"></canvas>
+            </div>
+            <div class="fj-annotate-hint">Drag on the photo to draw a circle around what you need done.</div>
+            <div class="fj-voice-row">
+              <button class="fj-voice-btn" id="fjVoiceBtn" onclick="fjToggleVoice()">
+                <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                <span id="fjVoiceLabel">Record a voice note</span>
+              </button>
+              <div class="fj-voice-status" id="fjVoiceStatus"></div>
+            </div>
+            <div class="fj-transcript" id="fjTranscript" style="display:none">
+              <label class="fj-annotation-label">Transcribed note — edit if needed</label>
+              <textarea class="fj-annotation-input" id="fjTranscriptText" rows="2"></textarea>
+            </div>
+            <button class="fj-annotate-done" onclick="fjSaveAnnotation()">Save and close</button>
+          </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="cq-divider reveal">
+          <div class="cq-divider-line"></div>
+          <div class="cq-divider-text">Or send a message instead</div>
+          <div class="cq-divider-line"></div>
+        </div>
+
+        <!-- ═══ TEXT FORM ALTERNATIVE ═══ -->
+        <div class="cq-text-form reveal" id="textFormSection">
+          <div class="cq-text-form-title">Send a message</div>
+          <div class="cq-row">
+            <div class="cq-field">
+              <label class="cq-label">Name</label>
+              <input class="cq-input" type="text" placeholder="First and last name" id="formName">
+            </div>
+            <div class="cq-field">
+              <label class="cq-label">Phone</label>
+              <input class="cq-input" type="tel" placeholder="(705) 000-0000" id="formPhone">
+            </div>
+          </div>
+          <div class="cq-field">
+            <label class="cq-label">Email (optional)</label>
+            <input class="cq-input" type="email" placeholder="your@email.com" id="formEmail">
+          </div>
+          <div class="cq-field">
+            <label class="cq-label">What do you need?</label>
+            <textarea class="cq-textarea" id="formMessage" rows="4" placeholder="Describe the job or issue — we'll call to discuss and confirm pricing before starting anything."></textarea>
+          </div>
+          <button class="cq-submit" onclick="submitForm()" id="formSubmitBtn">Send message</button>
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDEBAR -->
+      <div class="cq-sidebar reveal reveal-delay-1">
+
+        <!-- Call card -->
+        <div class="cq-call-card">
+          <div class="cq-call-label">Prefer to call?</div>
+          <a href="tel:7057001234" class="cq-call-number" id="sidebarCallBtn">(705) 700-1234</a>
+          <div class="cq-call-sub">A licensed plumber answers — not a call centre</div>
+          <a href="tel:7057001234" class="cq-call-btn">Call now</a>
+          <div class="cq-call-divider"></div>
+          <div class="cq-availability">
+            <div class="cq-avail-dot"></div>
+            Available now · 24/7 for emergencies
+          </div>
+        </div>
+
+        <!-- Appointment booking -->
+        <div class="cq-apt-card" id="aptSection">
+          <div class="cq-apt-header">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span class="cq-apt-header-text">Book on-site estimate</span>
+          </div>
+          <div class="cq-apt-body">
+            <div class="cq-apt-field">
+              <label class="cq-apt-label">Name</label>
+              <input class="cq-apt-input" type="text" placeholder="Your name" id="aptName">
+            </div>
+            <div class="cq-apt-row">
+              <div class="cq-apt-field">
+                <label class="cq-apt-label">Phone</label>
+                <input class="cq-apt-input" type="tel" placeholder="(705) 000-0000" id="aptPhone">
+              </div>
+              <div class="cq-apt-field">
+                <label class="cq-apt-label">Preferred day</label>
+                <select class="cq-apt-select" id="aptDay">
+                  <option>Any weekday</option>
+                  <option>Monday</option>
+                  <option>Tuesday</option>
+                  <option>Wednesday</option>
+                  <option>Thursday</option>
+                  <option>Friday</option>
+                </select>
+              </div>
+            </div>
+            <div class="cq-apt-field">
+              <label class="cq-apt-label">Preferred time</label>
+              <select class="cq-apt-select" id="aptTime">
+                <option>Any time</option>
+                <option>Morning (8am–12pm)</option>
+                <option>Afternoon (12pm–4pm)</option>
+                <option>Late afternoon (4pm–6pm)</option>
+              </select>
+            </div>
+            <div class="cq-apt-field">
+              <label class="cq-apt-label">Address</label>
+              <input class="cq-apt-input" type="text" placeholder="Timmins or surrounding area" id="aptAddress">
+            </div>
+            <button class="cq-apt-submit" onclick="submitApt()" id="aptSubmitBtn">Book free estimate</button>
+            <div class="cq-apt-note">Confirmed within 2 hours · Free · No obligation</div>
+          </div>
+        </div>
+
+        <!-- Trust signals -->
+        <div class="cq-trust-card">
+          <div class="cq-trust-title">What to expect</div>
+          <div class="cq-trust-items">
+            <div class="cq-trust-item">
+              <div class="cq-trust-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="cq-trust-text"><strong>Flat-rate pricing.</strong> We quote the full job before starting. No hourly surprises.</div>
+            </div>
+            <div class="cq-trust-item">
+              <div class="cq-trust-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="cq-trust-text"><strong>Free estimates</strong> on all jobs over $500. No call-out fee.</div>
+            </div>
+            <div class="cq-trust-item">
+              <div class="cq-trust-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="cq-trust-text"><strong>Licensed and insured.</strong> Ontario College of Trades. $2M liability.</div>
+            </div>
+            <div class="cq-trust-item">
+              <div class="cq-trust-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="cq-trust-text"><strong>Workmanship guarantee.</strong> If something isn't right, we come back. No charge.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- RESPONSE PROMISE -->
+  <div class="cq-promise">
+    <div class="cq-promise-inner">
+      <div class="cq-promise-item">
+        <div class="cq-promise-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div>
+          <div class="cq-promise-headline">FotoJobber quote in 2 hours</div>
+          <div class="cq-promise-sub">Submit a photo during business hours and a licensed plumber reviews it and responds with a detailed quote within 2 hours.</div>
+        </div>
+      </div>
+      <div class="cq-promise-item">
+        <div class="cq-promise-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div>
+          <div class="cq-promise-headline">Estimate confirmed same day</div>
+          <div class="cq-promise-sub">On-site estimate requests are confirmed by phone within 2 hours of submission during business hours. Next morning if after 5pm.</div>
+        </div>
+      </div>
+      <div class="cq-promise-item">
+        <div class="cq-promise-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></div>
+        <div>
+          <div class="cq-promise-headline">15-minute emergency response</div>
+          <div class="cq-promise-sub">Burst pipe, flooding, no hot water — call (705) 700-1234 and a plumber is dispatched within 15 minutes. 24 hours a day, 7 days a week.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="cq-faq">
+    <div class="cq-faq-inner">
+      <div class="reveal">
+        <div class="cq-faq-label">FAQ</div>
+        <h2 class="cq-faq-headline">Common questions<br>before contacting us.</h2>
+      </div>
+      <div class="cq-faq-items reveal reveal-delay-1">
+        <div class="cq-faq-item open">
+          <div class="cq-faq-q" onclick="toggleFAQ(this)">
+            <span class="cq-faq-q-text">Do you charge for estimates?</span>
+            <div class="cq-faq-chevron"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></div>
+          </div>
+          <div class="cq-faq-a">Free estimates on all jobs over $500. For smaller jobs — a dripping tap or simple repair — we can usually quote over the phone or via FotoJobber without a visit. There's no call-out fee for estimates on larger work.</div>
+        </div>
+        <div class="cq-faq-item">
+          <div class="cq-faq-q" onclick="toggleFAQ(this)">
+            <span class="cq-faq-q-text">How does flat-rate pricing work?</span>
+            <div class="cq-faq-chevron"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></div>
+          </div>
+          <div class="cq-faq-a">Before any work starts, we quote the full job as a single flat price. That's the number on the invoice — no hourly rate, no hidden add-ons. If we encounter something unexpected, we tell you and get approval before continuing.</div>
+        </div>
+        <div class="cq-faq-item">
+          <div class="cq-faq-q" onclick="toggleFAQ(this)">
+            <span class="cq-faq-q-text">How fast will I get a response?</span>
+            <div class="cq-faq-chevron"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></div>
+          </div>
+          <div class="cq-faq-a">FotoJobber quotes are reviewed and sent back within 2 hours during business hours. Appointment requests are confirmed by phone same day, or next morning if submitted after 5pm. For emergencies, call directly — we answer 24/7 and dispatch within 15 minutes.</div>
+        </div>
+        <div class="cq-faq-item">
+          <div class="cq-faq-q" onclick="toggleFAQ(this)">
+            <span class="cq-faq-q-text">What areas do you serve?</span>
+            <div class="cq-faq-chevron"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></div>
+          </div>
+          <div class="cq-faq-a">Timmins and surrounding area — Cochrane, South Porcupine, Iroquois Falls, Kapuskasing, Matheson, and Kirkland Lake. If you're unsure whether we cover your location, call and ask — we may still be able to help depending on the job scope.</div>
+        </div>
+        <div class="cq-faq-item">
+          <div class="cq-faq-q" onclick="toggleFAQ(this)">
+            <span class="cq-faq-q-text">Do you pull permits?</span>
+            <div class="cq-faq-chevron"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></div>
+          </div>
+          <div class="cq-faq-a">Yes. Any plumbing work requiring a permit — new rough-in, drain alterations, gas line work — we pull it and manage the inspection. You never deal with the building department. The permit cost is included in the quote.</div>
+        </div>
+        <div class="cq-faq-item">
+          <div class="cq-faq-q" onclick="toggleFAQ(this)">
+            <span class="cq-faq-q-text">What's the workmanship guarantee?</span>
+            <div class="cq-faq-chevron"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg></div>
+          </div>
+          <div class="cq-faq-a">If anything we installed or repaired develops a problem caused by our work, we come back and fix it at no charge. This covers the workmanship — not part failure from manufacturer defects or damage caused by the homeowner after handover.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Total Trades Solutions</div>
+        <div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div>
+        <a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a>
+        <div class="footer-brand-email">info@totaltradessolutions.ca</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/emergency" class="footer-link">Emergency 24/7</a>
+          <a href="/hot-water" class="footer-link">Hot Water Systems</a>
+          <a href="/blocked-drains" class="footer-link">Blocked Drains</a>
+          <a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a>
+          <a href="/leak-detection" class="footer-link">Leak Detection</a>
+          <a href="/gas-plumbing" class="footer-link">Gas Plumbing</a>
+          <a href="/pipe-repair" class="footer-link">Pipe Repair</a>
+          <a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a>
+          <a href="/specials" class="footer-link">Specials</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about" class="footer-link">About Us</a>
+          <a href="/reviews" class="footer-link">Reviews</a>
+          <a href="/our-guarantee" class="footer-link">Our Guarantee</a>
+          <a href="/blog" class="footer-link">Blog</a>
+          <a href="/faq" class="footer-link">FAQ</a>
+          <a href="/book" class="footer-link">Book Appointment</a>
+          <a href="/privacy" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Service Areas</div>
+        <div class="footer-links">
+          <a href="/timmins" class="footer-link">Timmins</a>
+          <a href="/cochrane" class="footer-link">Cochrane</a>
+          <a href="/south-porcupine" class="footer-link">South Porcupine</a>
+          <a href="/iroquois-falls" class="footer-link">Iroquois Falls</a>
+          <a href="/kapuskasing" class="footer-link">Kapuskasing</a>
+          <a href="/matheson" class="footer-link">Matheson</a>
+          <a href="/kirkland-lake" class="footer-link">Kirkland Lake</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Total Trades Solutions. All rights reserved.</span>
+      <span>Licensed · Insured · Ontario College of Trades</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LEAD GRABBER -->
+<div class="lead-grabber">
+  <button class="lg-btn" id="lgBtn" onclick="toggleLG()"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></button>
+  <span class="lg-label">Get help</span>
+</div>
+<div class="lg-panel" id="lgPanel">
+  <div class="lg-header">
+    <div><div class="lg-header-title">Get help now</div><div class="lg-header-sub">Choose how to connect</div></div>
+    <button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="lg-body">
+    <div class="lg-options">
+      <div class="lg-option selected" id="lgSpeak" onclick="selectLGMode('speak')">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+        <span>Call me back</span>
+      </div>
+      <div class="lg-option" id="lgEmail" onclick="selectLGMode('email')">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Email me</span>
+      </div>
+    </div>
+    <input class="lg-input" type="text" placeholder="Your name" id="lgName">
+    <input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone">
+    <input class="lg-input" type="text" placeholder="What's the job?" id="lgJob">
+    <button class="lg-submit" onclick="submitLG()">Send request</button>
+  </div>
+</div>
+
+<!-- AI CHAT -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div><div class="chat-name">Total Trades Solutions Assistant</div><div class="chat-status">Online · quote questions welcome</div></div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">Hi — I can help with questions about pricing, timelines, and what to expect. What would you like to know?</div>
+    </div>
+    <div class="chat-quick">
+      <button class="chat-quick-btn" onclick="quickAsk('How much does it cost to fix a dripping tap?')">Dripping tap cost</button>
+      <button class="chat-quick-btn" onclick="quickAsk('Do you do same-day repairs?')">Same-day repairs</button>
+      <button class="chat-quick-btn" onclick="quickAsk('What\'s included in a free estimate?')">Free estimate</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" placeholder="Ask a question…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+  <button class="chat-bubble" id="chatBubble" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+</div>
+
+<!-- PIXEL TOAST -->
+<div class="pixel-toast" id="pixelToast">
+  <div class="pixel-toast-dot"></div>
+  <span id="pixelToastText">Pixel fired</span>
+</div>
+
+<script>
+/* ── NAV + SCROLL ── */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  if (nav) { if (window.scrollY > 20) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+  });
+});
+document.querySelectorAll('.reveal').forEach(el => {
+  if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+});
+
+/* ── MOBILE MENU ── */
+function toggleMobileMenu() {
+  const m = document.getElementById('mobileMenu'), b = document.getElementById('mobileHamburger');
+  const o = m.classList.toggle('open'); b.classList.toggle('open', o); document.body.style.overflow = o ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileHamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── SCROLL HELPERS ── */
+function scrollToFJ()   { document.getElementById('fjSection').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+function scrollToApt()  { document.getElementById('aptSection').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+function scrollToForm() { document.getElementById('textFormSection').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+/* ── CLEARSKY PIXEL ── */
+let _score = 0, _bucket = 'unclassified', _scrollDepth = 0, _dwellStart = Date.now(), _toastTimeout;
+const _bp = ['emergency','active','comparison','research','unclassified'];
+function firePixel(event, label, delta, bucket) {
+  _score = Math.min(_score + delta, 100);
+  if (bucket && bucket !== 'unclassified') {
+    const c = _bp.indexOf(_bucket), n = _bp.indexOf(bucket);
+    if (c === -1 || n < c || _bucket === 'unclassified') _bucket = bucket;
+  }
+  const t = document.getElementById('pixelToast');
+  document.getElementById('pixelToastText').textContent = label + (delta > 0 ? ' +' + delta : '');
+  t.classList.add('show'); clearTimeout(_toastTimeout);
+  _toastTimeout = setTimeout(() => t.classList.remove('show'), 2200);
+  console.log('[ClearSky Pixel]', { event, score: _score, bucket: _bucket, delta, label });
+}
+
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement.scrollHeight - window.innerHeight; if (doc <= 0) return;
+  const pct = Math.round((window.scrollY / doc) * 100);
+  if (pct > _scrollDepth) {
+    if (pct >= 25 && _scrollDepth < 25) firePixel('scroll_25', 'Scroll 25%', 3, 'research');
+    if (pct >= 50 && _scrollDepth < 50) firePixel('scroll_50', 'Scroll 50%', 5, 'comparison');
+    if (pct >= 75 && _scrollDepth < 75) firePixel('scroll_75', 'Scroll 75%', 7, 'active');
+    if (pct >= 90 && _scrollDepth < 90) firePixel('scroll_90', 'Scroll 90%', 10, 'active');
+    _scrollDepth = pct;
+  }
+});
+let _d30=false,_d60=false,_d120=false;
+setInterval(() => {
+  const s = Math.round((Date.now() - _dwellStart) / 1000);
+  if (s>=30 && !_d30)  { _d30=true;  firePixel('dwell_30',  '30s dwell',  4, 'research'); }
+  if (s>=60 && !_d60)  { _d60=true;  firePixel('dwell_60',  '60s dwell',  7, 'comparison'); }
+  if (s>=120 && !_d120){ _d120=true; firePixel('dwell_120', '2min dwell', 10, 'active'); }
+}, 1000);
+
+/* Page load — contact/quote page = Active Project signal */
+firePixel('page_load', 'Contact/Quote — session started', 6, 'active');
+
+/* Shell nav */
+const _ne = document.getElementById('navEmergencyBtn'), _nb = document.getElementById('navBookBtn');
+if (_ne) _ne.addEventListener('click', () => firePixel('nav_emergency', 'Nav: Emergency', 15, 'emergency'));
+if (_nb) _nb.addEventListener('click', () => firePixel('nav_book', 'Nav: Book Now', 10, 'active'));
+
+/* Call button clicks */
+const _heroCall = document.getElementById('heroCallBtn'), _sideCall = document.getElementById('sidebarCallBtn');
+if (_heroCall) _heroCall.addEventListener('click', () => firePixel('call_click_hero', 'Call: hero route', 15, 'active'));
+if (_sideCall) _sideCall.addEventListener('click', () => firePixel('call_click_sidebar', 'Call: sidebar', 15, 'active'));
+
+/* Form field focus events */
+document.getElementById('formName').addEventListener('focus', () => firePixel('form_name_focus', 'Form: name focused', 8, 'active'));
+document.getElementById('formPhone').addEventListener('focus', () => firePixel('form_phone_focus', 'Form: phone focused', 12, 'active'));
+document.getElementById('formEmail').addEventListener('focus', () => firePixel('form_email_focus', 'Form: email focused', 12, 'active'));
+document.getElementById('aptName').addEventListener('focus', () => firePixel('apt_name_focus', 'Appointment: name focused', 8, 'active'));
+document.getElementById('aptPhone').addEventListener('focus', () => firePixel('apt_phone_focus', 'Appointment: phone focused', 12, 'active'));
+document.getElementById('fjNote').addEventListener('focus', () => firePixel('fj_note_focus', 'FotoJobber: annotation focused', 6, 'active'));
+document.getElementById('fjName').addEventListener('focus', () => firePixel('fj_name_focus', 'FotoJobber: name focused', 8, 'active'));
+document.getElementById('fjPhone').addEventListener('focus', () => firePixel('fj_phone_focus', 'FotoJobber: phone focused', 12, 'active'));
+
+/* ── FOTOJOBBER ── */
+var _fjPhotos = [];        // { id, dataUrl, circle: {x,y,r} | null, voiceNote: string | null }
+var _fjPhotoSeq = 0;
+var _fjPendingMode = null; // 'library' | 'camera' — which input to open once access is granted
+var _fjAccessGranted = false;
+var _fjActivePhotoId = null;
+var _fjStream = null, _fjRecorder = null, _fjRecording = false;
+
+function fjRequestAccess(mode) {
+  _fjPendingMode = mode;
+  if (_fjAccessGranted) { fjOpenInput(mode); return; }
+  document.getElementById('fjPermModal').style.display = 'flex';
+}
+function fjGrantAccess() {
+  _fjAccessGranted = true;
+  document.getElementById('fjPermModal').style.display = 'none';
+  firePixel('fj_access_granted', 'FotoJobber: camera/photo access granted', 4, 'active');
+  fjOpenInput(_fjPendingMode);
+}
+function fjDenyAccess() {
+  document.getElementById('fjPermModal').style.display = 'none';
+  firePixel('fj_access_denied', 'FotoJobber: camera/photo access denied', 0, 'active');
+}
+function fjOpenInput(mode) {
+  document.getElementById(mode === 'camera' ? 'fjCameraInput' : 'fjFileInput').click();
+}
+function fjDragOver(e) { e.preventDefault(); document.getElementById('fjUploadArea').style.borderColor = 'var(--green)'; }
+function fjDrop(e) {
+  e.preventDefault(); document.getElementById('fjUploadArea').style.borderColor = '';
+  _fjAccessGranted = true; // a drop is itself explicit, deliberate access
+  Array.from(e.dataTransfer.files).forEach(f => processFJFile(f));
+}
+function handleFJFile(e) { Array.from(e.target.files).forEach(f => processFJFile(f)); e.target.value = ''; }
+function processFJFile(file) {
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    _fjPhotos.push({ id: ++_fjPhotoSeq, dataUrl: ev.target.result, circle: null, voiceNote: null });
+    renderFJPhotoStrip();
+    firePixel('fj_photo_upload', 'FotoJobber: photo uploaded', 10, 'active');
+  };
+  reader.readAsDataURL(file);
+}
+function renderFJPhotoStrip() {
+  const strip = document.getElementById('fjPhotoStrip');
+  const hint = document.getElementById('fjStripHint');
+  if (!_fjPhotos.length) { strip.style.display = 'none'; hint.style.display = 'none'; return; }
+  strip.style.display = 'flex'; hint.style.display = 'block';
+  strip.innerHTML = _fjPhotos.map(p => `
+    <div class="fj-photo-thumb${p.circle ? ' annotated' : ''}" onclick="fjOpenAnnotate(${p.id})">
+      <img src="${p.dataUrl}" alt="Uploaded photo">
+      ${p.circle ? '<div class="fj-photo-thumb-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' : ''}
+      <div class="fj-photo-thumb-remove" onclick="event.stopPropagation();fjRemovePhoto(${p.id})"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+    </div>
+  `).join('') + `<div class="fj-photo-thumb-add" onclick="fjRequestAccess('library')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>`;
+}
+function fjRemovePhoto(id) {
+  _fjPhotos = _fjPhotos.filter(p => p.id !== id);
+  renderFJPhotoStrip();
+}
+
+/* ── ANNOTATE MODAL: circle-draw + voice note ── */
+function fjOpenAnnotate(id) {
+  _fjActivePhotoId = id;
+  const photo = _fjPhotos.find(p => p.id === id);
+  if (!photo) return;
+  document.getElementById('fjAnnotateImg').src = photo.dataUrl;
+  document.getElementById('fjAnnotateModal').style.display = 'flex';
+  const transcriptBox = document.getElementById('fjTranscript');
+  if (photo.voiceNote) {
+    transcriptBox.style.display = 'block';
+    document.getElementById('fjTranscriptText').value = photo.voiceNote;
+  } else {
+    transcriptBox.style.display = 'none';
+    document.getElementById('fjTranscriptText').value = '';
+  }
+  document.getElementById('fjVoiceLabel').textContent = 'Record a voice note';
+  document.getElementById('fjVoiceBtn').classList.remove('recording');
+  document.getElementById('fjVoiceStatus').textContent = '';
+  // Canvas must size itself AFTER the (possibly new) image has actually loaded —
+  // requestAnimationFrame alone fires before an async image load completes, which
+  // would size the canvas to 0 or the previous photo's dimensions.
+  const img = document.getElementById('fjAnnotateImg');
+  const sizeCanvasToImage = () => {
+    const canvas = document.getElementById('fjAnnotateCanvas');
+    canvas.width = img.clientWidth; canvas.height = img.clientHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (photo.circle) fjDrawCircle(ctx, photo.circle);
+  };
+  if (img.complete) { requestAnimationFrame(sizeCanvasToImage); }
+  else { img.onload = () => requestAnimationFrame(sizeCanvasToImage); }
+}
+function fjCloseAnnotate() {
+  document.getElementById('fjAnnotateModal').style.display = 'none';
+  if (_fjRecording) fjToggleVoice();
+  renderFJPhotoStrip(); // reflect any circle drawn even if closed without "Save"
+}
+function fjDrawCircle(ctx, c) {
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.strokeStyle = '#C24A1E'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2); ctx.stroke();
+}
+(function setupFjCanvasDrawing() {
+  document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('fjAnnotateCanvas');
+    if (!canvas) return;
+    let drawing = false, cx = 0, cy = 0;
+    const pos = (e) => {
+      const r = canvas.getBoundingClientRect();
+      const t = e.touches ? e.touches[0] : e;
+      return { x: t.clientX - r.left, y: t.clientY - r.top };
+    };
+    const start = (e) => { e.preventDefault(); drawing = true; const p = pos(e); cx = p.x; cy = p.y; };
+    const move = (e) => {
+      if (!drawing) return; e.preventDefault();
+      const p = pos(e);
+      const radius = Math.hypot(p.x - cx, p.y - cy);
+      fjDrawCircle(canvas.getContext('2d'), { x: cx, y: cy, r: radius });
+    };
+    const end = (e) => {
+      if (!drawing) return; drawing = false;
+      const p = e.changedTouches ? pos({ touches: e.changedTouches }) : pos(e);
+      const radius = Math.hypot(p.x - cx, p.y - cy);
+      const photo = _fjPhotos.find(pp => pp.id === _fjActivePhotoId);
+      if (photo) photo.circle = { x: cx, y: cy, r: Math.max(radius, 18) };
+    };
+    canvas.addEventListener('mousedown', start); canvas.addEventListener('mousemove', move); window.addEventListener('mouseup', end);
+    canvas.addEventListener('touchstart', start, { passive: false }); canvas.addEventListener('touchmove', move, { passive: false }); canvas.addEventListener('touchend', end);
+  });
+})();
+
+async function fjToggleVoice() {
+  const btn = document.getElementById('fjVoiceBtn');
+  const label = document.getElementById('fjVoiceLabel');
+  const status = document.getElementById('fjVoiceStatus');
+  if (!_fjRecording) {
+    try {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        _fjStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        _fjRecorder = new MediaRecorder(_fjStream);
+        _fjRecorder.start();
+      }
+      _fjRecording = true;
+      btn.classList.add('recording'); label.textContent = 'Stop recording';
+      status.textContent = 'Listening…';
+      firePixel('fj_voice_start', 'FotoJobber: voice note started', 5, 'active');
+    } catch (err) {
+      status.textContent = 'Microphone access denied — you can still type your note below.';
+    }
+  } else {
+    _fjRecording = false;
+    btn.classList.remove('recording'); label.textContent = 'Record a voice note';
+    if (_fjRecorder && _fjRecorder.state !== 'inactive') _fjRecorder.stop();
+    if (_fjStream) _fjStream.getTracks().forEach(t => t.stop());
+    status.textContent = 'Transcribing…';
+    firePixel('fj_voice_stop', 'FotoJobber: voice note stopped', 6, 'active');
+    setTimeout(() => {
+      status.textContent = 'Transcribed';
+      const box = document.getElementById('fjTranscript');
+      const text = document.getElementById('fjTranscriptText');
+      box.style.display = 'block';
+      if (!text.value) text.value = 'Rumbling and low pressure for a while now — think it\'s the old pipe. Want someone to take a look.';
+      firePixel('fj_voice_transcribed', 'FotoJobber: voice note transcribed', 8, 'active');
+    }, 1400);
+  }
+}
+function fjSaveAnnotation() {
+  const photo = _fjPhotos.find(p => p.id === _fjActivePhotoId);
+  const transcript = document.getElementById('fjTranscriptText').value.trim();
+  if (photo && transcript) {
+    photo.voiceNote = transcript;
+    const noteField = document.getElementById('fjNote');
+    if (!noteField.value.includes(transcript)) {
+      noteField.value = noteField.value ? (noteField.value + ' ' + transcript) : transcript;
+    }
+  }
+  firePixel('fj_annotation_saved', 'FotoJobber: photo annotated (circle + voice)', 10, 'active');
+  renderFJPhotoStrip();
+  fjCloseAnnotate();
+}
+
+function toggleFJChip(el) {
+  el.classList.toggle('selected');
+  firePixel('fj_service_select', 'FotoJobber: service selected', 3, 'active');
+}
+
+function fjGenerateCommId() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let id = 'CQ-';
+  for (let i = 0; i < 6; i++) id += chars[Math.floor(Math.random() * chars.length)];
+  return id;
+}
+function submitFJ() {
+  const firstName = document.getElementById('fjFirstName').value.trim();
+  const lastName = document.getElementById('fjLastName').value.trim();
+  const email = document.getElementById('fjEmail').value.trim();
+  const phone = document.getElementById('fjPhone').value.trim();
+  if (!firstName) { document.getElementById('fjFirstName').focus(); return; }
+  if (!lastName) { document.getElementById('fjLastName').focus(); return; }
+  if (!email) { document.getElementById('fjEmail').focus(); return; }
+  if (!phone) { document.getElementById('fjPhone').focus(); return; }
+  const commId = fjGenerateCommId();
+  firePixel('fj_submit', 'FotoJobber: submitted — comm ' + commId, 15, 'active');
+  const btn = document.getElementById('fjSubmitBtn');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Received — quote within 2 hours';
+  btn.style.background = 'var(--green-mid)';
+  btn.disabled = true;
+  document.getElementById('fjSubmitNote').innerHTML = 'Reference <strong>' + commId + '</strong> — we review every submission and reply with a detailed quote within 2 hours during business hours.';
+}
+
+/* ── TEXT FORM ── */
+function submitForm() {
+  const name = document.getElementById('formName').value;
+  const phone = document.getElementById('formPhone').value;
+  const msg  = document.getElementById('formMessage').value;
+  if (!name || !phone) { if (!name) document.getElementById('formName').focus(); else document.getElementById('formPhone').focus(); return; }
+  firePixel('form_submit', 'Contact form submitted', 20, 'active');
+  const btn = document.getElementById('formSubmitBtn');
+  btn.textContent = 'Message sent — we\'ll call you back ✓';
+  btn.style.background = 'var(--green)';
+  btn.disabled = true;
+}
+
+/* ── APPOINTMENT ── */
+function submitApt() {
+  const name = document.getElementById('aptName').value;
+  const phone = document.getElementById('aptPhone').value;
+  if (!name || !phone) { if (!name) document.getElementById('aptName').focus(); else document.getElementById('aptPhone').focus(); return; }
+  firePixel('apt_submit', 'Appointment: booked', 20, 'active');
+  const btn = document.getElementById('aptSubmitBtn');
+  btn.textContent = 'Booked — confirmed within 2 hours ✓';
+  btn.style.background = 'var(--green-mid)';
+  btn.disabled = true;
+}
+
+/* ── FAQ ── */
+function toggleFAQ(el) {
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.cq-faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+  firePixel('faq_click', 'FAQ expanded', 3, 'research');
+}
+
+/* ── LEAD GRABBER ── */
+let _lgOpen = false, _lgMode = 'speak';
+function toggleLG() {
+  _lgOpen = !_lgOpen;
+  document.getElementById('lgPanel').classList.toggle('open', _lgOpen);
+  if (_lgOpen) firePixel('lg_open', 'Lead Grabber opened', 8, 'active');
+}
+function selectLGMode(mode) {
+  _lgMode = mode;
+  document.getElementById('lgSpeak').classList.toggle('selected', mode==='speak');
+  document.getElementById('lgEmail').classList.toggle('selected', mode==='email');
+  const p = document.getElementById('lgPhone');
+  if (mode==='speak') { p.placeholder='Phone — (705) 000-0000'; p.type='tel'; }
+  else { p.placeholder='Email address'; p.type='email'; }
+}
+function submitLG() {
+  firePixel('lg_submit', 'Lead Grabber submitted', 15, 'active');
+  const btn = document.querySelector('.lg-submit');
+  btn.textContent = 'Request sent ✓'; btn.style.background = 'var(--green)';
+  setTimeout(() => { btn.textContent = 'Send request'; btn.style.background = ''; }, 3000);
+}
+
+/* ── AI CHAT ── */
+let _chatOpen = false;
+function toggleChat() {
+  _chatOpen = !_chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', _chatOpen);
+  if (_chatOpen) firePixel('chat_open', 'AI Chat opened', 6, 'comparison');
+}
+function quickAsk(q) {
+  _addChatMsg(q, 'user');
+  firePixel('chat_question', 'Chat: ' + q.substring(0,30), 10, 'comparison');
+  const r = {
+    'How much does it cost to fix a dripping tap?': 'A dripping tap is typically $120–$280 depending on tap type and whether parts need replacing. We can often quote accurately from a photo — use the FotoJobber above.',
+    'Do you do same-day repairs?': 'Yes — for most standard repairs we can book same-day or next morning. Emergency work (burst pipes, no hot water) is 24/7. Call (705) 700-1234 for urgency.',
+    "What's included in a free estimate?": 'A licensed plumber visits your home, assesses the scope, and gives you a written flat-rate price before starting anything. No charge. No obligation to proceed.'
+  };
+  setTimeout(() => _addChatMsg(r[q] || 'Our team will get back to you shortly. For urgent questions call (705) 700-1234.', 'bot'), 800);
+}
+function sendChat() {
+  const inp = document.getElementById('chatInput'); if (!inp.value.trim()) return;
+  _addChatMsg(inp.value, 'user'); firePixel('chat_question', 'Chat question asked', 10, 'comparison'); inp.value = '';
+  setTimeout(() => _addChatMsg('Our team will follow up shortly. Call (705) 700-1234 for an immediate answer.', 'bot'), 800);
+}
+function _addChatMsg(text, type) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div'); div.className = 'chat-msg ' + type; div.textContent = text;
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+}
+</script>
+</body>
+</html>

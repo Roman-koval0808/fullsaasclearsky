@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSky — Revenue Impact Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#4267AD;--blue-dk:#2d4d8a;--blue-lt:#e8eef8;--blue-mid:#6b8cc4;
+  --text:#111827;--muted:#6b7280;--border:rgba(0,0,0,0.09);
+  --bg:#f4f6f9;--white:#fff;
+  --green:#16a34a;--green-lt:#dcfce7;
+  --amber:#ca8a04;--amber-lt:#fef9c3;
+  --red:#dc2626;--red-lt:#fee2e2;
+  --font:'Epilogue',sans-serif;--mono:'DM Mono',monospace;--serif:'DM Serif Display',serif;
+}
+body{font-family:var(--font);background:var(--bg);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 48px}
+.modal{background:var(--white);border-radius:20px;width:100%;max-width:700px;box-shadow:0 24px 80px rgba(66,103,173,0.15),0 4px 16px rgba(0,0,0,0.08);overflow:hidden}
+.hdr{background:var(--blue);padding:26px 32px 22px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06)}
+.hdr::after{content:'';position:absolute;bottom:-60px;left:40%;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.hdr-eye{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.hdr-title{font-family:var(--serif);font-size:26px;color:#fff;line-height:1.2;margin-bottom:3px}
+.hdr-sub{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5}
+.step-counter{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.5);margin-top:8px}
+.prog{padding:18px 32px 0;background:var(--white)}
+.prog-steps{display:flex;align-items:center;margin-bottom:5px}
+.sdot{width:26px;height:26px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--muted);font-family:var(--mono);transition:all .3s;flex-shrink:0;position:relative;z-index:1}
+.sdot.active{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 0 4px rgba(66,103,173,0.15)}
+.sdot.done{background:var(--green);border-color:var(--green);color:#fff;font-size:0}
+.sdot.done::after{content:'✓';font-size:11px}
+.sline{flex:1;height:2px;background:var(--border);transition:background .3s}
+.sline.done{background:var(--green)}
+.sline.active{background:var(--blue)}
+.slbls{display:flex;justify-content:space-between;padding-bottom:4px}
+.slbl{font-size:8px;font-family:var(--mono);color:var(--muted);text-align:center;flex:1;transition:color .3s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slbl.active{color:var(--blue);font-weight:500}
+.slbl.done{color:var(--green)}
+.body{padding:22px 32px 26px}
+.panel{display:none;animation:fi .3s ease}
+.panel.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.q{font-family:var(--serif);font-size:21px;color:var(--text);margin-bottom:5px;line-height:1.3}
+.hint{font-size:12px;color:var(--muted);margin-bottom:18px;line-height:1.6}
+/* BIZ CARDS */
+.biz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bcard{border:2px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s;background:var(--white)}
+.bcard:hover{border-color:var(--blue-mid);background:var(--blue-lt)}
+.bcard.sel{border-color:var(--blue);background:var(--blue-lt);box-shadow:0 0 0 3px rgba(66,103,173,0.12)}
+.bicon{width:40px;height:40px;border-radius:9px;margin:0 auto 9px;display:flex;align-items:center;justify-content:center}
+.bname{font-size:12px;font-weight:500;color:var(--text);line-height:1.3}
+.bsub{font-size:10px;color:var(--muted);margin-top:2px;font-family:var(--mono)}
+/* INPUTS */
+.inp-wrap{position:relative;margin-bottom:14px}
+.inp-pre{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;font-weight:500;color:var(--blue);font-family:var(--mono);pointer-events:none}
+.inp-suf{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--muted);font-family:var(--mono);pointer-events:none}
+.cinp{width:100%;height:52px;border:2px solid var(--border);border-radius:10px;font-size:19px;font-weight:300;font-family:var(--serif);color:var(--text);padding:0 140px 0 52px;outline:none;transition:border-color .2s;background:var(--white)}
+.cinp:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(66,103,173,0.1)}
+.cinp.no-pre{padding-left:16px}
+/* RANGE */
+.rng-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px}
+.rng-val{font-family:var(--serif);font-size:26px;color:var(--blue);font-weight:300}
+.rng-unit{font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:3px}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--border);outline:none;margin-bottom:7px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 2px 8px rgba(66,103,173,0.3);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+.rng-lbls{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:var(--mono);margin-bottom:14px}
+/* OPTION PILLS */
+.opt-grid{display:grid;gap:8px}
+.opt-grid.cols3{grid-template-columns:repeat(3,1fr)}
+.opt-grid.cols4{grid-template-columns:repeat(4,1fr)}
+.opt-grid.cols5{grid-template-columns:repeat(5,1fr)}
+.opt-grid.cols6{grid-template-columns:repeat(6,1fr)}
+.opt{border:2px solid var(--border);border-radius:10px;padding:11px 8px;text-align:center;cursor:pointer;transition:all .2s}
+.opt:hover{border-color:var(--blue-mid)}
+.opt.sel-blue{border-color:var(--blue);background:var(--blue-lt)}
+.opt.sel-red{border-color:var(--red);background:var(--red-lt)}
+.opt.sel-amber{border-color:var(--amber);background:var(--amber-lt)}
+.opt.sel-green{border-color:var(--green);background:var(--green-lt)}
+.opt-val{font-family:var(--serif);font-size:18px;color:var(--text);margin-bottom:2px}
+.opt-lbl{font-size:9px;color:var(--muted);font-family:var(--mono)}
+.opt.sel-blue .opt-val{color:var(--blue)}
+.opt.sel-red .opt-val{color:var(--red)}
+.opt.sel-amber .opt-val{color:var(--amber)}
+.opt.sel-green .opt-val{color:var(--green)}
+/* SEASONAL GRID */
+.season-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:6px}
+.season-card{background:var(--bg);border-radius:10px;padding:12px 10px;text-align:center;border:1px solid var(--border)}
+.season-q{font-size:10px;font-family:var(--mono);color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.season-val{font-family:var(--serif);font-size:20px;color:var(--blue);margin-bottom:4px}
+.season-card.peak{border-color:rgba(66,103,173,0.3);background:var(--blue-lt)}
+.season-card.peak .season-val{color:var(--blue-dk);font-size:22px}
+.season-card input[type=range]{margin-bottom:4px}
+/* TIME GRID */
+.time-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.time-item{background:var(--bg);border-radius:10px;padding:12px;border:1px solid var(--border)}
+.time-lbl{font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.time-val{font-family:var(--serif);font-size:22px;color:var(--blue);text-align:center;margin-bottom:6px}
+/* NAV */
+.nav{display:flex;gap:10px;margin-top:20px}
+.btn-back{padding:11px 18px;background:transparent;color:var(--muted);border:1.5px solid var(--border);border-radius:9px;font-family:var(--mono);font-size:12px;cursor:pointer;transition:all .15s}
+.btn-back:hover{color:var(--text);border-color:rgba(0,0,0,0.2)}
+.btn-next{flex:1;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:9px;font-family:var(--mono);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-next:hover{background:var(--blue-dk);box-shadow:0 4px 14px rgba(66,103,173,0.25)}
+.btn-next:disabled{background:var(--border);color:var(--muted);cursor:not-allowed;box-shadow:none}
+/* RESULTS */
+.res-eye{font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;text-align:center}
+.res-hl{font-family:var(--serif);font-size:22px;color:var(--text);margin-bottom:4px;text-align:center;line-height:1.3}
+.res-sub{font-size:11px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:18px}
+.met-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.met{border-radius:12px;padding:13px 14px;border:1px solid var(--border)}
+.met.cur{background:#f8fafc}
+.met.loss{background:var(--red-lt);border-color:rgba(220,38,38,0.2)}
+.met.gain{background:var(--green-lt);border-color:rgba(22,163,74,0.2)}
+.met-lbl{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px}
+.met.cur .met-lbl{color:var(--muted)}
+.met.loss .met-lbl{color:var(--red)}
+.met.gain .met-lbl{color:var(--green)}
+.met-val{font-family:var(--serif);font-size:20px;font-weight:300;margin-bottom:2px}
+.met.cur .met-val{color:var(--text)}
+.met.loss .met-val{color:var(--red)}
+.met.gain .met-val{color:var(--green)}
+.met-s{font-size:10px;color:var(--muted);font-family:var(--mono);line-height:1.4}
+/* BIG LIFT */
+.lift-ban{background:var(--blue);border-radius:14px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.lift-lbl{font-size:10px;font-family:var(--mono);color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+.lift-val{font-family:var(--serif);font-size:34px;color:#fff;line-height:1;margin-bottom:2px}
+.lift-s{font-size:11px;color:rgba(255,255,255,0.7);font-family:var(--mono)}
+.lift-badge{background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 14px;text-align:center;flex-shrink:0}
+.lift-pct{font-family:var(--serif);font-size:26px;color:#fff;line-height:1}
+.lift-pct-lbl{font-size:9px;color:rgba(255,255,255,0.65);font-family:var(--mono);margin-top:2px}
+/* BREAKDOWN */
+.bkdn{background:var(--bg);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.bkdn-title{font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+.bkdn-row{display:flex;align-items:center;margin-bottom:9px}
+.bkdn-row:last-child{margin-bottom:0}
+.bkdn-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-right:8px}
+.bkdn-name{font-size:11px;color:var(--text);flex:1;min-width:0}
+.bkdn-bar-wrap{width:90px;height:4px;background:var(--border);border-radius:2px;margin:0 12px;flex-shrink:0}
+.bkdn-bar{height:100%;border-radius:2px;transition:width .8s ease;width:0%}
+.bkdn-impact{font-size:11px;font-weight:500;font-family:var(--mono);color:var(--green);flex-shrink:0;min-width:60px;text-align:right}
+/* CAPACITY INSIGHT */
+.cap-insight{background:var(--amber-lt);border:1px solid rgba(202,138,4,0.25);border-radius:12px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:flex-start;gap:12px}
+.cap-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.cap-text{font-size:12px;color:var(--text);line-height:1.6}
+.cap-text strong{color:var(--amber);font-weight:500}
+/* DISCLAIMER */
+.disc{font-size:10px;color:var(--muted);line-height:1.6;text-align:center;font-family:var(--mono);margin-bottom:14px}
+.cta-btn{width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-family:var(--mono);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.cta-btn:hover{background:var(--blue-dk);transform:translateY(-1px);box-shadow:0 6px 20px rgba(66,103,173,0.3)}
+.reset-btn{background:none;border:none;font-family:var(--mono);font-size:11px;color:var(--muted);cursor:pointer;text-decoration:underline;display:block;margin:10px auto 0;text-align:center}
+/* PREVIEW BAR */
+.prev-bar{background:var(--blue-lt);border-top:1px solid rgba(66,103,173,0.15);padding:9px 32px;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;color:var(--blue);min-height:40px;flex-wrap:wrap}
+.prev-bar.gone{display:none}
+.pitem{display:flex;align-items:center;gap:4px}
+.plbl{color:var(--blue-mid)}
+.pval{font-weight:500;color:var(--blue-dk)}
+.pdiv{color:rgba(66,103,173,0.3);margin:0 2px}
+/* SECTION DIVIDER */
+.sdivider{display:flex;align-items:center;gap:10px;margin:16px 0 14px}
+.sdivider-line{flex:1;height:1px;background:var(--border)}
+.sdivider-lbl{font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.col-lbl{font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="modal">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-eye">ClearSky Software · Revenue Impact Calculator</div>
+    <div class="hdr-title">What is your business leaving on the table?</div>
+    <div class="hdr-sub">Answer a few questions — see your real revenue and capacity opportunity.</div>
+    <div class="step-counter" id="stepCounter">Step 1 of 8</div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="prog">
+    <div class="prog-steps">
+      <div class="sdot active" id="d1">1</div>
+      <div class="sline" id="l1"></div>
+      <div class="sdot" id="d2">2</div>
+      <div class="sline" id="l2"></div>
+      <div class="sdot" id="d3">3</div>
+      <div class="sline" id="l3"></div>
+      <div class="sdot" id="d4">4</div>
+      <div class="sline" id="l4"></div>
+      <div class="sdot" id="d5">5</div>
+      <div class="sline" id="l5"></div>
+      <div class="sdot" id="d6">6</div>
+      <div class="sline" id="l6"></div>
+      <div class="sdot" id="d7">7</div>
+      <div class="sline" id="l7"></div>
+      <div class="sdot" id="d8">8</div>
+    </div>
+    <div class="slbls">
+      <div class="slbl active" id="lb1">Vertical</div>
+      <div class="slbl" id="lb2">Revenue</div>
+      <div class="slbl" id="lb3">Clients</div>
+      <div class="slbl" id="lb4">Sale value</div>
+      <div class="slbl" id="lb5">Missed calls</div>
+      <div class="slbl" id="lb6">Season</div>
+      <div class="slbl" id="lb7">Capacity</div>
+      <div class="slbl" id="lb8">Time</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- STEP 1: BUSINESS TYPE -->
+    <div class="panel active" id="p1">
+      <div class="q">What type of business do you run?</div>
+      <div class="hint">We apply vertical-specific benchmarks and industry job duration assumptions.</div>
+      <div class="biz-grid">
+        <div class="bcard" onclick="selBiz('trades',this)">
+          <div class="bicon" style="background:#eaf3de">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="bname">Contractors &amp; Trades</div>
+          <div class="bsub">Plumber · Roofer · Electrician</div>
+        </div>
+        <div class="bcard" onclick="selBiz('tourism',this)">
+          <div class="bicon" style="background:#ecfeff">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 17l3-8 4 4 3-6 4 10" stroke="#0891b2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="18" cy="6" r="2" stroke="#0891b2" stroke-width="1.8" fill="none"/></svg>
+          </div>
+          <div class="bname">Tourism &amp; Hospitality</div>
+          <div class="bsub">Lodge · Resort · Outfitter</div>
+        </div>
+        <div class="bcard" onclick="selBiz('professional',this)">
+          <div class="bicon" style="background:#f5f3ff">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="#7c3aed" stroke-width="1.8"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="#7c3aed" stroke-width="1.8"/><line x1="12" y1="12" x2="12" y2="16" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round"/><line x1="10" y1="14" x2="14" y2="14" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="bname">Professional Services</div>
+          <div class="bsub">Lawyer · Accountant · Advisor</div>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-next" id="n1" onclick="go(2)" disabled>Next — Annual Revenue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: REVENUE -->
+    <div class="panel" id="p2">
+      <div class="q">What is your current annual revenue?</div>
+      <div class="hint">Your best estimate is fine. This calculates your lift in real dollars.</div>
+      <div class="inp-wrap">
+        <span class="inp-pre">$</span>
+        <input class="cinp" type="number" id="revenue" placeholder="350,000" min="0" oninput="onRev()">
+        <span class="inp-suf">CAD / year</span>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="go(1)">← Back</button>
+        <button class="btn-next" id="n2" onclick="go(3)" disabled>Next — New Clients →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: NEW CLIENTS -->
+    <div class="panel" id="p3">
+      <div class="q">How many new clients do you get each month?</div>
+      <div class="hint">Count new customers only — not repeat business.</div>
+      <div class="rng-hdr">
+        <div>
+          <div class="rng-val" id="cv">8</div>
+          <div class="rng-unit">new clients / month</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:10px;color:var(--muted);font-family:var(--mono)">Annual new clients</div>
+          <div style="font-size:18px;font-family:var(--serif);color:var(--text)" id="cva">96</div>
+        </div>
+      </div>
+      <input type="range" id="clients" min="1" max="100" value="8" step="1" oninput="onClients()">
+      <div class="rng-lbls"><span>1</span><span>25</span><span>50</span><span>75</span><span>100+</span></div>
+      <div class="nav">
+        <button class="btn-back" onclick="go(2)">← Back</button>
+        <button class="btn-next" onclick="go(4)">Next — Average Sale Value →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: SALE VALUE -->
+    <div class="panel" id="p4">
+      <div class="q">What is your average sale or project value?</div>
+      <div class="hint">Typical value of a single job, booking, or client engagement.</div>
+      <div class="inp-wrap">
+        <span class="inp-pre">$</span>
+        <input class="cinp" type="number" id="saleValue" placeholder="3,500" min="0" oninput="onSale()">
+        <span class="inp-suf">per client / project</span>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="go(3)">← Back</button>
+        <button class="btn-next" id="n4" onclick="go(5)" disabled>Next — Missed Calls →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: MISSED CALLS + MARKETING SPEND -->
+    <div class="panel" id="p5">
+      <div class="q">Calls and marketing spend</div>
+      <div class="hint">These reveal your two biggest immediate opportunities.</div>
+      <div class="two-col">
+        <div>
+          <div class="col-lbl">What % of calls do you miss?</div>
+          <div class="opt-grid cols3">
+            <div class="opt" onclick="selOpt('miss',10,this,'sel-red')"><div class="opt-val">10%</div><div class="opt-lbl">occasional</div></div>
+            <div class="opt" onclick="selOpt('miss',20,this,'sel-red')"><div class="opt-val">20%</div><div class="opt-lbl">sometimes</div></div>
+            <div class="opt" onclick="selOpt('miss',30,this,'sel-red')"><div class="opt-val">30%</div><div class="opt-lbl">often</div></div>
+            <div class="opt" onclick="selOpt('miss',40,this,'sel-red')"><div class="opt-val">40%</div><div class="opt-lbl">frequently</div></div>
+            <div class="opt" onclick="selOpt('miss',50,this,'sel-red')"><div class="opt-val">50%</div><div class="opt-lbl">very often</div></div>
+            <div class="opt" onclick="selOpt('miss',60,this,'sel-red')"><div class="opt-val">60%+</div><div class="opt-lbl">most calls</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="col-lbl">Monthly marketing spend</div>
+          <div class="opt-grid cols2" style="grid-template-columns:1fr 1fr">
+            <div class="opt" onclick="selOpt('spend',0,this,'sel-blue')"><div class="opt-val">$0</div><div class="opt-lbl">nothing</div></div>
+            <div class="opt" onclick="selOpt('spend',250,this,'sel-blue')"><div class="opt-val">$250</div><div class="opt-lbl">/ month</div></div>
+            <div class="opt" onclick="selOpt('spend',500,this,'sel-blue')"><div class="opt-val">$500</div><div class="opt-lbl">/ month</div></div>
+            <div class="opt" onclick="selOpt('spend',1000,this,'sel-blue')"><div class="opt-val">$1,000+</div><div class="opt-lbl">/ month</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="go(4)">← Back</button>
+        <button class="btn-next" id="n5" onclick="go(6)" disabled>Next — Seasonal Pattern →</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: SEASONAL -->
+    <div class="panel" id="p6">
+      <div class="q">How does your business vary by season?</div>
+      <div class="hint">Set your peak quarter to 100% — then adjust the others relative to it. This gives us a realistic annual capacity picture.</div>
+      <div class="season-grid">
+        <div class="season-card peak">
+          <div class="season-q">Peak quarter</div>
+          <div class="season-val">100%</div>
+          <div style="font-size:10px;font-family:var(--mono);color:var(--blue-mid)">Your busiest quarter</div>
+        </div>
+        <div class="season-card">
+          <div class="season-q">2nd quarter</div>
+          <div class="season-val" id="q2v">85%</div>
+          <input type="range" min="10" max="100" value="85" step="5" oninput="onSeason(2,this)">
+          <div style="font-size:10px;font-family:var(--mono);color:var(--muted)">% of peak</div>
+        </div>
+        <div class="season-card">
+          <div class="season-q">3rd quarter</div>
+          <div class="season-val" id="q3v">65%</div>
+          <input type="range" min="10" max="100" value="65" step="5" oninput="onSeason(3,this)">
+          <div style="font-size:10px;font-family:var(--mono);color:var(--muted)">% of peak</div>
+        </div>
+        <div class="season-card">
+          <div class="season-q">4th quarter</div>
+          <div class="season-val" id="q4v">45%</div>
+          <input type="range" min="10" max="100" value="45" step="5" oninput="onSeason(4,this)">
+          <div style="font-size:10px;font-family:var(--mono);color:var(--muted)">% of peak</div>
+        </div>
+      </div>
+      <div style="background:var(--blue-lt);border-radius:8px;padding:10px 14px;font-size:11px;color:var(--blue-dk);font-family:var(--mono);margin-top:8px">
+        Annual capacity multiplier: <strong id="seasonMult">74%</strong> of theoretical maximum · Projections will reflect your real seasonal reality.
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="go(5)">← Back</button>
+        <button class="btn-next" onclick="go(7)">Next — Current Capacity →</button>
+      </div>
+    </div>
+
+    <!-- STEP 7: CAPACITY -->
+    <div class="panel" id="p7">
+      <div class="q">How much unused capacity do you have?</div>
+      <div class="hint">During your peak quarter — what percentage of your maximum possible output are you currently leaving unused? If you could take on 20% more work without hiring, select 20%.</div>
+      <div class="opt-grid cols5" style="margin-bottom:14px">
+        <div class="opt" onclick="selOpt('cap',10,this,'sel-green')"><div class="opt-val">10%</div><div class="opt-lbl">nearly full</div></div>
+        <div class="opt" onclick="selOpt('cap',20,this,'sel-green')"><div class="opt-val">20%</div><div class="opt-lbl">some room</div></div>
+        <div class="opt" onclick="selOpt('cap',30,this,'sel-green')"><div class="opt-val">30%</div><div class="opt-lbl">good room</div></div>
+        <div class="opt" onclick="selOpt('cap',40,this,'sel-green')"><div class="opt-val">40%</div><div class="opt-lbl">lots of room</div></div>
+        <div class="opt" onclick="selOpt('cap',50,this,'sel-green')"><div class="opt-val">50%+</div><div class="opt-lbl">half empty</div></div>
+      </div>
+      <div class="sdivider"><div class="sdivider-line"></div><div class="sdivider-lbl">Staff count</div><div class="sdivider-line"></div></div>
+      <div class="hint">Include yourself. We assume a 40-hour work week per person. Time freed by Clearsky is shared equally across your team.</div>
+      <div class="opt-grid cols5">
+        <div class="opt" onclick="selOpt('staff',1,this,'sel-blue')"><div class="opt-val">1</div><div class="opt-lbl">just me</div></div>
+        <div class="opt" onclick="selOpt('staff',2,this,'sel-blue')"><div class="opt-val">2</div><div class="opt-lbl">staff</div></div>
+        <div class="opt" onclick="selOpt('staff',3,this,'sel-blue')"><div class="opt-val">3</div><div class="opt-lbl">staff</div></div>
+        <div class="opt" onclick="selOpt('staff',5,this,'sel-blue')"><div class="opt-val">5</div><div class="opt-lbl">staff</div></div>
+        <div class="opt" onclick="selOpt('staff',10,this,'sel-blue')"><div class="opt-val">10+</div><div class="opt-lbl">staff</div></div>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="go(6)">← Back</button>
+        <button class="btn-next" id="n7" onclick="go(8)" disabled>Next — Time Allocation →</button>
+      </div>
+    </div>
+
+    <!-- STEP 8: TIME ALLOCATION -->
+    <div class="panel" id="p8">
+      <div class="q">How does your team spend its time on non-billable work?</div>
+      <div class="hint">As a % of your total 40-hour work week per person. Clearsky returns 80% of this time back to productive capacity.</div>
+      <div class="time-grid">
+        <div class="time-item">
+          <div class="time-lbl">Marketing &amp; content prep</div>
+          <div class="time-val" id="tmktv">10%</div>
+          <input type="range" id="tmkt" min="0" max="40" value="10" step="5" oninput="onTime('tmkt','tmktv',this)">
+          <div class="rng-lbls" style="margin-bottom:0"><span>0%</span><span>20%</span><span>40%</span></div>
+        </div>
+        <div class="time-item">
+          <div class="time-lbl">Reports &amp; admin</div>
+          <div class="time-val" id="trptv">10%</div>
+          <input type="range" id="trpt" min="0" max="40" value="10" step="5" oninput="onTime('trpt','trptv',this)">
+          <div class="rng-lbls" style="margin-bottom:0"><span>0%</span><span>20%</span><span>40%</span></div>
+        </div>
+        <div class="time-item">
+          <div class="time-lbl">Answering the phone</div>
+          <div class="time-val" id="tphv">15%</div>
+          <input type="range" id="tph" min="0" max="40" value="15" step="5" oninput="onTime('tph','tphv',this)">
+          <div class="rng-lbls" style="margin-bottom:0"><span>0%</span><span>20%</span><span>40%</span></div>
+        </div>
+      </div>
+      <div style="background:var(--amber-lt);border:1px solid rgba(202,138,4,0.2);border-radius:8px;padding:10px 14px;font-size:11px;color:#92400e;font-family:var(--mono);margin-top:12px">
+        Total non-billable time: <strong id="totalTime">35%</strong> of your team's week · ClearSky returns <strong id="savedTime">28%</strong> of that back to productive capacity.
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="go(7)">← Back</button>
+        <button class="btn-next" onclick="showRes()">Calculate My Revenue &amp; Capacity Lift →</button>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="panel" id="pR">
+      <div class="res-eye" id="rEye"></div>
+      <div class="res-hl" id="rHl"></div>
+      <div class="res-sub">Based on your numbers, industry benchmarks from HBR, McKinsey, Gartner, Salesforce, Google, HubSpot &amp; BrightLocal, and your actual seasonal and capacity data.</div>
+
+      <div class="met-grid">
+        <div class="met cur">
+          <div class="met-lbl">Current annual revenue</div>
+          <div class="met-val" id="rCur"></div>
+          <div class="met-s">What you generate today</div>
+        </div>
+        <div class="met loss">
+          <div class="met-lbl">Lost to missed calls</div>
+          <div class="met-val" id="rLoss"></div>
+          <div class="met-s">Revenue leaking every year</div>
+        </div>
+        <div class="met gain">
+          <div class="met-lbl">Projected with ClearSky</div>
+          <div class="met-val" id="rProj"></div>
+          <div class="met-s">At 12 months · seasonally adjusted</div>
+        </div>
+      </div>
+
+      <div class="lift-ban">
+        <div>
+          <div class="lift-lbl">Combined revenue &amp; capacity lift</div>
+          <div class="lift-val" id="rLift"></div>
+          <div class="lift-s" id="rLiftS"></div>
+        </div>
+        <div class="lift-badge">
+          <div class="lift-pct" id="rPct"></div>
+          <div class="lift-pct-lbl">benchmark lift</div>
+        </div>
+      </div>
+
+      <div class="bkdn">
+        <div class="bkdn-title">Where your lift comes from</div>
+        <div class="bkdn-row">
+          <div class="bkdn-dot" style="background:#16a34a"></div>
+          <div class="bkdn-name">Communication Hub — missed calls captured</div>
+          <div class="bkdn-bar-wrap"><div class="bkdn-bar" id="b1" style="background:#16a34a"></div></div>
+          <div class="bkdn-impact" id="i1"></div>
+        </div>
+        <div class="bkdn-row">
+          <div class="bkdn-dot" style="background:#4267AD"></div>
+          <div class="bkdn-name">ContentRadar — new inbound leads</div>
+          <div class="bkdn-bar-wrap"><div class="bkdn-bar" id="b2" style="background:#4267AD"></div></div>
+          <div class="bkdn-impact" id="i2"></div>
+        </div>
+        <div class="bkdn-row">
+          <div class="bkdn-dot" style="background:#0891b2"></div>
+          <div class="bkdn-name">Engagement &amp; trust — higher conversion rate</div>
+          <div class="bkdn-bar-wrap"><div class="bkdn-bar" id="b3" style="background:#0891b2"></div></div>
+          <div class="bkdn-impact" id="i3"></div>
+        </div>
+        <div class="bkdn-row">
+          <div class="bkdn-dot" style="background:#ca8a04"></div>
+          <div class="bkdn-name">Capacity unlocked — time returned to production</div>
+          <div class="bkdn-bar-wrap"><div class="bkdn-bar" id="b4" style="background:#ca8a04"></div></div>
+          <div class="bkdn-impact" id="i4"></div>
+        </div>
+      </div>
+
+      <div class="cap-insight">
+        <div class="cap-icon">💡</div>
+        <div class="cap-text" id="capInsight"></div>
+      </div>
+
+      <div class="disc">Revenue projections are conservative estimates based on published research and industry benchmarks.<br>Actual results vary by market, competitive landscape, and business starting point.<br>Seasonal adjustments based on the quarterly capacity profile you provided.</div>
+
+      <button class="cta-btn" onclick="alert('Redirecting to market availability check...')">
+        Check If Your Market Is Still Available →
+      </button>
+      <button class="reset-btn" onclick="reset()">← Recalculate with different numbers</button>
+    </div>
+
+  </div><!-- end body -->
+
+  <!-- PREVIEW BAR -->
+  <div class="prev-bar" id="pb">
+    <div class="pitem"><span class="plbl">Building your projection</span></div>
+    <span class="pdiv" id="pd1" style="display:none">·</span>
+    <div class="pitem" id="pi1" style="display:none"><span class="plbl">Vertical:</span>&nbsp;<span class="pval" id="pv1"></span></div>
+    <span class="pdiv" id="pd2" style="display:none">·</span>
+    <div class="pitem" id="pi2" style="display:none"><span class="plbl">Revenue:</span>&nbsp;<span class="pval" id="pv2"></span></div>
+    <span class="pdiv" id="pd3" style="display:none">·</span>
+    <div class="pitem" id="pi3" style="display:none"><span class="plbl">Missed:</span>&nbsp;<span class="pval" id="pv3"></span></div>
+    <span class="pdiv" id="pd4" style="display:none">·</span>
+    <div class="pitem" id="pi4" style="display:none"><span class="plbl">Capacity free:</span>&nbsp;<span class="pval" id="pv4"></span></div>
+  </div>
+
+</div><!-- end modal -->
+
+<script>
+const S={biz:null,rev:null,clients:8,sale:null,miss:null,spend:null,q2:85,q3:65,q4:45,cap:null,staff:null,tmkt:10,trpt:10,tph:15};
+const B={
+  trades:{lift:1.00,label:'Contractors & Trades',pct:'100%',jobHrs:8,jobUnit:'job'},
+  tourism:{lift:0.80,label:'Tourism & Hospitality',pct:'80%',jobHrs:32,jobUnit:'4-night booking'},
+  professional:{lift:0.72,label:'Professional Services',pct:'72%',jobHrs:6,jobUnit:'client matter'}
+};
+
+function fmt(n){if(n>=1000000)return'$'+(n/1000000).toFixed(1)+'M';if(n>=1000)return'$'+Math.round(n/1000)+'K';return'$'+Math.round(n).toLocaleString();}
+function fmtF(n){return'$'+Math.round(n).toLocaleString();}
+
+function selBiz(t,el){S.biz=t;document.querySelectorAll('.bcard').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');document.getElementById('n1').disabled=false;upPrev();}
+
+function selOpt(key,val,el,cls){
+  S[key]=val;
+  const grp=el.closest('.opt-grid');
+  grp.querySelectorAll('.opt').forEach(c=>c.classList.remove('sel-blue','sel-red','sel-amber','sel-green'));
+  el.classList.add(cls);
+  if(key==='miss'||key==='spend')chk5();
+  if(key==='cap'||key==='staff')chk7();
+  upPrev();
+}
+
+function chk5(){document.getElementById('n5').disabled=!(S.miss!==null&&S.spend!==null);}
+function chk7(){document.getElementById('n7').disabled=!(S.cap!==null&&S.staff!==null);}
+
+function onClients(){const v=parseInt(document.getElementById('clients').value);S.clients=v;document.getElementById('cv').textContent=v;document.getElementById('cva').textContent=v*12;}
+function onRev(){const v=parseFloat(document.getElementById('revenue').value);S.rev=v>0?v:null;document.getElementById('n2').disabled=!S.rev;upPrev();}
+function onSale(){const v=parseFloat(document.getElementById('saleValue').value);S.sale=v>0?v:null;document.getElementById('n4').disabled=!S.sale;}
+
+function onSeason(q,el){
+  S['q'+q]=parseInt(el.value);
+  document.getElementById('q'+q+'v').textContent=el.value+'%';
+  const mult=((100+S.q2+S.q3+S.q4)/4/100);
+  document.getElementById('seasonMult').textContent=Math.round(mult*100)+'%';
+}
+
+function onTime(id,vid,el){
+  S[id]=parseInt(el.value);
+  document.getElementById(vid).textContent=el.value+'%';
+  const tot=S.tmkt+S.trpt+S.tph;
+  const saved=Math.round(tot*0.8);
+  document.getElementById('totalTime').textContent=tot+'%';
+  document.getElementById('savedTime').textContent=saved+'%';
+}
+
+function upPrev(){
+  if(S.biz){show('pd1');show('pi1');document.getElementById('pv1').textContent=B[S.biz].label;}
+  if(S.rev){show('pd2');show('pi2');document.getElementById('pv2').textContent=fmt(S.rev);}
+  if(S.miss){show('pd3');show('pi3');document.getElementById('pv3').textContent=S.miss+'% missed';}
+  if(S.cap){show('pd4');show('pi4');document.getElementById('pv4').textContent=S.cap+'% unused';}
+}
+function show(id){document.getElementById(id).style.display='inline';}
+
+function go(n){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
+  document.getElementById('stepCounter').textContent='Step '+n+' of 8';
+  for(let i=1;i<=8;i++){
+    const d=document.getElementById('d'+i),l=document.getElementById('lb'+i);
+    if(!d)continue;
+    d.classList.remove('active','done');l.classList.remove('active','done');
+    if(i<n){d.classList.add('done');l.classList.add('done');}
+    else if(i===n){d.classList.add('active');l.classList.add('active');}
+    if(i<8){const ln=document.getElementById('l'+i);if(ln){ln.classList.remove('done','active');if(i<n)ln.classList.add('done');else if(i===n)ln.classList.add('active');}}
+  }
+}
+
+function showRes(){
+  const rev=S.rev||300000;
+  const clients=S.clients||8;
+  const sale=S.sale||3000;
+  const miss=S.miss||20;
+  const biz=S.biz||'trades';
+  const bench=B[biz];
+  const cap=S.cap||20;
+  const staff=S.staff||2;
+  const tmkt=S.tmkt||10;
+  const trpt=S.trpt||10;
+  const tph=S.tph||15;
+  const q2=S.q2||85;
+  const q3=S.q3||65;
+  const q4=S.q4||45;
+
+  // Seasonal multiplier
+  const seasonMult=(100+q2+q3+q4)/4/100;
+
+  // Demand side
+  const annualNewRev=clients*sale*12;
+  const missedRev=annualNewRev*(miss/100);
+  const demandLift=rev*bench.lift*seasonMult;
+
+  // Missed call recovery
+  const hubLift=Math.min(missedRev*0.85,demandLift*0.45)*seasonMult;
+  const contentLift=demandLift*0.35;
+  const engageLift=demandLift*0.20;
+
+  // Supply side — capacity unlocked by time savings
+  const totalWeeklyHrs=staff*40;
+  const adminPct=(tmkt+trpt+tph)/100;
+  const adminHrs=totalWeeklyHrs*adminPct;
+  const savedHrs=adminHrs*0.80;
+  const savedHrsPerPerson=savedHrs/staff;
+  const jobHrs=bench.jobHrs;
+  const extraJobsPerWeek=savedHrs/jobHrs;
+  const extraJobsPerYear=extraJobsPerWeek*52*seasonMult;
+  const supplyLift=Math.min(extraJobsPerYear*sale, rev*cap/100*seasonMult);
+
+  // Combined
+  const totalLift=hubLift+contentLift+engageLift+supplyLift;
+  const projected=rev+totalLift;
+  const maxB=Math.max(hubLift,contentLift,engageLift,supplyLift);
+
+  // Populate
+  document.getElementById('rEye').textContent=bench.label+' · '+bench.pct+' demand benchmark · seasonally adjusted to '+Math.round(seasonMult*100)+'%';
+  document.getElementById('rHl').textContent='You could be generating '+fmtF(projected)+' within 12 months.';
+  document.getElementById('rCur').textContent=fmtF(rev);
+  document.getElementById('rLoss').textContent=fmtF(missedRev)+'/yr';
+  document.getElementById('rProj').textContent=fmtF(projected);
+  document.getElementById('rLift').textContent=fmtF(totalLift)+' additional revenue';
+  document.getElementById('rLiftS').textContent='Demand lift + '+fmtF(Math.round(supplyLift))+' unlocked from capacity · '+bench.label;
+  document.getElementById('rPct').textContent=bench.pct;
+
+  document.getElementById('i1').textContent='+'+fmtF(hubLift);
+  document.getElementById('i2').textContent='+'+fmtF(contentLift);
+  document.getElementById('i3').textContent='+'+fmtF(engageLift);
+  document.getElementById('i4').textContent='+'+fmtF(supplyLift);
+
+  // Capacity insight
+  const savedHrsRounded=Math.round(savedHrsPerPerson);
+  const extraJobsRounded=Math.round(extraJobsPerWeek*10)/10;
+  document.getElementById('capInsight').innerHTML=
+    'Your team currently spends <strong>'+(tmkt+trpt+tph)+'%</strong> of the work week on marketing, reports, and phone management. '+
+    'ClearSky returns approximately <strong>'+savedHrsRounded+' hours per person per week</strong> back to productive time. '+
+    'At '+staff+' staff that is <strong>'+Math.round(savedHrs)+' hours per week</strong> freed — equivalent to <strong>'+
+    (extraJobsRounded===1?'1 additional '+bench.jobUnit:extraJobsRounded+' additional '+bench.jobUnit+'s')+' per week</strong> without hiring anyone.';
+
+  // Animate bars
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pR').classList.add('active');
+  document.getElementById('pb').classList.add('gone');
+  document.getElementById('stepCounter').textContent='Your results';
+
+  for(let i=1;i<=8;i++){
+    const d=document.getElementById('d'+i),l=document.getElementById('lb'+i);
+    if(d){d.classList.remove('active');d.classList.add('done');}
+    if(l){l.classList.remove('active');l.classList.add('done');}
+    if(i<8){const ln=document.getElementById('l'+i);if(ln){ln.classList.add('done');ln.classList.remove('active');}}
+  }
+
+  setTimeout(()=>{
+    document.getElementById('b1').style.width=Math.round((hubLift/maxB)*100)+'%';
+    document.getElementById('b2').style.width=Math.round((contentLift/maxB)*100)+'%';
+    document.getElementById('b3').style.width=Math.round((engageLift/maxB)*100)+'%';
+    document.getElementById('b4').style.width=Math.round((supplyLift/maxB)*100)+'%';
+  },300);
+}
+
+function reset(){
+  Object.assign(S,{biz:null,rev:null,clients:8,sale:null,miss:null,spend:null,q2:85,q3:65,q4:45,cap:null,staff:null,tmkt:10,trpt:10,tph:15});
+  document.querySelectorAll('.bcard,.opt').forEach(c=>c.classList.remove('sel','sel-blue','sel-red','sel-amber','sel-green'));
+  ['revenue','saleValue'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('clients').value=8;document.getElementById('cv').textContent=8;document.getElementById('cva').textContent=96;
+  document.getElementById('n1').disabled=true;document.getElementById('n2').disabled=true;
+  document.getElementById('n4').disabled=true;document.getElementById('n5').disabled=true;document.getElementById('n7').disabled=true;
+  ['pd1','pd2','pd3','pd4'].forEach(id=>document.getElementById(id).style.display='none');
+  ['pi1','pi2','pi3','pi4'].forEach(id=>document.getElementById(id).style.display='none');
+  ['b1','b2','b3','b4'].forEach(id=>document.getElementById(id).style.width='0%');
+  document.getElementById('pb').classList.remove('gone');
+  document.getElementById('tmkt').value=10;document.getElementById('tmktv').textContent='10%';
+  document.getElementById('trpt').value=10;document.getElementById('trptv').textContent='10%';
+  document.getElementById('tph').value=15;document.getElementById('tphv').textContent='15%';
+  document.getElementById('totalTime').textContent='35%';document.getElementById('savedTime').textContent='28%';
+  document.getElementById('q2v').textContent='85%';document.getElementById('q3v').textContent='65%';document.getElementById('q4v').textContent='45%';
+  document.getElementById('seasonMult').textContent='74%';
+  go(1);
+}
+</script>
+</body>
+</html>

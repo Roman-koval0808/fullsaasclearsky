@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pgTitle">Plumber in Timmins — Total Trades Solutions | Licensed · 24/7 Emergency</title>
+<meta name="description" id="pgDesc" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+
+<!-- ═══════════════════════════════════════════════
+     PAGE CONFIG — swap this block per market
+     ═══════════════════════════════════════════════ -->
+<script>
+window.PAGE = {
+  // ── ACTIVE PAGE ──────────────────────────────────
+  // Uncomment exactly one block. Comment all others.
+
+  // ── TIMMINS ────────────────────────────────────
+  id: 'timmins',
+  city: 'Timmins',
+  region: 'Cochrane District, Northeastern Ontario',
+  title: 'Plumber in Timmins ON — Total Trades Solutions | Licensed · 24/7 Emergency',
+  desc: 'Licensed plumbers in Timmins, Ontario. Emergency response within 15 minutes. Flat-rate pricing. Hot water, drains, bathroom renos, gas work. Total Trades Solutions — Est. 2018.',
+  headline: 'Timmins',
+  subheadline: 'Our home base.',
+  distance: 'Primary service area · HQ located here',
+  emergency_time: '15 minutes',
+  emergency_note: 'Our fastest response. We dispatch immediately from central Timmins.',
+  review_name: 'Sarah T.',
+  review_location: 'Timmins',
+  review_text: 'Burst pipe at 11pm on a Sunday. Total Trades Solutions was at my door in under 20 minutes. Fixed it, cleaned up, price was exactly what they quoted. Won\'t call anyone else.',
+  review_service: 'Emergency · Burst Pipe',
+  local_context: [
+    { icon: 'home', title: 'Housing stock we know well', body: 'Timmins has a wide mix of housing ages — 1950s and 60s bungalows in Schumacher and Mountjoy, 1970s and 80s builds across much of the central city, newer construction on the south end. We know what\'s behind the walls in each era of build, and we know what the common failure points are. That matters when we\'re diagnosing something that isn\'t obvious.' },
+    { icon: 'therm', title: 'Northern Ontario cold snaps', body: 'Extended periods below −30°C hit the Timmins basin hard. Frozen pipe calls spike every February. We know the vulnerable locations in each neighbourhood — exterior walls in older construction, crawlspaces near the foundation, undersized gas mains in 1960s builds. Preventive insulation and pipe heat tape installations are something we do a lot of before winter.' },
+    { icon: 'wrench', title: 'All services available', body: 'Emergency 24/7, hot water systems, blocked drains, bathroom renovations, leak detection, gas plumbing, pipe repair, water filtration — the full scope. Every service available in Timmins with the fastest possible response times.' }
+  ],
+  services: ['Emergency 24/7','Hot Water','Blocked Drains','Bathroom Renos','Leak Detection','Gas Plumbing','Pipe Repair','Water Filtration'],
+  pixel_bucket: 'comparison',
+
+  // ── COCHRANE ───────────────────────────────────
+  // id: 'cochrane',
+  // city: 'Cochrane',
+  // region: 'Cochrane District, ~80 km north of Timmins on Hwy 11',
+  // title: 'Plumber in Cochrane ON — Total Trades Solutions | Licensed · Emergency Service',
+  // desc: 'Licensed plumbers serving Cochrane, Ontario. Total Trades Solutions dispatches from Timmins. Frozen pipes, hot water, drains, gas work. Flat-rate pricing. (705) 700-1234.',
+  // headline: 'Cochrane',
+  // subheadline: '80 km north. Same standards.',
+  // distance: '~80 km north on Hwy 11 · Emergency approx. 60–90 min',
+  // emergency_time: '60–90 minutes',
+  // emergency_note: 'We dispatch immediately from Timmins. Call us — we\'ll give you an honest ETA based on current conditions.',
+  // review_name: 'Greg W.',
+  // review_location: 'Cochrane',
+  // review_text: 'Main line backed up on a Saturday. Total Trades Solutions was calm, clear about what needed to happen, and had it sorted in one visit. Camera inspection showed exactly what caused it. Couldn\'t recommend them more.',
+  // review_service: 'Blocked Drain · Sewer Line',
+  // local_context: [
+  //   { icon: 'therm', title: 'Severe cold snap conditions', body: 'Cochrane experiences some of the harshest cold snaps in our service area — extended periods below −40°C are not uncommon in January and February. Frozen pipe calls from Cochrane are disproportionately high relative to population. Pipes in exterior walls, crawlspaces, and under-insulated cabinets are at serious risk during cold events. If you\'re in a house built before 1985, your supply lines in exterior walls may have minimal insulation.' },
+  //   { icon: 'home', title: 'Older housing stock', body: 'Much of Cochrane\'s residential stock dates from the 1950s through 1970s — an era when plumbing standards and pipe materials were significantly different from modern practice. Galvanised supply lines, cast iron drains, and undersized gas mains are common. We\'ve done a lot of targeted PEX upgrades in Cochrane to replace failing galvanised sections without opening the whole house.' },
+  //   { icon: 'map', title: 'Scheduled jobs and emergencies', body: 'We serve Cochrane for both scheduled plumbing work and emergency callouts. For planned jobs — water heater replacements, bathroom renovations, gas line work — we\'ll coordinate a visit time that makes the drive worthwhile. For emergencies, we dispatch immediately and call with an ETA from the road.' }
+  // ],
+  // services: ['Emergency (60–90 min)','Hot Water','Blocked Drains','Gas Plumbing','Pipe & PEX Upgrades','Bathroom Renos','Leak Detection','Water Filtration'],
+  // pixel_bucket: 'comparison',
+
+  // ── SOUTH PORCUPINE ────────────────────────────
+  // id: 'south-porcupine',
+  // city: 'South Porcupine',
+  // region: 'Within Timmins city limits, ~5 km east',
+  // title: 'Plumber in South Porcupine ON — Total Trades Solutions | Licensed · 24/7',
+  // desc: 'Licensed plumbers serving South Porcupine, Ontario. Within Timmins city limits — same fast response times as central Timmins. Total Trades Solutions. (705) 700-1234.',
+  // headline: 'South Porcupine',
+  // subheadline: 'Minutes away. Same response.',
+  // distance: '~5 km east of Timmins · Within city limits',
+  // emergency_time: '15–20 minutes',
+  // emergency_note: 'South Porcupine is within Timmins city limits. Response time is essentially the same as central Timmins.',
+  // review_name: 'Patricia W.',
+  // review_location: 'South Porcupine',
+  // review_text: 'Sent a FotoJobber photo on a Tuesday morning. Had a quote by 11am. Work done by Thursday afternoon. I didn\'t even need to take time off work. Really well organised.',
+  // review_service: 'Bathroom Renovation',
+  // local_context: [
+  //   { icon: 'map', title: 'Within Timmins city limits', body: 'South Porcupine is part of the City of Timmins — amalgamated in 1973. For us, that means response times essentially identical to serving central Timmins. We\'re in South Porcupine regularly and treat it the same as any Timmins neighbourhood.' },
+  //   { icon: 'home', title: 'Similar housing stock to Schumacher and Mountjoy', body: 'The residential housing in South Porcupine largely mirrors the rest of Timmins — primarily 1950s through 1970s single-family homes with the same aging infrastructure profile. Galvanised supply lines in the oldest properties, undersized service connections in some areas, and the standard Northern Ontario cold-weather vulnerability in exterior wall pipe runs.' },
+  //   { icon: 'wrench', title: 'All services available', body: 'Full service scope available in South Porcupine — emergency response, hot water systems, blocked drains, bathroom renovations, gas work, leak detection, pipe repair, and water filtration. Same flat-rate pricing, same workmanship guarantee as anywhere else we work.' }
+  // ],
+  // services: ['Emergency 24/7','Hot Water','Blocked Drains','Bathroom Renos','Leak Detection','Gas Plumbing','Pipe Repair','Water Filtration'],
+  // pixel_bucket: 'comparison',
+
+  // ── IROQUOIS FALLS ─────────────────────────────
+  // id: 'iroquois-falls',
+  // city: 'Iroquois Falls',
+  // region: '~45 km east of Timmins on Hwy 67',
+  // title: 'Plumber in Iroquois Falls ON — Total Trades Solutions | Licensed · Emergency',
+  // desc: 'Licensed plumbers serving Iroquois Falls, Ontario. Total Trades Solutions dispatches from Timmins — approx. 45–60 min emergency response. Flat-rate pricing. (705) 700-1234.',
+  // headline: 'Iroquois Falls',
+  // subheadline: '45 km east. Scheduled and emergency.',
+  // distance: '~45 km east on Hwy 67 · Emergency approx. 45–60 min',
+  // emergency_time: '45–60 minutes',
+  // emergency_note: 'We dispatch immediately from Timmins. Highway 67 is typically clear — call us and we\'ll confirm an ETA from the road.',
+  // review_name: 'Carol S.',
+  // review_location: 'Iroquois Falls',
+  // review_text: 'Dripping tap that two other plumbers said needed a full fixture replacement. Total Trades Solutions replaced the cartridge for under $100. Hasn\'t dripped in a year. I appreciate that they told me the truth instead of selling me something I didn\'t need.',
+  // review_service: 'Tap Repair',
+  // local_context: [
+  //   { icon: 'home', title: 'Mill district housing stock', body: 'Iroquois Falls was built largely around the Abitibi Consolidated paper mill and has a significant proportion of housing from the 1940s through 1960s — particularly in the older mill district neighbourhoods. These properties commonly have galvanised supply lines that corrode internally over decades, reducing water pressure and eventually failing. We\'ve done a lot of targeted PEX upgrades in Iroquois Falls — replacing the galvanised sections without needing to open every wall.' },
+  //   { icon: 'therm', title: 'Cold weather pipe exposure', body: 'The older housing stock in Iroquois Falls has the same exterior wall pipe vulnerability as comparable-era properties in Timmins. Supply lines in north-facing exterior walls and under kitchen sinks in exterior cabinet locations are particularly at risk during sustained cold snaps. Insulation upgrades and heat trace installation are jobs we do regularly in this area.' },
+  //   { icon: 'map', title: 'Regular service runs', body: 'We make scheduled runs to Iroquois Falls regularly, which means we can often group work and keep costs down for customers in the area. For emergency calls, we dispatch immediately from Timmins — approximately 45–60 minutes on Highway 67 depending on conditions.' }
+  // ],
+  // services: ['Emergency (45–60 min)','Hot Water','Blocked Drains','PEX Pipe Upgrades','Gas Plumbing','Bathroom Renos','Leak Detection','Water Filtration'],
+  // pixel_bucket: 'comparison',
+
+  // ── KAPUSKASING ────────────────────────────────
+  // id: 'kapuskasing',
+  // city: 'Kapuskasing',
+  // region: '~140 km west of Timmins on Hwy 11',
+  // title: 'Plumber in Kapuskasing ON — Total Trades Solutions | Licensed · Scheduled Service',
+  // desc: 'Licensed plumbers serving Kapuskasing, Ontario. Total Trades Solutions takes scheduled jobs — water heaters, renovations, gas work. Call to check availability. (705) 700-1234.',
+  // headline: 'Kapuskasing',
+  // subheadline: 'Far edge of our area. Still here for you.',
+  // distance: '~140 km west on Hwy 11 · Emergency approx. 90–120 min',
+  // emergency_time: '90–120 minutes',
+  // emergency_note: 'We\'ll dispatch for Kapuskasing emergencies — call us and we\'ll be honest about whether we can get there in time. We\'ll also help you find a local option if the situation can\'t wait.',
+  // review_name: 'Linda K.',
+  // review_location: 'Kapuskasing',
+  // review_text: 'February cold snap froze the pipe under the kitchen sink. Caught it before it burst. Total Trades Solutions replaced the section with PEX, insulated it properly, and explained exactly why it happened. No repeat issue the following winter.',
+  // review_service: 'Frozen Pipe · PEX Repair',
+  // local_context: [
+  //   { icon: 'map', title: 'Far edge of our service area — honest about it', body: 'Kapuskasing is approximately 140 km west of Timmins on Highway 11. We serve it regularly for scheduled jobs — particularly larger projects that justify the drive, including water heater replacements, bathroom renovations, gas line work, and pipe upgrades. For emergencies, response time is 90–120 minutes and we\'ll be straight with you about whether we can get there fast enough to help.' },
+  //   { icon: 'home', title: 'Scheduled plumbing visits', body: 'The most effective way to use Total Trades Solutions from Kapuskasing is to book scheduled work — planned jobs where the timing is flexible. We make regular runs west and can often combine jobs in the area, which keeps costs down. Call us to check the current schedule for Kapuskasing visits.' },
+  //   { icon: 'therm', title: 'Extreme cold conditions', body: 'Kapuskasing regularly records some of the coldest temperatures in Ontario in January and February. The town\'s housing stock carries the same cold-weather pipe vulnerabilities as other Northern Ontario communities — but the severity of temperature events is higher. Preventive insulation and pipe heat trace installations before winter are particularly worthwhile in this area.' }
+  // ],
+  // services: ['Scheduled Jobs (call to confirm)','Hot Water','Bathroom Renos','Gas Plumbing','PEX Pipe Upgrades','Blocked Drains','Leak Detection','Emergency (90–120 min)'],
+  // pixel_bucket: 'research',
+
+  // ── MATHESON ───────────────────────────────────
+  // id: 'matheson',
+  // city: 'Matheson',
+  // region: '~60 km southeast of Timmins on Hwy 101',
+  // title: 'Plumber in Matheson ON — Total Trades Solutions | Licensed · Well Systems',
+  // desc: 'Licensed plumbers serving Matheson and Black River-Matheson Township, Ontario. Well system plumbing, hot water, drains, emergency service. Total Trades Solutions. (705) 700-1234.',
+  // headline: 'Matheson',
+  // subheadline: '60 km southeast. Well systems our specialty here.',
+  // distance: '~60 km southeast on Hwy 101 · Emergency approx. 60–75 min',
+  // emergency_time: '60–75 minutes',
+  // emergency_note: 'We dispatch immediately from Timmins. Highway 101 is typically a straightforward run — call and we\'ll confirm ETA.',
+  // review_name: 'Tom B.',
+  // review_location: 'Matheson',
+  // review_text: 'Water stain appeared on the ceiling but we couldn\'t find where it was coming from. Total Trades Solutions found a pinhole leak in the copper above — opened less than a square foot of drywall. Fixed in an afternoon. Honest about the cost before starting.',
+  // review_service: 'Leak Detection',
+  // local_context: [
+  //   { icon: 'home', title: 'Well systems common in this area', body: 'Many properties in Matheson and Black River-Matheson Township use private well water systems rather than municipal supply. We handle all the plumbing connected to well infrastructure — pressure tanks, supply lines inside the home, water treatment and filtration, and connections to appliances. Drilling and pump-in-well repairs require a well contractor, which we can refer you to and coordinate with.' },
+  //   { icon: 'map', title: 'Regular service area', body: 'Matheson is part of our regular service rotation — approximately 60 km southeast on Highway 101. Emergency response is 60–75 minutes. For scheduled work, we coordinate visits that can include multiple jobs in the area. Flat-rate pricing applies regardless of distance.' },
+  //   { icon: 'therm', title: 'Rural property plumbing considerations', body: 'Properties on private well systems have different plumbing requirements and vulnerabilities than municipal-supply homes. Pressure tank inspection, water quality testing, and sediment filtration are jobs we do regularly in Matheson. If your water pressure has changed, your water tastes different, or you\'re seeing sediment — call us for an assessment.' }
+  // ],
+  // services: ['Emergency (60–75 min)','Well System Plumbing','Pressure Tanks','Water Filtration','Hot Water','Blocked Drains','Gas Plumbing','Leak Detection'],
+  // pixel_bucket: 'comparison',
+
+  // ── KIRKLAND LAKE ──────────────────────────────
+  // id: 'kirkland-lake',
+  // city: 'Kirkland Lake',
+  // region: '~140 km south of Timmins on Hwy 66',
+  // title: 'Plumber in Kirkland Lake ON — Total Trades Solutions | Licensed · Scheduled Service',
+  // desc: 'Licensed plumbers serving Kirkland Lake, Ontario. Total Trades Solutions takes scheduled jobs and urgent non-emergency work. Flat-rate pricing. (705) 700-1234.',
+  // headline: 'Kirkland Lake',
+  // subheadline: '140 km south. Scheduled jobs welcome.',
+  // distance: '~140 km south on Hwy 66 · Emergency approx. 90–120 min',
+  // emergency_time: '90–120 minutes',
+  // emergency_note: 'We\'ll dispatch for Kirkland Lake emergencies — but at 90–120 minutes we\'ll also help you identify a local emergency option to run in parallel. Call us and we\'ll work it out with you.',
+  // review_name: 'Rick M.',
+  // review_location: 'Kapuskasing',
+  // review_text: 'Extended the gas line from the basement to a new BBQ pad in the backyard. Clean work, proper permit, passed inspection first time. They explained everything clearly before starting and stuck to the quote.',
+  // review_service: 'Gas Plumbing',
+  // local_context: [
+  //   { icon: 'map', title: 'Scheduled plumbing — honest about emergencies', body: 'Kirkland Lake is 140 km south of Timmins on Highway 66. We serve it for scheduled work — bathroom renovations, hot water replacements, gas line work, and pipe repairs that can be planned in advance. For emergencies, we\'ll dispatch, but we\'re honest: 90–120 minutes means we\'ll also help you find a local option to run in parallel. Call us and we\'ll work out the best approach for your situation.' },
+  //   { icon: 'home', title: 'Mining community housing stock', body: 'Kirkland Lake\'s residential housing stock reflects its history as a gold mining community — significant construction from the 1930s through 1960s, with the associated plumbing infrastructure of those eras. Cast iron drains, galvanised supply lines, and original fixtures are common in older properties. We\'ve done PEX upgrades and drain relining work in Kirkland Lake regularly.' },
+  //   { icon: 'therm', title: 'Local referral available if needed', body: 'If you have a plumbing emergency in Kirkland Lake and the 90-minute response isn\'t workable, call us. We know who the credible local plumbers are and we\'ll point you toward a legitimate option rather than leave you without help. We\'d rather refer you to someone good than have you deal with an emergency alone.' }
+  // ],
+  // services: ['Scheduled Jobs (call to confirm)','Hot Water','Bathroom Renos','Gas Plumbing','PEX Pipe Upgrades','Blocked Drains','Leak Detection','Emergency (90–120 min)'],
+  // pixel_bucket: 'research',
+};
+</script>
+
+<style>
+:root{--white:#FFFFFF;--surface:#F8F6F1;--border:#E8E4DC;--text:#111714;--text2:#4A5E52;--text3:#8A9E92;--green:#1B5E3B;--green-mid:#2D7A52;--green-lt:#EBF5EF;--rust:#C24A1E;--rust-mid:#A83818;--rust-lt:#FAEDE8;--gold:#B8862A;--gold-lt:#FBF5E6;--ink:#0D1F14;--sans:'Barlow',sans-serif;--cond:'Barlow Condensed',sans-serif;--nav-h:68px;--trust-h:40px;--col:1180px;--radius:6px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:var(--sans);background:var(--white);color:var(--text);overflow-x:hidden;}
+img{max-width:100%;display:block;}a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:inherit;}
+.page-content{margin-top:calc(var(--trust-h) + var(--nav-h));}
+.trust-bar{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--trust-h);background:var(--ink);display:flex;align-items:center;padding:0 24px;}
+.trust-bar-inner{max-width:var(--col);margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;}
+.trust-items{display:flex;align-items:center;}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.75);padding:0 18px;border-right:1px solid rgba(255,255,255,0.1);}
+.trust-item:first-child{padding-left:0;}.trust-item:last-child{border-right:none;}
+.trust-item svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.trust-item .stars{color:var(--gold);font-size:11px;letter-spacing:1px;}
+.trust-right{display:flex;align-items:center;}
+.trust-phone{font-family:var(--cond);font-size:15px;font-weight:700;color:#fff;letter-spacing:0.04em;}
+nav{position:fixed;top:var(--trust-h);left:0;right:0;z-index:190;height:var(--nav-h);background:var(--white);border-bottom:1px solid var(--border);transition:box-shadow 0.3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.08);}
+.nav-inner{max-width:var(--col);margin:0 auto;width:100%;height:100%;display:flex;align-items:center;padding:0 24px;gap:32px;}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-logo-mark{width:38px;height:38px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.nav-logo-mark svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.nav-logo-name{font-family:var(--cond);font-size:20px;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:0.02em;}
+.nav-logo-tag{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:0.06em;text-transform:uppercase;}
+.nav-services{display:flex;align-items:center;gap:2px;flex:1;}
+.nav-svc{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:var(--radius);transition:background 0.2s;text-decoration:none;}
+.nav-svc:hover{background:var(--green-lt);}
+.nav-svc-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;}
+.nav-svc-icon svg{width:22px;height:22px;stroke:var(--green);fill:none;stroke-width:1.75;}
+.nav-svc-label{font-size:10px;font-weight:600;color:var(--text2);letter-spacing:0.03em;white-space:nowrap;}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-emergency{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius);background:var(--rust-lt);border:1.5px solid var(--rust);font-size:13px;font-weight:600;color:var(--rust);transition:all 0.2s;text-decoration:none;}
+.nav-emergency:hover{background:var(--rust);color:#fff;}
+.nav-emergency svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.nav-book{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:var(--radius);background:var(--green);color:#fff;font-size:13px;font-weight:600;text-decoration:none;transition:background 0.2s;}
+.nav-book:hover{background:var(--green-mid);}
+.mobile-header{display:none;position:fixed;top:0;left:0;right:0;z-index:200;height:60px;background:var(--white);border-bottom:1px solid var(--border);padding:0 16px;align-items:center;justify-content:space-between;}
+.mobile-hamburger{width:40px;height:40px;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.mobile-hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:all 0.3s;transform-origin:center;}
+.mobile-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.mobile-hamburger.open span:nth-child(2){opacity:0;}
+.mobile-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-logo-name{font-family:var(--cond);font-size:18px;font-weight:800;color:var(--ink);text-transform:uppercase;}
+.mobile-right{display:flex;align-items:center;gap:8px;}
+.mobile-emergency-btn{display:flex;align-items:center;gap:5px;background:var(--rust);color:#fff;font-family:var(--cond);font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:7px 12px;border-radius:var(--radius);text-decoration:none;}
+.mobile-emergency-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.mobile-call-btn{width:36px;height:36px;border-radius:50%;background:var(--green);border:none;display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.mobile-call-btn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;bottom:0;z-index:180;background:var(--white);overflow-y:auto;border-top:1px solid var(--border);flex-direction:column;}
+.mobile-menu.open{display:flex;}
+.mobile-menu-emergency{display:flex;align-items:center;gap:10px;padding:18px 20px;background:var(--rust-lt);border-bottom:1px solid rgba(194,74,30,0.15);font-family:var(--cond);font-size:17px;font-weight:700;color:var(--rust);text-transform:uppercase;text-decoration:none;}
+.mobile-menu-emergency svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.mobile-menu-section{padding:16px 20px 8px;}
+.mobile-menu-section-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
+.mobile-menu-link{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px;font-weight:500;color:var(--text);text-decoration:none;}
+.mobile-menu-link svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:1.75;flex-shrink:0;}
+.mobile-menu-book{margin:16px 20px 20px;display:block;text-align:center;background:var(--green);color:#fff;font-family:var(--cond);font-size:17px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:14px;border-radius:var(--radius);text-decoration:none;}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+/* ═══ MARKET PAGE STYLES ═══ */
+.mkt-hero{background:var(--ink);padding:80px 24px 72px;position:relative;overflow:hidden;}
+.mkt-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 65% 40%,rgba(27,94,59,0.18) 0%,transparent 55%);}
+.mkt-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:60px 60px;}
+.mkt-hero-inner{position:relative;z-index:2;max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:56px;align-items:center;}
+.mkt-hero-label{font-size:11px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.mkt-hero-label::before{content:'';display:block;width:20px;height:2px;background:rgba(255,255,255,0.25);}
+.mkt-city{font-family:var(--cond);font-weight:900;font-size:clamp(52px,7.5vw,100px);line-height:0.88;text-transform:uppercase;color:#fff;margin-bottom:8px;}
+.mkt-city em{font-style:normal;color:var(--gold);}
+.mkt-subheadline{font-family:var(--cond);font-weight:700;font-size:clamp(18px,2.5vw,28px);color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:24px;}
+.mkt-hero-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:32px;}
+.mkt-hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.mkt-cta-primary{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:0.05em;text-transform:uppercase;padding:13px 24px;border-radius:var(--radius);text-decoration:none;transition:background 0.2s;}
+.mkt-cta-primary:hover{background:var(--green-mid);}
+.mkt-cta-primary svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.mkt-cta-call{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);font-family:var(--cond);font-size:15px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:13px 20px;border-radius:var(--radius);text-decoration:none;transition:all 0.2s;}
+.mkt-cta-call:hover{background:rgba(255,255,255,0.14);}
+.mkt-cta-call svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;}
+
+/* Emergency card */
+.mkt-emergency-card{background:rgba(194,74,30,0.15);border:1px solid rgba(194,74,30,0.4);border-radius:12px;padding:24px;}
+.mkt-emg-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.mkt-emg-icon{width:40px;height:40px;border-radius:50%;background:rgba(194,74,30,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mkt-emg-icon svg{width:20px;height:20px;stroke:var(--rust);fill:none;stroke-width:2;}
+.mkt-emg-title{font-family:var(--cond);font-size:16px;font-weight:700;color:#fff;text-transform:uppercase;}
+.mkt-emg-subtitle{font-size:11px;color:rgba(255,255,255,0.4);}
+.mkt-emg-time{font-family:var(--cond);font-weight:900;font-size:48px;color:var(--rust);line-height:1;margin-bottom:6px;}
+.mkt-emg-note{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.55;margin-bottom:18px;}
+.mkt-emg-call{display:flex;width:100%;align-items:center;justify-content:center;gap:8px;background:var(--rust);color:#fff;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:0.05em;text-transform:uppercase;padding:13px;border-radius:var(--radius);text-decoration:none;transition:background 0.2s;}
+.mkt-emg-call:hover{background:var(--rust-mid);}
+.mkt-emg-call svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;}
+
+/* DISTANCE BADGE */
+.mkt-badge{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;}
+.mkt-badge-inner{max-width:var(--col);margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.mkt-badge-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text3);}
+.mkt-badge-item svg{width:13px;height:13px;stroke:var(--green);fill:none;stroke-width:2;flex-shrink:0;}
+.mkt-badge-item strong{color:var(--text);font-weight:600;}
+
+/* LOCAL CONTEXT */
+.mkt-local{padding:72px 24px;background:var(--white);}
+.mkt-local-inner{max-width:var(--col);margin:0 auto;}
+.mkt-local-label{font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.mkt-local-label::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.mkt-local-headline{font-family:var(--cond);font-weight:800;font-size:clamp(32px,4vw,48px);line-height:0.95;text-transform:uppercase;color:var(--ink);margin-bottom:48px;}
+.mkt-local-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.mkt-ctx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;}
+.mkt-ctx-icon{width:44px;height:44px;border-radius:10px;background:var(--green-lt);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.mkt-ctx-icon svg{width:24px;height:24px;stroke:var(--green);fill:none;stroke-width:1.75;}
+.mkt-ctx-title{font-family:var(--cond);font-size:17px;font-weight:700;color:var(--ink);text-transform:uppercase;margin-bottom:10px;}
+.mkt-ctx-body{font-size:13px;color:var(--text2);line-height:1.7;}
+
+/* SERVICES GRID */
+.mkt-services{background:var(--surface);padding:64px 24px;border-top:1px solid var(--border);}
+.mkt-services-inner{max-width:var(--col);margin:0 auto;}
+.mkt-services-label{font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.mkt-services-label::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.mkt-services-headline{font-family:var(--cond);font-weight:800;font-size:clamp(28px,3.5vw,40px);line-height:0.95;text-transform:uppercase;color:var(--ink);margin-bottom:32px;}
+.mkt-services-chips{display:flex;flex-wrap:wrap;gap:10px;}
+.mkt-svc-chip{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:100px;padding:8px 16px;font-size:13px;font-weight:500;color:var(--text);transition:all 0.2s;cursor:default;}
+.mkt-svc-chip:hover{border-color:var(--green);color:var(--green);}
+.mkt-svc-chip svg{width:13px;height:13px;stroke:var(--green);fill:none;stroke-width:2;flex-shrink:0;}
+
+/* APPOINTMENT SECTION */
+.mkt-book{padding:72px 24px;background:var(--white);}
+.mkt-book-inner{max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 400px;gap:64px;align-items:start;}
+.mkt-book-label{font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.mkt-book-label::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.mkt-book-headline{font-family:var(--cond);font-weight:800;font-size:clamp(30px,4vw,48px);line-height:0.95;text-transform:uppercase;color:var(--ink);margin-bottom:16px;}
+.mkt-book-sub{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:28px;}
+.mkt-trust-list{display:flex;flex-direction:column;gap:10px;}
+.mkt-trust-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text2);}
+.mkt-trust-item svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2.5;flex-shrink:0;}
+.mkt-apt-card{background:var(--ink);border-radius:12px;overflow:hidden;}
+.mkt-apt-header{background:var(--green);padding:16px 20px;display:flex;align-items:center;gap:10px;}
+.mkt-apt-header svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;}
+.mkt-apt-header-text{font-family:var(--cond);font-size:14px;font-weight:700;color:#fff;text-transform:uppercase;}
+.mkt-apt-body{padding:20px;}
+.mkt-apt-title{font-family:var(--cond);font-size:20px;font-weight:700;color:#fff;text-transform:uppercase;margin-bottom:6px;}
+.mkt-apt-sub{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px;line-height:1.5;}
+.mkt-apt-label{font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;display:block;}
+.mkt-apt-input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius);padding:10px 12px;font-size:13px;font-family:inherit;color:#fff;outline:none;transition:border-color 0.2s;margin-bottom:10px;}
+.mkt-apt-input::placeholder{color:rgba(255,255,255,0.25);}
+.mkt-apt-input:focus{border-color:var(--green-mid);}
+.mkt-apt-select{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius);padding:10px 12px;font-size:13px;font-family:inherit;color:rgba(255,255,255,0.8);outline:none;margin-bottom:10px;}
+.mkt-apt-btn{width:100%;background:var(--green);color:#fff;border:none;border-radius:var(--radius);padding:13px;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;margin-top:4px;}
+.mkt-apt-btn:hover{background:var(--green-mid);}
+.mkt-apt-note{font-size:11px;color:rgba(255,255,255,0.25);text-align:center;margin-top:8px;}
+
+/* PROOF */
+.mkt-proof{background:var(--ink);padding:64px 24px;}
+.mkt-proof-inner{max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.mkt-proof-quote-mark{font-family:var(--cond);font-size:120px;font-weight:900;color:rgba(255,255,255,0.04);line-height:0.7;margin-bottom:-18px;}
+.mkt-proof-text{font-size:18px;font-weight:300;font-style:italic;color:rgba(255,255,255,0.8);line-height:1.6;margin-bottom:18px;}
+.mkt-proof-attr{display:flex;align-items:center;gap:10px;}
+.mkt-proof-stars{color:var(--gold);font-size:13px;letter-spacing:2px;}
+.mkt-proof-name{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;}
+.mkt-proof-service{font-size:11px;color:var(--gold);font-weight:600;background:rgba(184,134,42,0.15);border-radius:100px;padding:3px 10px;white-space:nowrap;}
+.mkt-proof-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);}
+.mkt-stat{background:rgba(255,255,255,0.03);padding:28px 24px;}
+.mkt-stat-num{font-family:var(--cond);font-weight:900;font-size:44px;color:#fff;line-height:1;margin-bottom:6px;}
+.mkt-stat-num em{font-style:normal;color:var(--gold);font-size:28px;}
+.mkt-stat-label{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.08em;text-transform:uppercase;}
+
+/* EMERGENCY CTA BAND */
+.mkt-emg-band{background:var(--rust);padding:0 24px;}
+.mkt-emg-band-inner{max-width:var(--col);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:40px 0;gap:32px;flex-wrap:wrap;}
+.mkt-emg-band-text{}
+.mkt-emg-band-headline{font-family:var(--cond);font-weight:900;font-size:clamp(26px,3.5vw,42px);color:#fff;text-transform:uppercase;line-height:0.95;margin-bottom:8px;}
+.mkt-emg-band-sub{font-size:14px;color:rgba(255,255,255,0.65);}
+.mkt-emg-band-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.mkt-emg-band-cta{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--rust);font-family:var(--cond);font-weight:800;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;padding:13px 24px;border-radius:var(--radius);text-decoration:none;transition:all 0.2s;}
+.mkt-emg-band-cta:hover{background:rgba(255,255,255,0.9);}
+.mkt-emg-band-cta svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;}
+
+/* FOOTER */
+footer{background:var(--ink);padding:64px 24px 32px;}
+.footer-inner{max-width:var(--col);margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:32px;}
+.footer-brand-name{font-family:var(--cond);font-size:24px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.02em;margin-bottom:6px;}
+.footer-brand-tag{font-size:12px;color:rgba(255,255,255,0.3);margin-bottom:20px;}
+.footer-brand-phone{font-family:var(--cond);font-size:26px;font-weight:700;color:var(--gold);letter-spacing:0.02em;display:block;margin-bottom:4px;}
+.footer-brand-email{font-size:13px;color:rgba(255,255,255,0.35);}
+.footer-col-title{font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;}
+.footer-links{display:flex;flex-direction:column;gap:8px;}
+.footer-link{font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.2s;}
+.footer-link:hover{color:#fff;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.2);}
+
+/* LEAD GRABBER */
+.lead-grabber{position:fixed;bottom:96px;right:24px;z-index:490;width:56px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.lg-btn{width:56px;height:56px;border-radius:50%;background:var(--rust);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(194,74,30,0.35);cursor:pointer;transition:all 0.2s;}
+.lg-btn:hover{background:var(--rust-mid);transform:scale(1.05);}
+.lg-btn svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;}
+.lg-label{font-size:9px;font-weight:600;color:var(--rust);letter-spacing:0.04em;text-align:center;white-space:nowrap;}
+.lg-panel{position:fixed;bottom:90px;right:90px;z-index:490;width:300px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.12);overflow:hidden;display:none;}
+.lg-panel.open{display:block;animation:slideUp 0.3s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.lg-header{background:var(--rust);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.lg-header-title{font-family:var(--cond);font-size:18px;font-weight:700;color:#fff;text-transform:uppercase;}
+.lg-header-sub{font-size:11px;color:rgba(255,255,255,0.65);}
+.lg-close{background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;}
+.lg-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.lg-body{padding:16px;}
+.lg-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.lg-option{padding:12px;border:1.5px solid var(--border);border-radius:var(--radius);text-align:center;cursor:pointer;transition:all 0.2s;}
+.lg-option:hover,.lg-option.selected{border-color:var(--rust);background:var(--rust-lt);}
+.lg-option svg{width:22px;height:22px;stroke:var(--rust);fill:none;stroke-width:2;margin:0 auto 6px;display:block;}
+.lg-option span{font-size:12px;font-weight:600;color:var(--rust);}
+.lg-input{width:100%;border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:13px;font-family:inherit;outline:none;margin-bottom:8px;}
+.lg-input:focus{border-color:var(--rust);}
+.lg-submit{width:100%;background:var(--rust);color:#fff;border:none;border-radius:var(--radius);padding:12px;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;}
+.chat-widget{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px;}
+.chat-bubble{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(27,94,59,0.4);cursor:pointer;transition:all 0.2s;}
+.chat-bubble:hover{background:var(--green-mid);transform:scale(1.05);}
+.chat-bubble svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;}
+.chat-panel{width:320px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.12);overflow:hidden;display:none;}
+.chat-panel.open{display:flex;flex-direction:column;animation:slideUp 0.3s ease;}
+.chat-panel-header{background:var(--green);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.chat-header-info{display:flex;align-items:center;gap:10px;}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;}
+.chat-avatar svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;}
+.chat-name{font-size:14px;font-weight:600;color:#fff;}
+.chat-status{font-size:11px;color:rgba(255,255,255,0.65);}
+.chat-close{background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;}
+.chat-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.chat-messages{padding:16px;min-height:100px;display:flex;flex-direction:column;gap:10px;}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;}
+.chat-msg.bot{background:var(--surface);color:var(--text);border-bottom-left-radius:4px;align-self:flex-start;}
+.chat-msg.user{background:var(--green);color:#fff;border-bottom-right-radius:4px;align-self:flex-end;}
+.chat-quick{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:6px;}
+.chat-quick-btn{background:var(--green-lt);border:1px solid rgba(27,94,59,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:var(--green);font-weight:500;cursor:pointer;transition:all 0.2s;}
+.chat-quick-btn:hover{background:var(--green);color:#fff;}
+.chat-input-row{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);}
+.chat-input{flex:1;border:1px solid var(--border);border-radius:100px;padding:8px 14px;font-size:13px;font-family:inherit;outline:none;}
+.chat-input:focus{border-color:var(--green);}
+.chat-send{width:36px;height:36px;border-radius:50%;background:var(--green);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.chat-send svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;}
+.pixel-toast{position:fixed;bottom:24px;left:24px;z-index:600;background:var(--ink);color:#fff;font-family:var(--cond);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:10px 16px;border-radius:var(--radius);display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;pointer-events:none;max-width:280px;}
+.pixel-toast.show{opacity:1;transform:translateY(0);}
+.pixel-toast-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 1.2s infinite;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+@media(max-width:1024px){.mkt-hero-inner,.mkt-book-inner,.mkt-proof-inner{grid-template-columns:1fr;}.mkt-local-grid{grid-template-columns:1fr 1fr;}.mkt-emg-band-inner{flex-direction:column;}.footer-top{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){:root{--trust-h:0px;--nav-h:60px;}.trust-bar{display:none;}nav{display:none;}.mobile-header{display:flex;}.page-content{margin-top:60px;}.mkt-local-grid{grid-template-columns:1fr;}.mkt-proof-stats{grid-template-columns:1fr 1fr;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}.footer-bottom{flex-direction:column;gap:8px;text-align:center;}}
+@media(max-width:480px){.footer-top{grid-template-columns:1fr;}.mkt-hero-actions{flex-direction:column;}.mkt-cta-primary,.mkt-cta-call{justify-content:center;}}
+</style>
+</head>
+<body>
+
+<div class="trust-bar"><div class="trust-bar-inner"><div class="trust-items"><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Licensed &amp; Insured</div><div class="trust-item"><span class="stars">★★★★★</span>4.7 · 64 Reviews</div><div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24/7 Emergency</div><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins &amp; Area</div></div><div class="trust-right"><a href="tel:7057001234" class="trust-phone">(705) 700-1234</a></div></div></div>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><div class="nav-logo-mark"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nav-logo-text"><span class="nav-logo-name">Total Trades</span><span class="nav-logo-tag">Timmins ON</span></div></a>
+    <div class="nav-services">
+      <a href="/hot-water" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="nav-svc-label">Hot Water</span></a>
+      <a href="/blocked-drains" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div><span class="nav-svc-label">Drains</span></a>
+      <a href="/bathroom-renovations" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg></div><span class="nav-svc-label">Bathrooms</span></a>
+      <a href="/leak-detection" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="nav-svc-label">Leaks</span></a>
+      <a href="/gas-plumbing" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><span class="nav-svc-label">Gas</span></a>
+      <a href="/pipe-repair" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div><span class="nav-svc-label">Pipes</span></a>
+      <a href="/reviews" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="nav-svc-label">Reviews</span></a>
+      <a href="/blog" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="nav-svc-label">Blog</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>Emergency</a>
+      <a href="/book" class="nav-book" id="navBookBtn">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-header" id="mobileHeader"><button class="mobile-hamburger" id="mobileHamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button><span class="mobile-logo-name">Total Trades Solutions</span><div class="mobile-right"><a href="/emergency" class="mobile-emergency-btn"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency</a><a href="tel:7057001234" class="mobile-call-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></a></div></div>
+<div class="mobile-menu" id="mobileMenu"><a href="/emergency" class="mobile-menu-emergency" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency 24/7</a><div class="mobile-menu-section"><div class="mobile-menu-section-title">Services</div><a href="/hot-water" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hot Water Systems</a><a href="/blocked-drains" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>Blocked Drains</a><a href="/bathroom-renovations" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg>Bathroom Renovations</a></div><div class="mobile-menu-section"><div class="mobile-menu-section-title">Service Areas</div><a href="/timmins" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins</a><a href="/cochrane" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Cochrane</a><a href="/service-areas" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>All service areas</a></div><a href="/book" class="mobile-menu-book" onclick="closeMobileMenu()">Book Appointment</a></div>
+
+<!-- PAGE CONTENT — injected by JS -->
+<main class="page-content" id="pageMain">
+  <!-- skeleton shown briefly while JS injects -->
+  <div style="height:200px;background:var(--ink);"></div>
+</main>
+
+<footer><div class="footer-inner"><div class="footer-top"><div><div class="footer-brand-name">Total Trades Solutions</div><div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div><a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a><div class="footer-brand-email">info@totaltradessolutions.ca</div></div><div><div class="footer-col-title">Services</div><div class="footer-links"><a href="/emergency" class="footer-link">Emergency 24/7</a><a href="/hot-water" class="footer-link">Hot Water Systems</a><a href="/blocked-drains" class="footer-link">Blocked Drains</a><a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a><a href="/leak-detection" class="footer-link">Leak Detection</a><a href="/gas-plumbing" class="footer-link">Gas Plumbing</a><a href="/pipe-repair" class="footer-link">Pipe Repair</a><a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a></div></div><div><div class="footer-col-title">Service Areas</div><div class="footer-links"><a href="/timmins" class="footer-link">Timmins</a><a href="/cochrane" class="footer-link">Cochrane</a><a href="/south-porcupine" class="footer-link">South Porcupine</a><a href="/iroquois-falls" class="footer-link">Iroquois Falls</a><a href="/kapuskasing" class="footer-link">Kapuskasing</a><a href="/matheson" class="footer-link">Matheson</a><a href="/kirkland-lake" class="footer-link">Kirkland Lake</a></div></div><div><div class="footer-col-title">Company</div><div class="footer-links"><a href="/about" class="footer-link">About Us</a><a href="/reviews" class="footer-link">Reviews</a><a href="/our-guarantee" class="footer-link">Our Guarantee</a><a href="/blog" class="footer-link">Blog</a><a href="/faq" class="footer-link">FAQ</a><a href="/specials" class="footer-link">Specials</a><a href="/book" class="footer-link">Book Appointment</a></div></div></div><div class="footer-bottom"><span>© 2026 Total Trades Solutions. All rights reserved.</span><span>Licensed · Insured · Ontario College of Trades</span></div></div></footer>
+
+<div class="lead-grabber"><button class="lg-btn" id="lgBtn" onclick="toggleLG()"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></button><span class="lg-label">Get help</span></div>
+<div class="lg-panel" id="lgPanel"><div class="lg-header"><div><div class="lg-header-title">Get help now</div><div class="lg-header-sub">Choose how to connect</div></div><button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="lg-body"><div class="lg-options"><div class="lg-option selected" id="lgSpeak" onclick="selectLGMode('speak')"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg><span>Call me back</span></div><div class="lg-option" id="lgEmail" onclick="selectLGMode('email')"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Email me</span></div></div><input class="lg-input" type="text" placeholder="Your name" id="lgName"><input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone"><input class="lg-input" type="text" placeholder="What's the job?" id="lgJob"><button class="lg-submit" onclick="submitLG()">Send request</button></div></div>
+
+<div class="chat-widget"><div class="chat-panel" id="chatPanel"><div class="chat-panel-header"><div class="chat-header-info"><div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div><div class="chat-name">Total Trades Solutions Assistant</div><div class="chat-status" id="chatStatus">Online · questions welcome</div></div></div><button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="chat-messages" id="chatMessages"></div><div class="chat-quick" id="chatQuick"></div><div class="chat-input-row"><input class="chat-input" type="text" placeholder="Ask a question…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div></div><button class="chat-bubble" id="chatBubble" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button></div>
+
+<div class="pixel-toast" id="pixelToast"><div class="pixel-toast-dot"></div><span id="pixelToastText">Pixel fired</span></div>
+
+<script>
+/* ─── ICON SVG HELPERS ─────────────────────────────────── */
+const ICONS = {
+  home: '<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  therm: '<svg viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>',
+  wrench: '<svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+  map: '<svg viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>',
+};
+
+/* ─── PAGE RENDERER ─────────────────────────────────────── */
+function renderPage() {
+  const P = window.PAGE;
+  document.getElementById('pgTitle').textContent = P.title;
+  document.getElementById('pgDesc').setAttribute('content', P.desc);
+
+  /* Context card icons */
+  const ctxCards = P.local_context.map(ctx => `
+    <div class="mkt-ctx-card reveal">
+      <div class="mkt-ctx-icon">${ICONS[ctx.icon] || ICONS.wrench}</div>
+      <div class="mkt-ctx-title">${ctx.title}</div>
+      <p class="mkt-ctx-body">${ctx.body}</p>
+    </div>`).join('');
+
+  /* Service chips */
+  const chips = P.services.map(s => `
+    <div class="mkt-svc-chip">
+      <svg viewBox="0 0 24 24" width="13" height="13" stroke="var(--green)" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      ${s}
+    </div>`).join('');
+
+  document.getElementById('pageMain').innerHTML = `
+
+    <!-- HERO -->
+    <section class="mkt-hero">
+      <div class="mkt-hero-bg"></div>
+      <div class="mkt-hero-grid"></div>
+      <div class="mkt-hero-inner">
+        <div>
+          <div class="mkt-hero-label">Plumbing Services · ${P.region}</div>
+          <div class="mkt-city">${P.city}</div>
+          <div class="mkt-subheadline">${P.subheadline}</div>
+          <p class="mkt-hero-sub">Total Trades Solutions serves ${P.city} and surrounding area with licensed plumbers, flat-rate pricing, and a workmanship guarantee on every job. ${P.emergency_note}</p>
+          <div class="mkt-hero-actions">
+            <a href="/contact" class="mkt-cta-primary" id="heroCta">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Book free estimate
+            </a>
+            <a href="tel:7057001234" class="mkt-cta-call" id="heroCall">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+              (705) 700-1234
+            </a>
+          </div>
+        </div>
+        <!-- Emergency card -->
+        <div class="mkt-emergency-card">
+          <div class="mkt-emg-header">
+            <div class="mkt-emg-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div><div class="mkt-emg-title">Emergency response</div><div class="mkt-emg-subtitle">24 hours · 7 days</div></div>
+          </div>
+          <div class="mkt-emg-time">${P.emergency_time}</div>
+          <p class="mkt-emg-note">${P.emergency_note}</p>
+          <a href="tel:7057001234" class="mkt-emg-call" id="emgCall">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+            Call now — (705) 700-1234
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISTANCE BADGE -->
+    <div class="mkt-badge">
+      <div class="mkt-badge-inner">
+        <div class="mkt-badge-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span><strong>${P.city}</strong> · ${P.distance}</span></div>
+        <div class="mkt-badge-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Licensed · Insured · OCoT + TSSA certified</span></div>
+        <div class="mkt-badge-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Flat-rate pricing · No call-out fee</span></div>
+        <div class="mkt-badge-item"><span class="stars" style="color:var(--gold);letter-spacing:1px;font-size:11px;">★★★★★</span><span>4.7 · 64 Google reviews</span></div>
+      </div>
+    </div>
+
+    <!-- LOCAL CONTEXT -->
+    <section class="mkt-local" data-pixel-event="mkt_local" data-pixel-label="Local context viewed" data-pixel-delta="5" data-pixel-bucket="comparison">
+      <div class="mkt-local-inner">
+        <div class="mkt-local-label reveal">Serving ${P.city}</div>
+        <h2 class="mkt-local-headline reveal">What we know about<br>plumbing in ${P.city}.</h2>
+        <div class="mkt-local-grid">${ctxCards}</div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="mkt-services" data-pixel-event="mkt_services" data-pixel-label="Services viewed" data-pixel-delta="4" data-pixel-bucket="comparison">
+      <div class="mkt-services-inner">
+        <div class="mkt-services-label reveal">Services in ${P.city}</div>
+        <h2 class="mkt-services-headline reveal">What we do here.</h2>
+        <div class="mkt-services-chips reveal">${chips}</div>
+      </div>
+    </section>
+
+    <!-- APPOINTMENT BOOKING -->
+    <section class="mkt-book" data-pixel-event="mkt_book" data-pixel-label="Booking section" data-pixel-delta="6" data-pixel-bucket="comparison">
+      <div class="mkt-book-inner">
+        <div>
+          <div class="mkt-book-label reveal">Book in ${P.city}</div>
+          <h2 class="mkt-book-headline reveal">Free estimate. Confirmed<br>within 2 hours.</h2>
+          <p class="mkt-book-sub reveal">Submit your details and we'll call to confirm your appointment. Flat-rate price quoted before we start — no surprises on the invoice.</p>
+          <div class="mkt-trust-list reveal">
+            <div class="mkt-trust-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Free estimate — no obligation to proceed</div>
+            <div class="mkt-trust-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Flat-rate price agreed before work starts</div>
+            <div class="mkt-trust-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>1-year workmanship guarantee on installations</div>
+            <div class="mkt-trust-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Licensed plumbers on every job</div>
+            <div class="mkt-trust-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Confirmed within 2 hours of submission</div>
+          </div>
+        </div>
+        <div class="mkt-apt-card">
+          <div class="mkt-apt-header">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span class="mkt-apt-header-text">Book in ${P.city}</span>
+          </div>
+          <div class="mkt-apt-body">
+            <div class="mkt-apt-title">Request an appointment</div>
+            <div class="mkt-apt-sub">We'll confirm by phone within 2 hours during business hours.</div>
+            <label class="mkt-apt-label">Name</label>
+            <input class="mkt-apt-input" type="text" placeholder="Your name" id="aptName" onfocus="firePixel('apt_name_focus','Market booking: name focused',6,'active')">
+            <label class="mkt-apt-label">Phone</label>
+            <input class="mkt-apt-input" type="tel" placeholder="(705) 000-0000" id="aptPhone" onfocus="firePixel('apt_phone_focus','Market booking: phone focused',10,'active')">
+            <label class="mkt-apt-label">Service needed</label>
+            <select class="mkt-apt-select" id="aptService">
+              <option>Emergency — need help now</option>
+              <option>Hot water system</option>
+              <option>Blocked drain</option>
+              <option>Bathroom renovation</option>
+              <option>Leak detection</option>
+              <option>Gas plumbing</option>
+              <option>Pipe repair</option>
+              <option>Water filtration</option>
+              <option>Not sure — need assessment</option>
+            </select>
+            <label class="mkt-apt-label">Preferred time</label>
+            <select class="mkt-apt-select" id="aptTime">
+              <option>Any time</option>
+              <option>Morning (8am–12pm)</option>
+              <option>Afternoon (12pm–4pm)</option>
+              <option>Late afternoon (4pm–6pm)</option>
+            </select>
+            <button class="mkt-apt-btn" id="aptBtn" onclick="submitApt()">Request appointment</button>
+            <div class="mkt-apt-note">No deposit required · Confirmed within 2 hours</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF -->
+    <div class="mkt-proof" data-pixel-event="mkt_proof" data-pixel-label="Local proof viewed" data-pixel-delta="6" data-pixel-bucket="comparison">
+      <div class="mkt-proof-inner">
+        <div class="reveal">
+          <div class="mkt-proof-quote-mark">"</div>
+          <p class="mkt-proof-text">${P.review_text}</p>
+          <div class="mkt-proof-attr">
+            <span class="mkt-proof-stars">★★★★★</span>
+            <span class="mkt-proof-name">${P.review_name} · ${P.review_location}</span>
+            <span class="mkt-proof-service">${P.review_service}</span>
+          </div>
+        </div>
+        <div class="mkt-proof-stats reveal reveal-delay-1">
+          <div class="mkt-stat"><div class="mkt-stat-num">4.7<em>★</em></div><div class="mkt-stat-label">Google rating</div></div>
+          <div class="mkt-stat"><div class="mkt-stat-num">64</div><div class="mkt-stat-label">Verified reviews</div></div>
+          <div class="mkt-stat"><div class="mkt-stat-num">6<em>yr</em></div><div class="mkt-stat-label">In business</div></div>
+          <div class="mkt-stat"><div class="mkt-stat-num">0<em>$</em></div><div class="mkt-stat-label">Call-out fee</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMERGENCY BAND -->
+    <div class="mkt-emg-band">
+      <div class="mkt-emg-band-inner">
+        <div class="mkt-emg-band-text">
+          <div class="mkt-emg-band-headline">Plumbing emergency<br>in ${P.city}?</div>
+          <div class="mkt-emg-band-sub">Call now — a licensed plumber answers 24 hours a day</div>
+        </div>
+        <div class="mkt-emg-band-actions">
+          <a href="tel:7057001234" class="mkt-emg-band-cta" id="bandCall">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+            Call (705) 700-1234
+          </a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  /* Wire CTA pixels after injection */
+  const P2 = window.PAGE;
+  const bucket = P2.pixel_bucket;
+  ['heroCta','heroCall','emgCall','bandCall'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', () => firePixel('mkt_cta_click', P2.city + ': CTA clicked', 12, bucket === 'research' ? 'active' : 'active'));
+  });
+
+  /* Chat setup */
+  document.getElementById('chatStatus').textContent = 'Online · ' + P2.city + ' questions welcome';
+  const chatMsgs = document.getElementById('chatMessages');
+  chatMsgs.innerHTML = `<div class="chat-msg bot">Hi — I can answer questions about our service in ${P2.city}. What would you like to know?</div>`;
+  const chatQuick = document.getElementById('chatQuick');
+  chatQuick.innerHTML = `
+    <button class="chat-quick-btn" onclick="quickAsk('What is your emergency response time for ${P2.city}?')">Emergency ETA</button>
+    <button class="chat-quick-btn" onclick="quickAsk('What services do you offer in ${P2.city}?')">Services</button>
+    <button class="chat-quick-btn" onclick="quickAsk('How do I get a quote in ${P2.city}?')">Get a quote</button>
+  `;
+
+  /* Re-observe reveals */
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const evt = e.target.dataset.pixelEvent;
+        if (evt) { firePixel(evt, e.target.dataset.pixelLabel || evt, parseInt(e.target.dataset.pixelDelta || '0'), e.target.dataset.pixelBucket || bucket); obs.unobserve(e.target); }
+      }
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.reveal, [data-pixel-event]').forEach(el => obs.observe(el));
+}
+
+/* ─── PIXEL ──────────────────────────────────────────────── */
+let _score=0,_bucket='unclassified',_scrollDepth=0,_dwellStart=Date.now(),_toastTimeout;
+const _bp=['emergency','active','comparison','research','unclassified'];
+function firePixel(event,label,delta,bucket){
+  _score=Math.min(_score+delta,100);
+  if(bucket&&bucket!=='unclassified'){const c=_bp.indexOf(_bucket),n=_bp.indexOf(bucket);if(c===-1||n<c||_bucket==='unclassified')_bucket=bucket;}
+  const t=document.getElementById('pixelToast');
+  document.getElementById('pixelToastText').textContent=label+(delta>0?' +'+delta:'');
+  t.classList.add('show');clearTimeout(_toastTimeout);
+  _toastTimeout=setTimeout(()=>t.classList.remove('show'),2200);
+  console.log('[ClearSky Pixel]',{event,score:_score,bucket:_bucket,delta,label,market:window.PAGE.city});
+}
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('mainNav');
+  if(nav){if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled');}
+  document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*0.9)el.classList.add('visible');});
+  const doc=document.documentElement.scrollHeight-window.innerHeight;if(doc<=0)return;
+  const pct=Math.round((window.scrollY/doc)*100);
+  const b=window.PAGE.pixel_bucket;
+  if(pct>_scrollDepth){
+    if(pct>=25&&_scrollDepth<25)firePixel('scroll_25','Scroll 25%',3,b);
+    if(pct>=50&&_scrollDepth<50)firePixel('scroll_50','Scroll 50%',5,b==='research'?'comparison':b);
+    if(pct>=75&&_scrollDepth<75)firePixel('scroll_75','Scroll 75%',7,'comparison');
+    if(pct>=90&&_scrollDepth<90)firePixel('scroll_90','Scroll 90%',8,'comparison');
+    _scrollDepth=pct;
+  }
+});
+let _d30=false,_d60=false,_d120=false;
+setInterval(()=>{
+  const s=Math.round((Date.now()-_dwellStart)/1000);
+  const b=window.PAGE.pixel_bucket;
+  if(s>=30&&!_d30){_d30=true;firePixel('dwell_30','30s dwell',4,b);}
+  if(s>=60&&!_d60){_d60=true;firePixel('dwell_60','60s dwell',7,'comparison');}
+  if(s>=120&&!_d120){_d120=true;firePixel('dwell_120','2min dwell',8,'comparison');}
+},1000);
+
+/* ─── APPOINTMENT ────────────────────────────────────────── */
+function submitApt(){
+  const name=document.getElementById('aptName').value;
+  const phone=document.getElementById('aptPhone').value;
+  if(!name){document.getElementById('aptName').focus();return;}
+  if(!phone){document.getElementById('aptPhone').focus();return;}
+  firePixel('apt_submit','Market apt submit: '+window.PAGE.city,20,'active');
+  const btn=document.getElementById('aptBtn');
+  btn.textContent='Booked — confirmed within 2 hours ✓';
+  btn.style.background='var(--green-mid)';
+  btn.disabled=true;
+}
+
+/* ─── MOBILE MENU ────────────────────────────────────────── */
+function toggleMobileMenu(){const m=document.getElementById('mobileMenu'),b=document.getElementById('mobileHamburger');const o=m.classList.toggle('open');b.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
+function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('mobileHamburger').classList.remove('open');document.body.style.overflow='';}
+
+/* ─── LEAD GRABBER ───────────────────────────────────────── */
+let _lgOpen=false,_lgMode='speak';
+function toggleLG(){_lgOpen=!_lgOpen;document.getElementById('lgPanel').classList.toggle('open',_lgOpen);if(_lgOpen)firePixel('lg_open','Lead Grabber opened',8,'active');}
+function selectLGMode(mode){_lgMode=mode;document.getElementById('lgSpeak').classList.toggle('selected',mode==='speak');document.getElementById('lgEmail').classList.toggle('selected',mode==='email');const p=document.getElementById('lgPhone');if(mode==='speak'){p.placeholder='Phone — (705) 000-0000';p.type='tel';}else{p.placeholder='Email address';p.type='email';}}
+function submitLG(){firePixel('lg_submit','Lead Grabber submitted',15,'active');const btn=document.querySelector('.lg-submit');btn.textContent='Request sent ✓';btn.style.background='var(--green)';setTimeout(()=>{btn.textContent='Send request';btn.style.background='';},3000);}
+
+/* ─── AI CHAT ────────────────────────────────────────────── */
+let _chatOpen=false;
+function toggleChat(){_chatOpen=!_chatOpen;document.getElementById('chatPanel').classList.toggle('open',_chatOpen);if(_chatOpen)firePixel('chat_open','AI Chat opened',6,'comparison');}
+function quickAsk(q){_addChatMsg(q,'user');firePixel('chat_q','Chat question',8,'comparison');
+  const P=window.PAGE;
+  const r={
+    [`What is your emergency response time for ${P.city}?`]:`Emergency response time to ${P.city} is approximately ${P.emergency_time}. ${P.emergency_note}`,
+    [`What services do you offer in ${P.city}?`]:`We offer the following services in ${P.city}: ${P.services.join(', ')}. Call (705) 700-1234 or book through the form on this page.`,
+    [`How do I get a quote in ${P.city}?`]:`Submit a FotoJobber photo through our Contact page for a quote within 2 hours, or book an on-site estimate through the form here. Both are free with no obligation.`
+  };
+  setTimeout(()=>_addChatMsg(r[q]||'Our team can answer that directly. Call (705) 700-1234 or book through the form on this page.','bot'),800);
+}
+function sendChat(){const inp=document.getElementById('chatInput');if(!inp.value.trim())return;_addChatMsg(inp.value,'user');firePixel('chat_q','Chat question sent',8,'comparison');inp.value='';setTimeout(()=>_addChatMsg('Call us at (705) 700-1234 for immediate help, or book through the form on this page.','bot'),800);}
+function _addChatMsg(text,type){const msgs=document.getElementById('chatMessages');const div=document.createElement('div');div.className='chat-msg '+type;div.textContent=text;msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
+
+/* ─── BOOT ───────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const P = window.PAGE;
+  renderPage();
+  const _ne=document.getElementById('navEmergencyBtn'),_nb=document.getElementById('navBookBtn');
+  if(_ne)_ne.addEventListener('click',()=>firePixel('nav_emergency','Nav: Emergency',15,'emergency'));
+  if(_nb)_nb.addEventListener('click',()=>firePixel('nav_book','Nav: Book Now',10,'active'));
+  firePixel('page_load', P.city + ' market page — ' + P.pixel_bucket, P.pixel_bucket === 'comparison' ? 4 : 3, P.pixel_bucket);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Total Trades Solutions — Timmins ON | Licensed Plumber | 24/7 Emergency</title>
+<meta name="description" content="Total Trades Solutions — Timmins' most trusted licensed plumber. 4.7 stars, 64 reviews, 6 years serving Timmins and surrounding area. 24/7 emergency response. Free estimates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --white:      #FFFFFF;
+  --surface:    #F8F6F1;
+  --border:     #E8E4DC;
+  --text:       #111714;
+  --text2:      #4A5E52;
+  --text3:      #8A9E92;
+  --green:      #1B5E3B;
+  --green-mid:  #2D7A52;
+  --green-lt:   #EBF5EF;
+  --green-dk:   #0D3B27;
+  --rust:       #C24A1E;
+  --rust-lt:    #FAEDE8;
+  --gold:       #B8862A;
+  --gold-lt:    #FBF5E6;
+  --ink:        #0D1F14;
+  --sans:       'Barlow', sans-serif;
+  --cond:       'Barlow Condensed', sans-serif;
+  --nav-h:      68px;
+  --trust-h:    40px;
+  --col:        1180px;
+  --radius:     6px;
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--sans); background: var(--white); color: var(--text); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--trust-h);
+  background: var(--ink);
+  display: flex; align-items: center;
+  padding: 0 24px;
+}
+.trust-bar-inner {
+  max-width: var(--col); margin: 0 auto; width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.trust-items { display: flex; align-items: center; gap: 0; }
+.trust-item {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  padding: 0 18px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.trust-item:first-child { padding-left: 0; }
+.trust-item:last-child { border-right: none; }
+.trust-item svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.trust-item .stars { color: var(--gold); font-size: 11px; letter-spacing: 1px; }
+.trust-right { display: flex; align-items: center; gap: 12px; }
+.trust-phone { font-family: var(--cond); font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.04em; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: var(--trust-h); left: 0; right: 0; z-index: 190;
+  height: var(--nav-h);
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.nav-inner {
+  max-width: var(--col); margin: 0 auto; width: 100%;
+  height: 100%; display: flex; align-items: center;
+  padding: 0 24px; gap: 32px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.nav-logo-mark {
+  width: 38px; height: 38px; background: var(--green);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-mark svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.nav-logo-name { font-family: var(--cond); font-size: 20px; font-weight: 800; color: var(--ink); text-transform: uppercase; letter-spacing: 0.02em; }
+.nav-logo-tag { font-size: 10px; color: var(--text3); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* SERVICE ICON NAV */
+.nav-services {
+  display: flex; align-items: center; gap: 2px; flex: 1;
+}
+.nav-svc {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 8px 12px; border-radius: var(--radius);
+  transition: background 0.2s; cursor: pointer;
+  text-decoration: none; border: none; background: transparent;
+}
+.nav-svc:hover { background: var(--green-lt); }
+.nav-svc.active { background: var(--green-lt); }
+.nav-svc-icon {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-svc-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.nav-svc-label { font-size: 10px; font-weight: 600; color: var(--text2); letter-spacing: 0.03em; white-space: nowrap; text-align: center; }
+
+.nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-emergency {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: var(--radius);
+  background: var(--rust-lt); border: 1.5px solid var(--rust);
+  font-size: 13px; font-weight: 600; color: var(--rust);
+  transition: all 0.2s; text-decoration: none;
+}
+.nav-emergency:hover { background: var(--rust); color: #fff; }
+.nav-emergency svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.nav-book {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: var(--radius);
+  background: var(--green); color: #fff;
+  font-size: 13px; font-weight: 600;
+  transition: background 0.2s; text-decoration: none; border: none;
+}
+.nav-book:hover { background: var(--green-mid); }
+
+/* ── HERO ── */
+.hero {
+  margin-top: calc(var(--trust-h) + var(--nav-h));
+  min-height: calc(100vh - var(--trust-h) - var(--nav-h));
+  background: var(--ink);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero-pattern {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 70% 50%, rgba(27,94,59,0.25) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(27,94,59,0.1) 0%, transparent 40%);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: var(--col); margin: 0 auto; width: 100%;
+  padding: 80px 24px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(27,94,59,0.3); border: 1px solid rgba(27,94,59,0.5);
+  border-radius: 100px; padding: 6px 14px;
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.8);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.hero-headline {
+  font-family: var(--cond); font-weight: 900;
+  font-size: clamp(56px, 8vw, 108px);
+  line-height: 0.9; text-transform: uppercase;
+  color: #fff; letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+.hero-headline em { font-style: normal; color: var(--gold); }
+.hero-headline .line2 { color: rgba(255,255,255,0.35); }
+
+.hero-sub {
+  font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.6);
+  line-height: 1.65; max-width: 520px; margin-bottom: 40px;
+}
+
+.hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 60px; }
+.hero-btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--rust); color: #fff;
+  font-family: var(--cond); font-weight: 700; font-size: 17px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 16px 32px; border-radius: var(--radius);
+  border: none; transition: all 0.2s; text-decoration: none;
+}
+.hero-btn-primary:hover { background: #a83818; transform: translateY(-1px); }
+.hero-btn-primary svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.hero-btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-size: 15px; font-weight: 500;
+  padding: 16px 28px; border-radius: var(--radius);
+  transition: all 0.2s; text-decoration: none;
+}
+.hero-btn-secondary:hover { background: rgba(255,255,255,0.14); color: #fff; }
+.hero-btn-secondary svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* HERO STATS */
+.hero-stats {
+  display: flex; align-items: stretch; gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 40px;
+}
+.hero-stat {
+  flex: 1; padding-right: 32px; margin-right: 32px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.hero-stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.hero-stat-num {
+  font-family: var(--cond); font-weight: 800; font-size: 42px;
+  color: #fff; line-height: 1; margin-bottom: 4px;
+}
+.hero-stat-num span { color: var(--gold); }
+.hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* SCROLL INDICATOR */
+.scroll-indicator {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer; z-index: 2;
+  animation: fadeIn 1s 1.5s both;
+}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.scroll-indicator span { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+.scroll-arrow { width: 1px; height: 40px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; }
+.scroll-arrow::after { content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%; background: var(--gold); animation: scrollDown 1.8s 1.5s infinite; }
+@keyframes scrollDown { 0%{top:-100%} 100%{top:100%} }
+
+/* ── TRUST STRIP ── */
+.trust-strip {
+  background: var(--green); padding: 20px 24px;
+}
+.trust-strip-inner {
+  max-width: var(--col); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
+}
+.trust-strip-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85);
+}
+.trust-strip-item svg { width: 18px; height: 18px; stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+/* ── SECTION COMMONS ── */
+.section { padding: 88px 24px; }
+.section-inner { max-width: var(--col); margin: 0 auto; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; color: var(--green);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;
+}
+.section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--green); }
+.section-headline {
+  font-family: var(--cond); font-weight: 800;
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 0.95; text-transform: uppercase;
+  color: var(--ink); letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 17px; font-weight: 300; color: var(--text2);
+  line-height: 1.7; max-width: 580px; margin-bottom: 52px;
+}
+
+/* ── SERVICES GRID ── */
+.services-section { background: var(--surface); }
+.services-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+.service-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px 24px;
+  cursor: pointer; transition: all 0.25s; text-decoration: none;
+  display: flex; flex-direction: column; gap: 0;
+  position: relative; overflow: hidden;
+}
+.service-card::before {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 3px; background: var(--green);
+  transition: width 0.3s;
+}
+.service-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+.service-card:hover::before { width: 100%; }
+.service-card:hover .service-icon { background: var(--green-lt); }
+.service-card:hover .service-icon svg { stroke: var(--green); }
+.service-icon {
+  width: 48px; height: 48px; border-radius: 10px;
+  background: var(--surface); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px; transition: background 0.25s; flex-shrink: 0;
+}
+.service-icon svg { width: 26px; height: 26px; stroke: var(--text2); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.25s; }
+.service-card.emergency-card { border-color: rgba(194,74,30,0.2); }
+.service-card.emergency-card .service-icon { background: var(--rust-lt); }
+.service-card.emergency-card .service-icon svg { stroke: var(--rust); }
+.service-card.emergency-card:hover { border-color: var(--rust); }
+.service-card.emergency-card::before { background: var(--rust); }
+.service-name {
+  font-family: var(--cond); font-weight: 700; font-size: 18px;
+  color: var(--ink); text-transform: uppercase; letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+.service-desc { font-size: 13px; color: var(--text2); line-height: 1.6; flex: 1; }
+.service-arrow {
+  display: flex; align-items: center; justify-content: flex-end;
+  margin-top: 16px;
+}
+.service-arrow svg { width: 16px; height: 16px; stroke: var(--text3); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: all 0.2s; }
+.service-card:hover .service-arrow svg { stroke: var(--green); transform: translateX(3px); }
+.service-card.emergency-card:hover .service-arrow svg { stroke: var(--rust); }
+
+/* ── PROOF BAND ── */
+.proof-band { background: var(--ink); padding: 72px 24px; }
+.proof-band-inner {
+  max-width: var(--col); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.proof-quote-mark {
+  font-family: var(--cond); font-size: 160px; font-weight: 900;
+  color: rgba(255,255,255,0.04); line-height: 0.7;
+  margin-bottom: -24px; user-select: none;
+}
+.proof-quote {
+  font-size: 22px; font-weight: 300; font-style: italic;
+  color: rgba(255,255,255,0.82); line-height: 1.55; margin-bottom: 24px;
+}
+.proof-attribution {
+  display: flex; align-items: center; gap: 12px;
+}
+.proof-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; }
+.proof-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; text-transform: uppercase; }
+
+.proof-numbers { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.06); }
+.proof-num-card { background: rgba(255,255,255,0.03); padding: 32px 28px; }
+.proof-big {
+  font-family: var(--cond); font-weight: 900; font-size: 54px;
+  color: #fff; line-height: 1; margin-bottom: 6px;
+}
+.proof-big em { font-style: normal; color: var(--gold); font-size: 36px; }
+.proof-small { font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ── HOW IT WORKS ── */
+.how-section { background: var(--white); }
+.how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.how-step { position: relative; }
+.how-step-num {
+  font-family: var(--cond); font-size: 72px; font-weight: 900;
+  color: var(--green-lt); line-height: 1; margin-bottom: -16px;
+}
+.how-step-content { position: relative; z-index: 1; }
+.how-step-title {
+  font-family: var(--cond); font-weight: 700; font-size: 20px;
+  color: var(--ink); text-transform: uppercase; margin-bottom: 10px;
+}
+.how-step-desc { font-size: 14px; color: var(--text2); line-height: 1.65; }
+.how-connector {
+  position: absolute; top: 36px; right: -16px; width: 32px;
+  display: flex; align-items: center; z-index: 2;
+}
+.how-connector svg { width: 20px; height: 20px; stroke: var(--border); fill: none; stroke-width: 2; stroke-linecap: round; }
+
+/* ── EMERGENCY BAND ── */
+.emergency-band { background: var(--rust); padding: 0 24px; }
+.emergency-inner {
+  max-width: var(--col); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 36px 0; gap: 32px;
+}
+.emergency-left { display: flex; align-items: center; gap: 20px; }
+.emergency-icon-wrap {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.emergency-icon-wrap svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.emergency-text h2 {
+  font-family: var(--cond); font-weight: 800; font-size: 32px;
+  color: #fff; text-transform: uppercase; line-height: 1; margin-bottom: 4px;
+}
+.emergency-text p { font-size: 14px; color: rgba(255,255,255,0.75); font-weight: 300; }
+.emergency-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; color: var(--rust);
+  font-family: var(--cond); font-weight: 800; font-size: 17px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 16px 32px; border-radius: var(--radius);
+  white-space: nowrap; transition: all 0.2s; text-decoration: none;
+}
+.emergency-cta:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
+.emergency-cta svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+/* ── TOOLS SECTION ── */
+.tools-section { background: var(--surface); }
+.tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.tool-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px 28px;
+  transition: all 0.25s; cursor: pointer;
+}
+.tool-card:hover { border-color: var(--green); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.tool-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-lt); border-radius: 100px; padding: 4px 12px;
+  font-size: 10px; font-weight: 700; color: var(--green);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px;
+}
+.tool-tag svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.tool-title {
+  font-family: var(--cond); font-weight: 700; font-size: 22px;
+  color: var(--ink); text-transform: uppercase; margin-bottom: 10px;
+}
+.tool-desc { font-size: 14px; color: var(--text2); line-height: 1.65; margin-bottom: 20px; }
+.tool-action {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--green);
+}
+.tool-action svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+/* ── ABOUT STRIP ── */
+.about-strip { background: var(--white); padding: 88px 24px; }
+.about-inner {
+  max-width: var(--col); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+}
+.about-body { font-size: 17px; font-weight: 300; color: var(--text2); line-height: 1.8; margin-bottom: 32px; }
+.about-creds { display: flex; flex-direction: column; gap: 10px; }
+.cred-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text); font-weight: 400; }
+.cred-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+.about-image-placeholder {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); aspect-ratio: 4/3;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px;
+}
+.about-image-placeholder svg { width: 48px; height: 48px; stroke: var(--text3); fill: none; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+.about-image-placeholder span { font-size: 12px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ── AREAS STRIP ── */
+.areas-strip { background: var(--green-lt); padding: 48px 24px; border-top: 1px solid rgba(27,94,59,0.12); border-bottom: 1px solid rgba(27,94,59,0.12); }
+.areas-inner { max-width: var(--col); margin: 0 auto; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.areas-label { font-family: var(--cond); font-size: 18px; font-weight: 700; color: var(--green); text-transform: uppercase; flex-shrink: 0; }
+.areas-divider { width: 1px; height: 24px; background: rgba(27,94,59,0.2); flex-shrink: 0; }
+.areas-list { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; flex: 1; }
+.area-chip {
+  display: flex; align-items: center; gap: 5px;
+  background: #fff; border: 1px solid rgba(27,94,59,0.2);
+  border-radius: 100px; padding: 5px 14px;
+  font-size: 13px; font-weight: 500; color: var(--green);
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+}
+.area-chip:hover { background: var(--green); color: #fff; border-color: var(--green); }
+.area-chip svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+/* ── FOOTER ── */
+footer { background: var(--ink); padding: 64px 24px 32px; }
+.footer-inner { max-width: var(--col); margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+  padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 32px;
+}
+.footer-brand-name { font-family: var(--cond); font-size: 24px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 6px; }
+.footer-brand-tag { font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+.footer-brand-phone { font-family: var(--cond); font-size: 26px; font-weight: 700; color: var(--gold); letter-spacing: 0.02em; display: block; margin-bottom: 4px; }
+.footer-brand-email { font-size: 13px; color: rgba(255,255,255,0.35); }
+.footer-col-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+.footer-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-link { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+.footer-link:hover { color: #fff; }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.2); }
+
+/* ── AI CHAT WIDGET ── */
+.chat-widget {
+  position: fixed; bottom: 24px; right: 24px; z-index: 500;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+}
+.chat-bubble {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--green); color: #fff; border: none;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(27,94,59,0.4);
+  cursor: pointer; transition: all 0.2s;
+}
+.chat-bubble:hover { background: var(--green-mid); transform: scale(1.05); }
+.chat-bubble svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.chat-panel {
+  width: 320px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  overflow: hidden; display: none;
+}
+.chat-panel.open { display: flex; flex-direction: column; animation: slideUp 0.3s ease; }
+@keyframes slideUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.chat-panel-header {
+  background: var(--green); padding: 16px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.chat-header-info { display: flex; align-items: center; gap: 10px; }
+.chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+.chat-avatar svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.chat-name { font-size: 14px; font-weight: 600; color: #fff; }
+.chat-status { font-size: 11px; color: rgba(255,255,255,0.65); }
+.chat-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; }
+.chat-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.chat-messages { padding: 16px; min-height: 120px; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
+.chat-msg.bot { background: var(--surface); color: var(--text); border-bottom-left-radius: 4px; align-self: flex-start; }
+.chat-msg.user { background: var(--green); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+.chat-quick { padding: 0 16px 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chat-quick-btn { background: var(--green-lt); border: 1px solid rgba(27,94,59,0.2); border-radius: 100px; padding: 5px 12px; font-size: 12px; color: var(--green); font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.chat-quick-btn:hover { background: var(--green); color: #fff; }
+.chat-input-row { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); }
+.chat-input { flex: 1; border: 1px solid var(--border); border-radius: 100px; padding: 8px 14px; font-size: 13px; font-family: inherit; outline: none; }
+.chat-input:focus { border-color: var(--green); }
+.chat-send { width: 36px; height: 36px; border-radius: 50%; background: var(--green); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; }
+.chat-send:hover { background: var(--green-mid); }
+.chat-send svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; }
+
+/* ── LEAD GRABBER ── */
+.lead-grabber {
+  position: fixed; bottom: 96px; right: 24px; z-index: 490;
+  width: 56px; display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.lg-btn {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--rust); color: #fff; border: none;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(194,74,30,0.35);
+  cursor: pointer; transition: all 0.2s;
+}
+.lg-btn:hover { background: #a83818; transform: scale(1.05); }
+.lg-btn svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.lg-label { font-size: 9px; font-weight: 600; color: var(--rust); letter-spacing: 0.04em; text-align: center; white-space: nowrap; }
+.lg-panel {
+  position: fixed; bottom: 90px; right: 90px; z-index: 490;
+  width: 300px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  overflow: hidden; display: none;
+}
+.lg-panel.open { display: block; animation: slideUp 0.3s ease; }
+.lg-header { background: var(--rust); padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; }
+.lg-header-title { font-family: var(--cond); font-size: 18px; font-weight: 700; color: #fff; text-transform: uppercase; }
+.lg-header-sub { font-size: 11px; color: rgba(255,255,255,0.65); }
+.lg-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; }
+.lg-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.lg-body { padding: 16px; }
+.lg-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.lg-option {
+  padding: 12px; border: 1.5px solid var(--border); border-radius: var(--radius);
+  text-align: center; cursor: pointer; transition: all 0.2s;
+}
+.lg-option:hover { border-color: var(--rust); background: var(--rust-lt); }
+.lg-option.selected { border-color: var(--rust); background: var(--rust-lt); }
+.lg-option svg { width: 22px; height: 22px; stroke: var(--rust); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin: 0 auto 6px; display: block; }
+.lg-option span { font-size: 12px; font-weight: 600; color: var(--rust); }
+.lg-input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-size: 13px; font-family: inherit; outline: none; margin-bottom: 8px; }
+.lg-input:focus { border-color: var(--rust); }
+.lg-submit { width: 100%; background: var(--rust); color: #fff; border: none; border-radius: var(--radius); padding: 12px; font-family: var(--cond); font-weight: 700; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+.lg-submit:hover { background: #a83818; }
+
+/* ── PIXEL INDICATOR ── */
+.pixel-toast {
+  position: fixed; bottom: 24px; left: 24px; z-index: 600;
+  background: var(--ink); color: #fff;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 10px 16px; border-radius: var(--radius);
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none; max-width: 280px;
+}
+.pixel-toast.show { opacity: 1; transform: translateY(0); }
+.pixel-toast-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 1.2s infinite; flex-shrink: 0; }
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .tools-grid { grid-template-columns: 1fr 1fr; }
+  .how-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  :root { --trust-h: 0px; --nav-h: 60px; }
+  .trust-bar { display: none; }
+  .nav-services { display: none; }
+  .nav-inner { gap: 16px; }
+  .hero-headline { font-size: 52px; }
+  .hero-stats { flex-direction: column; gap: 20px; }
+  .hero-stat { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 20px; }
+  .hero-stat:last-child { border-bottom: none; }
+  .proof-band-inner { grid-template-columns: 1fr; gap: 40px; }
+  .about-inner { grid-template-columns: 1fr; }
+  .emergency-inner { flex-direction: column; text-align: center; }
+  .services-grid { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-items">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Licensed &amp; Insured
+      </div>
+      <div class="trust-item">
+        <span class="stars">★★★★★</span>
+        4.7 · 64 Reviews
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        24/7 Emergency
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Free Estimates
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Timmins &amp; Area
+      </div>
+    </div>
+    <div class="trust-right">
+      <span class="trust-phone">(705) 700-1234</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Total Trades</span>
+        <span class="nav-logo-tag">Timmins ON</span>
+      </div>
+    </a>
+
+    <div class="nav-services">
+      <a href="/emergency" class="nav-svc" id="navEmergency">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="nav-svc-label" style="color:var(--rust)">Emergency</span>
+      </a>
+      <a href="/hot-water" class="nav-svc" id="navHotWater">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M12 6v6l4 2"/></svg></div>
+        <span class="nav-svc-label">Hot Water</span>
+      </a>
+      <a href="/blocked-drains" class="nav-svc" id="navDrains">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div>
+        <span class="nav-svc-label">Blocked Drains</span>
+      </a>
+      <a href="/bathroom-renovations" class="nav-svc" id="navBathroom">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/><path d="M10 2h4"/><path d="M6 19v2M18 19v2"/></svg></div>
+        <span class="nav-svc-label">Bathrooms</span>
+      </a>
+      <a href="/leak-detection" class="nav-svc" id="navLeaks">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+        <span class="nav-svc-label">Leak Detection</span>
+      </a>
+      <a href="/gas-plumbing" class="nav-svc" id="navGas">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+        <span class="nav-svc-label">Gas</span>
+      </a>
+      <a href="/pipe-repair" class="nav-svc" id="navPipes">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div>
+        <span class="nav-svc-label">Pipe Repair</span>
+      </a>
+      <a href="/book" class="nav-svc" id="navBook">
+        <div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <span class="nav-svc-label">Book</span>
+      </a>
+    </div>
+
+    <div class="nav-right">
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+        Emergency
+      </a>
+      <a href="/book" class="nav-book" id="navBookBtn">
+        Book Now
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Licensed Plumbers · Timmins, Ontario
+    </div>
+    <h1 class="hero-headline">
+      Done right.<br>
+      <em>On time.</em><br>
+      <span class="line2">No surprises.</span>
+    </h1>
+    <p class="hero-sub">Total Trades Solutions has been Timmins' most trusted licensed plumber for six years. We show up, we fix it, we stand behind it.</p>
+    <div class="hero-actions">
+      <a href="/book" class="hero-btn-primary" id="heroBookBtn">
+        Get a free estimate
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#services" class="hero-btn-secondary" id="heroServicesBtn">
+        See our services
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">4.7<span>★</span></div>
+        <div class="hero-stat-label">Google Rating</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">64</div>
+        <div class="hero-stat-label">Verified Reviews</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">Years in Business</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">15<span style="font-size:28px;color:rgba(255,255,255,0.4)">min</span></div>
+        <div class="hero-stat-label">Emergency Response</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip reveal">
+  <div class="trust-strip-inner">
+    <div class="trust-strip-item">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Licensed &amp; Insured — Ontario College of Trades
+    </div>
+    <div class="trust-strip-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      24/7 Emergency — We Answer Every Call
+    </div>
+    <div class="trust-strip-item">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Flat-Rate Pricing — No Surprises
+    </div>
+    <div class="trust-strip-item">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      Free Estimates on All Jobs Over $500
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section services-section" id="services">
+  <div class="section-inner">
+    <div class="section-label reveal">What we do</div>
+    <h2 class="section-headline reveal">Every plumbing job.<br>Done right.</h2>
+    <p class="section-sub reveal">From a dripping tap to a full pipe replacement — we handle it all with the same standard of work.</p>
+    <div class="services-grid">
+      <a href="/emergency" class="service-card emergency-card reveal" id="svcEmergency">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="service-name">Emergency 24/7</div>
+        <p class="service-desc">Burst pipes, flooding, no hot water. We answer every call. 15-minute response commitment.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/hot-water" class="service-card reveal reveal-delay-1" id="svcHotWater">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="service-name">Hot Water Systems</div>
+        <p class="service-desc">Repair and replacement. Tank and tankless. Same-day for no-hot-water emergencies.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/blocked-drains" class="service-card reveal reveal-delay-2" id="svcDrains">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>
+        </div>
+        <div class="service-name">Blocked Drains</div>
+        <p class="service-desc">Kitchen, bathroom, floor drains cleared fast. Camera inspection available.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/bathroom-renovations" class="service-card reveal reveal-delay-3" id="svcBathroom">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/><path d="M6 19v2M18 19v2"/></svg>
+        </div>
+        <div class="service-name">Bathroom Renovations</div>
+        <p class="service-desc">Full plumbing rough-in and finish. Toilet, tub, shower, vanity. Coordinated with your contractor.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/leak-detection" class="service-card reveal" id="svcLeaks">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <div class="service-name">Leak Detection</div>
+        <p class="service-desc">Hidden leaks found without tearing up walls. Dripping taps, pipe leaks, water damage.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/gas-plumbing" class="service-card reveal reveal-delay-1" id="svcGas">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+        </div>
+        <div class="service-name">Gas Plumbing</div>
+        <p class="service-desc">Licensed gas fitting. Appliance installation, gas line repair, safety inspections.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/pipe-repair" class="service-card reveal reveal-delay-2" id="svcPipes">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg>
+        </div>
+        <div class="service-name">Pipe Repair</div>
+        <p class="service-desc">Burst pipes, frozen pipes, pinhole leaks. Fast response. Full replacement if needed.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/water-filtration" class="service-card reveal reveal-delay-3" id="svcWater">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2z"/><path d="M6.5 11a6 6 0 1 0 11 0"/></svg>
+        </div>
+        <div class="service-name">Water Filtration</div>
+        <p class="service-desc">Water softeners and filtration systems. Timmins water quality solutions. Supply and install.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/roofing" class="service-card reveal" id="svcRoofing">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>
+        </div>
+        <div class="service-name">Roofing</div>
+        <p class="service-desc">Shingle repair and replacement, ice dam removal, flashing and leak repair. Northern-Ontario built.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/electrical" class="service-card reveal" id="svcElectrical">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="service-name">Electrical</div>
+        <p class="service-desc">ESA-licensed panel upgrades, rewiring, generator hookups, EV chargers. Permitted and inspected.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/siding" class="service-card reveal" id="svcSiding">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="service-name">Siding</div>
+        <p class="service-desc">Vinyl, fiber cement, and wood siding repair and replacement. Storm damage response.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/stucco" class="service-card reveal" id="svcStucco">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="service-name">Stucco</div>
+        <p class="service-desc">Crack repair, water damage, and full application. Traditional and EIFS systems.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/brick" class="service-card reveal" id="svcBrick">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="service-name">Brick</div>
+        <p class="service-desc">Repointing, spalling brick, chimney and veneer repair. Freeze-thaw damage a specialty.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/windows" class="service-card reveal" id="svcWindows">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="service-name">Windows</div>
+        <p class="service-desc">Energy-efficient replacement, fogging and seal repair, egress installation.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/doors" class="service-card reveal" id="svcDoors">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="service-name">Doors</div>
+        <p class="service-desc">Entry door replacement, weatherstripping, threshold and hardware repair.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/garage-doors" class="service-card reveal" id="svcGarageDoors">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg>
+        </div>
+        <div class="service-name">Garage Doors</div>
+        <p class="service-desc">Spring replacement, opener repair, panel damage, insulated door installation.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/patio-doors" class="service-card reveal" id="svcPatioDoors">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <div class="service-name">Patio Doors</div>
+        <p class="service-desc">Sliding and French door repair. Roller, track, and glass seal replacement.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/hvac" class="service-card reveal" id="svcHVAC">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="service-name">Furnace &amp; HVAC</div>
+        <p class="service-desc">Furnace repair and replacement, air conditioning, ductwork. Same-day no-heat response.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/decks-fencing" class="service-card reveal" id="svcDecksFencing">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="service-name">Decks &amp; Fencing</div>
+        <p class="service-desc">Deck construction and repair, privacy and boundary fencing. Frost-depth footings.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/space-conversions" class="service-card reveal" id="svcSpaceConversions">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="service-name">Space Conversions</div>
+        <p class="service-desc">Basement, attic, and garage conversions. Turn unused space into a finished room.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="/home-additions" class="service-card reveal" id="svcHomeAdditions">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>
+        </div>
+        <div class="service-name">Home Additions</div>
+        <p class="service-desc">Room additions, second-story additions, sunrooms. Foundation to finish, one team.</p>
+        <div class="service-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF BAND -->
+<section class="proof-band" id="reviews">
+  <div class="proof-band-inner">
+    <div class="reveal">
+      <div class="proof-quote-mark">"</div>
+      <p class="proof-quote">Called Total Trades Solutions on a Tuesday night for a burst pipe. They were at my door in under 20 minutes. Fixed it, cleaned up, and the price was exactly what they quoted. Won't call anyone else.</p>
+      <div class="proof-attribution">
+        <span class="proof-stars">★★★★★</span>
+        <span class="proof-name">Sarah T. · Timmins, ON · Google Review</span>
+      </div>
+    </div>
+    <div class="proof-numbers reveal">
+      <div class="proof-num-card">
+        <div class="proof-big">4.7<em>★</em></div>
+        <div class="proof-small">Google rating</div>
+      </div>
+      <div class="proof-num-card">
+        <div class="proof-big">64</div>
+        <div class="proof-small">Verified reviews</div>
+      </div>
+      <div class="proof-num-card">
+        <div class="proof-big">6</div>
+        <div class="proof-small">Years in business</div>
+      </div>
+      <div class="proof-num-card">
+        <div class="proof-big">2</div>
+        <div class="proof-small">Licensed plumbers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how-section" id="how">
+  <div class="section-inner">
+    <div class="section-label reveal">How it works</div>
+    <h2 class="section-headline reveal">Simple process.<br>No surprises.</h2>
+    <p class="section-sub reveal">Four steps from your first call to a completed job.</p>
+    <div class="how-grid">
+      <div class="how-step reveal">
+        <div class="how-step-num">01</div>
+        <div class="how-step-content">
+          <div class="how-step-title">Call or book online</div>
+          <p class="how-step-desc">Call us directly or submit a quote request online. We respond same day — emergency calls within 15 minutes.</p>
+        </div>
+        <div class="how-connector"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="how-step reveal reveal-delay-1">
+        <div class="how-step-num">02</div>
+        <div class="how-step-content">
+          <div class="how-step-title">We assess the job</div>
+          <p class="how-step-desc">A licensed plumber visits your home. We assess the problem and give you a flat-rate price before starting anything.</p>
+        </div>
+        <div class="how-connector"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="how-step-num">03</div>
+        <div class="how-step-content">
+          <div class="how-step-title">Work completed</div>
+          <p class="how-step-desc">We complete the job to a professional standard. We clean up after ourselves and explain everything we did.</p>
+        </div>
+        <div class="how-connector"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="how-step reveal reveal-delay-3">
+        <div class="how-step-num">04</div>
+        <div class="how-step-content">
+          <div class="how-step-title">Job guaranteed</div>
+          <p class="how-step-desc">Every job is backed by our workmanship guarantee. If something is not right we come back and fix it — no charge.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY BAND -->
+<div class="emergency-band" id="emergency">
+  <div class="emergency-inner">
+    <div class="emergency-left">
+      <div class="emergency-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div class="emergency-text">
+        <h2>Burst pipe? Flooding? No hot water?</h2>
+        <p>We answer 24 hours a day, 7 days a week. 15-minute response. No voicemail.</p>
+      </div>
+    </div>
+    <a href="tel:7057001234" class="emergency-cta" id="emergencyCallBtn">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+      Call now — (705) 700-1234
+    </a>
+  </div>
+</div>
+
+<!-- TOOLS SECTION -->
+<section class="section tools-section" id="tools">
+  <div class="section-inner">
+    <div class="section-label reveal">Digital tools</div>
+    <h2 class="section-headline reveal">Get answers faster.</h2>
+    <p class="section-sub reveal">Every tool on this site is connected to a real Total Trades Solutions plumber. No bots. No runarounds.</p>
+    <div class="tools-grid">
+      <div class="tool-card reveal" id="toolChat">
+        <div class="tool-tag">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          AI Chat
+        </div>
+        <div class="tool-title">Ask us anything</div>
+        <p class="tool-desc">Get instant answers from our AI assistant — powered by real Total Trades Solutions content. Pricing, availability, how-to questions. Available 24/7.</p>
+        <div class="tool-action">
+          Start a conversation
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </div>
+      <div class="tool-card reveal reveal-delay-1" id="toolFotoJobber">
+        <div class="tool-tag">
+          <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          FotoJobber
+        </div>
+        <div class="tool-title">Send us a photo</div>
+        <p class="tool-desc">Take a photo of the job, draw a circle around the problem, add a note. We give you an accurate quote without a call-out visit.</p>
+        <div class="tool-action">
+          Send a photo now
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </div>
+      <div class="tool-card reveal reveal-delay-2" id="toolViewRoom">
+        <div class="tool-tag">
+          <svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          ViewRoom
+        </div>
+        <div class="tool-title">Virtual consultation</div>
+        <p class="tool-desc">Enter our virtual showroom and talk through your project with a real plumber on video. Book an appointment directly from the room.</p>
+        <div class="tool-action">
+          Enter ViewRoom
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-strip" id="about">
+  <div class="about-inner">
+    <div>
+      <div class="section-label reveal">About us</div>
+      <h2 class="section-headline reveal">Timmins-based.<br>Owner-operated.</h2>
+      <p class="about-body reveal">Total Trades Solutions was started six years ago by a Timmins-born licensed plumber who got tired of watching homeowners get overcharged and underserved by out-of-town companies. The owner still takes jobs. Every call gets a real person.</p>
+      <div class="about-creds reveal">
+        <div class="cred-item"><div class="cred-dot"></div>2 licensed plumbers on staff</div>
+        <div class="cred-item"><div class="cred-dot"></div>Fully insured — $2M liability coverage</div>
+        <div class="cred-item"><div class="cred-dot"></div>Member of Ontario College of Trades</div>
+        <div class="cred-item"><div class="cred-dot"></div>6 years serving Timmins and surrounding area</div>
+        <div class="cred-item"><div class="cred-dot"></div>Owner answers emergency calls personally</div>
+      </div>
+    </div>
+    <div class="about-image-placeholder reveal">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>Owner on the job — photo coming</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREAS -->
+<div class="areas-strip reveal">
+  <div class="areas-inner">
+    <div class="areas-label">We serve</div>
+    <div class="areas-divider"></div>
+    <div class="areas-list">
+      <a href="/timmins" class="area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins</a>
+      <a href="/cochrane" class="area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Cochrane</a>
+      <a href="/south-porcupine" class="area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>South Porcupine</a>
+      <a href="/iroquois-falls" class="area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Iroquois Falls</a>
+      <a href="/kapuskasing" class="area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Kapuskasing</a>
+      <a href="/matheson" class="area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Matheson</a>
+      <a href="/kirkland-lake" class="area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Kirkland Lake</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Total Trades Solutions</div>
+        <div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div>
+        <a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a>
+        <div class="footer-brand-email">info@totaltradessolutions.ca</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/emergency" class="footer-link">Emergency 24/7</a>
+          <a href="/hot-water" class="footer-link">Hot Water Systems</a>
+          <a href="/blocked-drains" class="footer-link">Blocked Drains</a>
+          <a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a>
+          <a href="/leak-detection" class="footer-link">Leak Detection</a>
+          <a href="/gas-plumbing" class="footer-link">Gas Plumbing</a>
+          <a href="/pipe-repair" class="footer-link">Pipe Repair</a>
+          <a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a>
+          <a href="/specials" class="footer-link">Specials</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about" class="footer-link">About Us</a>
+          <a href="/reviews" class="footer-link">Reviews</a>
+          <a href="/our-guarantee" class="footer-link">Our Guarantee</a>
+          <a href="/blog" class="footer-link">Blog</a>
+          <a href="/faq" class="footer-link">FAQ</a>
+          <a href="/book" class="footer-link">Book Appointment</a>
+          <a href="/privacy" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Service Areas</div>
+        <div class="footer-links">
+          <a href="/timmins" class="footer-link">Timmins</a>
+          <a href="/cochrane" class="footer-link">Cochrane</a>
+          <a href="/south-porcupine" class="footer-link">South Porcupine</a>
+          <a href="/iroquois-falls" class="footer-link">Iroquois Falls</a>
+          <a href="/kapuskasing" class="footer-link">Kapuskasing</a>
+          <a href="/matheson" class="footer-link">Matheson</a>
+          <a href="/kirkland-lake" class="footer-link">Kirkland Lake</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Total Trades Solutions. All rights reserved.</span>
+      <span>Licensed · Insured · Ontario College of Trades</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LEAD GRABBER -->
+<div class="lead-grabber">
+  <button class="lg-btn" id="lgBtn" onclick="toggleLG()">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+  </button>
+  <span class="lg-label">Get help</span>
+</div>
+<div class="lg-panel" id="lgPanel">
+  <div class="lg-header">
+    <div>
+      <div class="lg-header-title">Get help now</div>
+      <div class="lg-header-sub">Choose how you'd like to connect</div>
+    </div>
+    <button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="lg-body">
+    <div class="lg-options">
+      <div class="lg-option selected" id="lgSpeak" onclick="selectLGMode('speak')">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+        <span>Call me back</span>
+      </div>
+      <div class="lg-option" id="lgEmail" onclick="selectLGMode('email')">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Email me</span>
+      </div>
+    </div>
+    <input class="lg-input" type="text" placeholder="Your name" id="lgName">
+    <input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone">
+    <input class="lg-input" type="text" placeholder="What's the job?" id="lgJob">
+    <button class="lg-submit" onclick="submitLG()">Send request</button>
+  </div>
+</div>
+
+<!-- AI CHAT WIDGET -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div>
+          <div class="chat-name">Total Trades Solutions Assistant</div>
+          <div class="chat-status">Online now · typically replies instantly</div>
+        </div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">Hi — I'm the Total Trades Solutions assistant. What can I help you with today?</div>
+    </div>
+    <div class="chat-quick">
+      <button class="chat-quick-btn" onclick="quickAsk('How much does a water heater replacement cost?')">Water heater cost</button>
+      <button class="chat-quick-btn" onclick="quickAsk('Do you serve Cochrane?')">Service areas</button>
+      <button class="chat-quick-btn" onclick="quickAsk('I have a burst pipe — what do I do?')">Emergency</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" placeholder="Ask a question…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+  <button class="chat-bubble" id="chatBubble" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+</div>
+
+<!-- PIXEL TOAST -->
+<div class="pixel-toast" id="pixelToast">
+  <div class="pixel-toast-dot"></div>
+  <span id="pixelToastText">Pixel fired</span>
+</div>
+
+<script>
+// ── CLOCK / SCROLL ──
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  if (window.scrollY > 20) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+  });
+});
+document.querySelectorAll('.reveal').forEach(el => {
+  if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+});
+
+// ── PIXEL ──
+let score = 0; let bucket = 'unclassified'; let scrollDepth = 0; let dwellStart = Date.now(); let toastTimeout;
+
+function firePixel(event, label, delta, bkt) {
+  score = Math.min(score + delta, 100);
+  if (bkt && bkt !== 'unclassified') {
+    const p = ['emergency','active','comparison','research','unclassified'];
+    const cb = p.indexOf(bucket); const nb = p.indexOf(bkt);
+    if (cb === -1 || nb < cb || bucket === 'unclassified') bucket = bkt;
+  }
+  const toast = document.getElementById('pixelToast');
+  document.getElementById('pixelToastText').textContent = label + (delta > 0 ? ' +' + delta : '');
+  toast.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200);
+  console.log('[ClearSky]', { event, score, bucket, label });
+}
+
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = Math.round((window.scrollY / doc) * 100);
+  if (pct > scrollDepth) {
+    if (pct >= 25 && scrollDepth < 25) firePixel('scroll_25', 'Scroll 25%', 3, 'research');
+    if (pct >= 50 && scrollDepth < 50) firePixel('scroll_50', 'Scroll 50%', 5, 'research');
+    if (pct >= 75 && scrollDepth < 75) firePixel('scroll_75', 'Scroll 75%', 7, 'comparison');
+    if (pct >= 90 && scrollDepth < 90) firePixel('scroll_90', 'Scroll 90%', 10, 'active');
+    scrollDepth = pct;
+  }
+});
+
+setInterval(() => {
+  const d = Math.round((Date.now() - dwellStart) / 1000);
+  if (d === 30) firePixel('dwell_30', '30s dwell', 4, 'research');
+  if (d === 60) firePixel('dwell_60', '60s dwell', 7, 'comparison');
+  if (d === 120) firePixel('dwell_120', '2min dwell', 10, 'active');
+}, 1000);
+
+firePixel('page_load', 'Page load — session started', 0, 'unclassified');
+
+document.getElementById('heroBookBtn').addEventListener('click', () => firePixel('hero_cta_click', 'CTA: Get a free estimate', 12, 'active'));
+document.getElementById('heroServicesBtn').addEventListener('click', () => firePixel('hero_services_click', 'CTA: See our services', 5, 'research'));
+document.getElementById('emergencyCallBtn').addEventListener('click', () => firePixel('emergency_cta', 'Emergency CTA clicked', 20, 'emergency'));
+document.getElementById('navEmergencyBtn').addEventListener('click', () => firePixel('nav_emergency', 'Nav: Emergency clicked', 15, 'emergency'));
+document.getElementById('navBookBtn').addEventListener('click', () => firePixel('nav_book', 'Nav: Book Now clicked', 10, 'active'));
+document.getElementById('svcEmergency').addEventListener('click', () => firePixel('svc_click', 'Service: Emergency', 10, 'emergency'));
+document.getElementById('svcHotWater').addEventListener('click', () => firePixel('svc_click', 'Service: Hot Water', 6, 'active'));
+document.getElementById('svcDrains').addEventListener('click', () => firePixel('svc_click', 'Service: Blocked Drains', 6, 'active'));
+document.getElementById('svcBathroom').addEventListener('click', () => firePixel('svc_click', 'Service: Bathroom Reno', 6, 'active'));
+document.getElementById('svcLeaks').addEventListener('click', () => firePixel('svc_click', 'Service: Leak Detection', 6, 'active'));
+document.getElementById('svcGas').addEventListener('click', () => firePixel('svc_click', 'Service: Gas Plumbing', 6, 'active'));
+document.getElementById('svcPipes').addEventListener('click', () => firePixel('svc_click', 'Service: Pipe Repair', 6, 'active'));
+document.getElementById('svcWater').addEventListener('click', () => firePixel('svc_click', 'Service: Water Filtration', 6, 'active'));
+document.getElementById('toolChat').addEventListener('click', () => firePixel('tool_click', 'Tool: AI Chat opened', 6, 'research'));
+document.getElementById('toolFotoJobber').addEventListener('click', () => firePixel('tool_click', 'Tool: FotoJobber opened', 8, 'active'));
+document.getElementById('toolViewRoom').addEventListener('click', () => firePixel('tool_click', 'Tool: ViewRoom opened', 10, 'active'));
+
+['svcEmergency','svcHotWater','svcDrains','svcBathroom','svcLeaks','svcGas','svcPipes','svcWater'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('mouseenter', () => firePixel('svc_hover', 'Service hovered: ' + id.replace('svc',''), 3, 'research'));
+});
+
+// ── CHAT ──
+let chatOpen = false;
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', chatOpen);
+  if (chatOpen) firePixel('chat_open', 'AI chat widget opened', 6, 'research');
+}
+function quickAsk(q) {
+  addChatMsg(q, 'user');
+  firePixel('chat_question', 'AI question: ' + q.substring(0,30), 10, 'comparison');
+  setTimeout(() => addChatMsg('Thanks for asking! A Total Trades Solutions plumber will follow up on this shortly. You can also call us directly at (705) 700-1234 for an immediate answer.', 'bot'), 800);
+}
+function sendChat() {
+  const inp = document.getElementById('chatInput');
+  if (!inp.value.trim()) return;
+  addChatMsg(inp.value, 'user');
+  firePixel('chat_question', 'AI question asked', 10, 'comparison');
+  inp.value = '';
+  setTimeout(() => addChatMsg('Great question. Our team will get back to you shortly. For urgent matters call (705) 700-1234.', 'bot'), 800);
+}
+function addChatMsg(text, type) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + type;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ── LEAD GRABBER ──
+let lgOpen = false; let lgMode = 'speak';
+function toggleLG() {
+  lgOpen = !lgOpen;
+  document.getElementById('lgPanel').classList.toggle('open', lgOpen);
+  if (lgOpen) firePixel('lg_open', 'Lead Grabber opened', 8, 'active');
+}
+function selectLGMode(mode) {
+  lgMode = mode;
+  document.getElementById('lgSpeak').classList.toggle('selected', mode === 'speak');
+  document.getElementById('lgEmail').classList.toggle('selected', mode === 'email');
+  document.getElementById('lgPhone').placeholder = mode === 'speak' ? 'Phone — (705) 000-0000' : 'Email address';
+  document.getElementById('lgPhone').type = mode === 'speak' ? 'tel' : 'email';
+  document.getElementById('lgJob').style.display = 'block';
+}
+function submitLG() {
+  firePixel('lg_submit', 'Lead Grabber submitted', 15, 'active');
+  const btn = document.querySelector('.lg-submit');
+  btn.textContent = 'Request sent ✓';
+  btn.style.background = 'var(--green)';
+  setTimeout(() => { btn.textContent = 'Send request'; btn.style.background = ''; }, 3000);
+}
+</script>
+</body>
+</html>

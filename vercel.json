@@ -1,0 +1,188 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "node scripts/build-site.mjs",
+  "outputDirectory": "dist",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/rightflush-home__3_.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/rightflush-about.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/rightflush-contact-quote__1_.html"
+    },
+    {
+      "source": "/emergency",
+      "destination": "/rightflush-emergency.html"
+    },
+    {
+      "source": "/burst-pipe",
+      "destination": "/rightflush-burst-pipe-flooding.html"
+    },
+    {
+      "source": "/hot-water",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/blocked-drains",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/leak-detection",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/gas-plumbing",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/water-filtration",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/roofing",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/electrical",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/siding",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/stucco",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/brick",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/windows",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/doors",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/garage-doors",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/patio-doors",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/hvac",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/decks-fencing",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/space-conversions",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/home-additions",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/pipe-repair",
+      "destination": "/rightflush-service-pages__1_.html"
+    },
+    {
+      "source": "/bathroom-renos",
+      "destination": "/rightflush-bathroom-renovations.html"
+    },
+    {
+      "source": "/bathroom-renovations",
+      "destination": "/rightflush-bathroom-renovations.html"
+    },
+    {
+      "source": "/gallery",
+      "destination": "/rightflush-before-after-gallery.html"
+    },
+    {
+      "source": "/reviews",
+      "destination": "/rightflush-reviews.html"
+    },
+    {
+      "source": "/our-guarantee",
+      "destination": "/rightflush-our-guarantee.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/rightflush-blog__2_.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/rightflush-faq__2_.html"
+    },
+    {
+      "source": "/service-areas",
+      "destination": "/rightflush-service-areas.html"
+    },
+    {
+      "source": "/specials",
+      "destination": "/rightflush-specials.html"
+    },
+    {
+      "source": "/timmins",
+      "destination": "/rightflush-market-pages.html"
+    },
+    {
+      "source": "/south-porcupine",
+      "destination": "/rightflush-market-pages.html"
+    },
+    {
+      "source": "/iroquois-falls",
+      "destination": "/rightflush-market-pages.html"
+    },
+    {
+      "source": "/cochrane",
+      "destination": "/rightflush-market-pages.html"
+    },
+    {
+      "source": "/matheson",
+      "destination": "/rightflush-market-pages.html"
+    },
+    {
+      "source": "/kapuskasing",
+      "destination": "/rightflush-market-pages.html"
+    },
+    {
+      "source": "/kirkland-lake",
+      "destination": "/rightflush-market-pages.html"
+    },
+    {
+      "source": "/control",
+      "destination": "/control.html"
+    },
+    {
+      "source": "/replay",
+      "destination": "/replay.html"
+    },
+    {
+      "source": "/findings",
+      "destination": "/findings.html"
+    },
+    {
+      "source": "/book",
+      "destination": "/rightflush-contact-quote__1_.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/rightflush-home__3_.html"
+    }
+  ]
+}

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plumbing Tips &amp; Blog — Total Trades Solutions Timmins</title>
+<meta name="description" content="Practical plumbing advice for Timmins homeowners from Total Trades Solutions. Seasonal tips, maintenance guides, and answers to common plumbing questions in Northern Ontario.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:#FFFFFF;--surface:#F8F6F1;--border:#E8E4DC;--text:#111714;--text2:#4A5E52;--text3:#8A9E92;
+  --green:#1B5E3B;--green-mid:#2D7A52;--green-lt:#EBF5EF;--green-dk:#0D3B27;
+  --rust:#C24A1E;--rust-mid:#A83818;--rust-lt:#FAEDE8;--gold:#B8862A;--gold-lt:#FBF5E6;--ink:#0D1F14;
+  --sans:'Barlow',sans-serif;--cond:'Barlow Condensed',sans-serif;--nav-h:68px;--trust-h:40px;--col:1180px;--radius:6px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:var(--sans);background:var(--white);color:var(--text);overflow-x:hidden;}
+img{max-width:100%;display:block;}a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:inherit;}
+.page-content{margin-top:calc(var(--trust-h) + var(--nav-h));}
+.trust-bar{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--trust-h);background:var(--ink);display:flex;align-items:center;padding:0 24px;}
+.trust-bar-inner{max-width:var(--col);margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;}
+.trust-items{display:flex;align-items:center;}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.75);padding:0 18px;border-right:1px solid rgba(255,255,255,0.1);}
+.trust-item:first-child{padding-left:0;}.trust-item:last-child{border-right:none;}
+.trust-item svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.trust-item .stars{color:var(--gold);font-size:11px;letter-spacing:1px;}
+.trust-right{display:flex;align-items:center;}
+.trust-phone{font-family:var(--cond);font-size:15px;font-weight:700;color:#fff;letter-spacing:0.04em;}
+nav{position:fixed;top:var(--trust-h);left:0;right:0;z-index:190;height:var(--nav-h);background:var(--white);border-bottom:1px solid var(--border);transition:box-shadow 0.3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.08);}
+.nav-inner{max-width:var(--col);margin:0 auto;width:100%;height:100%;display:flex;align-items:center;padding:0 24px;gap:32px;}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-logo-mark{width:38px;height:38px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.nav-logo-mark svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.nav-logo-name{font-family:var(--cond);font-size:20px;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:0.02em;}
+.nav-logo-tag{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:0.06em;text-transform:uppercase;}
+.nav-services{display:flex;align-items:center;gap:2px;flex:1;}
+.nav-svc{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:var(--radius);transition:background 0.2s;text-decoration:none;}
+.nav-svc:hover,.nav-svc.active{background:var(--green-lt);}
+.nav-svc-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;}
+.nav-svc-icon svg{width:22px;height:22px;stroke:var(--green);fill:none;stroke-width:1.75;}
+.nav-svc-label{font-size:10px;font-weight:600;color:var(--text2);letter-spacing:0.03em;white-space:nowrap;}
+.nav-svc.active .nav-svc-label{color:var(--green);font-weight:700;}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-emergency{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius);background:var(--rust-lt);border:1.5px solid var(--rust);font-size:13px;font-weight:600;color:var(--rust);transition:all 0.2s;text-decoration:none;}
+.nav-emergency:hover{background:var(--rust);color:#fff;}
+.nav-emergency svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.nav-book{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:var(--radius);background:var(--green);color:#fff;font-size:13px;font-weight:600;text-decoration:none;transition:background 0.2s;}
+.nav-book:hover{background:var(--green-mid);}
+.mobile-header{display:none;position:fixed;top:0;left:0;right:0;z-index:200;height:60px;background:var(--white);border-bottom:1px solid var(--border);padding:0 16px;align-items:center;justify-content:space-between;}
+.mobile-hamburger{width:40px;height:40px;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.mobile-hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:all 0.3s;transform-origin:center;}
+.mobile-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.mobile-hamburger.open span:nth-child(2){opacity:0;}
+.mobile-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-logo-name{font-family:var(--cond);font-size:18px;font-weight:800;color:var(--ink);text-transform:uppercase;}
+.mobile-right{display:flex;align-items:center;gap:8px;}
+.mobile-emergency-btn{display:flex;align-items:center;gap:5px;background:var(--rust);color:#fff;font-family:var(--cond);font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:7px 12px;border-radius:var(--radius);text-decoration:none;}
+.mobile-emergency-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.mobile-call-btn{width:36px;height:36px;border-radius:50%;background:var(--green);border:none;display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.mobile-call-btn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;bottom:0;z-index:180;background:var(--white);overflow-y:auto;border-top:1px solid var(--border);flex-direction:column;}
+.mobile-menu.open{display:flex;}
+.mobile-menu-emergency{display:flex;align-items:center;gap:10px;padding:18px 20px;background:var(--rust-lt);border-bottom:1px solid rgba(194,74,30,0.15);font-family:var(--cond);font-size:17px;font-weight:700;color:var(--rust);text-transform:uppercase;text-decoration:none;}
+.mobile-menu-emergency svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.mobile-menu-section{padding:16px 20px 8px;}
+.mobile-menu-section-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
+.mobile-menu-link{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px;font-weight:500;color:var(--text);text-decoration:none;}
+.mobile-menu-link svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:1.75;flex-shrink:0;}
+.mobile-menu-book{margin:16px 20px 20px;display:block;text-align:center;background:var(--green);color:#fff;font-family:var(--cond);font-size:17px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:14px;border-radius:var(--radius);text-decoration:none;}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+/* ═══ BLOG PAGE ═══ */
+
+/* HERO */
+.blog-hero{background:var(--surface);border-bottom:1px solid var(--border);padding:64px 24px 56px;}
+.blog-hero-inner{max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.blog-hero-label{font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.blog-hero-label::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.blog-hero-headline{font-family:var(--cond);font-weight:900;font-size:clamp(40px,5.5vw,70px);line-height:0.9;text-transform:uppercase;color:var(--ink);margin-bottom:20px;}
+.blog-hero-headline em{font-style:normal;color:var(--green);}
+.blog-hero-sub{font-size:16px;font-weight:300;color:var(--text2);line-height:1.7;}
+.blog-hero-right{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px;}
+.blog-hero-right-title{font-family:var(--cond);font-size:16px;font-weight:700;color:var(--ink);text-transform:uppercase;margin-bottom:6px;}
+.blog-hero-right-sub{font-size:13px;color:var(--text3);margin-bottom:20px;line-height:1.5;}
+.blog-q-input{width:100%;border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;font-size:14px;font-family:inherit;outline:none;margin-bottom:8px;transition:border-color 0.2s;}
+.blog-q-input:focus{border-color:var(--green);}
+.blog-q-textarea{width:100%;border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;font-size:14px;font-family:inherit;outline:none;resize:none;transition:border-color 0.2s;line-height:1.5;}
+.blog-q-textarea:focus{border-color:var(--green);}
+.blog-q-submit{width:100%;background:var(--green);color:#fff;border:none;border-radius:var(--radius);padding:12px;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;margin-top:8px;}
+.blog-q-submit:hover{background:var(--green-mid);}
+.blog-q-note{font-size:11px;color:var(--text3);text-align:center;margin-top:6px;}
+
+/* FILTER */
+.blog-filter{background:var(--white);border-bottom:1px solid var(--border);padding:14px 24px;position:sticky;top:calc(var(--trust-h) + var(--nav-h));z-index:100;}
+.blog-filter-inner{max-width:var(--col);margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.blog-filter-label{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;margin-right:8px;flex-shrink:0;}
+.blog-filter-btn{border:1.5px solid var(--border);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:500;color:var(--text2);background:var(--white);cursor:pointer;transition:all 0.2s;}
+.blog-filter-btn:hover{border-color:var(--green);color:var(--green);}
+.blog-filter-btn.active{border-color:var(--green);background:var(--green);color:#fff;font-weight:600;}
+
+/* MAIN LAYOUT */
+.blog-main{padding:56px 24px 80px;background:var(--white);}
+.blog-main-inner{max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:48px;align-items:start;}
+
+/* POST GRID */
+.blog-grid{display:flex;flex-direction:column;gap:24px;}
+.blog-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;cursor:pointer;display:flex;}
+.blog-card:hover{border-color:var(--green);box-shadow:0 4px 20px rgba(0,0,0,0.07);transform:translateY(-2px);}
+.blog-card.hidden{display:none;}
+.blog-card-img{width:200px;flex-shrink:0;background:var(--surface);display:flex;align-items:center;justify-content:center;}
+.blog-card-img-placeholder{width:56px;height:56px;border-radius:50%;background:var(--green-lt);display:flex;align-items:center;justify-content:center;}
+.blog-card-img-placeholder svg{width:28px;height:28px;stroke:var(--green);fill:none;stroke-width:1.5;}
+.blog-card-body{padding:24px;flex:1;}
+.blog-card-meta{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.blog-card-tag{font-size:10px;font-weight:700;color:var(--green);background:var(--green-lt);border-radius:100px;padding:3px 10px;letter-spacing:0.06em;text-transform:uppercase;}
+.blog-card-date{font-size:11px;color:var(--text3);}
+.blog-card-readtime{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:4px;}
+.blog-card-readtime svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;}
+.blog-card-title{font-family:var(--cond);font-size:21px;font-weight:700;color:var(--ink);text-transform:uppercase;margin-bottom:8px;line-height:1.1;}
+.blog-card-excerpt{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:14px;}
+.blog-card-cta{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--green);}
+.blog-card-cta svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.blog-card:hover .blog-card-cta{text-decoration:underline;}
+
+/* EXPANDED POST VIEW */
+.blog-post-view{display:none;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:40px;}
+.blog-post-view.open{display:block;animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.blog-post-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text3);cursor:pointer;margin-bottom:24px;background:none;border:none;padding:0;transition:color 0.2s;}
+.blog-post-back:hover{color:var(--green);}
+.blog-post-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.blog-post-tag{font-size:10px;font-weight:700;color:var(--green);background:var(--green-lt);border-radius:100px;padding:4px 12px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px;display:inline-block;}
+.blog-post-title{font-family:var(--cond);font-weight:800;font-size:clamp(28px,3.5vw,44px);color:var(--ink);text-transform:uppercase;line-height:0.95;margin-bottom:16px;}
+.blog-post-meta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--text3);padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:24px;}
+.blog-post-body{font-size:15px;color:var(--text2);line-height:1.8;}
+.blog-post-body h3{font-family:var(--cond);font-size:20px;font-weight:700;color:var(--ink);text-transform:uppercase;margin:24px 0 10px;}
+.blog-post-body p{margin-bottom:14px;}
+.blog-post-body ul{padding-left:20px;margin-bottom:14px;}
+.blog-post-body li{margin-bottom:6px;}
+.blog-post-body strong{color:var(--text);font-weight:600;}
+.blog-post-footer{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.blog-post-footer-title{font-family:var(--cond);font-size:15px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px;}
+.blog-post-q{display:flex;flex-direction:column;gap:8px;}
+.blog-post-q-input{border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:13px;font-family:inherit;outline:none;transition:border-color 0.2s;}
+.blog-post-q-input:focus{border-color:var(--green);}
+.blog-post-q-submit{background:var(--green);color:#fff;border:none;border-radius:var(--radius);padding:11px 20px;font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;align-self:flex-start;}
+
+/* SIDEBAR */
+.blog-sidebar{position:sticky;top:calc(var(--trust-h) + var(--nav-h) + 24px);display:flex;flex-direction:column;gap:20px;}
+.blog-sidebar-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+.blog-sidebar-title{font-family:var(--cond);font-size:14px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:16px;}
+.blog-sidebar-links{display:flex;flex-direction:column;gap:8px;}
+.blog-sidebar-link{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);cursor:pointer;transition:color 0.2s;}
+.blog-sidebar-link:hover{color:var(--green);}
+.blog-sidebar-link svg{width:12px;height:12px;stroke:var(--green);fill:none;stroke-width:2.5;flex-shrink:0;}
+.blog-cta-card{background:var(--ink);border-radius:var(--radius);padding:24px;}
+.blog-cta-title{font-family:var(--cond);font-size:18px;font-weight:700;color:#fff;text-transform:uppercase;margin-bottom:8px;}
+.blog-cta-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px;line-height:1.5;}
+.blog-cta-btn{display:block;text-align:center;background:var(--green);color:#fff;font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:0.05em;text-transform:uppercase;padding:12px;border-radius:var(--radius);text-decoration:none;transition:background 0.2s;}
+.blog-cta-btn:hover{background:var(--green-mid);}
+
+/* FLOATING TOOLS */
+footer{background:var(--ink);padding:64px 24px 32px;}
+.footer-inner{max-width:var(--col);margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:32px;}
+.footer-brand-name{font-family:var(--cond);font-size:24px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.02em;margin-bottom:6px;}
+.footer-brand-tag{font-size:12px;color:rgba(255,255,255,0.3);margin-bottom:20px;}
+.footer-brand-phone{font-family:var(--cond);font-size:26px;font-weight:700;color:var(--gold);letter-spacing:0.02em;display:block;margin-bottom:4px;}
+.footer-brand-email{font-size:13px;color:rgba(255,255,255,0.35);}
+.footer-col-title{font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;}
+.footer-links{display:flex;flex-direction:column;gap:8px;}
+.footer-link{font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.2s;}
+.footer-link:hover{color:#fff;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.2);}
+.lead-grabber{position:fixed;bottom:96px;right:24px;z-index:490;width:56px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.lg-btn{width:56px;height:56px;border-radius:50%;background:var(--rust);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(194,74,30,0.35);cursor:pointer;transition:all 0.2s;}
+.lg-btn:hover{background:var(--rust-mid);transform:scale(1.05);}
+.lg-btn svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;}
+.lg-label{font-size:9px;font-weight:600;color:var(--rust);letter-spacing:0.04em;text-align:center;white-space:nowrap;}
+.lg-panel{position:fixed;bottom:90px;right:90px;z-index:490;width:300px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.12);overflow:hidden;display:none;}
+.lg-panel.open{display:block;animation:slideUp 0.3s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.lg-header{background:var(--rust);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.lg-header-title{font-family:var(--cond);font-size:18px;font-weight:700;color:#fff;text-transform:uppercase;}
+.lg-header-sub{font-size:11px;color:rgba(255,255,255,0.65);}
+.lg-close{background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;}
+.lg-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.lg-body{padding:16px;}
+.lg-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.lg-option{padding:12px;border:1.5px solid var(--border);border-radius:var(--radius);text-align:center;cursor:pointer;transition:all 0.2s;}
+.lg-option:hover,.lg-option.selected{border-color:var(--rust);background:var(--rust-lt);}
+.lg-option svg{width:22px;height:22px;stroke:var(--rust);fill:none;stroke-width:2;margin:0 auto 6px;display:block;}
+.lg-option span{font-size:12px;font-weight:600;color:var(--rust);}
+.lg-input{width:100%;border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:13px;font-family:inherit;outline:none;margin-bottom:8px;}
+.lg-input:focus{border-color:var(--rust);}
+.lg-submit{width:100%;background:var(--rust);color:#fff;border:none;border-radius:var(--radius);padding:12px;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;}
+.chat-widget{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px;}
+.chat-bubble{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(27,94,59,0.4);cursor:pointer;transition:all 0.2s;}
+.chat-bubble:hover{background:var(--green-mid);transform:scale(1.05);}
+.chat-bubble svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;}
+.chat-panel{width:320px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.12);overflow:hidden;display:none;}
+.chat-panel.open{display:flex;flex-direction:column;animation:slideUp 0.3s ease;}
+.chat-panel-header{background:var(--green);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.chat-header-info{display:flex;align-items:center;gap:10px;}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;}
+.chat-avatar svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;}
+.chat-name{font-size:14px;font-weight:600;color:#fff;}
+.chat-status{font-size:11px;color:rgba(255,255,255,0.65);}
+.chat-close{background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;}
+.chat-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.chat-messages{padding:16px;min-height:100px;display:flex;flex-direction:column;gap:10px;}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;}
+.chat-msg.bot{background:var(--surface);color:var(--text);border-bottom-left-radius:4px;align-self:flex-start;}
+.chat-msg.user{background:var(--green);color:#fff;border-bottom-right-radius:4px;align-self:flex-end;}
+.chat-quick{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:6px;}
+.chat-quick-btn{background:var(--green-lt);border:1px solid rgba(27,94,59,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:var(--green);font-weight:500;cursor:pointer;transition:all 0.2s;}
+.chat-quick-btn:hover{background:var(--green);color:#fff;}
+.chat-input-row{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);}
+.chat-input{flex:1;border:1px solid var(--border);border-radius:100px;padding:8px 14px;font-size:13px;font-family:inherit;outline:none;}
+.chat-input:focus{border-color:var(--green);}
+.chat-send{width:36px;height:36px;border-radius:50%;background:var(--green);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.chat-send svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;}
+.pixel-toast{position:fixed;bottom:24px;left:24px;z-index:600;background:var(--ink);color:#fff;font-family:var(--cond);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:10px 16px;border-radius:var(--radius);display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;pointer-events:none;max-width:280px;}
+.pixel-toast.show{opacity:1;transform:translateY(0);}
+.pixel-toast-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 1.2s infinite;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+@media(max-width:1024px){.blog-hero-inner{grid-template-columns:1fr;}.blog-main-inner{grid-template-columns:1fr;}.blog-sidebar{position:static;}.footer-top{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){:root{--trust-h:0px;--nav-h:60px;}.trust-bar{display:none;}nav{display:none;}.mobile-header{display:flex;}.page-content{margin-top:60px;}.blog-filter{top:60px;}.blog-card{flex-direction:column;}.blog-card-img{width:100%;height:160px;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}.footer-bottom{flex-direction:column;gap:8px;text-align:center;}}
+@media(max-width:480px){.footer-top{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="trust-bar"><div class="trust-bar-inner"><div class="trust-items"><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Licensed &amp; Insured</div><div class="trust-item"><span class="stars">★★★★★</span>4.7 · 64 Reviews</div><div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24/7 Emergency</div><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins &amp; Area</div></div><div class="trust-right"><a href="tel:7057001234" class="trust-phone">(705) 700-1234</a></div></div></div>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><div class="nav-logo-mark"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nav-logo-text"><span class="nav-logo-name">Total Trades</span><span class="nav-logo-tag">Timmins ON</span></div></a>
+    <div class="nav-services">
+      <a href="/hot-water" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="nav-svc-label">Hot Water</span></a>
+      <a href="/blocked-drains" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div><span class="nav-svc-label">Drains</span></a>
+      <a href="/bathroom-renovations" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg></div><span class="nav-svc-label">Bathrooms</span></a>
+      <a href="/leak-detection" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="nav-svc-label">Leaks</span></a>
+      <a href="/gas-plumbing" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><span class="nav-svc-label">Gas</span></a>
+      <a href="/pipe-repair" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div><span class="nav-svc-label">Pipes</span></a>
+      <a href="/reviews" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="nav-svc-label">Reviews</span></a>
+      <a href="/blog" class="nav-svc active"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="nav-svc-label">Blog</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>Emergency</a>
+      <a href="/book" class="nav-book" id="navBookBtn">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-header" id="mobileHeader"><button class="mobile-hamburger" id="mobileHamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button><span class="mobile-logo-name">Total Trades Solutions</span><div class="mobile-right"><a href="/emergency" class="mobile-emergency-btn"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency</a><a href="tel:7057001234" class="mobile-call-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></a></div></div>
+<div class="mobile-menu" id="mobileMenu"><a href="/emergency" class="mobile-menu-emergency" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency 24/7 — We answer now</a><div class="mobile-menu-section"><div class="mobile-menu-section-title">Services</div><a href="/hot-water" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hot Water Systems</a><a href="/blocked-drains" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>Blocked Drains</a><a href="/bathroom-renovations" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg>Bathroom Renovations</a></div><div class="mobile-menu-section"><div class="mobile-menu-section-title">Company</div><a href="/about" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>About Us</a><a href="/reviews" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Reviews</a></div><a href="/book" class="mobile-menu-book" onclick="closeMobileMenu()">Book Appointment</a></div>
+
+<main class="page-content">
+
+  <!-- HERO -->
+  <div class="blog-hero">
+    <div class="blog-hero-inner">
+      <div>
+        <div class="blog-hero-label">Plumbing Tips &amp; Blog</div>
+        <h1 class="blog-hero-headline">Real answers<br>from <em>Timmins</em><br>plumbers.</h1>
+        <p class="blog-hero-sub">Practical advice about the plumbing in your home — written by licensed plumbers who know the housing stock in Timmins and surrounding area. No filler. No generic guides that don't apply to Northern Ontario.</p>
+      </div>
+      <div class="blog-hero-right">
+        <div class="blog-hero-right-title">Have a question? Ask it.</div>
+        <div class="blog-hero-right-sub">Submit your plumbing question and we'll answer it — either directly or in a future post. Questions about Northern Ontario conditions get priority.</div>
+        <input class="blog-q-input" type="text" placeholder="Your name (optional)" id="qName">
+        <input class="blog-q-input" type="tel" placeholder="Phone — in case we want to follow up" id="qPhone">
+        <textarea class="blog-q-textarea" rows="3" placeholder="What's your plumbing question?" id="qText" onfocus="firePixel('blog_q_focus','Blog: question field focused',6,'research')"></textarea>
+        <button class="blog-q-submit" onclick="submitQuestion()">Submit question</button>
+        <div class="blog-q-note">Questions that get a lot of traction become blog posts. Popular questions inform our content calendar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="blog-filter">
+    <div class="blog-filter-inner">
+      <span class="blog-filter-label">Filter by topic</span>
+      <button class="blog-filter-btn active" onclick="filterBlog('all',this)">All posts</button>
+      <button class="blog-filter-btn" onclick="filterBlog('maintenance',this)">Maintenance</button>
+      <button class="blog-filter-btn" onclick="filterBlog('winter',this)">Winter &amp; Cold</button>
+      <button class="blog-filter-btn" onclick="filterBlog('hotwater',this)">Hot Water</button>
+      <button class="blog-filter-btn" onclick="filterBlog('drains',this)">Drains</button>
+      <button class="blog-filter-btn" onclick="filterBlog('renovation',this)">Renovations</button>
+      <button class="blog-filter-btn" onclick="filterBlog('costs',this)">Costs &amp; Pricing</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="blog-main">
+    <div class="blog-main-inner">
+
+      <!-- POST LIST -->
+      <div>
+        <!-- Expanded post view (hidden until a card is clicked) -->
+        <div class="blog-post-view" id="postView">
+          <button class="blog-post-back" onclick="closePost()"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Back to all posts</button>
+          <div class="blog-post-tag" id="postTag"></div>
+          <h2 class="blog-post-title" id="postTitle"></h2>
+          <div class="blog-post-meta">
+            <span id="postDate"></span>
+            <span>·</span>
+            <span id="postRead"></span>
+            <span>·</span>
+            <span>Total Trades Solutions</span>
+          </div>
+          <div class="blog-post-body" id="postBody"></div>
+          <div class="blog-post-footer">
+            <div class="blog-post-footer-title">Have a follow-up question?</div>
+            <div class="blog-post-q">
+              <input class="blog-post-q-input" type="text" placeholder="Your question about this topic" id="postQText" onfocus="firePixel('post_q_focus','Blog post: question focused',8,'research')">
+              <input class="blog-post-q-input" type="tel" placeholder="Phone (optional)" id="postQPhone">
+              <button class="blog-post-q-submit" onclick="submitPostQuestion()">Send question</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post grid -->
+        <div class="blog-grid" id="blogGrid">
+
+          <div class="blog-card reveal" data-cat="winter" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Winter &amp; Cold</span><span class="blog-card-date">March 2026</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>5 min read</span></div>
+              <div class="blog-card-title">How to prevent frozen pipes in Timmins</div>
+              <p class="blog-card-excerpt">Northern Ontario cold snaps can drop to −40°C. Pipes in exterior walls, crawl spaces, and garages are most at risk. Here's what we've learned from 6 years of freeze-related calls in Timmins.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Winter &amp; Cold" data-title="How to prevent frozen pipes in Timmins" data-date="March 2026" data-read="5 min read" data-body='<h3>Why Timmins pipes freeze</h3><p>The housing stock in Timmins is predominantly 1950s–1980s construction. Many homes have supply lines running through exterior walls with minimal insulation — designed to a standard that didn't account for decades of climate stress. When temperatures drop below −25°C for several consecutive nights, pipes in these locations are at serious risk.</p><h3>The three most vulnerable locations</h3><ul><li><strong>Exterior walls.</strong> Supply lines running through walls facing north or west are most exposed. Often identifiable because taps on those walls run cold or slow in extreme cold.</li><li><strong>Under kitchen sinks on exterior walls.</strong> Cabinet doors keep the pipe side colder than the room. Open cabinet doors on cold nights.</li><li><strong>Crawl spaces and basements near the foundation.</strong> Cold air infiltration around the water line entry point is a common cause in older Timmins homes.</li></ul><h3>What to do in a cold snap</h3><p>Allow cold taps on exterior walls to drip slightly overnight during sustained −30°C periods. The flow prevents a static freeze. It wastes a small amount of water but costs far less than a burst pipe repair and remediation.</p><p>Insulate the cabinet under any sink on an exterior wall. Foam pipe insulation from any hardware store takes 10 minutes to install and can make the difference in a serious cold snap.</p><h3>If a pipe is frozen but hasn't burst</h3><p>Do not use a heat gun, open flame, or boiling water. These cause rapid thermal expansion that splits the pipe. Use a hair dryer on low heat, moving slowly along the pipe. Start at the tap end and work toward the cold zone. If water doesn't flow within 30 minutes, call us — the freeze may be in an inaccessible location requiring professional thaw equipment.</p><h3>If a pipe has burst</h3><p>Shut off the main water valve immediately. Then call (705) 700-1234. This is the single most important action — every second the main stays open adds water damage. We dispatch for burst pipes 24 hours a day.</p>'></div>
+          </div>
+
+          <div class="blog-card reveal" data-cat="hotwater" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Hot Water</span><span class="blog-card-date">February 2026</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>4 min read</span></div>
+              <div class="blog-card-title">Tank vs tankless: which is right for a Timmins home?</div>
+              <p class="blog-card-excerpt">Tankless water heaters are more efficient — but they're not right for every situation. We break down the real cost difference, installation considerations, and what we actually recommend for Northern Ontario homeowners.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Hot Water" data-title="Tank vs tankless: which is right for a Timmins home?" data-date="February 2026" data-read="4 min read" data-body='<h3>The honest comparison</h3><p>Both tank and tankless systems work well in Timmins. The decision depends on your household size, your existing gas or electrical infrastructure, and whether you can absorb a higher upfront cost for long-term savings.</p><h3>Conventional tank systems</h3><p>A 40–60 gallon natural gas tank costs roughly $1,200–$1,800 installed. It heats water continuously, so there's always a reserve ready. The tradeoff is standby heat loss — you're paying to keep 200 litres warm around the clock. In a Timmins home that's cold 7 months of the year, that's a meaningful cost. Average lifespan is 10–14 years.</p><h3>Tankless systems</h3><p>A condensing tankless unit (Navien, Rinnai, or Noritz) costs $3,200–$4,800 installed. It heats water on demand — no standby loss, endless hot water, and a 20+ year lifespan. The savings on gas bills typically recover the cost difference in 7–10 years.</p><p>The catch: tankless requires adequate gas line sizing (typically ¾" minimum), proper venting (direct-vent or power-vent to exterior), and a dedicated electrical outlet. In many older Timmins homes, these upgrades add to the install cost. We quote the full scope — never just the unit price.</p><h3>Our actual recommendation</h3><p>For a household of 2 or fewer with a smaller existing gas supply line: a high-efficiency tank is often the smarter economic choice. For a family of 3 or more with a modern gas supply: tankless delivers real long-term savings. If you're replacing a failed tank urgently, we can install a tank same-day. A tankless conversion requires a planned install with adequate prep time.</p><p>We don't push tankless because the margin is better. We recommend what fits your situation. Send us a FotoJobber photo of your existing unit and we'll quote both options clearly.</p>'></div>
+          </div>
+
+          <div class="blog-card reveal" data-cat="costs" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Costs &amp; Pricing</span><span class="blog-card-date">January 2026</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>6 min read</span></div>
+              <div class="blog-card-title">What does plumbing actually cost in Timmins in 2026?</div>
+              <p class="blog-card-excerpt">Plumbing costs vary widely and most contractors don't publish pricing. We do. Real ranges for the most common jobs in Timmins — with the factors that move the number up or down.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Costs &amp; Pricing" data-title="What does plumbing actually cost in Timmins in 2026?" data-date="January 2026" data-read="6 min read" data-body='<h3>Why we publish pricing</h3><p>Most plumbing contractors don't publish prices because it makes comparison shopping easier. We publish them because homeowners who understand what things cost make better decisions — and they're less likely to be surprised by an invoice.</p><p>These are real ranges based on our jobs in Timmins over the past 12 months. Prices vary based on access, pipe type, and what we find when we open things up.</p><h3>Common jobs and what they cost</h3><p><strong>Dripping tap replacement: $95–$250.</strong> Most drips are a worn cartridge or washer — a 30–45 minute repair. Higher end if the valve body needs replacing or if access is awkward.</p><p><strong>Blocked drain clearing: $150–$400.</strong> Simple kitchen or bathroom block is on the low end. Main line blockage requiring jetting and camera inspection is toward the top. Root intrusion adds time and cost.</p><p><strong>Hot water tank replacement (40-gal gas): $1,200–$1,800.</strong> Includes removal and disposal of old unit, installation of new tank, all connections, and testing. Brand and access affect the number.</p><p><strong>Tankless installation (new): $3,200–$4,800.</strong> Includes unit, all venting, gas line work, electrical, and commissioning. Existing infrastructure that needs upgrading is quoted separately.</p><p><strong>Bathroom renovation plumbing (full scope): $4,500–$14,000.</strong> Rough-in to fixture installation. Wide range because it depends entirely on how much the layout changes and what fixtures are specified.</p><p><strong>Emergency callout (burst pipe, flooding): $400–$1,200+.</strong> Depends on the repair scope. The emergency response itself is covered by our standard flat-rate — we quote the repair before starting.</p><h3>What moves the price</h3><p>Access is the biggest variable. A pipe in an open basement costs less to reach than one behind a finished wall. Old galvanised pipe that crumbles when worked is harder than modern copper or PEX. Permit requirements add cost but protect you — we always recommend permitted work for anything structural.</p>'></div>
+          </div>
+
+          <div class="blog-card reveal" data-cat="maintenance" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Maintenance</span><span class="blog-card-date">December 2025</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>4 min read</span></div>
+              <div class="blog-card-title">Annual plumbing maintenance checklist for Timmins homeowners</div>
+              <p class="blog-card-excerpt">Most plumbing failures are preventable. A 30-minute walkthrough once a year catches the issues that turn into $2,000 repairs. Here's the checklist we give our customers.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Maintenance" data-title="Annual plumbing maintenance checklist for Timmins homeowners" data-date="December 2025" data-read="4 min read" data-body='<h3>Once a year — it takes 30 minutes</h3><p>We recommend homeowners do this walkthrough every fall before the cold sets in. It catches problems while they're small and cheap, not after they've become expensive and urgent.</p><h3>Water heater</h3><ul><li>Check the temperature setting — 49°C is the recommended safe setting for most households.</li><li>Look at the pressure relief valve. There should be no mineral deposits or corrosion around it. If there are, it may need replacing.</li><li>Check the anode rod every 3 years. This sacrificial rod prevents tank corrosion. Replace when more than 50% depleted.</li></ul><h3>Under every sink</h3><ul><li>Open the cabinet and look for moisture, staining, or corrosion on the P-trap and supply connections.</li><li>Feel the flexible supply lines — they should be firm, not soft or bulging. Replace any that feel degraded.</li><li>Run the water and watch the P-trap for drips.</li></ul><h3>Toilets</h3><ul><li>Add a few drops of food colouring to the tank. If colour appears in the bowl within 15 minutes without flushing, the flapper is leaking — a slow toilet leak can waste thousands of litres per month.</li><li>Check that the toilet doesn't rock. A loose base can break the wax ring and cause water damage to the subfloor.</li></ul><h3>Exterior taps and hose bibs</h3><ul><li>Before freeze season, disconnect garden hoses. Trapped water in hoses can freeze back into the interior valve.</li><li>If your home has interior shutoffs for exterior taps, close them and drain the exterior section.</li></ul><h3>When to call a plumber</h3><p>If anything looks wrong or you're unsure — call us. A 15-minute phone consultation is free. Most homeowners spend $800–$2,000 on emergency repairs that could have been a $150 preventive fix. The math always favours the annual checkup.</p>'></div>
+          </div>
+
+          <div class="blog-card reveal" data-cat="drains" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Drains</span><span class="blog-card-date">November 2025</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>3 min read</span></div>
+              <div class="blog-card-title">Why drain cleaners make most blockages worse</div>
+              <p class="blog-card-excerpt">Chemical drain cleaners are one of the most misused products in plumbing. We see the damage they cause regularly. Here's when they help, when they don't, and what to do instead.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Drains" data-title="Why drain cleaners make most blockages worse" data-date="November 2025" data-read="3 min read" data-body='<h3>When drain cleaners actually help</h3><p>Chemical drain cleaners work on one specific type of blockage: organic hair and soap buildup in a bathroom drain where the pipe is clear downstream. In that case, the caustic chemicals dissolve the blockage and flush it through. This is maybe 30% of blocked drain situations.</p><h3>When they make things worse</h3><p>The other 70% of the time, chemical cleaners cause problems. If the blockage is a physical obstruction — a foreign object, heavy grease accumulation, or root intrusion — the chemical sits in contact with the blockage without dissolving it. Meanwhile, it's also sitting in contact with your pipes.</p><p>Older homes in Timmins often have ABS plastic drain pipe from the 1970s–1990s. Caustic chemicals degrade ABS over time, making it brittle. We regularly open walls and find pipes that look corroded from repeated chemical drain cleaner use. Replacing an ABS drain line costs $600–$1,200. The damage isn't covered by warranty because it's from homeowner-applied chemicals.</p><h3>What to do instead</h3><ul><li><strong>Slow drain:</strong> Try a drain snake (they're $15 at any hardware store). A mechanical obstruction requires mechanical removal.</li><li><strong>Fully blocked:</strong> Call us. We can usually clear a standard drain blockage in 30–45 minutes for $150–$250 — less than the cost of the pipe damage from repeated chemical attempts.</li><li><strong>Main line backup:</strong> Never use chemicals. This needs professional jetting and camera inspection. Call immediately.</li></ul><p>The honest answer: chemical drain cleaners have a very narrow use case. When in doubt, call a plumber before reaching for the bottle.</p>'></div>
+          </div>
+
+          <div class="blog-card reveal" data-cat="renovation" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Renovations</span><span class="blog-card-date">October 2025</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>7 min read</span></div>
+              <div class="blog-card-title">What happens to your plumbing during a bathroom renovation</div>
+              <p class="blog-card-excerpt">Most homeowners don't know what the plumber actually does during a bathroom renovation — or how to coordinate the plumbing scope with a general contractor. Here's the full picture.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Renovations" data-title="What happens to your plumbing during a bathroom renovation" data-date="October 2025" data-read="7 min read" data-body='<h3>The two phases of bathroom plumbing</h3><p>Bathroom plumbing happens in two distinct stages, separated by the general contractor's structural and finishing work. Getting these phases sequenced correctly is the difference between a smooth renovation and one that runs weeks over schedule.</p><h3>Phase 1: Rough-in</h3><p>The rough-in is everything that happens before the walls are closed. Supply lines are moved or extended to suit the new layout. The drain stack is relocated if the toilet or shower is moving position. New vent connections are made as required by code. A floor drain may be added if a walk-in shower is going in without a tub surround.</p><p>Rough-in happens early — after demolition but before framing or insulation. The general contractor needs to frame around the plumber's rough-in locations. This requires good communication and a confirmed layout plan before anyone swings a hammer.</p><p>We provide a detailed rough-in drawing that shows exact locations of all supply lines, drains, and vent connections. This is what the GC works from.</p><h3>Phase 2: Fixture trim-out</h3><p>Once walls are tiled and floors are laid, we come back for the trim-out: installing the toilet, connecting the vanity, setting the shower valve trim and fixtures, mounting the tub filler if there's a freestanding tub, and connecting the supply lines to all fixtures.</p><p>Trim-out typically happens near the end of the renovation — after tile, before final paint and accessories. It's usually 1–2 days depending on complexity.</p><h3>What you need to confirm before rough-in starts</h3><ul><li>Final position of toilet (affects drain stack)</li><li>Shower configuration — size, shower head height, whether there are body sprays</li><li>Vanity height and width (affects supply line placement)</li><li>Whether a freestanding tub or alcove tub is planned</li><li>Heated floor zone valve location if applicable</li></ul><p>If you change your mind on any of these after rough-in, expect additional cost. Changes to drain locations in particular require opening the subfloor — which the GC has usually closed by then.</p>'></div>
+          </div>
+
+          <div class="blog-card reveal" data-cat="maintenance" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2z"/><path d="M6.5 11a6 6 0 1 0 11 0"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Maintenance</span><span class="blog-card-date">September 2025</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>4 min read</span></div>
+              <div class="blog-card-title">Is Timmins water hard? What that means for your home.</div>
+              <p class="blog-card-excerpt">Hard water is the single biggest long-term threat to plumbing fixtures and appliances in Timmins. Here's what it does, how to measure it, and what actually fixes it.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Maintenance" data-title="Is Timmins water hard? What that means for your home." data-date="September 2025" data-read="4 min read" data-body='<h3>Timmins water hardness</h3><p>Timmins municipal water has moderate to high hardness — typically in the 150–250 mg/L range depending on the time of year and source reservoir. This is significantly harder than the soft water common in communities with lake-fed surface water. The primary minerals are calcium and magnesium carbonate, which precipitate out of solution when water is heated.</p><h3>What hard water actually does</h3><p><strong>Water heaters.</strong> Scale accumulates on the bottom of tank heaters and on the heat exchanger of tankless units. A heavily scaled water heater can lose 20–30% efficiency. Scale buildup inside a tank eventually causes it to fail early — often 3–5 years before its rated lifespan.</p><p><strong>Fixtures and fittings.</strong> The white mineral deposits you see around taps, showerheads, and the base of faucets are calcium carbonate. These aren't just cosmetic — they restrict flow and degrade internal components over time.</p><p><strong>Dishwashers and washing machines.</strong> Both run hot water through small internal passages. Hard water scale accumulates in these passages and on heating elements, shortening appliance life.</p><h3>How to know how hard your water is</h3><p>Water hardness test kits are available at hardware stores for under $20. We also test water hardness during any service call if requested. If your shower glass has heavy scale or your kettle builds up white deposits quickly, your hardness is likely above 200 mg/L.</p><h3>What actually fixes it</h3><p>A whole-home water softener at the main supply is the most effective solution. We install softeners sized to your household water usage. The softener regenerates automatically using salt — the only ongoing maintenance is keeping the salt tank filled. Annual cost for salt is typically $80–$150.</p><p>A sediment pre-filter in front of the softener extends the softener resin life and improves overall water quality.</p>'></div>
+          </div>
+
+          <div class="blog-card reveal" data-cat="winter" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Winter &amp; Cold</span><span class="blog-card-date">August 2025</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>3 min read</span></div>
+              <div class="blog-card-title">Winterizing your Timmins cottage or camp before the season ends</div>
+              <p class="blog-card-excerpt">Leaving water in pipes at a seasonal property through a Northern Ontario winter is a guaranteed burst. Here's exactly how to drain a camp properly so you come back to nothing damaged in spring.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Winter &amp; Cold" data-title="Winterizing your Timmins cottage or camp before the season ends" data-date="August 2025" data-read="3 min read" data-body='<h3>Why camps and cottages fail in winter</h3><p>A seasonal camp that isn't properly drained before freeze-up is almost guaranteed to have burst pipes by spring. Even a small amount of trapped water expands as it freezes, splitting copper and bursting joints that were perfectly sound all summer.</p><h3>The complete winterization process</h3><p><strong>Step 1: Shut off the main water supply.</strong> Whether it's a well pump or a municipal supply, the first step is stopping water from entering the system.</p><p><strong>Step 2: Open all taps fully.</strong> Every hot and cold tap, every shower valve, every laundry connection. Let them drain completely. Start at the highest point in the building and work down.</p><p><strong>Step 3: Flush all toilets.</strong> Flush until the tank and bowl are both empty. Then pour RV antifreeze into both the tank and the bowl — about 2 cups each. This protects the wax ring seal and any water that remains in the trap.</p><p><strong>Step 4: Drain the water heater.</strong> Connect a hose to the drain valve at the bottom of the tank. Open the pressure relief valve to allow air in as it drains. A 40-gallon tank holds 150 litres — allow 20–30 minutes to drain fully.</p><p><strong>Step 5: Blow out the lines (if you have a compressor).</strong> Starting at the furthest point from the main, use compressed air to blow residual water out of each run. This is optional but recommended for camps where temperatures drop below −30°C regularly.</p><p><strong>Step 6: Pour antifreeze into every trap.</strong> Every drain has a P-trap that holds water as a sewer gas barrier. That water will freeze. Pour 1/2 cup of plumbing-rated RV antifreeze (not automotive antifreeze) into every sink drain, shower drain, and floor drain.</p><h3>When to hire a plumber to do it</h3><p>If your camp has a well pump, a pressure tank, or a complex pipe layout — hire a plumber to winterize it properly. A professional winterization costs $200–$400 and is far cheaper than repairing a failed system in the spring.</p>'></div>
+          </div>
+
+          <div class="blog-card reveal" data-cat="costs" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Costs &amp; Pricing</span><span class="blog-card-date">July 2025</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>3 min read</span></div>
+              <div class="blog-card-title">Do I need a permit for my plumbing work in Timmins?</div>
+              <p class="blog-card-excerpt">Not all plumbing work requires a permit — but getting it wrong costs significantly more to fix than getting it right. Here's the straightforward answer for common jobs in Timmins.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Costs &amp; Pricing" data-title="Do I need a permit for my plumbing work in Timmins?" data-date="July 2025" data-read="3 min read" data-body='<h3>The general rule in Ontario</h3><p>Any plumbing work that involves new construction, extension, or alteration of drainage, waste, or vent pipes requires a permit under the Ontario Building Code. Replacement or repair of existing fixtures and connections in the same location generally does not.</p><h3>What requires a permit</h3><ul><li>Adding a new bathroom, laundry room, or wet area</li><li>Moving a toilet, tub, or shower to a new drain location</li><li>Extending supply or drain lines</li><li>New gas line installation or extension</li><li>New water service connection</li><li>Adding a water heater in a new location</li></ul><h3>What typically does not require a permit</h3><ul><li>Replacing a water heater in the same location</li><li>Replacing a toilet, sink, or tub in the same position</li><li>Repairing a leaking joint or replacing a section of damaged pipe</li><li>Clearing a blocked drain</li><li>Replacing a tap or supply valve</li></ul><h3>Why permits matter</h3><p>Unpermitted plumbing work can affect your home insurance, cause problems on resale, and create liability if something fails. When we quote permitted work, the permit fee is included in the price — we pull it and manage the inspection so you don't have to deal with the building department.</p><p>If you're unsure whether your job needs a permit, call us. We'll tell you directly. There's no advantage to us in recommending an unpermitted job — the liability lands on us if the work causes a problem later.</p>'></div>
+          </div>
+
+          <div class="blog-card reveal" data-cat="hotwater" onclick="openPost(this)">
+            <div class="blog-card-img"><div class="blog-card-img-placeholder"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div></div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta"><span class="blog-card-tag">Hot Water</span><span class="blog-card-date">June 2025</span><span class="blog-card-readtime"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>3 min read</span></div>
+              <div class="blog-card-title">5 signs your water heater is about to fail</div>
+              <p class="blog-card-excerpt">Most water heaters give warning signs months before they fail completely. Catching them early means a planned replacement rather than a Sunday emergency call. Here are the ones to watch for.</p>
+              <div class="blog-card-cta">Read post<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+            </div>
+            <div style="display:none" class="post-data" data-tag="Hot Water" data-title="5 signs your water heater is about to fail" data-date="June 2025" data-read="3 min read" data-body='<h3>Sign 1: The unit is 10+ years old</h3><p>A gas water heater has a useful life of roughly 10–14 years with proper maintenance. If yours is 10 years old or older, it's in the planning window — start getting quotes now rather than waiting for a failure that forces an emergency same-day install.</p><h3>Sign 2: Rusty or discoloured hot water</h3><p>Rust-coloured water from hot taps only (not cold) indicates internal tank corrosion. The steel lining has failed and the tank is deteriorating. This is a late-stage sign — replacement is imminent. A failed tank can leak catastrophically without much warning once corrosion is advanced.</p><h3>Sign 3: Rumbling or banging noises</h3><p>Sediment accumulates on the bottom of tank heaters over time — especially in areas with hard water like Timmins. When the burner fires, it heats water under the sediment layer, causing the rumbling and banging you can hear from across the room. This reduces efficiency and stresses the tank bottom, accelerating failure.</p><h3>Sign 4: Water pooling around the base</h3><p>Any moisture around the base of a water heater is a warning sign. It may be a fitting or connection issue — which is a repair — or it may be the tank itself beginning to fail at a seam or corrosion point. Have it assessed immediately. A failing tank can release 150+ litres before you notice.</p><h3>Sign 5: Inconsistent hot water temperature</h3><p>If you're getting hot water that's randomly too hot or not hot enough despite not changing settings, the thermostat or thermocouple may be failing. In an older unit, this often signals the beginning of broader system failure. The repair cost versus replacement cost calculation often favours replacement when the unit is already over 10 years old.</p><h3>What to do</h3><p>Send us a FotoJobber photo of your water heater — model number label visible — and describe the symptoms. We'll tell you honestly whether it's worth repairing or whether replacement is the smarter call.</p>'></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="blog-sidebar">
+        <div class="blog-sidebar-card">
+          <div class="blog-sidebar-title">Popular topics</div>
+          <div class="blog-sidebar-links">
+            <div class="blog-sidebar-link" onclick="filterBlog('winter',document.querySelector('[onclick*=winter]'))"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>Winter &amp; frozen pipes</div>
+            <div class="blog-sidebar-link" onclick="filterBlog('hotwater',document.querySelector('[onclick*=hotwater]'))"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>Hot water systems</div>
+            <div class="blog-sidebar-link" onclick="filterBlog('costs',document.querySelector('[onclick*=costs]'))"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>Plumbing costs in Timmins</div>
+            <div class="blog-sidebar-link" onclick="filterBlog('maintenance',document.querySelector('[onclick*=maintenance]'))"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>Home maintenance</div>
+            <div class="blog-sidebar-link" onclick="filterBlog('drains',document.querySelector('[onclick*=drains]'))"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>Blocked drains</div>
+            <div class="blog-sidebar-link" onclick="filterBlog('renovation',document.querySelector('[onclick*=renovation]'))"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>Renovations</div>
+          </div>
+        </div>
+        <div class="blog-cta-card">
+          <div class="blog-cta-title">Have a plumbing issue right now?</div>
+          <div class="blog-cta-sub">Get a quote — send a photo and we'll respond within 2 hours. Or call us directly.</div>
+          <a href="/contact" class="blog-cta-btn">Get a free quote</a>
+        </div>
+        <div class="blog-sidebar-card">
+          <div class="blog-sidebar-title">Ask a question</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px;">Questions that get asked a lot become posts. If you're wondering something, others probably are too.</div>
+          <textarea class="blog-q-textarea" rows="3" placeholder="Your plumbing question…" id="sidebarQ" style="width:100%;border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:13px;font-family:inherit;outline:none;resize:none;margin-bottom:8px;" onfocus="firePixel('sidebar_q_focus','Sidebar: question focused',6,'research')"></textarea>
+          <button onclick="submitSidebarQuestion()" style="width:100%;background:var(--green);color:#fff;border:none;border-radius:var(--radius);padding:11px;font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;">Ask</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<footer><div class="footer-inner"><div class="footer-top"><div><div class="footer-brand-name">Total Trades Solutions</div><div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div><a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a><div class="footer-brand-email">info@totaltradessolutions.ca</div></div><div><div class="footer-col-title">Services</div><div class="footer-links"><a href="/emergency" class="footer-link">Emergency 24/7</a><a href="/hot-water" class="footer-link">Hot Water Systems</a><a href="/blocked-drains" class="footer-link">Blocked Drains</a><a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a><a href="/leak-detection" class="footer-link">Leak Detection</a><a href="/gas-plumbing" class="footer-link">Gas Plumbing</a><a href="/pipe-repair" class="footer-link">Pipe Repair</a><a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a></div></div><div><div class="footer-col-title">Company</div><div class="footer-links"><a href="/about" class="footer-link">About Us</a><a href="/reviews" class="footer-link">Reviews</a><a href="/our-guarantee" class="footer-link">Our Guarantee</a><a href="/blog" class="footer-link">Blog</a><a href="/faq" class="footer-link">FAQ</a><a href="/book" class="footer-link">Book Appointment</a><a href="/privacy" class="footer-link">Privacy Policy</a></div></div><div><div class="footer-col-title">Service Areas</div><div class="footer-links"><a href="/timmins" class="footer-link">Timmins</a><a href="/cochrane" class="footer-link">Cochrane</a><a href="/south-porcupine" class="footer-link">South Porcupine</a><a href="/iroquois-falls" class="footer-link">Iroquois Falls</a><a href="/kapuskasing" class="footer-link">Kapuskasing</a><a href="/matheson" class="footer-link">Matheson</a><a href="/kirkland-lake" class="footer-link">Kirkland Lake</a></div></div></div><div class="footer-bottom"><span>© 2026 Total Trades Solutions. All rights reserved.</span><span>Licensed · Insured · Ontario College of Trades</span></div></div></footer>
+
+<div class="lead-grabber"><button class="lg-btn" id="lgBtn" onclick="toggleLG()"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></button><span class="lg-label">Get help</span></div>
+<div class="lg-panel" id="lgPanel"><div class="lg-header"><div><div class="lg-header-title">Get help now</div><div class="lg-header-sub">Choose how to connect</div></div><button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="lg-body"><div class="lg-options"><div class="lg-option selected" id="lgSpeak" onclick="selectLGMode('speak')"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg><span>Call me back</span></div><div class="lg-option" id="lgEmail" onclick="selectLGMode('email')"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Email me</span></div></div><input class="lg-input" type="text" placeholder="Your name" id="lgName"><input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone"><input class="lg-input" type="text" placeholder="What's the job?" id="lgJob"><button class="lg-submit" onclick="submitLG()">Send request</button></div></div>
+
+<div class="chat-widget"><div class="chat-panel" id="chatPanel"><div class="chat-panel-header"><div class="chat-header-info"><div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div><div class="chat-name">Total Trades Solutions Assistant</div><div class="chat-status">Online · plumbing questions welcome</div></div></div><button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="chat-messages" id="chatMessages"><div class="chat-msg bot">Hi — I can help with plumbing questions for your Timmins home. What would you like to know?</div></div><div class="chat-quick"><button class="chat-quick-btn" onclick="quickAsk('How do I prevent pipes from freezing?')">Frozen pipes</button><button class="chat-quick-btn" onclick="quickAsk('What is hard water and should I be worried?')">Hard water</button><button class="chat-quick-btn" onclick="quickAsk('When should I replace my water heater?')">Water heater life</button></div><div class="chat-input-row"><input class="chat-input" type="text" placeholder="Ask a question…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div></div><button class="chat-bubble" id="chatBubble" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button></div>
+
+<div class="pixel-toast" id="pixelToast"><div class="pixel-toast-dot"></div><span id="pixelToastText">Pixel fired</span></div>
+
+<script>
+window.addEventListener('scroll',()=>{const nav=document.getElementById('mainNav');if(nav){if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled');}document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*0.9)el.classList.add('visible');});});
+document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*0.9)el.classList.add('visible');});
+function toggleMobileMenu(){const m=document.getElementById('mobileMenu'),b=document.getElementById('mobileHamburger');const o=m.classList.toggle('open');b.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
+function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('mobileHamburger').classList.remove('open');document.body.style.overflow='';}
+
+let _score=0,_bucket='unclassified',_scrollDepth=0,_dwellStart=Date.now(),_toastTimeout;
+const _bp=['emergency','active','comparison','research','unclassified'];
+function firePixel(event,label,delta,bucket){_score=Math.min(_score+delta,100);if(bucket&&bucket!=='unclassified'){const c=_bp.indexOf(_bucket),n=_bp.indexOf(bucket);if(c===-1||n<c||_bucket==='unclassified')_bucket=bucket;}const t=document.getElementById('pixelToast');document.getElementById('pixelToastText').textContent=label+(delta>0?' +'+delta:'');t.classList.add('show');clearTimeout(_toastTimeout);_toastTimeout=setTimeout(()=>t.classList.remove('show'),2200);console.log('[ClearSky Pixel]',{event,score:_score,bucket:_bucket,delta,label});}
+window.addEventListener('scroll',()=>{const doc=document.documentElement.scrollHeight-window.innerHeight;if(doc<=0)return;const pct=Math.round((window.scrollY/doc)*100);if(pct>_scrollDepth){if(pct>=25&&_scrollDepth<25)firePixel('scroll_25','Scroll 25%',3,'research');if(pct>=50&&_scrollDepth<50)firePixel('scroll_50','Scroll 50%',5,'research');if(pct>=75&&_scrollDepth<75)firePixel('scroll_75','Scroll 75%',7,'comparison');if(pct>=90&&_scrollDepth<90)firePixel('scroll_90','Scroll 90%',8,'comparison');_scrollDepth=pct;}});
+let _d30=false,_d60=false,_d120=false;
+setInterval(()=>{const s=Math.round((Date.now()-_dwellStart)/1000);if(s>=30&&!_d30){_d30=true;firePixel('dwell_30','30s dwell',4,'research');}if(s>=60&&!_d60){_d60=true;firePixel('dwell_60','60s dwell',7,'research');}if(s>=120&&!_d120){_d120=true;firePixel('dwell_120','2min dwell — Research bucket content consumer',10,'research');}},1000);
+firePixel('page_load','Blog page — Research bucket',3,'research');
+const _ne=document.getElementById('navEmergencyBtn'),_nb=document.getElementById('navBookBtn');
+if(_ne)_ne.addEventListener('click',()=>firePixel('nav_emergency','Nav: Emergency',15,'emergency'));
+if(_nb)_nb.addEventListener('click',()=>firePixel('nav_book','Nav: Book Now — Research to Active Project',12,'active'));
+
+/* BLOG FILTER */
+function filterBlog(cat,btn){
+  if(!btn)return;
+  document.querySelectorAll('.blog-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.blog-card').forEach(card=>{if(cat==='all'||card.dataset.cat===cat)card.classList.remove('hidden');else card.classList.add('hidden');});
+  closePost();
+  firePixel('blog_filter','Blog: filter — '+cat,5,'research');
+}
+
+/* POST OPEN/CLOSE */
+function openPost(card){
+  const data=card.querySelector('.post-data');
+  if(!data)return;
+  document.getElementById('postTag').textContent=data.dataset.tag;
+  document.getElementById('postTitle').textContent=data.dataset.title;
+  document.getElementById('postDate').textContent=data.dataset.date;
+  document.getElementById('postRead').textContent=data.dataset.read;
+  document.getElementById('postBody').innerHTML=data.dataset.body;
+  document.getElementById('blogGrid').style.display='none';
+  document.getElementById('postView').classList.add('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+  firePixel('blog_post_open','Blog post opened: '+data.dataset.title.substring(0,30),10,'research');
+}
+function closePost(){
+  document.getElementById('postView').classList.remove('open');
+  document.getElementById('blogGrid').style.display='flex';
+}
+
+/* QUESTION SUBMISSIONS — ContentRadar source */
+function submitQuestion(){
+  const q=document.getElementById('qText').value; if(!q.trim())return;
+  firePixel('blog_question_submit','Blog question submitted — ContentRadar signal',12,'research');
+  const btn=document.querySelector('.blog-q-submit');
+  btn.textContent='Question received ✓'; btn.style.background='var(--green-mid)';
+  ['qName','qPhone','qText'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  setTimeout(()=>{btn.textContent='Submit question';btn.style.background='';},3000);
+}
+function submitPostQuestion(){
+  const q=document.getElementById('postQText').value; if(!q.trim())return;
+  firePixel('post_question_submit','Post follow-up question — ContentRadar signal',12,'research');
+  const btn=document.querySelector('.blog-post-q-submit');
+  btn.textContent='Sent ✓'; btn.style.background='var(--green-mid)';
+  document.getElementById('postQText').value=''; document.getElementById('postQPhone').value='';
+  setTimeout(()=>{btn.textContent='Send question';btn.style.background='';},2500);
+}
+function submitSidebarQuestion(){
+  const q=document.getElementById('sidebarQ').value; if(!q.trim())return;
+  firePixel('sidebar_question_submit','Sidebar question submitted',10,'research');
+  const btn=document.querySelector('.blog-sidebar .blog-sidebar-card:last-child button');
+  if(btn){btn.textContent='Sent ✓';btn.style.background='var(--green-mid)';setTimeout(()=>{btn.textContent='Ask';btn.style.background='';},2500);}
+  document.getElementById('sidebarQ').value='';
+}
+
+/* LEAD GRABBER */
+let _lgOpen=false,_lgMode='speak';
+function toggleLG(){_lgOpen=!_lgOpen;document.getElementById('lgPanel').classList.toggle('open',_lgOpen);if(_lgOpen)firePixel('lg_open','Lead Grabber opened',8,'active');}
+function selectLGMode(mode){_lgMode=mode;document.getElementById('lgSpeak').classList.toggle('selected',mode==='speak');document.getElementById('lgEmail').classList.toggle('selected',mode==='email');const p=document.getElementById('lgPhone');if(mode==='speak'){p.placeholder='Phone — (705) 000-0000';p.type='tel';}else{p.placeholder='Email address';p.type='email';}}
+function submitLG(){firePixel('lg_submit','Lead Grabber submitted',15,'active');const btn=document.querySelector('.lg-submit');btn.textContent='Request sent ✓';btn.style.background='var(--green)';setTimeout(()=>{btn.textContent='Send request';btn.style.background='';},3000);}
+
+/* AI CHAT */
+let _chatOpen=false;
+function toggleChat(){_chatOpen=!_chatOpen;document.getElementById('chatPanel').classList.toggle('open',_chatOpen);if(_chatOpen)firePixel('chat_open','AI Chat opened',6,'research');}
+function quickAsk(q){_addChatMsg(q,'user');firePixel('chat_question','Chat: '+q.substring(0,30),10,'research');const r={'How do I prevent pipes from freezing?':'Keep cabinet doors open under sinks on exterior walls, allow cold taps to drip slightly during extreme cold snaps, and insulate exposed pipes in crawl spaces. If a pipe is already frozen, use a hair dryer on low heat — never an open flame. If it hasn\'t thawed in 30 minutes, call us.','What is hard water and should I be worried?':'Timmins water is moderately hard — 150–250 mg/L typically. Over time this builds scale in water heaters (reducing efficiency and life), on fixtures, and in dishwashers and appliances. A whole-home water softener solves it at the source. We install and supply them.','When should I replace my water heater?':'If it\'s 10+ years old, showing rust-coloured water, making rumbling noises, or leaking at the base — these are all signs of imminent failure. Better to plan a replacement than deal with a Sunday emergency. Send us a FotoJobber photo of the unit and we\'ll give you an honest assessment.'};setTimeout(()=>_addChatMsg(r[q]||'Great question — our team can give you a detailed answer. Call (705) 700-1234 or submit a question through the form on this page.','bot'),800);}
+function sendChat(){const inp=document.getElementById('chatInput');if(!inp.value.trim())return;_addChatMsg(inp.value,'user');firePixel('chat_question','Chat question',10,'research');inp.value='';setTimeout(()=>_addChatMsg('Our team will follow up. For immediate help call (705) 700-1234, or submit your question through the form on this page and we\'ll answer it directly.','bot'),800);}
+function _addChatMsg(text,type){const msgs=document.getElementById('chatMessages');const div=document.createElement('div');div.className='chat-msg '+type;div.textContent=text;msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
+</script>
+</body>
+</html>

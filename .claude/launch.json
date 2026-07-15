@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "rightflush-site",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["_serve.py", "8080"],
+      "cwd": "design/rightflush-site",
+      "port": 8080
+    }
+  ]
+}

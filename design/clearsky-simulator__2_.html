@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSky — Behaviour Simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f4f7;--surface:#fff;--surface2:#f7f8fa;--border:#e3e7ef;--border2:#c8cdd8;
+  --text:#111827;--text2:#4b5563;--text3:#9ca3af;
+  --green:#0a7c45;--green-bg:#eaf7f0;--green-bd:#a7dfc4;
+  --red:#b91c1c;--red-bg:#fef2f2;--red-bd:#fca5a5;
+  --amber:#92600a;--amber-bg:#fffbeb;--amber-bd:#fcd34d;
+  --blue:#1d4ed8;--blue-bg:#eff6ff;--blue-bd:#93c5fd;
+  --purple:#6d28d9;--purple-bg:#f5f3ff;--purple-bd:#c4b5fd;
+  --teal:#0d7f78;--teal-bg:#e8f7f6;--teal-bd:#9de0db;
+  --mono:'IBM Plex Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:13px;line-height:1.5;}
+.app{display:grid;grid-template-rows:52px 44px 1fr;height:100vh;}
+
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.logo{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--green);letter-spacing:.08em;}
+.logo em{color:var(--text3);font-style:normal;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.live-badge{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;color:var(--green);}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;transition:all .15s;}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:#0d9e56;}
+.btn-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.btn-red:hover{background:var(--red);color:#fff;}
+.btn-ghost{background:none;color:var(--text2);border:1px solid var(--border2);}
+.btn-ghost:hover{border-color:var(--green);color:var(--green);}
+.btn:disabled{opacity:.4;cursor:default;}
+select.spd{font-family:var(--mono);font-size:11px;padding:5px 8px;border:1px solid var(--border2);border-radius:5px;background:var(--bg);color:var(--text);cursor:pointer;}
+
+/* STAT STRIP */
+.stat-strip{display:grid;grid-template-columns:repeat(7,1fr);background:var(--surface);border-bottom:1px solid var(--border);}
+.ss{padding:6px 12px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;}
+.ss:last-child{border-right:none;}
+.ss-val{font-family:var(--mono);font-size:17px;font-weight:600;color:var(--text);line-height:1;}
+.ss-val.g{color:var(--green);}
+.ss-val.r{color:var(--red);}
+.ss-val.b{color:var(--blue);}
+.ss-val.a{color:#d97706;}
+.ss-val.p{color:var(--purple);}
+.ss-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-top:2px;}
+
+/* MAIN 3-COL */
+.main{display:grid;grid-template-columns:300px 1fr 300px;overflow:hidden;}
+
+/* LEFT — visitor roster */
+.roster{background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;}
+.panel-head{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:5;}
+.panel-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);}
+.roster-count{font-family:var(--mono);font-size:10px;color:var(--green);background:var(--green-bg);border:1px solid var(--green-bd);border-radius:100px;padding:1px 8px;}
+
+.visitor-row{padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;position:relative;}
+.visitor-row:hover{background:var(--surface2);}
+.visitor-row.selected{background:var(--blue-bg);border-left:3px solid var(--blue);}
+.visitor-row.demoted{border-left:3px solid var(--red);}
+.vr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;}
+.vr-identity{flex:1;}
+.vr-name{font-size:12px;font-weight:600;color:var(--text);}
+.vr-name.anon{color:var(--text3);font-style:italic;}
+.vr-fp{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:1px;}
+.vr-loc{font-size:10px;color:var(--text3);}
+.vr-mid{display:flex;align-items:center;gap:4px;margin:4px 0;flex-wrap:wrap;}
+.pill{display:inline-flex;align-items:center;font-family:var(--mono);font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px;letter-spacing:.03em;}
+.p-emg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.p-act{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd);}
+.p-cmp{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+.p-res{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.p-new{background:var(--bg);color:var(--text3);border:1px solid var(--border2);}
+.p-match{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-bd);}
+.p-sys{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd);}
+.p-neg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+
+/* score row with dual display */
+.vr-score-wrap{margin:3px 0;}
+.vr-score-labels{display:flex;justify-content:space-between;margin-bottom:2px;}
+.vr-score-live{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text);}
+.vr-score-raw{font-family:var(--mono);font-size:9px;color:var(--text3);}
+.score-track{width:100%;height:4px;background:var(--border);border-radius:2px;overflow:hidden;position:relative;}
+.score-fill-raw{height:100%;border-radius:2px;opacity:0.25;position:absolute;left:0;top:0;}
+.score-fill-live{height:100%;border-radius:2px;position:absolute;left:0;top:0;transition:width .5s;}
+.f-emg{background:var(--red);}
+.f-act{background:#d97706;}
+.f-cmp{background:var(--blue);}
+.f-res{background:var(--green);}
+.f-new{background:var(--text3);}
+
+/* velocity */
+.vr-velocity{display:flex;align-items:center;gap:4px;margin-top:3px;}
+.vel-label{font-size:9px;font-family:var(--mono);}
+.vel-up{color:var(--green);}
+.vel-dn{color:var(--red);}
+.vel-flat{color:var(--text3);}
+.sparkline{display:flex;align-items:flex-end;gap:1px;height:12px;}
+.spark-bar{width:3px;border-radius:1px;min-height:1px;}
+
+.vr-page{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px;display:flex;align-items:center;gap:5px;}
+.live-dot-sm{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;flex-shrink:0;}
+.vr-conf{display:flex;align-items:center;gap:4px;margin-top:3px;}
+.conf-track{flex:1;height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
+.conf-fill{height:100%;background:var(--purple);border-radius:2px;transition:width .5s;}
+.conf-label{font-family:var(--mono);font-size:9px;color:var(--purple);min-width:28px;text-align:right;}
+
+/* decay badge */
+.decay-badge{font-family:var(--mono);font-size:9px;color:var(--red);background:var(--red-bg);border:1px solid var(--red-bd);border-radius:3px;padding:1px 5px;margin-top:2px;display:inline-block;}
+.grace-badge{font-family:var(--mono);font-size:9px;color:var(--green);background:var(--green-bg);border:1px solid var(--green-bd);border-radius:3px;padding:1px 5px;margin-top:2px;display:inline-block;}
+
+/* CENTRE — event stream */
+.stream{overflow-y:auto;display:flex;flex-direction:column;background:var(--bg);}
+.stream-head{padding:10px 18px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;}
+.stream-meta{font-size:10px;color:var(--text3);font-family:var(--mono);}
+.stream-meta span{color:var(--text);}
+.ev{display:grid;grid-template-columns:72px 100px 1fr 80px 64px;align-items:center;gap:0;padding:7px 16px;border-bottom:1px solid var(--border);background:var(--surface);transition:background .1s;}
+.ev:hover{background:var(--surface2);}
+.ev.new{animation:flash-green .9s ease-out;}
+.ev.new-emg{animation:flash-red .9s ease-out;}
+.ev.new-conv{animation:flash-amber .9s ease-out;}
+.ev.new-neg{animation:flash-neg .9s ease-out;}
+.ev.new-sys{animation:flash-sys .9s ease-out;}
+.ev.new-demote{animation:flash-red .9s ease-out;}
+@keyframes flash-green{0%{background:#eaf7f0}100%{background:var(--surface)}}
+@keyframes flash-red{0%{background:#fef2f2}100%{background:var(--surface)}}
+@keyframes flash-amber{0%{background:#fffbeb}100%{background:var(--surface)}}
+@keyframes flash-neg{0%{background:#fef2f2}100%{background:var(--surface)}}
+@keyframes flash-sys{0%{background:#e8f7f6}100%{background:var(--surface)}}
+.ev-time{font-family:var(--mono);font-size:10px;color:var(--text3);}
+.ev-who{font-size:10px;font-weight:500;color:var(--text2);}
+.ev-who small{display:block;font-family:var(--mono);font-size:8px;color:var(--text3);font-weight:400;}
+.ev-body{display:flex;flex-direction:column;gap:1px;}
+.ev-name{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--text);}
+.ev-name.sys{color:var(--teal);}
+.ev-name.neg{color:var(--red);}
+.ev-detail{font-size:9px;color:var(--text2);}
+.ev-path-ctx{font-size:9px;color:var(--purple);font-style:italic;}
+.ev-page{font-family:var(--mono);font-size:9px;color:var(--text3);}
+.delta{font-family:var(--mono);font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;text-align:center;white-space:nowrap;}
+.d-emg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.d-act{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd);}
+.d-cmp{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+.d-res{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.d-neg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.d-sys{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd);}
+.ev-bucket .pill{font-size:8px;padding:1px 5px;}
+
+/* RIGHT — intelligence */
+.intel{background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;}
+.intel-head{padding:10px 14px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:5;}
+.intel-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);}
+.intel-section{padding:12px 14px;border-bottom:1px solid var(--border);}
+.intel-section-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:8px;}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border);}
+.prow:last-child{border-bottom:none;}
+.pl{font-size:11px;color:var(--text3);}
+.pv{font-size:11px;font-weight:500;color:var(--text);text-align:right;}
+.pv.mono{font-family:var(--mono);font-size:10px;}
+.pv.anon{color:var(--text3);font-style:italic;}
+
+/* dual score display */
+.score-display{padding:8px 0;}
+.score-main-row{display:flex;align-items:flex-end;gap:12px;margin-bottom:6px;}
+.score-big{font-family:var(--mono);font-size:38px;font-weight:600;line-height:1;}
+.score-big.c-emg{color:var(--red);}
+.score-big.c-act{color:#d97706;}
+.score-big.c-cmp{color:var(--blue);}
+.score-big.c-res{color:var(--green);}
+.score-big.c-new{color:var(--text3);}
+.score-raw-display{font-family:var(--mono);font-size:13px;color:var(--text3);padding-bottom:4px;}
+.score-labels{display:flex;gap:16px;margin-bottom:4px;}
+.score-label-item{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;}
+.score-bar-wrap{position:relative;height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:6px;}
+.score-bar-raw{height:100%;border-radius:4px;opacity:0.2;position:absolute;left:0;top:0;}
+.score-bar-live{height:100%;border-radius:4px;position:absolute;left:0;top:0;transition:width .5s;}
+.decay-info{font-size:10px;color:var(--red);font-family:var(--mono);}
+.grace-info{font-size:10px;color:var(--green);font-family:var(--mono);}
+
+/* velocity sparkline in intel */
+.vel-section{display:flex;align-items:center;gap:10px;padding:6px 0;}
+.vel-big{font-size:13px;font-weight:500;}
+.vel-spark{display:flex;align-items:flex-end;gap:2px;height:20px;}
+.vel-bar{width:5px;border-radius:2px;}
+
+/* path trace */
+.path-trace{display:flex;flex-direction:column;gap:4px;}
+.pt-row{display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:5px;border:1px solid var(--border);}
+.pt-row.pt-highlight{background:var(--purple-bg);border-color:var(--purple-bd);}
+.pt-row.pt-neg{background:var(--red-bg);border-color:var(--red-bd);}
+.pt-row.pt-sys{background:var(--teal-bg);border-color:var(--teal-bd);}
+.pt-event{font-family:var(--mono);font-size:10px;font-weight:500;flex:1;color:var(--text);}
+.pt-ctx{font-size:9px;color:var(--purple);font-style:italic;}
+.pt-delta{font-family:var(--mono);font-size:10px;font-weight:600;min-width:32px;text-align:right;}
+.pt-multiplier{font-family:var(--mono);font-size:9px;color:var(--purple);background:var(--purple-bg);border-radius:2px;padding:1px 4px;}
+.pt-arrow{font-size:10px;color:var(--text3);}
+
+/* journey nodes */
+.journey-wrap{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin-top:4px;}
+.j-node{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;border:1px solid var(--border2);color:var(--text2);background:var(--surface2);}
+.j-node.cur{background:var(--blue-bg);border-color:var(--blue-bd);color:var(--blue);}
+.j-node.emg{background:var(--red-bg);border-color:var(--red-bd);color:var(--red);}
+.j-arr{font-size:10px;color:var(--text3);padding:0 3px;}
+
+/* action cards */
+.action-card{border-radius:6px;padding:10px;margin-bottom:6px;border:1px solid var(--border);}
+.action-card.waiting{background:var(--surface2);}
+.action-card.triggered{background:var(--amber-bg);border-color:var(--amber-bd);}
+.action-card.fired{background:var(--green-bg);border-color:var(--green-bd);}
+.action-card.friction{background:var(--red-bg);border-color:var(--red-bd);}
+.ac-title{font-size:11px;font-weight:600;margin-bottom:2px;}
+.ac-desc{font-size:10px;color:var(--text2);line-height:1.4;}
+.ac-status{font-family:var(--mono);font-size:9px;margin-top:5px;}
+.st-w{color:var(--text3);}
+.st-t{color:var(--amber);}
+.st-f{color:var(--green);}
+.st-r{color:var(--red);}
+
+/* match card */
+.match-card{background:var(--purple-bg);border:1px solid var(--purple-bd);border-radius:6px;padding:10px;margin-bottom:6px;}
+.match-name{font-size:11px;font-weight:600;color:var(--purple);margin-bottom:4px;}
+.match-conf-row{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+.mct{flex:1;height:3px;background:rgba(109,40,217,.15);border-radius:2px;overflow:hidden;}
+.mcf{height:100%;background:var(--purple);border-radius:2px;transition:width .5s;}
+.mc-pct{font-family:var(--mono);font-size:10px;color:var(--purple);font-weight:500;}
+.match-pred{font-size:10px;font-weight:500;color:var(--purple);}
+.match-detail{font-size:10px;color:var(--text2);line-height:1.4;margin-top:3px;}
+
+.empty-intel{padding:30px 14px;text-align:center;color:var(--text3);font-size:12px;line-height:1.6;}
+
+/* TOASTS */
+.toast-area{position:fixed;bottom:16px;right:16px;display:flex;flex-direction:column;gap:6px;z-index:999;}
+.toast{padding:9px 14px;border-radius:7px;font-size:12px;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.13);animation:tin .3s ease-out;max-width:300px;line-height:1.4;}
+@keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.t-emg{background:var(--red);color:#fff;}
+.t-conv{background:var(--green);color:#fff;}
+.t-match{background:var(--purple);color:#fff;}
+.t-action{background:#d97706;color:#fff;}
+.t-sys{background:var(--teal);color:#fff;}
+.t-demote{background:var(--red);color:#fff;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="logo">Clear<em>Sky</em> <span style="color:var(--text3);font-size:11px;margin-left:8px;">/ Behaviour Simulator v2</span></div>
+    <div class="hdr-right">
+      <span style="font-size:11px;color:var(--text3);font-family:var(--mono);">Speed:</span>
+      <select class="spd" id="speedSelect" onchange="setSpeed()">
+        <option value="3000">0.5x — slow</option>
+        <option value="1800" selected>1x — normal</option>
+        <option value="900">2x — fast</option>
+        <option value="400">4x — demo</option>
+      </select>
+      <button class="btn btn-green" id="startBtn" onclick="startSim()">▶ Run Simulation</button>
+      <button class="btn btn-ghost" id="pauseBtn" onclick="pauseSim()" disabled>⏸ Pause</button>
+      <button class="btn btn-red" id="resetBtn" onclick="resetSim()">↺ Reset</button>
+      <div class="live-badge" id="liveBadge" style="opacity:0;"><div class="live-dot"></div>LIVE</div>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="ss"><div class="ss-val" id="sActive">0</div><div class="ss-label">Active sessions</div></div>
+    <div class="ss"><div class="ss-val g" id="sTotal">0</div><div class="ss-label">Total visitors</div></div>
+    <div class="ss"><div class="ss-val r" id="sEmg">0</div><div class="ss-label">Emergency</div></div>
+    <div class="ss"><div class="ss-val b" id="sConv">0</div><div class="ss-label">Conversions</div></div>
+    <div class="ss"><div class="ss-val a" id="sNeg">0</div><div class="ss-label">Friction events</div></div>
+    <div class="ss"><div class="ss-val r" id="sDemote">0</div><div class="ss-label">Demotions</div></div>
+    <div class="ss"><div class="ss-val p" id="sReturning">0</div><div class="ss-label">Returning FP</div></div>
+  </div>
+
+  <div class="main">
+    <div class="roster">
+      <div class="panel-head">
+        <span class="panel-label">Visitors</span>
+        <span class="roster-count" id="rosterCount">0 active</span>
+      </div>
+      <div id="rosterList"></div>
+    </div>
+
+    <div class="stream">
+      <div class="stream-head">
+        <span class="panel-label">Live event stream</span>
+        <span class="stream-meta">Events: <span id="streamEvCount">0</span> &nbsp;·&nbsp; Showing last 150</span>
+      </div>
+      <div id="eventList">
+        <div style="padding:40px;text-align:center;color:var(--text3);font-size:12px;">Press <strong>Run Simulation</strong> to begin</div>
+      </div>
+    </div>
+
+    <div class="intel">
+      <div class="intel-head"><div class="intel-label">Intelligence Panel</div></div>
+      <div id="intelContent">
+        <div class="empty-intel">Select a visitor from the roster to see their full profile — session ID, fingerprint, dual score, velocity, path trace, and dynamic actions.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast-area" id="toastArea"></div>
+
+<script>
+// ── CITIES ─────────────────────────────────────────────────
+const CITIES=[
+  {city:"Timmins",region:"ON",country:"CA"},{city:"Kapuskasing",region:"ON",country:"CA"},{city:"Cochrane",region:"ON",country:"CA"},
+  {city:"Kirkland Lake",region:"ON",country:"CA"},{city:"Iroquois Falls",region:"ON",country:"CA"},{city:"South Porcupine",region:"ON",country:"CA"},
+  {city:"Englehart",region:"ON",country:"CA"},{city:"Hearst",region:"ON",country:"CA"},{city:"Smooth Rock Falls",region:"ON",country:"CA"},
+  {city:"Matheson",region:"ON",country:"CA"},{city:"Chapleau",region:"ON",country:"CA"},{city:"White River",region:"ON",country:"CA"},
+  {city:"Wawa",region:"ON",country:"CA"},{city:"Hornepayne",region:"ON",country:"CA"},{city:"Gogama",region:"ON",country:"CA"},
+  {city:"Elliot Lake",region:"ON",country:"CA"},{city:"Espanola",region:"ON",country:"CA"},
+  {city:"Thompson",region:"MB",country:"CA"},{city:"Flin Flon",region:"MB",country:"CA"},{city:"The Pas",region:"MB",country:"CA"},
+  {city:"Prince Albert",region:"SK",country:"CA"},{city:"La Ronge",region:"SK",country:"CA"},{city:"Meadow Lake",region:"SK",country:"CA"},
+  {city:"Grande Prairie",region:"AB",country:"CA"},{city:"Peace River",region:"AB",country:"CA"},{city:"Slave Lake",region:"AB",country:"CA"},
+  {city:"Athabasca",region:"AB",country:"CA"},{city:"Whitecourt",region:"AB",country:"CA"},{city:"Lac La Biche",region:"AB",country:"CA"},
+  {city:"Prince George",region:"BC",country:"CA"},{city:"Prince Rupert",region:"BC",country:"CA"},{city:"Smithers",region:"BC",country:"CA"},
+  {city:"Fort St. John",region:"BC",country:"CA"},{city:"Dawson Creek",region:"BC",country:"CA"},{city:"Terrace",region:"BC",country:"CA"},
+  {city:"Rouyn-Noranda",region:"QC",country:"CA"},{city:"Val-d'Or",region:"QC",country:"CA"},{city:"Amos",region:"QC",country:"CA"},
+  {city:"Chibougamau",region:"QC",country:"CA"},{city:"Sept-Îles",region:"QC",country:"CA"},{city:"Baie-Comeau",region:"QC",country:"CA"},
+  {city:"Whitehorse",region:"YT",country:"CA"},{city:"Yellowknife",region:"NT",country:"CA"},{city:"Hay River",region:"NT",country:"CA"},
+  {city:"Bathurst",region:"NB",country:"CA"},{city:"Campbellton",region:"NB",country:"CA"},{city:"Edmundston",region:"NB",country:"CA"},
+  {city:"Marquette",region:"MI",country:"US"},{city:"Sault Ste. Marie",region:"MI",country:"US"},{city:"Houghton",region:"MI",country:"US"},
+  {city:"Ironwood",region:"MI",country:"US"},{city:"Duluth",region:"MN",country:"US"},{city:"Hibbing",region:"MN",country:"US"},
+  {city:"International Falls",region:"MN",country:"US"},{city:"Bemidji",region:"MN",country:"US"},{city:"Ely",region:"MN",country:"US"},
+  {city:"Rhinelander",region:"WI",country:"US"},{city:"Ashland",region:"WI",country:"US"},{city:"Superior",region:"WI",country:"US"},
+  {city:"Minot",region:"ND",country:"US"},{city:"Williston",region:"ND",country:"US"},{city:"Devils Lake",region:"ND",country:"US"},
+  {city:"Havre",region:"MT",country:"US"},{city:"Glasgow",region:"MT",country:"US"},{city:"Wolf Point",region:"MT",country:"US"},
+  {city:"Sandpoint",region:"ID",country:"US"},{city:"Bonners Ferry",region:"ID",country:"US"},{city:"Colville",region:"WA",country:"US"},
+];
+
+const FIRST_NAMES=["James","Sarah","Michael","Emily","David","Linda","Robert","Karen","Jason","Michelle","Brian","Angela","Kevin","Sandra","Mark","Donna","Chris","Carol","Paul","Ruth","Scott","Sharon","Eric","Helen","Jeff","Diane","Ryan","Lisa","Adam","Nancy","Tyler","Betty","Nathan","Dorothy","Aaron","Patricia"];
+const LAST_NAMES=["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Wilson","Moore","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin","Thompson","Young","Walker","Hall","Allen","Wright","Scott","King","Green","Baker","Adams","Nelson","Carter","Mitchell","Perez","Roberts","Turner"];
+
+// ── DECAY CONFIG ───────────────────────────────────────────
+const DECAY={
+  emergency:  {graceDays:1,  halfLifeDays:2},
+  active:     {graceDays:3,  halfLifeDays:14},
+  comparison: {graceDays:7,  halfLifeDays:30},
+  research:   {graceDays:14, halfLifeDays:60},
+};
+// In simulator time is compressed: 1 real second = 1 simulated hour
+// So graceDays*24 real seconds = grace period, halfLifeDays*24 seconds = half life
+const SIM_HOUR_MS = 1000; // 1 real second = 1 sim hour
+
+function calcScoreLive(scoreRaw, bucket, lastEventMs){
+  const cfg=DECAY[bucket]||DECAY.research;
+  const elapsedHours=(Date.now()-lastEventMs)/SIM_HOUR_MS;
+  const graceHours=cfg.graceDays*24;
+  const halfLifeHours=cfg.halfLifeDays*24;
+  if(elapsedHours<=graceHours) return {live:scoreRaw, decayPct:0, inGrace:true};
+  const decayedHours=elapsedHours-graceHours;
+  const live=scoreRaw*Math.pow(0.5, decayedHours/halfLifeHours);
+  const decayPct=Math.round((1-(live/scoreRaw))*100);
+  return {live:Math.max(0,Math.round(live)), decayPct, inGrace:false};
+}
+
+// ── BUCKET DEMOTION ────────────────────────────────────────
+const BUCKET_ORDER={research:0,comparison:1,active:2,emergency:3};
+const DEMOTION_THRESHOLDS={active:35, comparison:20, research:8};
+const BUCKET_DEMOTE_TO={active:'comparison', comparison:'research', research:'unclassified'};
+
+function evalDemotion(v){
+  if(v.bucket==='emergency') return null; // emergency never demotes
+  const {live,inGrace}=calcScoreLive(v.scoreRaw, v.bucket, v.lastEventMs);
+  if(inGrace) return null;
+  const threshold=DEMOTION_THRESHOLDS[v.bucket];
+  if(threshold===undefined) return null;
+  if(live<threshold){
+    return {from:v.bucket, to:BUCKET_DEMOTE_TO[v.bucket]||'research'};
+  }
+  return null;
+}
+
+// ── PATH CONTEXTS ──────────────────────────────────────────
+const PATH_CONTEXTS=[
+  {label:'Comparison finaliser',events:['review_read','ba_slider_drag','area_click'],multiplier:3.0,bucket:'comparison'},
+  {label:'Post-gallery review check',events:['ba_slider_drag','review_read'],multiplier:2.5,bucket:'comparison'},
+  {label:'Post-service review check',events:['page_load','scroll_75','review_read'],multiplier:2.0,bucket:'comparison'},
+  {label:'Active project builder',events:['scroll_75','lg_open','fotojobber_upload'],multiplier:3.0,bucket:'active'},
+  {label:'Return visit direct navigation',events:['return_visit','page_load'],multiplier:2.5,bucket:null},
+  {label:'Research to comparison',events:['dwell_120','faq_open','review_read'],multiplier:2.0,bucket:'comparison'},
+  {label:'Emergency resolver',events:['nav_emergency','page_load','hero_call_click'],multiplier:1.0,bucket:'emergency'},
+];
+
+function matchPathContext(recentEvents){
+  // recentEvents = last 5 event names in order
+  for(const ctx of PATH_CONTEXTS){
+    const required=ctx.events;
+    const matches=required.every(e=>recentEvents.includes(e));
+    if(matches) return ctx;
+  }
+  return null;
+}
+
+// ── NEGATIVE EVENTS ────────────────────────────────────────
+const NEGATIVE_EVENTS=[
+  {name:'form_abandon',detail:'Form abandoned mid-completion',delta:-8,type:'friction',page:'/contact'},
+  {name:'rage_click',detail:'Repeated clicks — frustration signal',delta:-5,type:'friction',page:null},
+  {name:'dead_click',detail:'Click on non-interactive element',delta:-3,type:'friction',page:null},
+  {name:'chat_close_no_send',detail:'Chat opened, closed without message',delta:-4,type:'friction',page:null},
+  {name:'page_exit_fast',detail:'Page exit under 8 seconds',delta:-6,type:'friction',page:null},
+  {name:'apt_form_abandon',detail:'Appointment form abandoned after offer claim',delta:-12,type:'friction',page:'/specials'},
+  {name:'appointment_noshow',detail:'Appointment booked — no show',delta:-20,type:'disengagement',page:null},
+];
+
+// ── POSITIVE EVENTS ────────────────────────────────────────
+const POS_EVENTS=[
+  {name:'page_load',detail:'Session started',delta:0,bucket:null},
+  {name:'scroll_25',detail:'Scroll 25%',delta:3,bucket:null},
+  {name:'scroll_50',detail:'Scroll 50%',delta:5,bucket:null},
+  {name:'scroll_75',detail:'Scroll 75%',delta:7,bucket:null},
+  {name:'scroll_90',detail:'Scroll 90%',delta:10,bucket:null},
+  {name:'dwell_30',detail:'30s dwell',delta:4,bucket:null},
+  {name:'dwell_60',detail:'60s dwell',delta:7,bucket:null},
+  {name:'dwell_120',detail:'2min dwell',delta:10,bucket:null},
+  {name:'nav_emergency',detail:'Nav: Emergency clicked',delta:15,bucket:'emergency'},
+  {name:'hero_call_click',detail:'Call CTA — hero',delta:20,bucket:'emergency',conversion:true},
+  {name:'ba_slider_drag',detail:'Before/after slider used',delta:8,bucket:'comparison'},
+  {name:'gallery_filter',detail:'Gallery filter used',delta:5,bucket:'comparison'},
+  {name:'faq_open',detail:'FAQ question opened',delta:4,bucket:'research'},
+  {name:'chat_open',detail:'Chat widget opened',delta:6,bucket:'research'},
+  {name:'spl_claim_click',detail:'Specials: offer claimed',delta:12,bucket:'active'},
+  {name:'spl_apt_submit',detail:'Appointment booked',delta:20,bucket:'active',conversion:true},
+  {name:'lg_open',detail:'Lead grabber opened',delta:8,bucket:'active'},
+  {name:'lg_submit',detail:'Lead grabber submitted',delta:20,bucket:'active',conversion:true},
+  {name:'review_read',detail:'Read customer review',delta:4,bucket:'comparison'},
+  {name:'area_click',detail:'Service area selected',delta:3,bucket:'comparison'},
+  {name:'fotojobber_upload',detail:'Photo uploaded for quote',delta:15,bucket:'active'},
+  {name:'contentradar_submit',detail:'Question submitted to ContentRadar',delta:5,bucket:'research'},
+];
+
+const PAGES=[
+  {path:'/',bucket:'research',delta:2},{path:'/about',bucket:'comparison',delta:4},
+  {path:'/blog',bucket:'research',delta:3},{path:'/faq',bucket:'research',delta:3},
+  {path:'/reviews',bucket:'comparison',delta:4},{path:'/specials',bucket:'comparison',delta:6},
+  {path:'/contact',bucket:'active',delta:8},{path:'/before-after',bucket:'comparison',delta:5},
+  {path:'/bathroom-renovations',bucket:'comparison',delta:6},{path:'/service-areas',bucket:'comparison',delta:3},
+  {path:'/hot-water',bucket:'active',delta:6},{path:'/drain-cleaning',bucket:'active',delta:6},
+  {path:'/emergency',bucket:'emergency',delta:20},{path:'/burst-pipe',bucket:'emergency',delta:20},
+  {path:'/flood',bucket:'emergency',delta:20},{path:'/no-hot-water',bucket:'emergency',delta:20},
+  {path:'/blocked-drain',bucket:'emergency',delta:18},{path:'/leak',bucket:'emergency',delta:20},
+  {path:'/urgent',bucket:'emergency',delta:18},
+];
+
+const ARCHETYPES=[
+  {name:'Emergency Caller',color:'emg',prediction:'Phone call within 5 min',confidence:92,detail:'Lands on emergency page, minimal scroll, rapid call CTA. Mobile, evening hours.'},
+  {name:'Comparison Shopper',color:'cmp',prediction:'Appointment in 24–48h',confidence:78,detail:'Multi-page session, gallery/review engagement, returns within 48h.'},
+  {name:'Active Project',color:'act',prediction:'Lead grab within session',confidence:85,detail:'Service-specific landing, Lead Grabber, FotoJobber upload.'},
+  {name:'Curious Researcher',color:'res',prediction:'No conversion this session',confidence:45,detail:'Blog entry, high dwell, FAQ deep-dive. ContentRadar signal likely.'},
+];
+
+// ── ID GENERATION ──────────────────────────────────────────
+function genSessionId(){
+  const a=Math.random().toString(36).slice(2,10);
+  const b=Math.random().toString(36).slice(2,6);
+  return `${a}…${b}`;
+}
+function genFingerprintId(){
+  // Stable-looking hash — same prefix per "device"
+  const prefix=Math.random().toString(36).slice(2,6);
+  const suffix=Math.random().toString(36).slice(2,10);
+  return `fp_${prefix}…${suffix}`;
+}
+
+// ── HELPERS ────────────────────────────────────────────────
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function randInt(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function now(){return new Date().toLocaleTimeString('en-CA',{hour12:false});}
+function pillClass(b){return{emergency:'p-emg',active:'p-act',comparison:'p-cmp',research:'p-res'}[b]||'p-new';}
+function fillClass(b){return{emergency:'f-emg',active:'f-act',comparison:'f-cmp',research:'f-res'}[b]||'f-new';}
+function bucketLabel(b){return{emergency:'EMG',active:'ACTIVE',comparison:'COMP',research:'RES'}[b]||'NEW';}
+function scoreColor(b){return{emergency:'c-emg',active:'c-act',comparison:'c-cmp',research:'c-res'}[b]||'c-new';}
+function upgradeBucket(cur,inc){
+  if(!inc) return cur;
+  return(BUCKET_ORDER[inc]||0)>(BUCKET_ORDER[cur]||0)?inc:cur;
+}
+
+// ── FINGERPRINT REGISTRY — enables returning visitor detection ──
+const fpRegistry={}; // fingerprintId → {scoreRaw, bucket, hubProfileId, name}
+
+// ── STATE ──────────────────────────────────────────────────
+let visitors={};
+let eventLog=[];
+let totalEvents=0,totalConversions=0,totalEmg=0,totalNeg=0,totalDemote=0,totalReturning=0;
+let selectedId=null;
+let simInterval=null,newVisitorInterval=null,decayInterval=null;
+let speed=1800;
+let running=false;
+
+// ── VISITOR GENERATION ─────────────────────────────────────
+function genVisitor(){
+  const city=rand(CITIES);
+  const device=Math.random()<0.62?'mobile':'desktop';
+  const entryPage=rand(PAGES);
+  const sessionId=genSessionId();
+  const fingerprintId=genFingerprintId();
+  const archetype=rand(ARCHETYPES);
+
+  // Check if this fingerprint is a returning visitor
+  const priorProfile=fpRegistry[fingerprintId];
+  const isReturning=!!priorProfile;
+
+  let restoredScore=0, restoredBucket='research', hubProfileId=null, resolvedName=null;
+  if(isReturning){
+    restoredScore=priorProfile.scoreRaw;
+    restoredBucket=priorProfile.bucket;
+    hubProfileId=priorProfile.hubProfileId;
+    resolvedName=priorProfile.name;
+    totalReturning++;
+  }
+
+  const v={
+    sessionId,
+    fingerprintId,
+    hubProfileId,
+    resolvedName, // null = anonymous
+    city:city.city, region:city.region, country:city.country,
+    device,
+    bucket: isReturning ? restoredBucket : 'research',
+    scoreRaw: isReturning ? restoredScore : 0,
+    lastEventMs: Date.now(),
+    currentPage:entryPage,
+    pages:[entryPage.path],
+    recentEventNames:[], // last 5 for path context matching
+    deltaHistory:[], // last 10 deltas for sparkline/velocity
+    events:[],
+    conversions:[],
+    archetype,
+    confidence: isReturning ? Math.min(95,randInt(70,85)) : randInt(15,35),
+    active:true,
+    isReturning,
+    frictionCount:0,
+    actions:[
+      {title:'Show booking prompt',desc:'Surface appointment CTA in hero',status:'waiting'},
+      {title:'Expand Lead Grabber',desc:'Auto-open lead grabber widget',status:'waiting'},
+      {title:'Priority callback flag',desc:'Flag session for immediate callback',status:'waiting'},
+      {title:'Friction intervention',desc:'Simplified form / direct call option',status:'waiting'},
+    ]
+  };
+
+  // Register fingerprint
+  if(!fpRegistry[fingerprintId]){
+    fpRegistry[fingerprintId]={scoreRaw:0,bucket:'research',hubProfileId:null,name:null};
+  }
+
+  return v;
+}
+
+// ── EVENT ENGINE ───────────────────────────────────────────
+function fireEvent(visitor){
+  const isEmgPage=visitor.currentPage.bucket==='emergency';
+  const useNegative=!isEmgPage && Math.random()<0.15; // 15% friction rate
+
+  let evName,evDetail,baseDelta,evBucket,isConversion=false,isNeg=false,isSys=false,pathCtx=null,multiplier=1.0;
+
+  if(useNegative){
+    const neg=rand(NEGATIVE_EVENTS);
+    evName=neg.name; evDetail=neg.detail; baseDelta=neg.delta;
+    evBucket=visitor.bucket; isNeg=true;
+    totalNeg++;
+    visitor.frictionCount++;
+  } else {
+    let pool=[...POS_EVENTS];
+    if(isEmgPage) pool=pool.filter(e=>['page_load','scroll_25','scroll_50','hero_call_click','nav_emergency','lg_open','lg_submit'].includes(e.name));
+    const ev=rand(pool);
+    evName=ev.name;
+    evDetail=ev.detail+(evName==='area_click'?` — ${visitor.city}`:'');
+    baseDelta=evName==='page_load'?visitor.currentPage.delta:ev.delta;
+    evBucket=ev.bucket||visitor.currentPage.bucket;
+    isConversion=!!ev.conversion;
+
+    // Path context check
+    const recent=[...visitor.recentEventNames, evName];
+    pathCtx=matchPathContext(recent);
+    if(pathCtx) multiplier=pathCtx.multiplier;
+  }
+
+  const appliedDelta=isNeg ? baseDelta : Math.round(baseDelta*multiplier);
+  const oldBucket=visitor.bucket;
+
+  // Apply delta
+  visitor.scoreRaw=Math.min(100, Math.max(0, visitor.scoreRaw+appliedDelta));
+  visitor.lastEventMs=Date.now();
+  if(!isNeg) visitor.bucket=upgradeBucket(visitor.bucket, evBucket);
+
+  // Track recent events for path matching (keep last 5)
+  visitor.recentEventNames.push(evName);
+  if(visitor.recentEventNames.length>5) visitor.recentEventNames.shift();
+
+  // Track delta history for sparkline (keep last 10)
+  visitor.deltaHistory.push(appliedDelta);
+  if(visitor.deltaHistory.length>10) visitor.deltaHistory.shift();
+
+  // Update fingerprint registry
+  fpRegistry[visitor.fingerprintId].scoreRaw=visitor.scoreRaw;
+  fpRegistry[visitor.fingerprintId].bucket=visitor.bucket;
+
+  // Confidence grows with score and time
+  if(visitor.scoreRaw>40 && !isNeg) visitor.confidence=Math.min(95,visitor.confidence+randInt(0,2));
+
+  // Actions
+  if(visitor.scoreRaw>=30 && visitor.actions[0].status==='waiting') visitor.actions[0].status='triggered';
+  if(visitor.scoreRaw>=60 && visitor.actions[0].status==='triggered') visitor.actions[0].status='fired';
+  if(visitor.bucket==='active' && visitor.actions[1].status==='waiting') visitor.actions[1].status='triggered';
+  if(isConversion && visitor.actions[1].status!=='fired') visitor.actions[1].status='fired';
+  if(visitor.bucket==='emergency' && visitor.actions[2].status==='waiting') visitor.actions[2].status='fired';
+  if(visitor.frictionCount>=2 && visitor.actions[3].status==='waiting') visitor.actions[3].status='triggered';
+  if(visitor.frictionCount>=3) visitor.actions[3].status='fired';
+
+  // Conversion — resolve identity
+  if(isConversion && !visitor.hubProfileId){
+    const fn=rand(FIRST_NAMES), ln=rand(LAST_NAMES);
+    visitor.resolvedName=`${fn} ${ln}`;
+    visitor.hubProfileId=`hub_rf_${String(Math.floor(Math.random()*9000)+1000)}`;
+    visitor.confidence=100;
+    fpRegistry[visitor.fingerprintId].hubProfileId=visitor.hubProfileId;
+    fpRegistry[visitor.fingerprintId].name=visitor.resolvedName;
+    totalConversions++;
+    visitor.conversions.push(evName);
+    const sysEntry=makeLogEntry(visitor,'profile_resolved',`Identity resolved → ${visitor.resolvedName} · ${visitor.hubProfileId}`,visitor.currentPage.path,0,visitor.bucket,true,false,true,null,1.0);
+    visitor.events.unshift(sysEntry);
+    eventLog.unshift(sysEntry);
+    showToast(`✓ ${visitor.resolvedName} converted — profile resolved`,'t-conv');
+  }
+
+  if(visitor.bucket==='emergency' && oldBucket!=='emergency'){
+    totalEmg++;
+    showToast(`🚨 ${visitor.resolvedName||visitor.fingerprintId} (${visitor.city}) — EMERGENCY`,'t-emg');
+  }
+
+  // Navigate occasionally
+  if(Math.random()<0.28){
+    const next=rand(PAGES);
+    visitor.currentPage=next;
+    if(!visitor.pages.includes(next.path)) visitor.pages.push(next.path);
+  }
+
+  const entry=makeLogEntry(visitor,evName,evDetail,visitor.currentPage.path,appliedDelta,visitor.bucket,false,isNeg,false,pathCtx,multiplier);
+  visitor.events.unshift(entry);
+  eventLog.unshift(entry);
+  totalEvents++;
+
+  return entry;
+}
+
+function makeLogEntry(v,evName,detail,page,delta,bucket,isSys,isNeg,isConv,pathCtx,multiplier){
+  return{
+    time:now(),
+    visitorId:v.sessionId,
+    visitorDisplay:v.resolvedName||v.fingerprintId.slice(0,12)+'…',
+    city:v.city,region:v.region,
+    event:evName,detail,page,
+    delta:(delta>=0?'+':'')+delta,
+    deltaNum:delta,
+    bucket,
+    isConversion:isConv,isNeg,isSys,
+    pathCtx:pathCtx?pathCtx.label:null,
+    multiplier,
+  };
+}
+
+// ── RETURNING VISITOR EVENT ────────────────────────────────
+function fireReturningEvent(v){
+  const sysEntry=makeLogEntry(v,'returning_visitor_detected',
+    `Fingerprint matched · prior score ${v.scoreRaw} restored · ${bucketLabel(v.bucket)} bucket held`,
+    v.currentPage.path,0,v.bucket,true,false,false,null,1.0);
+  v.events.unshift(sysEntry);
+  eventLog.unshift(sysEntry);
+  totalEvents++;
+  showToast(`↩ Returning visitor detected — ${v.fingerprintId.slice(0,14)} · score restored`,'t-sys');
+}
+
+// ── DEMOTION CHECK ─────────────────────────────────────────
+function checkDemotion(v){
+  const dem=evalDemotion(v);
+  if(!dem) return;
+  const oldBucket=v.bucket;
+  v.bucket=dem.to==='unclassified'?'research':dem.to;
+  totalDemote++;
+  fpRegistry[v.fingerprintId].bucket=v.bucket;
+  const sysEntry=makeLogEntry(v,'bucket_demotion',
+    `Score decayed below threshold · ${bucketLabel(oldBucket)} → ${bucketLabel(v.bucket)}`,
+    v.currentPage.path,0,v.bucket,true,false,false,null,1.0);
+  v.events.unshift(sysEntry);
+  eventLog.unshift(sysEntry);
+  totalEvents++;
+  showToast(`▼ Bucket demoted — ${v.resolvedName||v.fingerprintId.slice(0,10)} · ${bucketLabel(oldBucket)} → ${bucketLabel(v.bucket)}`,'t-demote');
+}
+
+// ── TICK ───────────────────────────────────────────────────
+function tick(){
+  const activeIds=Object.keys(visitors).filter(id=>visitors[id].active);
+  if(!activeIds.length) return;
+  const vid=rand(activeIds);
+  const v=visitors[vid];
+  fireEvent(v);
+  if(v.events.length>randInt(8,22)) v.active=false;
+  renderAll();
+}
+
+function maybeAddVisitor(){
+  const activeCount=Object.values(visitors).filter(v=>v.active).length;
+  if(activeCount<12 && Math.random()<0.55){
+    const v=genVisitor();
+    visitors[v.sessionId]=v;
+    if(v.isReturning) fireReturningEvent(v);
+    fireEvent(v);
+    if(!v.isReturning && Math.random()<0.35) showToast(`New visitor — ${v.city}, ${v.region} ${v.country}`,'t-match');
+  }
+}
+
+// Decay/demotion check every 5 seconds
+function decayTick(){
+  Object.values(visitors).filter(v=>v.active).forEach(v=>{
+    checkDemotion(v);
+  });
+  renderAll();
+}
+
+// ── RENDER ─────────────────────────────────────────────────
+function renderAll(){
+  renderStats();
+  renderRoster();
+  renderStream();
+  if(selectedId && visitors[selectedId]) renderIntel(visitors[selectedId]);
+}
+
+function renderStats(){
+  const active=Object.values(visitors).filter(v=>v.active).length;
+  document.getElementById('sActive').textContent=active;
+  document.getElementById('sTotal').textContent=Object.keys(visitors).length;
+  document.getElementById('sEmg').textContent=totalEmg;
+  document.getElementById('sConv').textContent=totalConversions;
+  document.getElementById('sNeg').textContent=totalNeg;
+  document.getElementById('sDemote').textContent=totalDemote;
+  document.getElementById('sReturning').textContent=totalReturning;
+  document.getElementById('rosterCount').textContent=active+' active';
+  document.getElementById('streamEvCount').textContent=totalEvents;
+}
+
+function velocityLabel(deltas){
+  if(!deltas.length) return {label:'—',cls:'vel-flat',dir:'→'};
+  const recent=deltas.slice(-5);
+  const avg=recent.reduce((a,b)=>a+b,0)/recent.length;
+  if(avg>=6) return {label:'Rising fast',cls:'vel-up',dir:'↑↑'};
+  if(avg>=2) return {label:'Rising',cls:'vel-up',dir:'↑'};
+  if(avg>=-1) return {label:'Stalled',cls:'vel-flat',dir:'→'};
+  if(avg>=-5) return {label:'Cooling',cls:'vel-dn',dir:'↓'};
+  return {label:'Dropping fast',cls:'vel-dn',dir:'↓↓'};
+}
+
+function sparklineHTML(deltas,fillCls){
+  if(!deltas.length) return '';
+  const max=Math.max(...deltas.map(Math.abs),1);
+  return deltas.map(d=>{
+    const h=Math.max(2,Math.round((Math.abs(d)/max)*12));
+    const color=d<0?'var(--red)':(`var(--${fillCls==='f-emg'?'red':fillCls==='f-act'?'amber':fillCls==='f-cmp'?'blue':'green'})`);
+    return `<div class="spark-bar" style="height:${h}px;background:${color};opacity:${d<0?1:0.7};"></div>`;
+  }).join('');
+}
+
+function renderRoster(){
+  const sorted=Object.values(visitors)
+    .filter(v=>v.active)
+    .sort((a,b)=>(BUCKET_ORDER[b.bucket]||0)-(BUCKET_ORDER[a.bucket]||0));
+  const el=document.getElementById('rosterList');
+  el.innerHTML=sorted.map(v=>{
+    const {live,decayPct,inGrace}=calcScoreLive(v.scoreRaw,v.bucket,v.lastEventMs);
+    const vel=velocityLabel(v.deltaHistory);
+    const fCls=fillClass(v.bucket);
+    const displayName=v.resolvedName||'Anonymous';
+    const isAnon=!v.resolvedName;
+    return `<div class="visitor-row${selectedId===v.sessionId?' selected':''}" onclick="selectVisitor('${v.sessionId}')">
+      <div class="vr-top">
+        <div class="vr-identity">
+          <div class="vr-name${isAnon?' anon':''}">${displayName}</div>
+          <div class="vr-fp">${v.fingerprintId}</div>
+          <div class="vr-loc">${v.city}, ${v.region} · ${v.country}</div>
+        </div>
+        <span class="pill ${pillClass(v.bucket)}">${bucketLabel(v.bucket)}</span>
+      </div>
+      <div class="vr-mid">
+        <span class="pill p-new" style="font-size:8px;">${v.device==='mobile'?'📱':'💻'} ${v.device}</span>
+        ${v.isReturning?'<span class="pill p-sys" style="font-size:8px;">↩ returning</span>':''}
+        ${v.hubProfileId?'<span class="pill p-match" style="font-size:8px;">✓ named</span>':''}
+        ${v.frictionCount>=2?'<span class="pill p-neg" style="font-size:8px;">⚠ friction</span>':''}
+      </div>
+      <div class="vr-score-wrap">
+        <div class="vr-score-labels">
+          <span class="vr-score-live">${live} <span style="font-size:9px;color:var(--text3);">live</span></span>
+          <span class="vr-score-raw">raw ${v.scoreRaw}</span>
+        </div>
+        <div class="score-track">
+          <div class="score-fill-raw ${fCls}" style="width:${v.scoreRaw}%"></div>
+          <div class="score-fill-live ${fCls}" style="width:${live}%"></div>
+        </div>
+      </div>
+      <div class="vr-velocity">
+        <span class="vel-label ${vel.cls}">${vel.dir} ${vel.label}</span>
+        <div class="sparkline">${sparklineHTML(v.deltaHistory,fCls)}</div>
+      </div>
+      ${!inGrace&&decayPct>0?`<div class="decay-badge">↓ ${decayPct}% decayed · ${Math.round((Date.now()-v.lastEventMs)/SIM_HOUR_MS)}h idle</div>`:''}
+      ${inGrace?`<div class="grace-badge">● Grace period active</div>`:''}
+      <div class="vr-page"><div class="live-dot-sm"></div>${v.currentPage.path}</div>
+      <div class="vr-conf">
+        <div class="conf-track"><div class="conf-fill" style="width:${v.confidence}%"></div></div>
+        <span class="conf-label">${v.confidence}% id</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderStream(){
+  const shown=eventLog.slice(0,150);
+  const el=document.getElementById('eventList');
+  el.innerHTML=shown.map((e,i)=>{
+    let flashCls='';
+    if(i===0){
+      if(e.isSys&&e.event==='bucket_demotion') flashCls='new-demote';
+      else if(e.isSys) flashCls='new-sys';
+      else if(e.isConversion) flashCls='new-conv';
+      else if(e.isNeg) flashCls='new-neg';
+      else if(e.bucket==='emergency') flashCls='new-emg';
+      else flashCls='new';
+    }
+    const deltaDisplay=e.deltaNum===0?'—':`${e.deltaNum>=0?'+':''}${e.deltaNum}`;
+    const deltaCls=e.isSys?'d-sys':e.isNeg?'d-neg':{emergency:'d-emg',active:'d-act',comparison:'d-cmp',research:'d-res'}[e.bucket]||'d-res';
+    const multiplierTag=e.multiplier>1?`<span style="font-size:8px;color:var(--purple);margin-left:3px;">${e.multiplier}x</span>`:'';
+    return `<div class="ev ${flashCls}">
+      <div class="ev-time">${e.time}</div>
+      <div class="ev-who">${e.visitorDisplay.length>14?e.visitorDisplay.slice(0,14)+'…':e.visitorDisplay}<small>${e.city}, ${e.region}</small></div>
+      <div class="ev-body">
+        <div class="ev-name${e.isSys?' sys':e.isNeg?' neg':''}">${e.event}</div>
+        <div class="ev-detail">${e.detail}</div>
+        ${e.pathCtx?`<div class="ev-path-ctx">⬡ ${e.pathCtx}</div>`:''}
+        <div class="ev-page">${e.page}</div>
+      </div>
+      <div class="delta ${deltaCls}">${deltaDisplay}${multiplierTag}</div>
+      <div class="ev-bucket"><span class="pill ${pillClass(e.bucket)}">${bucketLabel(e.bucket)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderIntel(v){
+  const {live,decayPct,inGrace}=calcScoreLive(v.scoreRaw,v.bucket,v.lastEventMs);
+  const vel=velocityLabel(v.deltaHistory);
+  const fCls=fillClass(v.bucket);
+  const isAnon=!v.resolvedName;
+
+  // Path trace — last 6 events
+  const pathTrace=v.events.slice(0,6).reverse().map((e,i,arr)=>{
+    const isLast=i===arr.length-1;
+    const rowCls=e.isSys?'pt-sys':e.isNeg?'pt-neg':e.multiplier>1?'pt-highlight':'';
+    const deltaStr=(e.deltaNum>=0?'+':'')+e.deltaNum;
+    const deltaCls=e.isSys?'d-sys':e.isNeg?'d-neg':{emergency:'d-emg',active:'d-act',comparison:'d-cmp',research:'d-res'}[e.bucket]||'d-res';
+    return `<div class="pt-row ${rowCls}">
+      <span class="pt-event">${e.event}</span>
+      ${e.pathCtx?`<span class="pt-ctx">⬡ ${e.pathCtx}</span>`:''}
+      ${e.multiplier>1?`<span class="pt-multiplier">${e.multiplier}x</span>`:''}
+      <span class="pt-delta delta ${deltaCls}" style="font-size:9px;padding:1px 4px;">${deltaStr}</span>
+    </div>
+    ${!isLast?`<div class="pt-arrow" style="margin-left:8px;color:var(--text3);">↓</div>`:''}`;
+  }).join('');
+
+  // Journey
+  const journey=v.pages.slice(-6).map((p,i,arr)=>`
+    <div class="j-step">
+      <span class="j-node${p===v.currentPage.path?' cur':''}${['/emergency','/burst-pipe','/flood','/leak','/urgent'].includes(p)?' emg':''}">${p}</span>
+      ${i<arr.length-1?'<span class="j-arr">›</span>':''}
+    </div>`).join('');
+
+  document.getElementById('intelContent').innerHTML=`
+
+    <div class="intel-section">
+      <div class="intel-section-title">Identity</div>
+      <div class="prow"><span class="pl">Status</span><span class="pv">${isAnon?'<span style="color:var(--text3);font-style:italic;">Anonymous</span>':'<span style="color:var(--green);">✓ Named</span>'}</span></div>
+      ${!isAnon?`<div class="prow"><span class="pl">Name</span><span class="pv">${v.resolvedName}</span></div>`:''}
+      ${v.hubProfileId?`<div class="prow"><span class="pl">Hub profile</span><span class="pv mono">${v.hubProfileId}</span></div>`:''}
+      <div class="prow"><span class="pl">Session ID</span><span class="pv mono">${v.sessionId}</span></div>
+      <div class="prow"><span class="pl">Fingerprint ID</span><span class="pv mono">${v.fingerprintId}</span></div>
+      <div class="prow"><span class="pl">Device</span><span class="pv">${v.device==='mobile'?'📱 Mobile':'💻 Desktop'}</span></div>
+      <div class="prow"><span class="pl">Returning visitor</span><span class="pv">${v.isReturning?'<span style="color:var(--teal);">↩ Yes — FP matched</span>':'First visit'}</span></div>
+      <div class="prow"><span class="pl">ID confidence</span><span class="pv" style="color:var(--purple);font-family:var(--mono);">${v.confidence}%</span></div>
+    </div>
+
+    <div class="intel-section">
+      <div class="intel-section-title">Engagement Score</div>
+      <div class="score-display">
+        <div class="score-main-row">
+          <div class="score-big ${scoreColor(v.bucket)}">${live}</div>
+          <div>
+            <div class="score-labels">
+              <div class="score-label-item">live score</div>
+              <div class="score-label-item" style="margin-left:8px;">raw ${v.scoreRaw}</div>
+            </div>
+            <span class="pill ${pillClass(v.bucket)}">${bucketLabel(v.bucket)}</span>
+          </div>
+        </div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-raw ${fCls}" style="width:${v.scoreRaw}%"></div>
+          <div class="score-bar-live ${fCls}" style="width:${live}%"></div>
+        </div>
+        ${inGrace?`<div class="grace-info">● Grace period active — decay not yet applied</div>`:
+          decayPct>0?`<div class="decay-info">↓ ${decayPct}% decayed · ${Math.round((Date.now()-v.lastEventMs)/SIM_HOUR_MS)}h idle</div>`:''}
+      </div>
+    </div>
+
+    <div class="intel-section">
+      <div class="intel-section-title">Score Velocity</div>
+      <div class="vel-section">
+        <div class="vel-big ${vel.cls}">${vel.dir} ${vel.label}</div>
+        <div class="vel-spark">${sparklineHTML(v.deltaHistory,fCls)}</div>
+      </div>
+    </div>
+
+    <div class="intel-section">
+      <div class="intel-section-title">Path Trace — last 6 events</div>
+      <div class="path-trace">${pathTrace||'<span style="color:var(--text3);font-size:11px;">No events yet</span>'}</div>
+    </div>
+
+    <div class="intel-section">
+      <div class="intel-section-title">Page Journey</div>
+      <div class="journey-wrap">${journey}</div>
+    </div>
+
+    <div class="intel-section">
+      <div class="intel-section-title">Pattern Match</div>
+      <div class="match-card">
+        <div class="match-name">⬡ ${v.archetype.name}</div>
+        <div class="match-conf-row">
+          <div class="mct"><div class="mcf" style="width:${v.confidence}%"></div></div>
+          <span class="mc-pct">${v.confidence}%</span>
+        </div>
+        <div class="match-detail">${v.archetype.detail}</div>
+        <div class="match-pred">→ ${v.archetype.prediction}</div>
+      </div>
+    </div>
+
+    <div class="intel-section">
+      <div class="intel-section-title">Dynamic Actions</div>
+      ${v.actions.map(a=>`
+        <div class="action-card ${a.status==='fired'&&a.title.includes('Friction')?'friction':a.status}">
+          <div class="ac-title">${a.title}</div>
+          <div class="ac-desc">${a.desc}</div>
+          <div class="ac-status ${a.status==='waiting'?'st-w':a.status==='triggered'?'st-t':a.title.includes('Friction')?'st-r':'st-f'}">
+            ${a.status==='waiting'?'● Waiting':a.status==='triggered'?'▲ Triggered — threshold met':'✓ Fired — action delivered'}
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function selectVisitor(id){
+  selectedId=id;
+  renderRoster();
+  if(visitors[id]) renderIntel(visitors[id]);
+}
+
+// ── TOASTS ─────────────────────────────────────────────────
+function showToast(msg,cls){
+  const area=document.getElementById('toastArea');
+  const t=document.createElement('div');
+  t.className=`toast ${cls}`;
+  t.textContent=msg;
+  area.appendChild(t);
+  setTimeout(()=>t.remove(),4000);
+}
+
+// ── CONTROLS ───────────────────────────────────────────────
+function startSim(){
+  if(running) return;
+  running=true;
+  document.getElementById('startBtn').disabled=true;
+  document.getElementById('pauseBtn').disabled=false;
+  document.getElementById('liveBadge').style.opacity='1';
+  for(let i=0;i<3;i++){
+    const v=genVisitor();
+    visitors[v.sessionId]=v;
+    fireEvent(v);
+  }
+  renderAll();
+  simInterval=setInterval(tick,speed);
+  newVisitorInterval=setInterval(maybeAddVisitor,speed*2.5);
+  decayInterval=setInterval(decayTick,5000);
+}
+
+function pauseSim(){
+  if(!running) return;
+  running=false;
+  clearInterval(simInterval);clearInterval(newVisitorInterval);clearInterval(decayInterval);
+  document.getElementById('startBtn').disabled=false;
+  document.getElementById('pauseBtn').disabled=true;
+  document.getElementById('liveBadge').style.opacity='0';
+}
+
+function resetSim(){
+  pauseSim();
+  visitors={};eventLog=[];
+  totalEvents=0;totalConversions=0;totalEmg=0;totalNeg=0;totalDemote=0;totalReturning=0;
+  selectedId=null;
+  Object.keys(fpRegistry).forEach(k=>delete fpRegistry[k]);
+  document.getElementById('rosterList').innerHTML='';
+  document.getElementById('eventList').innerHTML='<div style="padding:40px;text-align:center;color:var(--text3);font-size:12px;">Press <strong>Run Simulation</strong> to begin</div>';
+  document.getElementById('intelContent').innerHTML='<div class="empty-intel">Select a visitor from the roster to see their full profile — session ID, fingerprint, dual score, velocity, path trace, and dynamic actions.</div>';
+  renderStats();
+}
+
+function setSpeed(){
+  speed=parseInt(document.getElementById('speedSelect').value);
+  if(running){pauseSim();startSim();}
+}
+</script>
+</body>
+</html>

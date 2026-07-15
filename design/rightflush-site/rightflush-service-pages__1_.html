@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  RIGHTFLUSH — SERVICE PAGE TEMPLATE
+  Group A — service pages built on this shared template
+
+  PAGE VARIANTS (change data-page attribute on <body>):
+
+  1. hot-water        → Hot Water Systems
+  2. blocked-drains   → Blocked Drains
+  3. leak-detection   → Leak Detection and Pipe Repair
+  4. gas-plumbing     → Gas Plumbing
+  5. water-filtration → Water Filtration (no FotoJobber)
+  6. roofing          → Roofing (shingles, ice dams, flashing) — added when Total Trades Solutions
+                         brought on a full-time roofing specialist; see PAGES.roofing
+  7. electrical       → Electrical (ESA-licensed panel upgrades, wiring, generators,
+                         EV chargers) — added when Total Trades Solutions' electrician joined
+  8. siding           → Siding (vinyl, fiber cement, wood — repair and replacement)
+  9. stucco           → Stucco (crack repair, water damage, EIFS)
+  10. brick           → Brick (repointing, spalling, chimney, veneer)
+                         8–10 added when Total Trades Solutions' carpenter joined, covering
+                         exterior cladding — see PAGES.siding / .stucco / .brick
+  11. windows         → Windows (replacement, fogging/seal repair, egress)
+  12. doors           → Exterior/entry doors (replacement, weatherstripping)
+  13. garage-doors    → Garage Doors (spring repair, openers, panels)
+  14. patio-doors     → Patio Doors (sliding & French — rollers, track, glass)
+                         11–14 are the "openings" cluster from the same carpenter
+                         hire — see PAGES.windows / .doors / .["garage-doors"] /
+                         ["patio-doors"]. NOTE: array order in the URL-detection
+                         list below matters — 'garage_doors'/'patio_doors' must
+                         be checked before plain 'doors', since 'doors' is a
+                         substring of both.
+  15. hvac            → Furnace/HVAC (TSSA-certified furnace work, AC, ductwork,
+                         HRV, no-heat emergencies) — added alongside electrical
+  16. decks-fencing   → Patio Decks & Fencing (combined page — frost-depth
+                         footings, privacy/boundary fencing, gates)
+  17. space-conversions → Basement/Attic/Garage Conversions (combined page —
+                         distinct from Home Additions, which is new square
+                         footage, not converting existing space)
+  18. home-additions   → Home Additions (room additions, second-story,
+                         sunrooms, in-law suites — new square footage,
+                         all-trades coordination; no FotoJobber, project
+                         scale needs a site visit, not a photo quote)
+
+  To use: set window.PAGE to the appropriate key
+  (see the PAGES object in the <script> section for every config)
+  ═══════════════════════════════════════════════════════════════════
+-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Service | Total Trades Solutions Timmins</title>
+<meta name="description" id="pageDesc" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS ── */
+:root {
+  --white:     #FFFFFF;
+  --surface:   #F8F6F1;
+  --border:    #E8E4DC;
+  --text:      #111714;
+  --text2:     #4A5E52;
+  --text3:     #8A9E92;
+  --green:     #1B5E3B;
+  --green-mid: #2D7A52;
+  --green-lt:  #EBF5EF;
+  --green-dk:  #0D3B27;
+  --rust:      #C24A1E;
+  --rust-mid:  #A83818;
+  --rust-lt:   #FAEDE8;
+  --gold:      #B8862A;
+  --ink:       #0D1F14;
+  --sans:      'Barlow', sans-serif;
+  --cond:      'Barlow Condensed', sans-serif;
+  --nav-h:     68px;
+  --trust-h:   40px;
+  --col:       1180px;
+  --radius:    6px;
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; font-size:16px; }
+body { font-family:var(--sans); background:var(--white); color:var(--text); overflow-x:hidden; }
+img { max-width:100%; display:block; }
+a { text-decoration:none; color:inherit; }
+button { cursor:pointer; font-family:inherit; }
+.page-content { margin-top:calc(var(--trust-h) + var(--nav-h)); }
+
+/* ── TRUST BAR ── */
+.trust-bar { position:fixed; top:0; left:0; right:0; z-index:200; height:var(--trust-h); background:var(--ink); display:flex; align-items:center; padding:0 24px; }
+.trust-bar-inner { max-width:var(--col); margin:0 auto; width:100%; display:flex; align-items:center; justify-content:space-between; }
+.trust-items { display:flex; align-items:center; }
+.trust-item { display:flex; align-items:center; gap:7px; font-size:12px; font-weight:500; color:rgba(255,255,255,0.75); padding:0 18px; border-right:1px solid rgba(255,255,255,0.1); }
+.trust-item:first-child { padding-left:0; }
+.trust-item:last-child { border-right:none; }
+.trust-item svg { width:13px; height:13px; stroke:var(--gold); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+.trust-item .stars { color:var(--gold); font-size:11px; letter-spacing:1px; }
+.trust-right { display:flex; align-items:center; }
+.trust-phone { font-family:var(--cond); font-size:15px; font-weight:700; color:#fff; letter-spacing:0.04em; }
+
+/* ── NAV ── */
+nav { position:fixed; top:var(--trust-h); left:0; right:0; z-index:190; height:var(--nav-h); background:var(--white); border-bottom:1px solid var(--border); transition:box-shadow 0.3s; }
+nav.scrolled { box-shadow:0 2px 20px rgba(0,0,0,0.08); }
+.nav-inner { max-width:var(--col); margin:0 auto; width:100%; height:100%; display:flex; align-items:center; padding:0 24px; gap:32px; }
+.nav-logo { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.nav-logo-mark { width:38px; height:38px; background:var(--green); border-radius:8px; display:flex; align-items:center; justify-content:center; }
+.nav-logo-mark svg { width:22px; height:22px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.nav-logo-text { display:flex; flex-direction:column; line-height:1.1; }
+.nav-logo-name { font-family:var(--cond); font-size:20px; font-weight:800; color:var(--ink); text-transform:uppercase; letter-spacing:0.02em; }
+.nav-logo-tag { font-size:10px; color:var(--text3); font-weight:500; letter-spacing:0.06em; text-transform:uppercase; }
+.nav-services { display:flex; align-items:center; gap:2px; flex:1; }
+.nav-svc { display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 12px; border-radius:var(--radius); transition:background 0.2s; text-decoration:none; }
+.nav-svc:hover { background:var(--green-lt); }
+.nav-svc.active { background:var(--green-lt); }
+.nav-svc-icon { width:28px; height:28px; display:flex; align-items:center; justify-content:center; }
+.nav-svc-icon svg { width:22px; height:22px; stroke:var(--green); fill:none; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+.nav-svc.active .nav-svc-icon svg { stroke:var(--green-dk); }
+.nav-svc-label { font-size:10px; font-weight:600; color:var(--text2); letter-spacing:0.03em; white-space:nowrap; }
+.nav-svc.active .nav-svc-label { color:var(--green); font-weight:700; }
+.nav-right { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.nav-emergency { display:flex; align-items:center; gap:6px; padding:8px 14px; border-radius:var(--radius); background:var(--rust-lt); border:1.5px solid var(--rust); font-size:13px; font-weight:600; color:var(--rust); transition:all 0.2s; text-decoration:none; }
+.nav-emergency:hover { background:var(--rust); color:#fff; }
+.nav-emergency svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.nav-book { display:flex; align-items:center; gap:6px; padding:8px 18px; border-radius:var(--radius); background:var(--green); color:#fff; font-size:13px; font-weight:600; text-decoration:none; transition:background 0.2s; }
+.nav-book:hover { background:var(--green-mid); }
+
+/* ── MOBILE ── */
+.mobile-header { display:none; position:fixed; top:0; left:0; right:0; z-index:200; height:60px; background:var(--white); border-bottom:1px solid var(--border); padding:0 16px; align-items:center; justify-content:space-between; }
+.mobile-hamburger { width:40px; height:40px; border:none; background:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; }
+.mobile-hamburger span { display:block; width:22px; height:2px; background:var(--ink); transition:all 0.3s; transform-origin:center; }
+.mobile-hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.mobile-hamburger.open span:nth-child(2) { opacity:0; }
+.mobile-hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+.mobile-logo-name { font-family:var(--cond); font-size:18px; font-weight:800; color:var(--ink); text-transform:uppercase; }
+.mobile-right { display:flex; align-items:center; gap:8px; }
+.mobile-emergency-btn { display:flex; align-items:center; gap:5px; background:var(--rust); color:#fff; font-family:var(--cond); font-size:13px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; padding:7px 12px; border-radius:var(--radius); text-decoration:none; }
+.mobile-emergency-btn svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.mobile-call-btn { width:36px; height:36px; border-radius:50%; background:var(--green); border:none; display:flex; align-items:center; justify-content:center; text-decoration:none; }
+.mobile-call-btn svg { width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2; }
+.mobile-menu { display:none; position:fixed; top:60px; left:0; right:0; bottom:0; z-index:180; background:var(--white); overflow-y:auto; border-top:1px solid var(--border); flex-direction:column; }
+.mobile-menu.open { display:flex; }
+.mobile-menu-emergency { display:flex; align-items:center; gap:10px; padding:18px 20px; background:var(--rust-lt); border-bottom:1px solid rgba(194,74,30,0.15); font-family:var(--cond); font-size:17px; font-weight:700; color:var(--rust); text-transform:uppercase; text-decoration:none; }
+.mobile-menu-emergency svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.mobile-menu-section { padding:16px 20px 8px; }
+.mobile-menu-section-title { font-size:10px; font-weight:700; color:var(--text3); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:4px; }
+.mobile-menu-link { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); font-size:15px; font-weight:500; color:var(--text); text-decoration:none; }
+.mobile-menu-link svg { width:18px; height:18px; stroke:var(--green); fill:none; stroke-width:1.75; flex-shrink:0; }
+.mobile-menu-book { margin:16px 20px 20px; display:block; text-align:center; background:var(--green); color:#fff; font-family:var(--cond); font-size:17px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:14px; border-radius:var(--radius); text-decoration:none; }
+
+/* ── SECTION COMMONS ── */
+.section { padding:80px 24px; }
+.section-surface { background:var(--surface); }
+.section-ink { background:var(--ink); }
+.section-inner { max-width:var(--col); margin:0 auto; }
+.section-label { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; color:var(--green); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:14px; }
+.section-label::before { content:''; display:block; width:20px; height:2px; background:var(--green); }
+.section-headline { font-family:var(--cond); font-weight:800; font-size:clamp(34px,4.5vw,54px); line-height:0.95; text-transform:uppercase; color:var(--ink); letter-spacing:-0.01em; margin-bottom:16px; }
+.section-headline.white { color:#fff; }
+.section-sub { font-size:17px; font-weight:300; color:var(--text2); line-height:1.7; max-width:580px; margin-bottom:48px; }
+.section-sub.white { color:rgba(255,255,255,0.6); }
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s ease,transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-delay-1 { transition-delay:0.1s; }
+.reveal-delay-2 { transition-delay:0.2s; }
+.reveal-delay-3 { transition-delay:0.3s; }
+
+/* ════════════════════════════════════════
+   SERVICE PAGE TEMPLATE STYLES
+   ════════════════════════════════════════ */
+
+/* ── HERO ── */
+.svc-hero { background:var(--ink); position:relative; overflow:hidden; padding:72px 24px 64px; }
+.svc-hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse at 70% 50%,rgba(27,94,59,0.18) 0%,transparent 60%),radial-gradient(ellipse at 10% 80%,rgba(184,134,42,0.05) 0%,transparent 40%); }
+.svc-hero-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px); background-size:60px 60px; }
+.svc-hero-inner { position:relative; z-index:2; max-width:var(--col); margin:0 auto; display:grid; grid-template-columns:1fr 400px; gap:56px; align-items:center; }
+.svc-hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(27,94,59,0.25); border:1px solid rgba(27,94,59,0.4); border-radius:100px; padding:5px 14px; font-size:11px; font-weight:700; color:rgba(255,255,255,0.75); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px; }
+.svc-hero-badge-dot { width:5px; height:5px; border-radius:50%; background:#4ade80; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+.svc-hero-headline { font-family:var(--cond); font-weight:900; font-size:clamp(48px,6.5vw,88px); line-height:0.88; text-transform:uppercase; color:#fff; margin-bottom:24px; }
+.svc-hero-headline em { font-style:normal; color:var(--gold); display:block; }
+.svc-hero-sub { font-size:17px; font-weight:300; color:rgba(255,255,255,0.6); line-height:1.65; margin-bottom:36px; max-width:480px; }
+.svc-hero-actions { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.svc-hero-cta { display:inline-flex; align-items:center; gap:8px; background:var(--green); color:#fff; font-family:var(--cond); font-weight:700; font-size:16px; letter-spacing:0.05em; text-transform:uppercase; padding:14px 26px; border-radius:var(--radius); border:none; text-decoration:none; transition:background 0.2s; cursor:pointer; }
+.svc-hero-cta:hover { background:var(--green-mid); }
+.svc-hero-cta svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.svc-hero-cta.secondary { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.8); }
+.svc-hero-cta.secondary:hover { background:rgba(255,255,255,0.14); }
+
+/* Hero right — quick facts card */
+.svc-facts-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:28px; }
+.svc-facts-title { font-size:10px; font-weight:700; color:rgba(255,255,255,0.35); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px; }
+.svc-facts-list { display:flex; flex-direction:column; gap:0; }
+.svc-fact { display:flex; align-items:flex-start; gap:12px; padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+.svc-fact:last-child { border-bottom:none; padding-bottom:0; }
+.svc-fact-icon { width:32px; height:32px; border-radius:8px; background:rgba(27,94,59,0.3); border:1px solid rgba(27,94,59,0.4); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.svc-fact-icon svg { width:16px; height:16px; stroke:#4ade80; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.svc-fact-text { }
+.svc-fact-label { font-family:var(--cond); font-size:13px; font-weight:700; color:#fff; text-transform:uppercase; letter-spacing:0.03em; margin-bottom:2px; }
+.svc-fact-sub { font-size:12px; color:rgba(255,255,255,0.4); line-height:1.4; }
+
+/* ── SCOPE GRID ── */
+.svc-scope-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.svc-scope-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; transition:all 0.2s; }
+.svc-scope-card:hover { border-color:var(--green); box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+.svc-scope-icon { width:40px; height:40px; border-radius:8px; background:var(--green-lt); display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+.svc-scope-icon svg { width:22px; height:22px; stroke:var(--green); fill:none; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+.svc-scope-name { font-family:var(--cond); font-size:16px; font-weight:700; color:var(--ink); text-transform:uppercase; margin-bottom:8px; }
+.svc-scope-desc { font-size:13px; color:var(--text2); line-height:1.65; }
+
+/* ── HOW IT WORKS ── */
+.svc-steps-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; }
+.svc-step { position:relative; }
+.svc-step-num { font-family:var(--cond); font-size:60px; font-weight:900; color:var(--green-lt); line-height:1; margin-bottom:-10px; }
+.svc-step-content { position:relative; z-index:1; }
+.svc-step-title { font-family:var(--cond); font-weight:700; font-size:18px; color:var(--ink); text-transform:uppercase; margin-bottom:8px; }
+.svc-step-desc { font-size:13px; color:var(--text2); line-height:1.65; }
+.svc-step-arrow { position:absolute; top:30px; right:-16px; width:32px; display:flex; align-items:center; z-index:2; }
+.svc-step-arrow svg { width:20px; height:20px; stroke:var(--border); fill:none; stroke-width:2; stroke-linecap:round; }
+
+/* ── FOTOJOBBER BAND ── */
+.fj-band { background:var(--surface); padding:72px 24px; }
+.fj-band-inner { max-width:var(--col); margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+.fj-band-tool { background:var(--white); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+.fj-band-header { background:var(--ink); padding:16px 20px; display:flex; align-items:center; gap:12px; }
+.fj-band-icon { width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; }
+.fj-band-icon svg { width:18px; height:18px; stroke:#fff; fill:none; stroke-width:2; }
+.fj-band-title { font-family:var(--cond); font-size:15px; font-weight:700; color:#fff; text-transform:uppercase; }
+.fj-band-body { padding:24px; }
+.fj-zone { border:2px dashed var(--border); border-radius:var(--radius); padding:36px 24px; text-align:center; cursor:pointer; transition:all 0.2s; margin-bottom:14px; }
+.fj-zone:hover { border-color:var(--green); background:var(--green-lt); }
+.fj-zone svg { width:36px; height:36px; stroke:var(--text3); fill:none; stroke-width:1; margin:0 auto 12px; }
+.fj-zone-title { font-family:var(--cond); font-weight:700; font-size:16px; color:var(--ink); text-transform:uppercase; margin-bottom:4px; }
+.fj-zone-sub { font-size:12px; color:var(--text3); }
+.fj-note-input { width:100%; border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; font-size:13px; font-family:inherit; outline:none; margin-bottom:10px; }
+.fj-note-input:focus { border-color:var(--green); }
+.fj-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
+.fj-input { border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; font-size:13px; font-family:inherit; outline:none; }
+.fj-input:focus { border-color:var(--green); }
+.fj-send { width:100%; background:var(--green); color:#fff; border:none; border-radius:var(--radius); padding:13px; font-family:var(--cond); font-weight:700; font-size:16px; letter-spacing:0.05em; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
+.fj-send:hover { background:var(--green-mid); }
+
+/* ── APPOINTMENT BAND ── */
+.apt-band { background:var(--ink); padding:72px 24px; }
+.apt-band-inner { max-width:var(--col); margin:0 auto; display:grid; grid-template-columns:1fr 440px; gap:64px; align-items:center; }
+.apt-form { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:28px; }
+.apt-form-title { font-family:var(--cond); font-size:20px; font-weight:700; color:#fff; text-transform:uppercase; margin-bottom:20px; }
+.apt-field { margin-bottom:12px; }
+.apt-label { font-size:10px; font-weight:700; color:rgba(255,255,255,0.35); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:5px; display:block; }
+.apt-input { width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:var(--radius); padding:11px 14px; font-size:13px; font-family:inherit; color:#fff; outline:none; transition:border-color 0.2s; }
+.apt-input::placeholder { color:rgba(255,255,255,0.25); }
+.apt-input:focus { border-color:var(--green-mid); }
+.apt-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.apt-select { width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:var(--radius); padding:11px 14px; font-size:13px; font-family:inherit; color:rgba(255,255,255,0.8); outline:none; }
+.apt-btn { width:100%; background:var(--green); color:#fff; border:none; border-radius:var(--radius); padding:14px; font-family:var(--cond); font-weight:700; font-size:16px; letter-spacing:0.05em; text-transform:uppercase; cursor:pointer; transition:background 0.2s; margin-top:6px; }
+.apt-btn:hover { background:var(--green-mid); }
+.apt-note { font-size:11px; color:rgba(255,255,255,0.3); text-align:center; margin-top:8px; }
+
+/* Apt right — trust points */
+.apt-trust-points { display:flex; flex-direction:column; gap:20px; }
+.apt-trust-item { display:flex; align-items:flex-start; gap:14px; }
+.apt-trust-icon { width:38px; height:38px; border-radius:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.apt-trust-icon svg { width:18px; height:18px; stroke:rgba(255,255,255,0.5); fill:none; stroke-width:1.75; }
+.apt-trust-title { font-family:var(--cond); font-size:15px; font-weight:700; color:#fff; text-transform:uppercase; margin-bottom:4px; }
+.apt-trust-desc { font-size:13px; color:rgba(255,255,255,0.4); line-height:1.6; }
+
+/* ── PROOF BAND ── */
+.proof-band { background:var(--surface); padding:64px 24px; }
+.proof-band-inner { max-width:var(--col); margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.proof-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+.proof-stars { color:var(--gold); font-size:13px; letter-spacing:2px; margin-bottom:12px; }
+.proof-text { font-size:14px; color:var(--text2); line-height:1.7; margin-bottom:14px; font-style:italic; }
+.proof-attr { display:flex; align-items:center; gap:8px; }
+.proof-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+.proof-name { font-size:11px; color:var(--text3); font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }
+
+/* ── RELATED SERVICES ── */
+.related-section { background:var(--white); padding:64px 24px; border-top:1px solid var(--border); }
+.related-inner { max-width:var(--col); margin:0 auto; }
+.related-label { font-size:11px; font-weight:700; color:var(--green); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:24px; display:flex; align-items:center; gap:8px; }
+.related-label::before { content:''; display:block; width:20px; height:2px; background:var(--green); }
+.related-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.related-card { border:1px solid var(--border); border-radius:var(--radius); padding:20px; display:flex; align-items:center; gap:14px; text-decoration:none; transition:all 0.2s; }
+.related-card:hover { border-color:var(--green); background:var(--green-lt); }
+.related-icon { width:36px; height:36px; border-radius:8px; background:var(--surface); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background 0.2s; }
+.related-card:hover .related-icon { background:rgba(27,94,59,0.15); }
+.related-icon svg { width:18px; height:18px; stroke:var(--green); fill:none; stroke-width:1.75; }
+.related-name { font-family:var(--cond); font-size:15px; font-weight:700; color:var(--ink); text-transform:uppercase; line-height:1.1; }
+.related-arrow { margin-left:auto; flex-shrink:0; }
+.related-arrow svg { width:14px; height:14px; stroke:var(--text3); fill:none; stroke-width:2; }
+.related-card:hover .related-arrow svg { stroke:var(--green); }
+
+/* ── EMERGENCY BAND ── */
+.emg-band { background:var(--rust); padding:0 24px; }
+.emg-band-inner { max-width:var(--col); margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:36px 0; gap:32px; }
+.emg-band-left { display:flex; align-items:center; gap:18px; }
+.emg-band-icon { width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.emg-band-icon svg { width:26px; height:26px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.emg-band-text h3 { font-family:var(--cond); font-weight:800; font-size:28px; color:#fff; text-transform:uppercase; line-height:1; margin-bottom:4px; }
+.emg-band-text p { font-size:14px; color:rgba(255,255,255,0.75); font-weight:300; }
+.emg-band-cta { display:inline-flex; align-items:center; gap:10px; background:#fff; color:var(--rust); font-family:var(--cond); font-weight:800; font-size:16px; letter-spacing:0.04em; text-transform:uppercase; padding:15px 28px; border-radius:var(--radius); text-decoration:none; transition:all 0.2s; white-space:nowrap; }
+.emg-band-cta:hover { background:rgba(255,255,255,0.92); }
+.emg-band-cta svg { width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:2.5; }
+
+/* ── FOOTER ── */
+footer { background:var(--ink); padding:64px 24px 32px; }
+.footer-inner { max-width:var(--col); margin:0 auto; }
+.footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.06); margin-bottom:32px; }
+.footer-brand-name { font-family:var(--cond); font-size:24px; font-weight:800; color:#fff; text-transform:uppercase; letter-spacing:0.02em; margin-bottom:6px; }
+.footer-brand-tag { font-size:12px; color:rgba(255,255,255,0.3); margin-bottom:20px; }
+.footer-brand-phone { font-family:var(--cond); font-size:26px; font-weight:700; color:var(--gold); letter-spacing:0.02em; display:block; margin-bottom:4px; }
+.footer-brand-email { font-size:13px; color:rgba(255,255,255,0.35); }
+.footer-col-title { font-size:11px; font-weight:700; color:rgba(255,255,255,0.3); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:16px; }
+.footer-links { display:flex; flex-direction:column; gap:8px; }
+.footer-link { font-size:13px; color:rgba(255,255,255,0.5); transition:color 0.2s; }
+.footer-link:hover { color:#fff; }
+.footer-bottom { display:flex; align-items:center; justify-content:space-between; font-size:11px; color:rgba(255,255,255,0.2); }
+
+/* ── LEAD GRABBER ── */
+.lead-grabber { position:fixed; bottom:96px; right:24px; z-index:490; width:56px; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.lg-btn { width:56px; height:56px; border-radius:50%; background:var(--rust); color:#fff; border:none; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(194,74,30,0.35); cursor:pointer; transition:all 0.2s; }
+.lg-btn:hover { background:var(--rust-mid); transform:scale(1.05); }
+.lg-btn svg { width:24px; height:24px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.lg-label { font-size:9px; font-weight:600; color:var(--rust); letter-spacing:0.04em; text-align:center; white-space:nowrap; }
+.lg-panel { position:fixed; bottom:90px; right:90px; z-index:490; width:300px; background:var(--white); border:1px solid var(--border); border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.12); overflow:hidden; display:none; }
+.lg-panel.open { display:block; animation:slideUp 0.3s ease; }
+@keyframes slideUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+.lg-header { background:var(--rust); padding:16px 18px; display:flex; align-items:center; justify-content:space-between; }
+.lg-header-title { font-family:var(--cond); font-size:18px; font-weight:700; color:#fff; text-transform:uppercase; }
+.lg-header-sub { font-size:11px; color:rgba(255,255,255,0.65); }
+.lg-close { background:none; border:none; color:rgba(255,255,255,0.6); cursor:pointer; }
+.lg-close svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.lg-body { padding:16px; }
+.lg-options { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
+.lg-option { padding:12px; border:1.5px solid var(--border); border-radius:var(--radius); text-align:center; cursor:pointer; transition:all 0.2s; }
+.lg-option:hover,.lg-option.selected { border-color:var(--rust); background:var(--rust-lt); }
+.lg-option svg { width:22px; height:22px; stroke:var(--rust); fill:none; stroke-width:2; margin:0 auto 6px; display:block; }
+.lg-option span { font-size:12px; font-weight:600; color:var(--rust); }
+.lg-input { width:100%; border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; font-size:13px; font-family:inherit; outline:none; margin-bottom:8px; }
+.lg-input:focus { border-color:var(--rust); }
+.lg-submit { width:100%; background:var(--rust); color:#fff; border:none; border-radius:var(--radius); padding:12px; font-family:var(--cond); font-weight:700; font-size:16px; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; }
+
+/* ── AI CHAT ── */
+.chat-widget { position:fixed; bottom:24px; right:24px; z-index:500; display:flex; flex-direction:column; align-items:flex-end; gap:12px; }
+.chat-bubble { width:56px; height:56px; border-radius:50%; background:var(--green); color:#fff; border:none; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(27,94,59,0.4); cursor:pointer; transition:all 0.2s; }
+.chat-bubble:hover { background:var(--green-mid); transform:scale(1.05); }
+.chat-bubble svg { width:26px; height:26px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.chat-panel { width:320px; background:var(--white); border:1px solid var(--border); border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.12); overflow:hidden; display:none; }
+.chat-panel.open { display:flex; flex-direction:column; animation:slideUp 0.3s ease; }
+.chat-panel-header { background:var(--green); padding:16px 18px; display:flex; align-items:center; justify-content:space-between; }
+.chat-header-info { display:flex; align-items:center; gap:10px; }
+.chat-avatar { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; }
+.chat-avatar svg { width:20px; height:20px; stroke:#fff; fill:none; stroke-width:2; }
+.chat-name { font-size:14px; font-weight:600; color:#fff; }
+.chat-status { font-size:11px; color:rgba(255,255,255,0.65); }
+.chat-close { background:none; border:none; color:rgba(255,255,255,0.6); cursor:pointer; }
+.chat-close svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.chat-messages { padding:16px; min-height:100px; display:flex; flex-direction:column; gap:10px; }
+.chat-msg { max-width:85%; padding:10px 14px; border-radius:12px; font-size:13px; line-height:1.5; }
+.chat-msg.bot { background:var(--surface); color:var(--text); border-bottom-left-radius:4px; align-self:flex-start; }
+.chat-msg.user { background:var(--green); color:#fff; border-bottom-right-radius:4px; align-self:flex-end; }
+.chat-quick { padding:0 16px 12px; display:flex; flex-wrap:wrap; gap:6px; }
+.chat-quick-btn { background:var(--green-lt); border:1px solid rgba(27,94,59,0.2); border-radius:100px; padding:5px 12px; font-size:12px; color:var(--green); font-weight:500; cursor:pointer; transition:all 0.2s; }
+.chat-quick-btn:hover { background:var(--green); color:#fff; }
+.chat-input-row { display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--border); }
+.chat-input { flex:1; border:1px solid var(--border); border-radius:100px; padding:8px 14px; font-size:13px; font-family:inherit; outline:none; }
+.chat-input:focus { border-color:var(--green); }
+.chat-send { width:36px; height:36px; border-radius:50%; background:var(--green); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.chat-send svg { width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2.5; }
+
+/* ── PIXEL TOAST ── */
+.pixel-toast { position:fixed; bottom:24px; left:24px; z-index:600; background:var(--ink); color:#fff; font-family:var(--cond); font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; padding:10px 16px; border-radius:var(--radius); display:flex; align-items:center; gap:8px; opacity:0; transform:translateY(8px); transition:opacity 0.3s,transform 0.3s; pointer-events:none; max-width:280px; }
+.pixel-toast.show { opacity:1; transform:translateY(0); }
+.pixel-toast-dot { width:6px; height:6px; border-radius:50%; background:#4ade80; animation:pulse 1.2s infinite; flex-shrink:0; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px) {
+  .svc-hero-inner,.fj-band-inner,.apt-band-inner { grid-template-columns:1fr; }
+  .svc-scope-grid { grid-template-columns:repeat(2,1fr); }
+  .svc-steps-grid { grid-template-columns:repeat(2,1fr); }
+  .proof-band-inner { grid-template-columns:1fr 1fr; }
+  .related-grid { grid-template-columns:repeat(2,1fr); }
+  .emg-band-inner { flex-direction:column; text-align:center; }
+  .footer-top { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:768px) {
+  :root { --trust-h:0px; --nav-h:60px; }
+  .trust-bar { display:none; }
+  nav { display:none; }
+  .mobile-header { display:flex; }
+  .page-content { margin-top:60px; }
+  .svc-scope-grid { grid-template-columns:1fr; }
+  .svc-steps-grid { grid-template-columns:1fr; }
+  .proof-band-inner { grid-template-columns:1fr; }
+  .related-grid { grid-template-columns:1fr 1fr; }
+  .fj-row,.apt-row { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr 1fr; gap:32px; }
+  .footer-bottom { flex-direction:column; gap:8px; text-align:center; }
+}
+@media(max-width:480px) {
+  .related-grid { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-items">
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Licensed &amp; Insured</div>
+      <div class="trust-item"><span class="stars">★★★★★</span>4.7 · 64 Reviews</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24/7 Emergency</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Free Estimates</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins &amp; Area</div>
+    </div>
+    <div class="trust-right"><a href="tel:7057001234" class="trust-phone">(705) 700-1234</a></div>
+  </div>
+</div>
+
+<!-- DESKTOP NAV -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="nav-logo-text"><span class="nav-logo-name">Total Trades</span><span class="nav-logo-tag">Timmins ON</span></div>
+    </a>
+    <div class="nav-services" id="navServices">
+      <!-- Active state set by JS -->
+      <a href="/hot-water" class="nav-svc" id="navHotWater"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="nav-svc-label">Hot Water</span></a>
+      <a href="/blocked-drains" class="nav-svc" id="navDrains"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div><span class="nav-svc-label">Drains</span></a>
+      <a href="/bathroom-renovations" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg></div><span class="nav-svc-label">Bathrooms</span></a>
+      <a href="/leak-detection" class="nav-svc" id="navLeaks"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="nav-svc-label">Leaks</span></a>
+      <a href="/gas-plumbing" class="nav-svc" id="navGas"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><span class="nav-svc-label">Gas</span></a>
+      <a href="/pipe-repair" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div><span class="nav-svc-label">Pipes</span></a>
+      <a href="/reviews" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="nav-svc-label">Reviews</span></a>
+      <a href="/blog" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="nav-svc-label">Blog</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>Emergency</a>
+      <a href="/book" class="nav-book" id="navBookBtn">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header" id="mobileHeader">
+  <button class="mobile-hamburger" id="mobileHamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+  <span class="mobile-logo-name">Total Trades Solutions</span>
+  <div class="mobile-right">
+    <a href="/emergency" class="mobile-emergency-btn"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency</a>
+    <a href="tel:7057001234" class="mobile-call-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></a>
+  </div>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/emergency" class="mobile-menu-emergency" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency 24/7 — We answer now</a>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Services</div>
+    <a href="/hot-water" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hot Water Systems</a>
+    <a href="/blocked-drains" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>Blocked Drains</a>
+    <a href="/bathroom-renovations" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg>Bathroom Renovations</a>
+    <a href="/leak-detection" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>Leak Detection</a>
+    <a href="/gas-plumbing" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Gas Plumbing</a>
+    <a href="/pipe-repair" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg>Pipe Repair</a>
+  </div>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Company</div>
+    <a href="/about" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>About Us</a>
+    <a href="/reviews" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Reviews</a>
+    <a href="/our-guarantee" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Our Guarantee</a>
+  </div>
+  <a href="/book" class="mobile-menu-book" onclick="closeMobileMenu()">Book Appointment</a>
+</div>
+
+<!-- PAGE CONTENT — all sections populated by JS from PAGE_CONFIG -->
+<main class="page-content">
+
+  <!-- HERO -->
+  <section class="svc-hero">
+    <div class="svc-hero-bg"></div>
+    <div class="svc-hero-grid"></div>
+    <div class="svc-hero-inner">
+      <div>
+        <div class="svc-hero-badge"><div class="svc-hero-badge-dot"></div><span id="heroBadge"></span></div>
+        <h1 class="svc-hero-headline" id="heroHeadline"></h1>
+        <p class="svc-hero-sub" id="heroSub"></p>
+        <div class="svc-hero-actions">
+          <button class="svc-hero-cta" onclick="scrollToApt()">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Book free estimate
+          </button>
+          <a href="tel:7057001234" class="svc-hero-cta secondary" id="heroCallBtn">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+            (705) 700-1234
+          </a>
+        </div>
+      </div>
+      <div class="svc-facts-card">
+        <div class="svc-facts-title">What to know</div>
+        <div class="svc-facts-list" id="factsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCOPE -->
+  <section class="section section-surface">
+    <div class="section-inner">
+      <div class="section-label reveal" id="scopeLabel"></div>
+      <h2 class="section-headline reveal" id="scopeHeadline"></h2>
+      <p class="section-sub reveal" id="scopeSub"></p>
+      <div class="svc-scope-grid" id="scopeGrid"></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label reveal">How it works</div>
+      <h2 class="section-headline reveal">Simple process.<br>Flat-rate price.</h2>
+      <p class="section-sub reveal">Four steps from your first contact to a completed job — with the price agreed before we start.</p>
+      <div class="svc-steps-grid">
+        <div class="svc-step reveal">
+          <div class="svc-step-num">01</div>
+          <div class="svc-step-content">
+            <div class="svc-step-title">Contact us</div>
+            <p class="svc-step-desc">Call, submit a FotoJobber photo, or book online. We respond same day. Emergencies within 15 minutes.</p>
+          </div>
+          <div class="svc-step-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="svc-step reveal reveal-delay-1">
+          <div class="svc-step-num">02</div>
+          <div class="svc-step-content">
+            <div class="svc-step-title">We assess</div>
+            <p class="svc-step-desc">A licensed plumber visits your home. We look at the job, ask what you need, and give you a flat-rate price before touching anything.</p>
+          </div>
+          <div class="svc-step-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="svc-step reveal reveal-delay-2">
+          <div class="svc-step-num">03</div>
+          <div class="svc-step-content">
+            <div class="svc-step-title">Work completed</div>
+            <p class="svc-step-desc">We do the job to a professional standard. We clean up after ourselves and explain everything we did.</p>
+          </div>
+          <div class="svc-step-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="svc-step reveal reveal-delay-3">
+          <div class="svc-step-num">04</div>
+          <div class="svc-step-content">
+            <div class="svc-step-title">Guaranteed</div>
+            <p class="svc-step-desc">Every job is backed by our workmanship guarantee. If something isn't right we come back and fix it. No charge.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOTOJOBBER BAND (hidden on water-filtration) -->
+  <div class="fj-band" id="fjBand">
+    <div class="fj-band-inner">
+      <div class="reveal">
+        <div class="section-label">FotoJobber</div>
+        <h2 class="section-headline" id="fjHeadline"></h2>
+        <p class="section-sub" id="fjSub"></p>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:flex-start;gap:14px;">
+            <div style="width:36px;height:36px;border-radius:8px;background:var(--green-lt);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--green)" fill="none" stroke-width="1.75"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+            <div><div style="font-family:var(--cond);font-size:15px;font-weight:700;color:var(--ink);text-transform:uppercase;margin-bottom:4px;">Photo + annotation</div><div style="font-size:13px;color:var(--text2);line-height:1.6;">Show us exactly what needs attention. Circle the issue, add a note.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;">
+            <div style="width:36px;height:36px;border-radius:8px;background:var(--green-lt);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--green)" fill="none" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div><div style="font-family:var(--cond);font-size:15px;font-weight:700;color:var(--ink);text-transform:uppercase;margin-bottom:4px;">Quote in 2 hours</div><div style="font-size:13px;color:var(--text2);line-height:1.6;">We review and send back a detailed flat-rate quote. No visit needed.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;">
+            <div style="width:36px;height:36px;border-radius:8px;background:var(--green-lt);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--green)" fill="none" stroke-width="1.75"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div><div style="font-family:var(--cond);font-size:15px;font-weight:700;color:var(--ink);text-transform:uppercase;margin-bottom:4px;">No call-out fee</div><div style="font-size:13px;color:var(--text2);line-height:1.6;">FotoJobber quotes are free. You only pay if you proceed with the job.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="fj-band-tool">
+          <div class="fj-band-header">
+            <div class="fj-band-icon"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+            <div class="fj-band-title">FotoJobber — Send a photo</div>
+          </div>
+          <div class="fj-band-body">
+            <div class="fj-zone" onclick="firePixel('fj_photo_click','FotoJobber: photo zone clicked',10,'active')">
+              <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <div class="fj-zone-title">Tap to take or upload a photo</div>
+              <div class="fj-zone-sub">Show us what needs attention</div>
+            </div>
+            <input class="fj-note-input" type="text" placeholder="Describe the issue or what you need done" id="fjNote" onfocus="firePixel('fj_note_focus','FotoJobber: annotation focused',6,'active')">
+            <div class="fj-row">
+              <input class="fj-input" type="text" placeholder="Your name" id="fjName" onfocus="firePixel('fj_name_focus','FotoJobber: name focused',8,'active')">
+              <input class="fj-input" type="tel" placeholder="(705) 000-0000" id="fjPhone" onfocus="firePixel('fj_phone_focus','FotoJobber: phone focused',12,'active')">
+            </div>
+            <button class="fj-send" onclick="submitFJ()">Send for quote — reply in 2 hours</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPOINTMENT BAND -->
+  <section class="apt-band" id="aptSection">
+    <div class="apt-band-inner">
+      <div class="reveal">
+        <div class="section-label" style="color:rgba(255,255,255,0.4)"><span style="display:block;width:20px;height:2px;background:rgba(255,255,255,0.2)"></span>Book on-site estimate</div>
+        <h2 class="section-headline white">Free estimate.<br>Flat-rate price.</h2>
+        <p class="section-sub white">A licensed Total Trades Solutions plumber visits, assesses the job, and gives you a price before starting anything. Confirmed within 2 hours of your request.</p>
+        <div class="apt-trust-points">
+          <div class="apt-trust-item">
+            <div class="apt-trust-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><div class="apt-trust-title">Free on all jobs over $500</div><div class="apt-trust-desc">No call-out charge for estimates on larger work.</div></div>
+          </div>
+          <div class="apt-trust-item">
+            <div class="apt-trust-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div><div class="apt-trust-title">Flat-rate pricing</div><div class="apt-trust-desc">The quote is the invoice. No hourly rate, no surprises.</div></div>
+          </div>
+          <div class="apt-trust-item">
+            <div class="apt-trust-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><div class="apt-trust-title">Workmanship guarantee</div><div class="apt-trust-desc">If something isn't right after we leave, we come back. No charge.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="apt-form">
+          <div class="apt-form-title">Book estimate</div>
+          <div class="apt-field">
+            <label class="apt-label">Name</label>
+            <input class="apt-input" type="text" placeholder="Your name" id="aptName" onfocus="firePixel('apt_name_focus','Appointment: name focused',8,'active')">
+          </div>
+          <div class="apt-row">
+            <div class="apt-field">
+              <label class="apt-label">Phone</label>
+              <input class="apt-input" type="tel" placeholder="(705) 000-0000" id="aptPhone" onfocus="firePixel('apt_phone_focus','Appointment: phone focused',12,'active')">
+            </div>
+            <div class="apt-field">
+              <label class="apt-label">Preferred day</label>
+              <select class="apt-select" id="aptDay">
+                <option>Any weekday</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option>
+              </select>
+            </div>
+          </div>
+          <div class="apt-field">
+            <label class="apt-label">Preferred time</label>
+            <select class="apt-select" id="aptTime">
+              <option>Any time</option><option>Morning (8am–12pm)</option><option>Afternoon (12pm–4pm)</option><option>Late afternoon (4pm–6pm)</option>
+            </select>
+          </div>
+          <div class="apt-field">
+            <label class="apt-label">Address</label>
+            <input class="apt-input" type="text" placeholder="Timmins or surrounding area" id="aptAddr">
+          </div>
+          <button class="apt-btn" onclick="submitApt()">Book free estimate</button>
+          <div class="apt-note">Confirmed within 2 hours · Free · No obligation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <div class="proof-band" data-pixel-event="proof_view" data-pixel-label="Proof section" data-pixel-delta="5" data-pixel-bucket="comparison">
+    <div class="section-inner">
+      <div class="proof-band-inner" id="proofGrid"></div>
+    </div>
+  </div>
+
+  <!-- EMERGENCY BAND -->
+  <div class="emg-band">
+    <div class="emg-band-inner">
+      <div class="emg-band-left">
+        <div class="emg-band-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="emg-band-text">
+          <h3 id="emgBandTitle"></h3>
+          <p id="emgBandSub"></p>
+        </div>
+      </div>
+      <a href="tel:7057001234" class="emg-band-cta" id="emgBandBtn">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+        Call now — (705) 700-1234
+      </a>
+    </div>
+  </div>
+
+  <!-- RELATED SERVICES -->
+  <div class="related-section">
+    <div class="related-inner">
+      <div class="related-label">Related services</div>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Total Trades Solutions</div>
+        <div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div>
+        <a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a>
+        <div class="footer-brand-email">info@totaltradessolutions.ca</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/emergency" class="footer-link">Emergency 24/7</a>
+          <a href="/hot-water" class="footer-link">Hot Water Systems</a>
+          <a href="/blocked-drains" class="footer-link">Blocked Drains</a>
+          <a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a>
+          <a href="/leak-detection" class="footer-link">Leak Detection</a>
+          <a href="/gas-plumbing" class="footer-link">Gas Plumbing</a>
+          <a href="/pipe-repair" class="footer-link">Pipe Repair</a>
+          <a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a>
+          <a href="/specials" class="footer-link">Specials</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about" class="footer-link">About Us</a>
+          <a href="/reviews" class="footer-link">Reviews</a>
+          <a href="/our-guarantee" class="footer-link">Our Guarantee</a>
+          <a href="/blog" class="footer-link">Blog</a>
+          <a href="/faq" class="footer-link">FAQ</a>
+          <a href="/book" class="footer-link">Book Appointment</a>
+          <a href="/privacy" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Service Areas</div>
+        <div class="footer-links">
+          <a href="/timmins" class="footer-link">Timmins</a>
+          <a href="/cochrane" class="footer-link">Cochrane</a>
+          <a href="/south-porcupine" class="footer-link">South Porcupine</a>
+          <a href="/iroquois-falls" class="footer-link">Iroquois Falls</a>
+          <a href="/kapuskasing" class="footer-link">Kapuskasing</a>
+          <a href="/matheson" class="footer-link">Matheson</a>
+          <a href="/kirkland-lake" class="footer-link">Kirkland Lake</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Total Trades Solutions. All rights reserved.</span>
+      <span>Licensed · Insured · Ontario College of Trades</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LEAD GRABBER -->
+<div class="lead-grabber">
+  <button class="lg-btn" id="lgBtn" onclick="toggleLG()"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></button>
+  <span class="lg-label">Get help</span>
+</div>
+<div class="lg-panel" id="lgPanel">
+  <div class="lg-header">
+    <div><div class="lg-header-title">Get help now</div><div class="lg-header-sub">Choose how to connect</div></div>
+    <button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="lg-body">
+    <div class="lg-options">
+      <div class="lg-option selected" id="lgSpeak" onclick="selectLGMode('speak')"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg><span>Call me back</span></div>
+      <div class="lg-option" id="lgEmail" onclick="selectLGMode('email')"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Email me</span></div>
+    </div>
+    <input class="lg-input" type="text" placeholder="Your name" id="lgName">
+    <input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone">
+    <input class="lg-input" type="text" placeholder="What's the job?" id="lgJob">
+    <button class="lg-submit" onclick="submitLG()">Send request</button>
+  </div>
+</div>
+
+<!-- AI CHAT -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div><div class="chat-name">Total Trades Solutions Assistant</div><div class="chat-status" id="chatStatus">Online · questions welcome</div></div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot" id="chatWelcome">Hi — I can answer questions about this service, pricing, and timelines. What would you like to know?</div>
+    </div>
+    <div class="chat-quick" id="chatQuicks"></div>
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" placeholder="Ask a question…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+  <button class="chat-bubble" id="chatBubble" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+</div>
+
+<!-- PIXEL TOAST -->
+<div class="pixel-toast" id="pixelToast"><div class="pixel-toast-dot"></div><span id="pixelToastText">Pixel fired</span></div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   PAGE CONFIGS — all five service pages
+   To render a specific page, set window.PAGE = 'hot-water'
+   (or blocked-drains / leak-detection / gas-plumbing / water-filtration)
+   ════════════════════════════════════════════════════════════ */
+const PAGES = {
+
+  'hot-water': {
+    title: 'Hot Water Systems Timmins — Repair & Replacement | Total Trades Solutions',
+    desc:  'Total Trades Solutions repairs and replaces hot water systems in Timmins. Tank and tankless. Same-day for no-hot-water emergencies. Free estimates. (705) 700-1234.',
+    navActive: 'navHotWater',
+    badge: 'Hot Water Systems · Timmins, Ontario',
+    headline: 'No hot water?<br><em>We fix it today.</em>',
+    sub: 'Total Trades Solutions repairs and replaces all makes of hot water system in Timmins and surrounding area. Tank and tankless. Same-day emergency service when you have no hot water.',
+    facts: [
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Same-day for no hot water', sub: 'Emergency response when it matters most' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Tank and tankless', sub: 'All makes and models — gas and electric' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Price agreed before we start. No surprises.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: '1-year workmanship guarantee', sub: 'On all installations' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Hot water systems.<br>All makes. All problems.',
+    scopeSub: 'Whether your water heater is making noise, running cold, or needs full replacement — we handle it all.',
+    scope: [
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'Tank replacement', desc: 'Full removal and replacement of conventional storage tank water heaters. Gas and electric. All brands.' },
+      { icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>', name: 'Tankless installation', desc: 'Condensing on-demand units for endless hot water and lower energy bills. Navien, Rinnai, Noritz.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Repairs and diagnostics', desc: 'Pilot light, thermocouple, element, anode rod, pressure relief valve, sediment flush. Full diagnostic before any repair.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Recirculation systems', desc: 'Hot water at the tap in seconds. Pump and loop installation to eliminate the wait on long runs.' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Expansion tanks', desc: 'Code-required on closed systems. Installed alongside all new water heater replacements.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Annual maintenance', desc: 'Sediment flush, anode rod inspection, and pressure check to extend system life and maintain warranty.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'Take a photo of your water heater — model number label visible if possible — and describe the issue. We quote accurately without a visit.',
+    proof: [
+      { stars: '★★★★★', text: '"No hot water on Christmas morning. Called Total Trades Solutions and they had it sorted by noon. Tankless unit installed same day. Owner came himself. That says everything."', name: 'Mark R. · South Porcupine' },
+      { stars: '★★★★★', text: '"Our 14-year-old tank finally gave out. Total Trades Solutions came the same afternoon, quoted clearly, and had the new unit running before dinner. No drama, no surprise on the invoice."', name: 'Janet K. · Timmins' },
+      { stars: '★★★★★', text: '"The pilot kept going out on our old gas heater. Two other companies told me to replace it. Total Trades Solutions diagnosed a bad thermocouple and fixed it for $180. Honest and fast."', name: 'Brian T. · Cochrane' }
+    ],
+    emgTitle: 'No hot water right now?',
+    emgSub: 'Same-day service for no-hot-water emergencies. We answer 24/7.',
+    chatStatus: 'Online · hot water questions welcome',
+    chatQuicks: ['How much does a water heater replacement cost?', 'Tank vs tankless — which is better?', 'My pilot light keeps going out — what\'s wrong?'],
+    related: [
+      { href:'/bathroom-renovations', icon:'<rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/>', name:'Bathroom Renovations' },
+      { href:'/water-filtration', icon:'<path d="M12 2l-5.5 9h11L12 2z"/><path d="M6.5 11a6 6 0 1 0 11 0"/>', name:'Water Filtration' },
+      { href:'/pipe-repair', icon:'<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name:'Pipe Repair' },
+      { href:'/emergency', icon:'<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>', name:'Emergency 24/7' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'blocked-drains': {
+    title: 'Blocked Drains Timmins — Cleared Fast | Total Trades Solutions',
+    desc:  'Total Trades Solutions clears blocked drains in Timmins fast. Kitchen, bathroom, floor drains. Camera inspection available. Free estimates. (705) 700-1234.',
+    navActive: 'navDrains',
+    badge: 'Blocked Drains · Timmins, Ontario',
+    headline: 'Blocked drain.<br><em>Cleared today.</em>',
+    sub: 'Kitchen sinks, bathroom drains, floor drains, main sewer lines — Total Trades Solutions clears them all. Camera inspection to find the root cause, not just the symptom.',
+    facts: [
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Same-day service available', sub: 'Blocked drains don\'t wait — neither do we' },
+      { icon: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>', label: 'Camera inspection', sub: 'See exactly what\'s causing the blockage' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Price agreed before work starts' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Kitchen, bathroom, floor, main', sub: 'All drain types cleared' }
+    ],
+    scopeLabel: 'What we clear',
+    scopeHeadline: 'Every drain.<br>Every cause.',
+    scopeSub: 'From a slow kitchen sink to a full main line backup — we locate the blockage, clear it, and tell you why it happened.',
+    scope: [
+      { icon: '<path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/>', name: 'Kitchen sink drains', desc: 'Grease, food waste, and debris buildup cleared. P-trap inspection included. Advice on preventing recurrence.' },
+      { icon: '<rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/>', name: 'Bathroom drains', desc: 'Bath, shower, and sink drains cleared of hair, soap, and buildup. Slow drains caught before they become blocked.' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Floor drains', desc: 'Utility room, garage, and basement floor drains cleared and flushed. Often forgotten until they back up.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Main sewer line', desc: 'Full main line blockage cleared with high-pressure jetting. Camera inspection to confirm clearance and check pipe condition.' },
+      { icon: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>', name: 'Camera inspection', desc: 'We run a camera through the drain to find the exact location and cause of the blockage. Essential for recurring problems.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Root intrusion', desc: 'Tree roots are a common cause of main line blockage in older Timmins housing. Removed and pipe assessed for repair.' }
+    ],
+    fjHeadline: 'Show us the drain.<br>We quote in 2 hours.',
+    fjSub: 'Take a photo of the drain or the affected area and describe what\'s happening. We\'ll give you an accurate quote without a visit.',
+    proof: [
+      { stars: '★★★★★', text: '"Kitchen sink completely blocked on a Sunday. Total Trades Solutions came within two hours, cleared it, ran a camera, and showed me exactly what caused it. Price was fair and exactly as quoted."', name: 'Sandra N. · Timmins' },
+      { stars: '★★★★★', text: '"Main line backed up into the basement. Nightmare situation. Total Trades Solutions was calm, clear about what needed to happen, and had it sorted in one visit. Couldn\'t recommend them more."', name: 'Greg W. · Kapuskasing' },
+      { stars: '★★★★★', text: '"Slow drain in the master bath for months. Every product I tried made no difference. Total Trades Solutions found a partial root intrusion 6 feet in. Cleared and fixed. No more issues."', name: 'Lisa M. · Cochrane' }
+    ],
+    emgTitle: 'Sewer backup? Drain fully blocked?',
+    emgSub: 'We\'re available same-day and 24/7 for emergencies.',
+    chatStatus: 'Online · drain questions welcome',
+    chatQuicks: ['How much does it cost to clear a blocked drain?', 'Do you do camera inspections?', 'My main line is backing up — what do I do?'],
+    related: [
+      { href:'/pipe-repair', icon:'<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name:'Pipe Repair' },
+      { href:'/leak-detection', icon:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name:'Leak Detection' },
+      { href:'/bathroom-renovations', icon:'<rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/>', name:'Bathroom Renovations' },
+      { href:'/emergency', icon:'<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>', name:'Emergency 24/7' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'leak-detection': {
+    title: 'Leak Detection Timmins — Find and Fix Leaks | Total Trades Solutions',
+    desc:  'Hidden leaks found without tearing up walls. Total Trades Solutions detects and repairs leaks in Timmins. Dripping taps, pipe leaks, water damage. (705) 700-1234.',
+    navActive: 'navLeaks',
+    badge: 'Leak Detection · Timmins, Ontario',
+    headline: 'Hidden leak.<br><em>Found. Fixed.</em>',
+    sub: 'Total Trades Solutions locates hidden leaks without unnecessary demolition. Dripping taps, pipe leaks behind walls, water damage sources — we find the problem and fix it right.',
+    facts: [
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', label: 'No unnecessary demolition', sub: 'We find it before we open anything' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Dripping taps to pipe failures', sub: 'All leak types located and repaired' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate repair pricing', sub: 'Full cost agreed before work starts' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Fast response', sub: 'Same-day for active leaks' }
+    ],
+    scopeLabel: 'What we detect and repair',
+    scopeHeadline: 'If water is going<br>somewhere it shouldn\'t.',
+    scopeSub: 'A leak doesn\'t have to be visible to cause serious damage. We find it whether it\'s behind drywall, under concrete, or inside a fixture.',
+    scope: [
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'Dripping taps and fixtures', desc: 'Washers, cartridges, and O-rings replaced. Single drip wastes thousands of litres a year — fixed the same day.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Hidden pipe leaks', desc: 'Pinhole leaks and joint failures behind walls found with pressure testing. Minimal wall opening — targeted repair only.' },
+      { icon: '<rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V4M8 7V4M12 7V4"/>', name: 'Under-slab leaks', desc: 'Leaks under concrete floors detected using pressure isolation. Repair options presented clearly before any slab work.' },
+      { icon: '<rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/>', name: 'Bathroom supply lines', desc: 'Toilet, vanity, and shower supply connections checked. Flexible braided lines replaced before they fail.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Water meter check', desc: 'If you suspect a hidden leak, we run a meter isolation test to confirm before any investigation begins.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Frozen pipe assessment', desc: 'After a freeze-thaw event, we check supply lines for micro-fractures that haven\'t burst yet. Northern Ontario\'s housing stock is vulnerable.' }
+    ],
+    fjHeadline: 'Spotted water damage?<br>Send us a photo.',
+    fjSub: 'A photo of the stain, the wet area, or the affected fixture gives us a head start. We quote the investigation and repair together.',
+    proof: [
+      { stars: '★★★★★', text: '"Water stain appeared on the ceiling but we couldn\'t find where it was coming from. Total Trades Solutions found a pinhole leak in the copper above — opened less than a square foot of drywall. Fixed in an afternoon."', name: 'Patricia W. · Timmins' },
+      { stars: '★★★★★', text: '"Water bill spiked with no obvious reason. Total Trades Solutions ran a pressure test, found a slow leak in the basement supply line. Repaired and my bill was back to normal the next month."', name: 'Tom B. · Matheson' },
+      { stars: '★★★★★', text: '"Dripping tap that three other plumbers said needed a full fixture replacement. Total Trades Solutions replaced the cartridge for $95. Hasn\'t dripped in 8 months. Honest and straightforward."', name: 'Carol S. · Iroquois Falls' }
+    ],
+    emgTitle: 'Active leak? Water damage spreading?',
+    emgSub: 'Call now — we dispatch same-day for active leaks.',
+    chatStatus: 'Online · leak questions welcome',
+    chatQuicks: ['How do I know if I have a hidden leak?', 'Can you fix a leak without opening the wall?', 'My water bill went up — could it be a leak?'],
+    related: [
+      { href:'/pipe-repair', icon:'<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name:'Pipe Repair' },
+      { href:'/blocked-drains', icon:'<path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/>', name:'Blocked Drains' },
+      { href:'/bathroom-renovations', icon:'<rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/>', name:'Bathroom Renovations' },
+      { href:'/emergency', icon:'<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>', name:'Emergency 24/7' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'research'
+  },
+
+  'gas-plumbing': {
+    title: 'Gas Plumbing Timmins — Licensed Gas Fitter | Total Trades Solutions',
+    desc:  'Licensed gas fitting in Timmins. Appliance installation, gas line repair and extension, safety inspections. TSSA certified. Total Trades Solutions. (705) 700-1234.',
+    navActive: 'navGas',
+    badge: 'Gas Plumbing · Timmins, Ontario',
+    headline: 'Licensed gas<br><em>fitting.</em>',
+    sub: 'TSSA-certified gas fitting for residential and light commercial properties in Timmins. Appliance installation, gas line repair and extension, safety inspections. No unlicensed work — ever.',
+    facts: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'TSSA certified', sub: 'Licensed gas fitting — no unlicensed work' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'All gas appliances', sub: 'Furnace, water heater, stove, BBQ, fireplace' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', label: 'Permit and inspection', sub: 'We pull the permit and manage sign-off' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Safety-first response', sub: 'Gas smell? Leave the building — call 911 then us' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Gas work done right.<br>Licensed. Permitted.',
+    scopeSub: 'Gas work in Ontario must be performed by a TSSA-certified contractor. Both Total Trades Solutions plumbers hold current certification. We pull permits and pass inspection.',
+    scope: [
+      { icon: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>', name: 'Gas appliance installation', desc: 'Stove, range, dryer, water heater, boiler, fireplace insert. New connection or replacement — all work permitted and inspected.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Gas line extension', desc: 'Run a new gas line to a BBQ pad, outdoor kitchen, garage heater, or additional appliance. Proper sizing for the load.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Gas line repair', desc: 'Corroded fittings, leaking joints, damaged flexible connectors replaced. Full pressure test before sign-off.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Gas leak response', desc: 'If you smell gas — leave the building and call 911. Once safe, call us. We locate, isolate, and repair.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Safety inspections', desc: 'Pre-purchase inspection, annual check, or post-event assessment. Written report provided.' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', name: 'Appliance disconnect and removal', desc: 'Safe disconnection of gas appliances for renovation or replacement. Cap and pressure-tested immediately.' }
+    ],
+    fjHeadline: 'Gas job to quote?<br>Send us details.',
+    fjSub: 'Photo of the appliance location or gas line, description of what you need. We quote accurately without a guessing game.',
+    proof: [
+      { stars: '★★★★★', text: '"Extended the gas line from our basement to a new BBQ pad in the backyard. Clean work, proper permit, passed inspection first time. No mess, no fuss."', name: 'Tom B. · Kapuskasing' },
+      { stars: '★★★★★', text: '"New gas range installed when we renovated the kitchen. Total Trades Solutions capped the old line, ran the new connection, and had the stove running the same day. Fully permitted."', name: 'Sandra N. · Timmins' },
+      { stars: '★★★★★', text: '"Had a gas smell near the furnace. Called Total Trades Solutions immediately after calling 911. They located a corroded joint in the supply line, repaired it, and pressure-tested everything before leaving."', name: 'Rick M. · South Porcupine' }
+    ],
+    emgTitle: 'Gas smell or suspected leak?',
+    emgSub: 'Leave the building. Call 911. Then call us — we respond immediately.',
+    chatStatus: 'Online · gas questions welcome',
+    chatQuicks: ['Do I need a permit for a gas appliance?', 'What does a gas line extension cost?', 'I smell gas — what should I do?'],
+    related: [
+      { href:'/hot-water', icon:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name:'Hot Water Systems' },
+      { href:'/leak-detection', icon:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name:'Leak Detection' },
+      { href:'/pipe-repair', icon:'<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name:'Pipe Repair' },
+      { href:'/emergency', icon:'<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>', name:'Emergency 24/7' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'water-filtration': {
+    title: 'Water Filtration Timmins — Softeners &amp; Filters | Total Trades Solutions',
+    desc:  'Water softeners and filtration systems supplied and installed in Timmins. Hard water solutions for Northern Ontario. Total Trades Solutions. (705) 700-1234.',
+    navActive: null,
+    badge: 'Water Filtration · Timmins, Ontario',
+    headline: 'Timmins water.<br><em>Treated right.</em>',
+    sub: 'Northern Ontario water is hard. Total Trades Solutions supplies and installs whole-home water softeners, sediment filters, and drinking water systems — extending appliance life and improving water quality throughout your home.',
+    facts: [
+      { icon: '<path d="M12 2l-5.5 9h11L12 2z"/><path d="M6.5 11a6 6 0 1 0 11 0"/>', label: 'Timmins water expertise', sub: 'We know the local water quality and what it needs' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Supply and install', sub: 'Equipment sourced at trade price. One call.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Licensed installation', sub: 'All connections made by a licensed plumber' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Connected to main supply', sub: 'Whole-home protection from the entry point' }
+    ],
+    scopeLabel: 'What we supply and install',
+    scopeHeadline: 'Better water.<br>Throughout your home.',
+    scopeSub: 'Hard water shortens appliance life, leaves scale on fixtures, and affects everything from your laundry to your skin. We solve it at the source.',
+    scope: [
+      { icon: '<path d="M12 2l-5.5 9h11L12 2z"/><path d="M6.5 11a6 6 0 1 0 11 0"/>', name: 'Whole-home water softeners', desc: 'Ion exchange softeners installed at the main supply. Eliminates scale buildup in pipes, water heaters, dishwashers, and fixtures.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Sediment pre-filters', desc: 'Whole-home sediment filtration installed before the softener. Catches particulates from the municipal supply or a well.' },
+      { icon: '<path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/>', name: 'Under-sink drinking water', desc: 'Reverse osmosis and carbon filter systems at the kitchen tap. Clean drinking water without the ongoing cost of bottled water.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'UV disinfection systems', desc: 'For well water and properties on private supplies. UV light treatment eliminates bacteria and viruses at the point of entry.' },
+      { icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>', name: 'System servicing', desc: 'Salt refill guidance, filter cartridge replacement, and annual softener service to keep systems running efficiently.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Water quality testing', desc: 'We test your water hardness and assess what your home needs before recommending any system. No unnecessary upsell.' }
+    ],
+    fjHeadline: null,
+    fjSub: null,
+    proof: [
+      { stars: '★★★★★', text: '"Scale was building up on everything — taps, shower head, inside the kettle. Total Trades Solutions installed a whole-home softener at the main. Six months on and it\'s night and day. Water heater is already running more efficiently."', name: 'Sandra N. · Iroquois Falls' },
+      { stars: '★★★★★', text: '"Well water on our property always had a slight smell. Total Trades Solutions recommended and installed a UV system and sediment filter. Water smells clean, tests clean, and we don\'t worry about it anymore."', name: 'Paul D. · Matheson' },
+      { stars: '★★★★★', text: '"Under-sink RO system installed in an afternoon. Clear instructions on filter replacement schedule. Good price compared to what I was spending on bottled water each month."', name: 'Janet K. · Kapuskasing' }
+    ],
+    emgTitle: 'Questions about Timmins water quality?',
+    emgSub: 'Call us — we\'ll test your water and recommend what actually makes a difference.',
+    chatStatus: 'Online · water filtration questions welcome',
+    chatQuicks: ['Is Timmins water hard?', 'How much does a water softener cost?', 'Do I need a softener or just a filter?'],
+    related: [
+      { href:'/hot-water', icon:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name:'Hot Water Systems' },
+      { href:'/leak-detection', icon:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name:'Leak Detection' },
+      { href:'/bathroom-renovations', icon:'<rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/>', name:'Bathroom Renovations' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: false,
+    pixelBucket: 'active'
+  },
+
+  'roofing': {
+    title: 'Roof Repair Timmins — Shingles, Ice Dams & Leaks | Total Trades Solutions',
+    desc:  'Total Trades Solutions repairs shingle damage, ice dams, and flashing leaks in Timmins. Fully insured, WSIB covered. Emergency tarping available. Free estimates. (705) 700-1234.',
+    navActive: 'navRoofing',
+    badge: 'Roofing · Timmins, Ontario',
+    headline: 'Roof damage?<br><em>Fixed before the next storm.</em>',
+    sub: 'Total Trades Solutions repairs and replaces residential roofing across Timmins and area — shingle damage, ice dam leaks, flashing failures, and storm damage. Built for Northern Ontario winters, not just patched for one.',
+    facts: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Fully insured & WSIB covered', sub: 'Licensed roofing work, no shortcuts' },
+      { icon: '<path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/>', label: 'Ice dam specialists', sub: 'The #1 cause of winter roof leaks in Northern Ontario' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Price agreed before we\'re on the roof' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Emergency tarping available', sub: 'Storm damage covered same-day to stop water getting in' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Every roof problem.<br>Built for winter.',
+    scopeSub: 'Northern Ontario roofs take a beating from snow load, ice, and freeze-thaw cycles most of the year. We repair what\'s actually failing — not just what\'s visible from the ground.',
+    scope: [
+      { icon: '<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name: 'Shingle repair & replacement', desc: 'Wind-lifted, cracked, or missing shingles replaced to match. Full re-roof when the underlying deck or age calls for it.' },
+      { icon: '<path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/>', name: 'Ice dam removal & prevention', desc: 'Ice dams form when attic heat melts snow that refreezes at the eaves, backing water under shingles. We remove the ice safely and address the ventilation or insulation causing it.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Flashing repair', desc: 'Chimney, vent stack, and valley flashing are the most common leak points on an otherwise sound roof. Resealed or replaced to stop water intrusion at the source.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Eavestrough & downspout repair', desc: 'Sagging, disconnected, or ice-damaged eavestroughs redirected and repaired so water actually leaves the roof instead of pooling at the foundation.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Emergency tarping', desc: 'Storm or wind damage that\'s let water in gets a same-day tarp to stop the leak while the permanent repair is scheduled.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Roof inspections', desc: 'Pre-winter or pre-purchase inspection with a written report — what\'s sound, what\'s aging, and what needs attention before it becomes a leak.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of the damaged area — from the ground or zoomed in on your phone — gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Ice dam had water coming through the ceiling in the spare room. Total Trades Solutions came out, removed the ice safely, and explained why it kept happening — turned out to be an attic ventilation issue. Fixed both. No more leak."', name: 'Dan H. · Timmins' },
+      { stars: '★★★★★', text: '"High winds took off a section of shingles during a fall storm. They tarped it the same afternoon so we weren\'t exposed to the next rain, then came back within the week to do the full repair."', name: 'Michelle P. · South Porcupine' },
+      { stars: '★★★★★', text: '"Chimney flashing was letting water into the wall for who knows how long. Total Trades Solutions found it during a call we thought was a plumbing leak. Resealed properly, no more staining."', name: 'Kevin L. · Cochrane' }
+    ],
+    emgTitle: 'Active roof leak or storm damage?',
+    emgSub: 'We can tarp exposed areas same-day to stop water getting in while the permanent repair is scheduled.',
+    chatStatus: 'Online · roofing questions welcome',
+    chatQuicks: ['How much does ice dam removal cost?', 'Do you replace a whole roof or just repair sections?', 'My roof is leaking — what should I do first?'],
+    related: [
+      { href:'/leak-detection', icon:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name:'Leak Detection' },
+      { href:'/gas-plumbing', icon:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>', name:'Gas Plumbing' },
+      { href:'/emergency', icon:'<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>', name:'Emergency 24/7' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'electrical': {
+    title: 'Electrician Timmins — Licensed Electrical Contractor | Total Trades Solutions',
+    desc:  'ESA-licensed electrical services in Timmins — panel upgrades, rewiring, generator hookups, EV chargers. Permitted and inspected. Total Trades Solutions. (705) 700-1234.',
+    navActive: 'navElectrical',
+    badge: 'Electrical · Timmins, Ontario',
+    headline: 'Licensed electrical<br><em>work, done right.</em>',
+    sub: 'ESA-licensed electrical services for Timmins homes — panel upgrades, rewiring, generator hookups, and EV charger installation. Permitted, inspected, no shortcuts.',
+    facts: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'ESA-licensed electrical contractor', sub: 'Every job permitted and inspected through the Electrical Safety Authority' },
+      { icon: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', label: 'Panel upgrades to 200A', sub: 'For older homes outgrowing their original service' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Price agreed before we open the panel' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Generator & EV charger ready', sub: 'Built for Northern Ontario outages and modern homes' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Every electrical job.<br>Permitted and inspected.',
+    scopeSub: 'Electrical work in Ontario goes through ESA permit and inspection — no exceptions. We handle the paperwork so the job is done right and stays that way.',
+    scope: [
+      { icon: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', name: 'Panel upgrades', desc: 'Outdated 60A or 100A service replaced with a modern 200A panel — for homes adding a generator, EV charger, or hot tub, or one that\'s simply outgrown its original electrical service.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Knob-and-tube & aluminum wiring removal', desc: 'Common in Timmins housing built before the 1970s. Insurance companies increasingly require it removed. We assess, quote, and rewire safely.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Generator hookups & transfer switches', desc: 'A properly installed transfer switch lets a portable or standby generator power your home safely during an outage — without backfeeding the grid.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'EV charger installation', desc: 'Level 2 charger installation sized correctly for your panel, on the dedicated circuit the code requires.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'GFCI & AFCI upgrades', desc: 'Code-required protection for kitchens, bathrooms, outdoor outlets, and bedrooms. We bring older homes up to current code where it matters most.' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', name: 'Electrical safety inspections', desc: 'Pre-purchase, insurance, or peace-of-mind inspection with a written report to ESA standard.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of your panel, the outlet, or the area in question gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Our 100A panel couldn\'t handle a generator and an EV charger at the same time. Total Trades Solutions upgraded us to 200A, pulled the permit, and had it inspected and signed off within the week."', name: 'Paul R. · Timmins' },
+      { stars: '★★★★★', text: '"Old knob-and-tube wiring was flagged by our insurance company during a policy renewal. Total Trades Solutions rewired the whole upstairs, permitted and inspected, and we had our renewal sorted before the deadline."', name: 'Angela D. · Iroquois Falls' },
+      { stars: '★★★★★', text: '"Installed a transfer switch before winter so we could run the house off our portable generator during outages. Clean install, walked us through exactly how to use it safely."', name: 'Mike T. · Matheson' }
+    ],
+    emgTitle: 'Power out, sparking outlet, or burning smell?',
+    emgSub: 'If you smell burning or see sparking, shut off the breaker if it\'s safe to do so, and call us immediately.',
+    chatStatus: 'Online · electrical questions welcome',
+    chatQuicks: ['How much does a panel upgrade cost?', 'Do I need a permit for a generator hookup?', 'Is my old wiring actually a safety risk?'],
+    related: [
+      { href:'/gas-plumbing', icon:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>', name:'Gas Plumbing' },
+      { href:'/roofing', icon:'<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name:'Roofing' },
+      { href:'/emergency', icon:'<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>', name:'Emergency 24/7' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'siding': {
+    title: 'Siding Repair & Replacement Timmins | Total Trades Solutions',
+    desc:  'Vinyl, fiber cement, and wood siding repair and replacement in Timmins. Storm damage, full re-siding, insulation upgrades. Free estimates. (705) 700-1234.',
+    navActive: 'navSiding',
+    badge: 'Siding · Timmins, Ontario',
+    headline: 'Siding damage?<br><em>Repaired or replaced right.</em>',
+    sub: 'Total Trades Solutions repairs and replaces vinyl, fiber cement, and wood siding across Timmins and area — storm damage, warping, fading, and full re-siding projects built for Northern Ontario winters.',
+    facts: [
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', label: 'Vinyl, fiber cement & wood', sub: 'All siding materials repaired and installed' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Storm damage response', sub: 'Wind and hail damage assessed and repaired fast' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full project cost agreed before work starts' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Insulation upgrades available', sub: 'Add a moisture barrier or extra R-value during re-siding' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Every siding material.<br>Built for winter.',
+    scopeSub: 'Siding is your home\'s first line of defense against Northern Ontario weather. We repair what\'s failing and replace what\'s past its service life — matched to what\'s already there or fully re-clad.',
+    scope: [
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Vinyl siding repair & replacement', desc: 'Cracked, warped, or wind-lifted panels replaced to match. Full re-siding when age or damage calls for it.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Fiber cement siding installation', desc: 'Durable, low-maintenance siding built for harsh winters — James Hardie and comparable products installed to spec.' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'Wood siding repair', desc: 'Rot, insect damage, and weathered boards repaired or replaced, including refinishing for existing wood siding.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Storm & impact damage repair', desc: 'Hail, wind, and falling-branch damage assessed and repaired — insurance documentation provided on request.' },
+      { icon: '<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name: 'Soffit & fascia repair', desc: 'Damaged or ventilation-blocking soffit and fascia replaced — directly affects attic ventilation and ice dam risk on the roof above.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Moisture barrier & insulation upgrade', desc: 'While siding is off, we can add or upgrade the moisture barrier and insulation behind it — cheaper to do now than as a separate job later.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of the damaged section or the full wall gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Hailstorm left dents and cracks across the whole south side of the house. Total Trades Solutions matched the siding, replaced the damaged sections, and helped with the insurance paperwork."', name: 'Denise F. · Timmins' },
+      { stars: '★★★★★', text: '"Our 20-year-old vinyl siding was faded and cracking in a dozen spots. Instead of patching it forever, we did a full re-side with fiber cement. Looks completely different, built for the winters here."', name: 'Rob K. · South Porcupine' },
+      { stars: '★★★★★', text: '"Noticed soft spots on the wood siding near the ground. Turned out to be rot from years of splashback. Total Trades Solutions replaced the affected boards and fixed the grading issue causing it."', name: 'Lynn P. · Cochrane' }
+    ],
+    emgTitle: 'Storm just came through?',
+    emgSub: 'We assess wind and hail damage fast, with documentation for your insurance claim if needed.',
+    chatStatus: 'Online · siding questions welcome',
+    chatQuicks: ['How much does full re-siding cost?', 'Can you match my existing siding?', 'Does insurance usually cover storm siding damage?'],
+    related: [
+      { href:'/roofing', icon:'<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name:'Roofing' },
+      { href:'/stucco', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Stucco' },
+      { href:'/brick', icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name:'Brick' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'stucco': {
+    title: 'Stucco Repair Timmins | Total Trades Solutions',
+    desc:  'Stucco crack repair, water damage repair, and application in Timmins. Traditional and EIFS stucco systems. Free estimates. (705) 700-1234.',
+    navActive: 'navStucco',
+    badge: 'Stucco · Timmins, Ontario',
+    headline: 'Cracked or stained<br><em>stucco, fixed.</em>',
+    sub: 'Total Trades Solutions repairs traditional and synthetic (EIFS) stucco systems in Timmins — cracking, water staining, and chipping caused by freeze-thaw cycles and moisture intrusion.',
+    facts: [
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', label: 'Traditional & EIFS stucco', sub: 'Both stucco systems repaired and installed' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Freeze-thaw crack repair', sub: 'Northern Ontario\'s temperature swings are hard on stucco' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full repair or project cost agreed up front' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Color-matched finish', sub: 'Repairs blended to match existing stucco texture and color' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Cracks, stains,<br>and moisture — solved.',
+    scopeSub: 'Stucco problems are almost always a moisture problem underneath a cosmetic one. We find where water is actually getting in before we touch the surface.',
+    scope: [
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Crack repair', desc: 'Hairline to structural cracks from settling and freeze-thaw cycles repaired and sealed before water gets behind the stucco.' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'Water damage & moisture testing', desc: 'Stained or soft stucco often means water is getting behind it. We test moisture levels and find the actual entry point, not just patch the surface.' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'EIFS (synthetic stucco) repair', desc: 'Impact damage, seam failures, and improper flashing around windows and doors on synthetic stucco systems repaired to manufacturer spec.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Full stucco application', desc: 'New stucco application on additions, renovations, or full re-clad projects — traditional three-coat or EIFS systems.' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', name: 'Chip & impact repair', desc: 'Localized damage from equipment, debris, or accidents patched and color-matched so repairs don\'t stand out.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Efflorescence & staining treatment', desc: 'White mineral deposits or dark staining addressed at the moisture source, not just cleaned off the surface.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of the cracked, stained, or damaged area gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Cracks kept appearing around our windows every spring. Total Trades Solutions found improper flashing was letting water behind the stucco and freeze-thaw was doing the rest. Fixed the flashing and the cracking, not just the cracks."', name: 'Karen B. · Timmins' },
+      { stars: '★★★★★', text: '"Dark staining on the north wall for two summers. Turned out to be a slow leak behind the stucco from a gutter issue. Repaired both and color-matched the patch — you can\'t tell where it was."', name: 'Frank D. · Kapuskasing' },
+      { stars: '★★★★★', text: '"EIFS panel near the garage was damaged from a ladder accident. Total Trades Solutions repaired it to match the texture perfectly. Quick, clean job."', name: 'Teresa V. · Iroquois Falls' }
+    ],
+    emgTitle: 'Water actively getting in through stucco?',
+    emgSub: 'Call us — active moisture intrusion behind stucco can cause structural damage if left too long.',
+    chatStatus: 'Online · stucco questions welcome',
+    chatQuicks: ['Why does my stucco keep cracking?', 'How do I know if water is getting behind my stucco?', 'What\'s the difference between traditional stucco and EIFS?'],
+    related: [
+      { href:'/siding', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Siding' },
+      { href:'/brick', icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name:'Brick' },
+      { href:'/leak-detection', icon:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name:'Leak Detection' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'brick': {
+    title: 'Brick Repair & Repointing Timmins | Total Trades Solutions',
+    desc:  'Brick repointing, veneer repair, and chimney brick repair in Timmins. Spalling, cracking, and mortar joint restoration. Free estimates. (705) 700-1234.',
+    navActive: 'navBrick',
+    badge: 'Brick · Timmins, Ontario',
+    headline: 'Crumbling mortar<br><em>or spalling brick?</em>',
+    sub: 'Total Trades Solutions repoints mortar joints and repairs brick veneer and chimneys across Timmins — freeze-thaw damage, spalling, and structural cracking, addressed properly, not just patched.',
+    facts: [
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', label: 'Repointing specialists', sub: 'Matched mortar color and joint profile' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Freeze-thaw & spalling repair', sub: 'Northern Ontario winters are hard on brick and mortar' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full repair cost agreed before work starts' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Chimney brick a specialty', sub: 'The most exposed brickwork on most homes' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Mortar, brick,<br>and chimneys.',
+    scopeSub: 'Brick itself rarely fails first — mortar joints do, and freeze-thaw takes it from there. We fix the actual cause, not just the visible damage.',
+    scope: [
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Repointing', desc: 'Deteriorated mortar joints ground out and replaced with color- and profile-matched mortar — the single most common brick maintenance need.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Spalling brick repair', desc: 'Freeze-thaw cycles force moisture-saturated brick faces to flake and crumble. Damaged brick replaced, not just re-mortared over.' },
+      { icon: '<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name: 'Chimney brick repair', desc: 'Chimneys take the most exposure of any brickwork on the house. Repointed, rebuilt above the roofline, or capped to stop water entry.' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Brick veneer repair', desc: 'Cracked or displaced veneer brick repaired, including addressing the moisture or settling issue causing the movement.' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', name: 'Efflorescence treatment', desc: 'White mineral staining cleaned and the underlying moisture source addressed so it doesn\'t return.' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'Structural crack assessment', desc: 'Stair-step or vertical cracks assessed for settling versus cosmetic causes, with a clear explanation of what\'s actually happening before any repair.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of the mortar joints, spalling brick, or crack pattern gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Mortar joints on the north side were crumbling out with a finger touch. Total Trades Solutions repointed the whole wall, matched the mortar color perfectly — you\'d never know it was redone."', name: 'Gordon S. · Timmins' },
+      { stars: '★★★★★', text: '"Chimney brick was spalling badly after years of freeze-thaw. Total Trades Solutions rebuilt the section above the roofline and capped it properly. No more debris coming off in the wind."', name: 'Diane M. · Cochrane' },
+      { stars: '★★★★★', text: '"Stair-step crack in the brick veneer had us worried about the foundation. Total Trades Solutions assessed it, explained it was a settling issue that had already stabilized, and repaired the crack. Honest answer, not a scare tactic to sell an expensive fix."', name: 'Bill H. · Matheson' }
+    ],
+    emgTitle: 'Brick or chimney debris falling?',
+    emgSub: 'Loose or falling brick is a safety hazard — call us and we\'ll assess it quickly, especially before winter.',
+    chatStatus: 'Online · brick and masonry questions welcome',
+    chatQuicks: ['How much does repointing cost?', 'Is my brick crack a structural problem?', 'Why is my chimney brick crumbling?'],
+    related: [
+      { href:'/stucco', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Stucco' },
+      { href:'/siding', icon:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name:'Siding' },
+      { href:'/roofing', icon:'<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name:'Roofing' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'windows': {
+    title: 'Window Replacement & Repair Timmins | Total Trades Solutions',
+    desc:  'Energy-efficient window replacement and repair in Timmins. Double and triple-pane, egress windows, draft and seal repair. Free estimates. (705) 700-1234.',
+    navActive: 'navWindows',
+    badge: 'Windows · Timmins, Ontario',
+    headline: 'Drafty or foggy<br><em>windows, replaced right.</em>',
+    sub: 'Total Trades Solutions installs and repairs windows across Timmins — energy-efficient replacements built for Northern Ontario winters, plus repair for drafts, failed seals, and hardware issues on windows that don\'t need full replacement yet.',
+    facts: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Cold-climate rated windows', sub: 'Double and triple-pane options built for Northern Ontario' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', label: 'Fogging & seal repair', sub: 'Failed seals fixed without always requiring full replacement' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full project cost agreed before work starts' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', label: 'Egress window installation', sub: 'Code-required for basement bedrooms' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Every window problem.<br>Built for winter.',
+    scopeSub: 'A "bad window" is usually one specific failure — fogged glass, worn weatherstripping, a broken balance — not always a reason for full replacement. We diagnose before we quote.',
+    scope: [
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Full window replacement', desc: 'Old, drafty, or single-pane windows replaced with energy-efficient double or triple-pane units sized to the existing opening.' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'Fogging & seal failure repair', desc: 'Cloudy or fogged glass between panes means the seal has failed. Often the sash or glass unit can be replaced without a full frame replacement.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Draft & hardware repair', desc: 'Worn weatherstripping, failed locks, and misaligned sashes repaired — often the actual cause of a "drafty window," not the glass itself.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Egress window installation', desc: 'Basement bedrooms require a code-compliant egress window for emergency exit. We install to current Ontario Building Code requirements.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Storm window installation', desc: 'An additional layer of protection and insulation for older window frames not ready for full replacement.' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', name: 'Casement, slider & double-hung repair', desc: 'All window operating styles serviced — balance issues, broken cranks, and track problems fixed.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of the window — inside and outside if possible — gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Half our windows were fogged between the panes — you couldn\'t see through them clearly anymore. Total Trades Solutions replaced just the glass units on most of them instead of the whole window. Saved a lot over full replacement."', name: 'Nancy G. · Timmins' },
+      { stars: '★★★★★', text: '"Needed an egress window in the basement to legally rent it out as a bedroom. Total Trades Solutions knew exactly what the code required and got it done and looking good, not like an afterthought."', name: 'Steve R. · Kapuskasing' },
+      { stars: '★★★★★', text: '"Old wood windows were drafty every winter. Turned out it was mostly the weatherstripping, not the windows themselves. Fixed for a fraction of what I expected to pay for replacements."', name: 'Joan M. · Cochrane' }
+    ],
+    emgTitle: 'Broken glass or a window that won\'t close?',
+    emgSub: 'We respond fast for security and weather exposure issues — a broken window is a priority, not a someday job.',
+    chatStatus: 'Online · window questions welcome',
+    chatQuicks: ['How much does window replacement cost?', 'Is my foggy window fixable or do I need a new one?', 'Do I need an egress window in my basement?'],
+    related: [
+      { href:'/doors', icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name:'Doors' },
+      { href:'/patio-doors', icon:'<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name:'Patio Doors' },
+      { href:'/siding', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Siding' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'doors': {
+    title: 'Exterior Door Replacement & Repair Timmins | Total Trades Solutions',
+    desc:  'Entry door replacement, storm doors, and weatherstripping repair in Timmins. Steel, fiberglass, and wood doors. Free estimates. (705) 700-1234.',
+    navActive: 'navDoors',
+    badge: 'Doors · Timmins, Ontario',
+    headline: 'A door that<br><em>actually seals.</em>',
+    sub: 'Total Trades Solutions installs and repairs exterior entry doors across Timmins — steel, fiberglass, and wood, built to actually keep Northern Ontario winter out, not just look good doing it.',
+    facts: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Steel, fiberglass & wood', sub: 'All exterior door materials installed and repaired' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', label: 'Built for winter sealing', sub: 'Proper weatherstripping and threshold fit — not just the door itself' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full project cost agreed before work starts' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Hardware & lock service', sub: 'Deadbolts, handlesets, and smart locks installed' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Every exterior door.<br>Sealed properly.',
+    scopeSub: 'The fit matters more than the material. A well-installed door on a poorly prepared opening will draft no matter what it\'s made of.',
+    scope: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Entry door replacement', desc: 'Steel, fiberglass, and wood doors installed, sized and sealed correctly to the existing rough opening — the fit matters more than the material.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Storm door installation', desc: 'An added layer of weather protection and energy efficiency, especially on doors facing prevailing wind.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Weatherstripping & threshold repair', desc: 'The most common cause of a "drafty door" isn\'t the door — it\'s worn weatherstripping or a threshold that\'s lost its seal. Fixed in most cases without full replacement.' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', name: 'Door hardware & lock replacement', desc: 'Deadbolts, handlesets, and smart lock installation, including fire-rated hardware for garage-to-house doors.' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Fire-rated door installation', desc: 'Ontario Building Code requires a fire-rated, self-closing door between an attached garage and the house — installed and set up correctly.' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'Frame & sill repair', desc: 'Rot or damage to the door frame and sill repaired before it undermines the fit of a new or existing door.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of the door, frame, or the issue gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Front door had a gap you could see daylight through. Turned out the threshold had settled over the years. Total Trades Solutions fixed the threshold and re-hung the door — no more draft, no need for a new door."', name: 'Peter A. · Timmins' },
+      { stars: '★★★★★', text: '"Replaced our old wood entry door with a fiberglass one before winter. Properly sealed this time — huge difference in how the front hall feels on a cold night."', name: 'Colleen W. · Iroquois Falls' },
+      { stars: '★★★★★', text: '"Garage-to-house door didn\'t meet code when we had it inspected for insurance. Total Trades Solutions installed a proper fire-rated self-closing door, no argument, just got it done right."', name: 'Dave S. · Matheson' }
+    ],
+    emgTitle: 'Door won\'t lock or close properly?',
+    emgSub: 'A door that won\'t secure is a priority — we respond fast for lock and security issues.',
+    chatStatus: 'Online · door questions welcome',
+    chatQuicks: ['How much does a new entry door cost?', 'Why is my door letting in a draft?', 'Do I need a fire-rated door to my garage?'],
+    related: [
+      { href:'/windows', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Windows' },
+      { href:'/garage-doors', icon:'<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name:'Garage Doors' },
+      { href:'/patio-doors', icon:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name:'Patio Doors' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'garage-doors': {
+    title: 'Garage Door Installation & Repair Timmins | Total Trades Solutions',
+    desc:  'Garage door replacement, spring repair, and opener installation in Timmins. Insulated doors for Northern Ontario winters. Free estimates. (705) 700-1234.',
+    navActive: 'navGarageDoors',
+    badge: 'Garage Doors · Timmins, Ontario',
+    headline: 'Garage door<br><em>stuck, broken, or old?</em>',
+    sub: 'Total Trades Solutions installs and repairs garage doors across Timmins — spring replacement, opener repair, panel damage, and full door replacement, insulated options built for Northern Ontario winters.',
+    facts: [
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Same-day spring repair', sub: 'A broken spring is a safety issue — we treat it as a priority' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Insulated doors available', sub: 'Matters most on an attached garage in this climate' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full project cost agreed before work starts' },
+      { icon: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', label: 'Opener installation & repair', sub: 'Chain, belt, and smart openers installed and serviced' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Every garage door problem.<br>Springs handled safely.',
+    scopeSub: 'A garage door under spring tension is one of the more dangerous DIY repairs in a home. We handle the parts that actually hurt people when they go wrong.',
+    scope: [
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Spring replacement', desc: 'A broken torsion or extension spring makes a garage door dangerous to operate. Replaced same-day in most cases — this isn\'t a DIY repair.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Full door replacement', desc: 'Insulated steel, wood, and composite doors installed — sized and balanced correctly, not just bolted in.' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Panel & dent repair', desc: 'Impact damage from a vehicle or debris repaired or panel-replaced without needing a full new door in most cases.' },
+      { icon: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', name: 'Opener installation & repair', desc: 'Chain, belt, and smart Wi-Fi-enabled openers installed, replaced, or repaired — including safety sensor alignment.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Track & roller repair', desc: 'Off-track doors, worn rollers, and misaligned tracks are the most common cause of a noisy or sticking door.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Weatherseal replacement', desc: 'Bottom seal and side weatherstripping replaced to keep snow, cold, and pests out of an attached garage.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of the damaged spring, panel, or track gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Spring snapped on a Saturday morning and the door wouldn\'t budge. Total Trades Solutions came out same-day, replaced it safely, and explained why it\'s not something to try yourself."', name: 'Ryan T. · Timmins' },
+      { stars: '★★★★★', text: '"Backed into the garage door with a dent right in the middle panel. Instead of a whole new door, Total Trades Solutions replaced just that panel. Looked brand new, cost a fraction of full replacement."', name: 'Amanda K. · South Porcupine' },
+      { stars: '★★★★★', text: '"Old garage door had zero insulation and the attached garage was freezing all winter. New insulated door made a real difference to the temperature in there — and the rooms next to it."', name: 'Greg P. · Cochrane' }
+    ],
+    emgTitle: 'Garage door won\'t open, or a spring just broke?',
+    emgSub: 'A broken spring or a door stuck open is a security and safety issue — we prioritize same-day response.',
+    chatStatus: 'Online · garage door questions welcome',
+    chatQuicks: ['How much does spring replacement cost?', 'Is a broken garage door spring dangerous?', 'Do insulated garage doors actually make a difference?'],
+    related: [
+      { href:'/doors', icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name:'Doors' },
+      { href:'/windows', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Windows' },
+      { href:'/electrical', icon:'<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', name:'Electrical' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'patio-doors': {
+    title: 'Patio Door Replacement & Repair Timmins | Total Trades Solutions',
+    desc:  'Sliding and French patio door replacement and repair in Timmins. Roller, track, and seal repair. Free estimates. (705) 700-1234.',
+    navActive: 'navPatioDoors',
+    badge: 'Patio Doors · Timmins, Ontario',
+    headline: 'Sliding door stuck<br><em>or leaking cold air?</em>',
+    sub: 'Total Trades Solutions installs and repairs sliding and French patio doors across Timmins — roller and track repair, glass and seal replacement, and full door installation built for Northern Ontario winters.',
+    facts: [
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', label: 'Sliding & French doors', sub: 'Both patio door styles installed and repaired' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Roller & track repair', sub: 'The most common patio door problem, usually fixable without replacement' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full project cost agreed before work starts' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', label: 'Energy-efficient glass options', sub: 'Double and triple-pane units built for winter' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Sliding, French,<br>stuck, or drafty.',
+    scopeSub: 'A patio door that\'s hard to open is almost always a roller or track problem — not a reason to replace the whole door. We diagnose before we quote a replacement.',
+    scope: [
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Sliding patio door repair', desc: 'Sticking, off-track, or hard-to-open sliding doors — almost always a roller or track issue, repaired without full door replacement.' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'French door installation & repair', desc: 'Hinged patio door installation and repair, including hardware alignment and weatherstripping.' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Full patio door replacement', desc: 'Old, drafty, or single-pane patio doors replaced with energy-efficient double or triple-pane units.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Roller & track replacement', desc: 'Worn rollers and damaged tracks are the single most common patio door repair — replaced so the door glides properly again.' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'Glass & seal replacement', desc: 'Fogged or cracked glass units replaced without needing to replace the whole door frame in most cases.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Security & lock upgrades', desc: 'Patio doors are a common entry point of concern — upgraded locks and security bars installed for peace of mind.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of the door, track, or the issue gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Sliding door to the deck got harder and harder to open every year. Turned out the rollers were completely worn out. Total Trades Solutions replaced them in under an hour — glides like new."', name: 'Patricia L. · Timmins' },
+      { stars: '★★★★★', text: '"Patio door glass fogged up between the panes, just like a window would. Total Trades Solutions replaced the glass unit instead of the whole door frame — a lot less than I expected to pay."', name: 'Wayne D. · Kapuskasing' },
+      { stars: '★★★★★', text: '"Cold air was pouring in around our sliding door every winter. Total Trades Solutions found the seal had failed and the track was slightly bent from years of use. Fixed both — huge difference in the room."', name: 'Brenda C. · Matheson' }
+    ],
+    emgTitle: 'Patio door won\'t close or lock?',
+    emgSub: 'A door that won\'t secure properly is a priority — we respond fast for security and weather exposure issues.',
+    chatStatus: 'Online · patio door questions welcome',
+    chatQuicks: ['How much does patio door roller repair cost?', 'Can you fix a foggy patio door without replacing it?', 'My sliding door is really hard to open — what\'s wrong?'],
+    related: [
+      { href:'/windows', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Windows' },
+      { href:'/doors', icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name:'Doors' },
+      { href:'/garage-doors', icon:'<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name:'Garage Doors' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'hvac': {
+    title: 'Furnace & HVAC Repair Timmins — Heating & Cooling | Total Trades Solutions',
+    desc:  'Furnace repair, air conditioning, and HVAC services in Timmins. TSSA-certified gas furnace work. Same-day no-heat emergencies. Free estimates. (705) 700-1234.',
+    navActive: 'navHVAC',
+    badge: 'HVAC · Timmins, Ontario',
+    headline: 'No heat?<br><em>We fix it today.</em>',
+    sub: 'Total Trades Solutions\' plumbers hold dual licensing — plumbing and TSSA gas fitting — so furnace and gas HVAC work is handled by the same team you already trust for gas plumbing, not a separate hire. Air conditioning and refrigeration equipment work is staffed by a technician holding the separate 313A certification that trade requires.',
+    facts: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Furnace work by our own dual-licensed plumbers', sub: 'Plumbing + TSSA gas fitting — the same certification covers gas furnaces' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', label: 'Same-day no-heat response', sub: 'A cold house in a Timmins winter is never a someday job' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full cost agreed before work starts' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Furnace, AC & ventilation', sub: 'Heating, cooling, and indoor air quality — one call' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Heating, cooling,<br>and everything between.',
+    scopeSub: 'A furnace failure in a Timmins winter isn\'t a someday problem. We treat no-heat calls with the same urgency as a burst pipe, and handle the rest of the system too.',
+    scope: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'Furnace repair & replacement', desc: 'Gas, propane, and electric furnace repair and full replacement, done by our own dual-licensed plumbers under their existing TSSA gas fitting certification — permitted and inspected, same as our gas plumbing work.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'No-heat emergency response', desc: 'A failed furnace in a Timmins winter isn\'t something that waits — same-day diagnosis and repair, or emergency heat source guidance while parts are sourced.' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'Air conditioning & refrigeration', desc: 'Central air and ductless mini-split systems installed and serviced by a technician holding the 313A refrigeration and air conditioning certification — a separate license from gas fitting, since the two trades aren\'t interchangeable.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Ductwork repair & installation', desc: 'Leaking, disconnected, or undersized ductwork repaired or replaced — often the real reason a room never gets warm or cool enough.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'HRV & ventilation systems', desc: 'Heat recovery ventilators bring in fresh air without losing the heat you\'ve already paid for — increasingly important in tightly sealed, well-insulated Northern Ontario homes.' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', name: 'Furnace maintenance & tune-ups', desc: 'Annual inspection and cleaning before winter catches a failing part before it becomes a no-heat emergency.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of your furnace\'s data plate or the issue gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Furnace died on the coldest night of the year. Called Total Trades Solutions and they had a tech out within a couple hours, diagnosed a failed igniter, and had heat back on before bed."', name: 'Marc L. · Timmins' },
+      { stars: '★★★★★', text: '"Our 20-year-old furnace was on its last legs. Total Trades Solutions walked us through the replacement options honestly, no upsell pressure, and had the new unit running the same week."', name: 'Julie B. · South Porcupine' },
+      { stars: '★★★★★', text: '"Installed an HRV when we did our insulation upgrade — house doesn\'t feel stuffy anymore and heating bills didn\'t go up. Explained exactly why we needed it, not just sold it to us."', name: 'Andre T. · Kapuskasing' }
+    ],
+    emgTitle: 'No heat right now?',
+    emgSub: 'Same-day service for no-heat emergencies. We answer 24/7 — this is treated the same as a burst pipe.',
+    chatStatus: 'Online · furnace and HVAC questions welcome',
+    chatQuicks: ['How much does furnace replacement cost?', 'My furnace won\'t turn on — what should I check first?', 'Do I need an HRV in my house?'],
+    related: [
+      { href:'/gas-plumbing', icon:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>', name:'Gas Plumbing' },
+      { href:'/electrical', icon:'<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', name:'Electrical' },
+      { href:'/emergency', icon:'<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>', name:'Emergency 24/7' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'decks-fencing': {
+    title: 'Deck & Fence Building Timmins | Total Trades Solutions',
+    desc:  'Patio deck construction, repair, and fencing in Timmins. Pressure-treated, composite, and cedar. Frost-depth footings, permits handled. Free estimates. (705) 700-1234.',
+    navActive: 'navDecksFencing',
+    badge: 'Decks & Fencing · Timmins, Ontario',
+    headline: 'A deck and fence<br><em>built to last winters.</em>',
+    sub: 'Total Trades Solutions builds and repairs patio decks and fencing across Timmins — pressure-treated, cedar, and composite materials, footings sized for frost depth, permits handled where required.',
+    facts: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Frost-depth footings', sub: 'Built to Timmins frost depth, not just bolted to the surface' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', label: 'Pressure-treated, cedar & composite', sub: 'Material options for every budget and maintenance preference' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full project cost agreed before work starts' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Permits handled', sub: 'We pull the permit and manage inspection where the project requires it' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Decks and fences.<br>Built below the frost line.',
+    scopeSub: 'A deck or fence that heaves every spring was built without accounting for Timmins frost depth. We set footings and posts properly the first time.',
+    scope: [
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', name: 'New deck construction', desc: 'Designed and built to your space and how you\'ll use it — footings set below frost line so the deck doesn\'t heave over winter.' },
+      { icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>', name: 'Deck repair & board replacement', desc: 'Rotted boards, loose railings, and structural issues repaired — often without needing to rebuild the whole deck.' },
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Privacy & boundary fencing', desc: 'Wood, vinyl, and chain-link fencing installed to your property line, with proper post depth for frost heave.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Gate installation & repair', desc: 'Sagging gates re-hung, latches and hinges replaced, new gates built to match existing fencing.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Railing & baluster repair', desc: 'Loose or failing railings are a safety issue, not just a cosmetic one — repaired or rebuilt to current code spacing.' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', name: 'Deck & fence staining/sealing', desc: 'Protects wood from Northern Ontario\'s freeze-thaw cycles and UV exposure — extends the life of the investment.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A photo of the space or the existing deck/fence gives us a real head start on an accurate quote.',
+    proof: [
+      { stars: '★★★★★', text: '"Old deck was heaving every spring because the footings weren\'t deep enough. Total Trades Solutions tore it out and rebuilt it properly below frost line. Hasn\'t moved in three years now."', name: 'Todd M. · Timmins' },
+      { stars: '★★★★★', text: '"Needed a privacy fence between us and the new neighbors. Total Trades Solutions handled the permit, checked the property line survey, and built it exactly on line. No disputes, no headaches."', name: 'Michelle R. · Cochrane' },
+      { stars: '★★★★★', text: '"Deck railings were wobbly and honestly a little scary with the grandkids around. Total Trades Solutions rebuilt them to proper code spacing the same week I called."', name: 'Harold P. · Iroquois Falls' }
+    ],
+    emgTitle: 'Deck or fence damage from a storm?',
+    emgSub: 'We assess storm and wind damage and can make structural safety repairs fast.',
+    chatStatus: 'Online · deck and fencing questions welcome',
+    chatQuicks: ['How much does a new deck cost?', 'Do I need a permit for a deck or fence?', 'How deep do footings need to be in Timmins?'],
+    related: [
+      { href:'/home-additions', icon:'<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name:'Home Additions' },
+      { href:'/space-conversions', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Space Conversions' },
+      { href:'/siding', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Siding' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'space-conversions': {
+    title: 'Basement, Attic & Garage Conversions Timmins | Total Trades Solutions',
+    desc:  'Basement renovations, attic conversions, and garage conversions in Timmins. Framing, insulation, electrical, and plumbing under one project. Free estimates. (705) 700-1234.',
+    navActive: 'navConversions',
+    badge: 'Space Conversions · Timmins, Ontario',
+    headline: 'Unused space?<br><em>Turn it into a room.</em>',
+    sub: 'Total Trades Solutions converts basements, attics, and garages into finished, livable space across Timmins — framing, insulation, electrical, and plumbing rough-in coordinated under one project, permitted and inspected.',
+    facts: [
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', label: 'Basement, attic & garage', sub: 'All three space types converted to finished living space' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Insulation built for winter', sub: 'Proper vapor barrier and R-value — not an afterthought' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full project cost agreed before work starts' },
+      { icon: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', label: 'One team, every trade', sub: 'Framing, electrical, and plumbing coordinated under one project' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'Basements, attics,<br>and garages — finished right.',
+    scopeSub: 'Turning unused space into a real room means checking what\'s actually possible before design starts — moisture, headroom, structural load, and code — not finding out after the drywall is up.',
+    scope: [
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Basement renovation', desc: 'Full basement finishing — framing, insulation, electrical, and a bathroom rough-in if needed. Moisture and grading assessed first, since a finished basement is only as good as what\'s keeping water out.' },
+      { icon: '<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name: 'Attic conversion', desc: 'Turning attic space into a bedroom, office, or storage requires checking headroom, insulation, and structural load before framing begins — we assess feasibility honestly before quoting.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Garage conversion', desc: 'Converting an attached garage into living space, including the insulation and heating it never needed as a garage, and code-compliant fire separation from the rest of the house.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Egress window installation', desc: 'A converted basement or attic bedroom needs a code-compliant egress window for emergency exit — installed as part of the conversion, not an afterthought.' },
+      { icon: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', name: 'Electrical & plumbing rough-in', desc: 'New circuits, outlets, and — where needed — a bathroom or wet bar rough-in, handled by our own licensed electricians and plumbers as part of the same project.' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', name: 'Permits & inspection', desc: 'Space conversions almost always require a building permit. We pull it, coordinate inspections, and make sure the finished space is actually legal to use as a bedroom or living area.' }
+    ],
+    fjHeadline: 'Send us a photo.<br>Get a quote in 2 hours.',
+    fjSub: 'A few photos of the space you want converted gives us a real head start on an accurate quote and an honest read on feasibility.',
+    proof: [
+      { stars: '★★★★★', text: '"Wanted to finish the basement for a family room and extra bedroom. Total Trades Solutions caught a moisture issue behind the wall before framing even started — glad they checked first instead of building over it."', name: 'Cindy H. · Timmins' },
+      { stars: '★★★★★', text: '"Converted the attic into a home office. They were upfront that the headroom in one corner wouldn\'t meet code for a bedroom, so we planned around it instead of finding out after the drywall was up."', name: 'Aaron F. · South Porcupine' },
+      { stars: '★★★★★', text: '"Turned our attached garage into a family room. Handled the insulation, the electrical, and made sure the fire-rated door to the house still met code. Passed inspection first try."', name: 'Melissa D. · Matheson' }
+    ],
+    emgTitle: 'Not sure if your space can actually be converted?',
+    emgSub: 'We\'ll do an honest feasibility assessment before you commit to a design — headroom, structural load, and code requirements checked first.',
+    chatStatus: 'Online · basement, attic & garage conversion questions welcome',
+    chatQuicks: ['How much does a basement renovation cost?', 'Can any attic be converted into a bedroom?', 'Do I need a permit to convert my garage?'],
+    related: [
+      { href:'/home-additions', icon:'<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name:'Home Additions' },
+      { href:'/electrical', icon:'<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', name:'Electrical' },
+      { href:'/windows', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Windows' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: true,
+    pixelBucket: 'active'
+  },
+
+  'home-additions': {
+    title: 'Home Additions Timmins | Total Trades Solutions',
+    desc:  'Room additions, second-story additions, and sunrooms in Timmins. Foundation to finish, one team, permits and engineering handled. Free estimates. (705) 700-1234.',
+    navActive: 'navHomeAdditions',
+    badge: 'Home Additions · Timmins, Ontario',
+    headline: 'More space.<br><em>Built onto what you have.</em>',
+    sub: 'Total Trades Solutions builds home additions across Timmins — from a single room to a second story — foundation to finish, with roofing, siding, windows, electrical, and plumbing all coordinated under one team instead of a chain of subcontractors.',
+    facts: [
+      { icon: '<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', label: 'Foundation to finish', sub: 'One team for the whole project, not a chain of subcontractors' },
+      { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', label: 'Engineered for frost & snow load', sub: 'Foundations and framing built for Northern Ontario conditions' },
+      { icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', label: 'Flat-rate pricing', sub: 'Full project cost agreed before work starts' },
+      { icon: '<polyline points="20 6 9 17 4 12"/>', label: 'Permits & engineering handled', sub: 'We coordinate the structural engineer stamp and municipal permit' }
+    ],
+    scopeLabel: 'What we handle',
+    scopeHeadline: 'From one room<br>to a second story.',
+    scopeSub: 'An addition is only as good as what it\'s tied into — the existing foundation, roofline, and structure. We assess what\'s actually there before designing what goes on top of it.',
+    scope: [
+      { icon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name: 'Room additions', desc: 'A new bedroom, family room, or home office built onto your existing home, tied into the roofline and siding so it looks original, not bolted on.' },
+      { icon: '<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name: 'Second-story additions', desc: 'Adding a full level requires an engineering assessment of your existing foundation and structure first — we\'re upfront if a project needs that step before any design work.' },
+      { icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', name: 'Sunrooms & four-season rooms', desc: 'Three-season sunrooms and fully insulated four-season rooms — built to the standard that actually matches how you plan to use it through a Timmins winter.' },
+      { icon: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>', name: 'In-law & secondary suites', desc: 'Additions built as a separate living space, including separate entrance and utility considerations where the project calls for it.' },
+      { icon: '<path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/>', name: 'Foundation & footings', desc: 'New foundation work poured and cured to Timmins frost depth, matched and tied properly into the existing foundation.' },
+      { icon: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', name: 'All-trades coordination', desc: 'Roofing, siding, windows, electrical, HVAC, and plumbing — all handled by the same company that\'s already covering each of those trades individually, coordinated as one project instead of six separate contractors.' }
+    ],
+    fjHeadline: null,
+    fjSub: null,
+    proof: [
+      { stars: '★★★★★', text: '"Added a family room and expanded the kitchen at the same time. Total Trades Solutions coordinated their own roofer, electrician, and the plumber for the wet bar — we never had to manage separate contractors ourselves."', name: 'Linda K. · Timmins' },
+      { stars: '★★★★★', text: '"Full second-story addition over our existing bungalow. They were honest upfront that our foundation needed an engineer\'s assessment before anything else happened — turned out we needed some reinforcement first. Would rather know that before starting than after."', name: 'Rick D. · South Porcupine' },
+      { stars: '★★★★★', text: '"Four-season sunroom addition off the back of the house. Properly insulated, not just a three-season add-on that goes cold in November. We use it year-round now."', name: 'Sandra P. · Cochrane' }
+    ],
+    emgTitle: 'Ready to see if your addition idea is feasible?',
+    emgSub: 'We\'ll walk your property, give you an honest read on what\'s possible, and what it would take structurally and permit-wise.',
+    chatStatus: 'Online · home addition questions welcome',
+    chatQuicks: ['How much does a home addition cost per square foot?', 'Do I need an engineer for a second-story addition?', 'What\'s the difference between a three-season and four-season sunroom?'],
+    related: [
+      { href:'/space-conversions', icon:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', name:'Space Conversions' },
+      { href:'/roofing', icon:'<path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/>', name:'Roofing' },
+      { href:'/electrical', icon:'<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>', name:'Electrical' },
+      { href:'/contact', icon:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/>', name:'Get a Quote' }
+    ],
+    hasFotoJobber: false,
+    pixelBucket: 'comparison'
+  }
+
+};
+
+/* ── PAGE DETECTION ──
+   In production the CMS sets window.PAGE.
+   In demo, detect from URL or default to hot-water.
+*/
+const url = window.location.pathname.replace(/\//g,'').replace(/-/g,'_');
+const pageKey = (
+  window.PAGE ||
+  (['hot_water','blocked_drains','leak_detection','gas_plumbing','water_filtration','roofing','electrical','siding','stucco','brick','windows','garage_doors','patio_doors','doors','hvac','decks_fencing','space_conversions','home_additions']
+    .find(k => url.includes(k)) || 'hot_water')
+  ).replace(/_/g,'-');
+
+const P = PAGES[pageKey] || PAGES['hot-water'];
+
+/* ── POPULATE PAGE ── */
+document.getElementById('pageTitle').textContent = P.title;
+document.getElementById('pageDesc').setAttribute('content', P.desc);
+document.getElementById('heroBadge').textContent = P.badge;
+document.getElementById('heroHeadline').innerHTML = P.headline;
+document.getElementById('heroSub').textContent = P.sub;
+document.getElementById('scopeLabel').textContent = P.scopeLabel;
+document.getElementById('scopeHeadline').innerHTML = P.scopeHeadline;
+document.getElementById('scopeSub').textContent = P.scopeSub;
+document.getElementById('emgBandTitle').textContent = P.emgTitle;
+document.getElementById('emgBandSub').textContent = P.emgSub;
+document.getElementById('chatStatus').textContent = P.chatStatus;
+
+// Nav active state
+if (P.navActive) {
+  const navEl = document.getElementById(P.navActive);
+  if (navEl) navEl.classList.add('active');
+}
+
+// Facts
+document.getElementById('factsList').innerHTML = P.facts.map(f => `
+  <div class="svc-fact">
+    <div class="svc-fact-icon"><svg viewBox="0 0 24 24">${f.icon}</svg></div>
+    <div><div class="svc-fact-label">${f.label}</div><div class="svc-fact-sub">${f.sub}</div></div>
+  </div>`).join('');
+
+// Scope grid
+document.getElementById('scopeGrid').innerHTML = P.scope.map((s,i) => `
+  <div class="svc-scope-card reveal${i>0?' reveal-delay-'+Math.min(i,3):''}">
+    <div class="svc-scope-icon"><svg viewBox="0 0 24 24">${s.icon}</svg></div>
+    <div class="svc-scope-name">${s.name}</div>
+    <p class="svc-scope-desc">${s.desc}</p>
+  </div>`).join('');
+
+// FotoJobber section
+if (!P.hasFotoJobber) {
+  document.getElementById('fjBand').style.display = 'none';
+} else {
+  document.getElementById('fjHeadline').innerHTML = P.fjHeadline;
+  document.getElementById('fjSub').textContent = P.fjSub;
+}
+
+// Proof
+document.getElementById('proofGrid').innerHTML = P.proof.map((p,i) => `
+  <div class="proof-card reveal${i>0?' reveal-delay-'+i:''}">
+    <div class="proof-stars">${p.stars}</div>
+    <p class="proof-text">${p.text}</p>
+    <div class="proof-attr"><div class="proof-dot"></div><span class="proof-name">${p.name} · Google Review</span></div>
+  </div>`).join('');
+
+// Related services
+document.getElementById('relatedGrid').innerHTML = P.related.map(r => `
+  <a href="${r.href}" class="related-card" onclick="firePixel('related_click','Related: ${r.name}',5,'active')">
+    <div class="related-icon"><svg viewBox="0 0 24 24" stroke="var(--green)" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${r.icon}</svg></div>
+    <div class="related-name">${r.name}</div>
+    <div class="related-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </a>`).join('');
+
+// Chat quick buttons
+document.getElementById('chatQuicks').innerHTML = P.chatQuicks.map(q =>
+  `<button class="chat-quick-btn" onclick="quickAsk('${q.replace(/'/g,"\\'")}'">${q.length > 30 ? q.substring(0,30)+'…' : q}</button>`
+).join('');
+
+/* ── NAV + SCROLL ── */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  if (nav) { if (window.scrollY > 20) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+  });
+});
+document.querySelectorAll('.reveal').forEach(el => {
+  if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+});
+
+/* ── MOBILE MENU ── */
+function toggleMobileMenu() {
+  const m = document.getElementById('mobileMenu'), b = document.getElementById('mobileHamburger');
+  const o = m.classList.toggle('open'); b.classList.toggle('open', o); document.body.style.overflow = o ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileHamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function scrollToApt() { document.getElementById('aptSection').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+/* ── CLEARSKY PIXEL ── */
+let _score = 0, _bucket = 'unclassified', _scrollDepth = 0, _dwellStart = Date.now(), _toastTimeout;
+const _bp = ['emergency','active','comparison','research','unclassified'];
+function firePixel(event, label, delta, bucket) {
+  _score = Math.min(_score + delta, 100);
+  if (bucket && bucket !== 'unclassified') {
+    const c = _bp.indexOf(_bucket), n = _bp.indexOf(bucket);
+    if (c === -1 || n < c || _bucket === 'unclassified') _bucket = bucket;
+  }
+  const t = document.getElementById('pixelToast');
+  document.getElementById('pixelToastText').textContent = label + (delta > 0 ? ' +' + delta : '');
+  t.classList.add('show'); clearTimeout(_toastTimeout);
+  _toastTimeout = setTimeout(() => t.classList.remove('show'), 2200);
+  console.log('[ClearSky Pixel]', { event, score: _score, bucket: _bucket, delta, label, page: pageKey });
+}
+
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement.scrollHeight - window.innerHeight; if (doc <= 0) return;
+  const pct = Math.round((window.scrollY / doc) * 100);
+  if (pct > _scrollDepth) {
+    if (pct >= 25 && _scrollDepth < 25) firePixel('scroll_25', 'Scroll 25%', 3, 'research');
+    if (pct >= 50 && _scrollDepth < 50) firePixel('scroll_50', 'Scroll 50%', 5, 'comparison');
+    if (pct >= 75 && _scrollDepth < 75) firePixel('scroll_75', 'Scroll 75%', 7, P.pixelBucket);
+    if (pct >= 90 && _scrollDepth < 90) firePixel('scroll_90', 'Scroll 90%', 10, 'active');
+    _scrollDepth = pct;
+  }
+});
+let _d30=false,_d60=false,_d120=false;
+setInterval(() => {
+  const s = Math.round((Date.now() - _dwellStart) / 1000);
+  if (s>=30  && !_d30)  { _d30=true;  firePixel('dwell_30',  '30s dwell',  4, 'research'); }
+  if (s>=60  && !_d60)  { _d60=true;  firePixel('dwell_60',  '60s dwell',  7, 'comparison'); }
+  if (s>=120 && !_d120) { _d120=true; firePixel('dwell_120', '2min dwell', 10, 'active'); }
+}, 1000);
+
+const _obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, evt = el.dataset.pixelEvent;
+      if (evt) { firePixel(evt, el.dataset.pixelLabel||evt, parseInt(el.dataset.pixelDelta||'0'), el.dataset.pixelBucket||P.pixelBucket); _obs.unobserve(el); }
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-pixel-event]').forEach(el => _obs.observe(el));
+
+firePixel('page_load', pageKey + ' — session started', 4, P.pixelBucket);
+
+const _ne = document.getElementById('navEmergencyBtn'), _nb = document.getElementById('navBookBtn');
+if (_ne) _ne.addEventListener('click', () => firePixel('nav_emergency', 'Nav: Emergency', 15, 'emergency'));
+if (_nb) _nb.addEventListener('click', () => firePixel('nav_book', 'Nav: Book Now', 10, 'active'));
+document.getElementById('heroCallBtn').addEventListener('click', () => firePixel('hero_call', 'Hero: call button', 15, 'active'));
+document.getElementById('emgBandBtn').addEventListener('click', () => firePixel('emg_call', 'Emergency band: call', 15, 'active'));
+
+/* ── FOTOJOBBER ── */
+function submitFJ() {
+  const note = document.getElementById('fjNote')?.value;
+  const name = document.getElementById('fjName')?.value;
+  const phone = document.getElementById('fjPhone')?.value;
+  if (!name || !phone) { if (!name) document.getElementById('fjName')?.focus(); else document.getElementById('fjPhone')?.focus(); return; }
+  firePixel('fj_submit', 'FotoJobber: submitted', 15, 'active');
+  const btn = document.querySelector('.fj-send');
+  btn.textContent = 'Received — quote within 2 hours ✓';
+  btn.style.background = 'var(--green-mid)';
+  btn.disabled = true;
+}
+
+/* ── APPOINTMENT ── */
+function submitApt() {
+  const name = document.getElementById('aptName').value;
+  const phone = document.getElementById('aptPhone').value;
+  if (!name || !phone) { if (!name) document.getElementById('aptName').focus(); else document.getElementById('aptPhone').focus(); return; }
+  firePixel('apt_submit', 'Appointment: booked', 20, 'active');
+  const btn = document.querySelector('.apt-btn');
+  btn.textContent = 'Booked — confirmed within 2 hours ✓';
+  btn.style.background = 'var(--green-mid)';
+  btn.disabled = true;
+}
+
+/* ── LEAD GRABBER ── */
+let _lgOpen = false, _lgMode = 'speak';
+function toggleLG() {
+  _lgOpen = !_lgOpen;
+  document.getElementById('lgPanel').classList.toggle('open', _lgOpen);
+  if (_lgOpen) firePixel('lg_open', 'Lead Grabber opened', 8, 'active');
+}
+function selectLGMode(mode) {
+  _lgMode = mode;
+  document.getElementById('lgSpeak').classList.toggle('selected', mode==='speak');
+  document.getElementById('lgEmail').classList.toggle('selected', mode==='email');
+  const p = document.getElementById('lgPhone');
+  if (mode==='speak') { p.placeholder='Phone — (705) 000-0000'; p.type='tel'; }
+  else { p.placeholder='Email address'; p.type='email'; }
+}
+function submitLG() {
+  firePixel('lg_submit', 'Lead Grabber submitted', 15, 'active');
+  const btn = document.querySelector('.lg-submit');
+  btn.textContent = 'Request sent ✓'; btn.style.background = 'var(--green)';
+  setTimeout(() => { btn.textContent = 'Send request'; btn.style.background = ''; }, 3000);
+}
+
+/* ── AI CHAT ── */
+let _chatOpen = false;
+function toggleChat() {
+  _chatOpen = !_chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', _chatOpen);
+  if (_chatOpen) firePixel('chat_open', 'AI Chat opened', 6, 'comparison');
+}
+function quickAsk(q) {
+  _addChatMsg(q, 'user');
+  firePixel('chat_question', 'Chat: ' + q.substring(0,30), 10, 'comparison');
+  setTimeout(() => _addChatMsg('Our team will follow up shortly. For immediate answers call (705) 700-1234.', 'bot'), 800);
+}
+function sendChat() {
+  const inp = document.getElementById('chatInput'); if (!inp.value.trim()) return;
+  _addChatMsg(inp.value, 'user'); firePixel('chat_question', 'Chat question asked', 10, 'comparison'); inp.value = '';
+  setTimeout(() => _addChatMsg('Our team will get back to you shortly. Call (705) 700-1234 for an immediate answer.', 'bot'), 800);
+}
+function _addChatMsg(text, type) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div'); div.className = 'chat-msg ' + type; div.textContent = text;
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+}
+</script>
+</body>
+</html>

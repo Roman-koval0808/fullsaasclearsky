@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSky — Live Platform Prototype · RightFlush Plumbing</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:     #FFFFFF;
+  --ink2:    #F8F9FA;
+  --ink3:    #F1F3F5;
+  --border:  #E5E7EB;
+  --border2: #D1D5DB;
+  --text1:   #111827;
+  --text2:   #374151;
+  --text3:   #6B7280;
+  --green:   #0A7C45;
+  --green-b: #0A7C45;
+  --green-lt:#E6F4EE;
+  --green-tx:#064D2A;
+  --red:     #B91C1C;
+  --red-b:   #B91C1C;
+  --red-lt:  #FEF2F2;
+  --red-tx:  #7F1D1D;
+  --amber:   #92600A;
+  --amber-b: #92600A;
+  --amber-lt:#FFFBEB;
+  --amber-tx:#5C3A06;
+  --blue:    #1D4ED8;
+  --blue-b:  #1D4ED8;
+  --blue-lt: #EFF6FF;
+  --blue-tx: #1E3A8A;
+  --purple:  #6D28D9;
+  --purple-b:#6D28D9;
+  --purple-lt:#F5F3FF;
+  --purple-tx:#3B0764;
+  --teal:    #0D7F78;
+  --teal-b:  #0D7F78;
+  --teal-lt: #F0FDFA;
+  --teal-tx: #083B38;
+  --coral:   #993C1D;
+  --coral-tx:#4A1B0C;
+  --mono:    'IBM Plex Mono', monospace;
+  --sans:    'DM Sans', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:#F1F3F5;color:var(--text1);font-family:var(--sans);overflow:hidden;}
+
+/* ── HEADER ── */
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;height:52px;
+  background:#FFFFFF;border-bottom:1px solid var(--border);
+  position:fixed;top:0;left:0;right:0;z-index:100;
+}
+.header-left{display:flex;align-items:center;gap:16px;}
+.logo{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--teal);letter-spacing:0.08em;}
+.logo span{color:var(--text3);}
+.client-tag{
+  font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.06em;
+  padding:3px 8px;background:var(--ink2);border:1px solid var(--border);
+  border-radius:4px;color:var(--text2);
+}
+.live-badge{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;color:var(--green-tx);
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(1.2);}}
+
+.header-right{display:flex;align-items:center;gap:10px;}
+.hdr-btn{
+  font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.06em;
+  padding:5px 12px;border-radius:4px;cursor:pointer;border:1px solid var(--border);
+  background:transparent;color:var(--text2);transition:all 0.15s;
+}
+.hdr-btn:hover{background:var(--ink3);color:var(--text1);}
+.hdr-btn.primary{background:var(--teal-lt);border-color:var(--teal-b);color:var(--teal-tx);}
+.hdr-btn.primary:hover{background:var(--teal);color:#FFFFFF;}
+
+/* ── MAIN LAYOUT ── */
+.app{
+  display:grid;
+  grid-template-columns:300px 1fr 340px;
+  grid-template-rows:calc(100vh - 52px - 60px);
+  position:fixed;top:52px;left:0;right:0;bottom:60px;background:#F1F3F5;
+  gap:0;
+}
+.panel{
+  overflow:hidden;display:flex;flex-direction:column;
+  border-right:1px solid var(--border);background:#FFFFFF;
+}
+.panel:last-child{border-right:none;}
+
+/* ── PANEL HEADERS ── */
+.panel-head{
+  padding:12px 16px;border-bottom:1px solid var(--border);
+  flex-shrink:0;background:#FFFFFF;
+}
+.panel-head-row{display:flex;align-items:center;justify-content:space-between;}
+.panel-title{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);}
+.panel-sub{font-size:12px;color:var(--text2);font-weight:300;margin-top:2px;}
+
+/* ── PATH TABS ── */
+.path-tabs{display:flex;gap:0;margin-top:10px;}
+.path-tab{
+  flex:1;padding:6px 10px;font-family:var(--mono);font-size:9px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;
+  border:1px solid var(--border);background:transparent;color:var(--text3);
+  transition:all 0.15s;text-align:center;
+}
+.path-tab:first-child{border-radius:4px 0 0 4px;}
+.path-tab:last-child{border-radius:0 4px 4px 0;border-left:none;}
+.path-tab.active-a{background:var(--blue-lt);border-color:var(--blue-b);color:var(--blue-tx);}
+.path-tab.active-b{background:var(--red-lt);border-color:var(--red-b);color:var(--red-tx);}
+
+/* ── SCROLLABLE BODY ── */
+.panel-body{flex:1;overflow-y:auto;padding:0;}
+.panel-body::-webkit-scrollbar{width:4px;}
+.panel-body::-webkit-scrollbar-track{background:transparent;}
+.panel-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+/* ── EVENT FEED ── */
+.event-item{
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  display:flex;flex-direction:column;gap:4px;
+  animation:fadeIn 0.3s ease;cursor:pointer;transition:background 0.1s;
+}
+.event-item:hover{background:var(--ink2);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
+.event-row1{display:flex;align-items:center;gap:8px;}
+.event-type{
+  font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.08em;
+  padding:2px 6px;border-radius:3px;text-transform:uppercase;flex-shrink:0;
+}
+.et-emg{background:var(--red-lt);color:var(--red-tx);border:1px solid #FECACA;}
+.et-act{background:var(--amber-lt);color:var(--amber-tx);border:1px solid #FDE68A;}
+.et-cmp{background:var(--blue-lt);color:var(--blue-tx);border:1px solid #BFDBFE;}
+.et-res{background:var(--green-lt);color:var(--green-tx);border:1px solid #BBF7D0;}
+.et-sys{background:var(--ink2);color:var(--text3);border:1px solid var(--border);}
+.et-a2p{background:var(--teal-lt);color:var(--teal-tx);border:1px solid #CCEDE9;}
+.et-id{background:var(--purple-lt);color:var(--purple-tx);border:1px solid #DDD6FE;}
+
+.event-name{font-size:12px;font-weight:500;color:var(--text1);}
+.event-delta{font-family:var(--mono);font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;}
+.delta-pos{color:var(--green-tx);}
+.delta-neg{color:var(--red-tx);}
+.delta-neu{color:var(--text3);}
+.event-row2{display:flex;align-items:center;gap:8px;}
+.event-detail{font-size:11px;color:var(--text3);font-weight:300;flex:1;}
+.event-time{font-family:var(--mono);font-size:9px;color:var(--text3);}
+.event-provider{
+  font-family:var(--mono);font-size:8px;color:var(--text3);
+  padding:1px 5px;border:1px solid var(--border);border-radius:2px;
+}
+.temporal-tag{
+  font-family:var(--mono);font-size:8px;padding:1px 5px;
+  border-radius:2px;border:1px solid var(--border);
+}
+.tt-afterhours{background:var(--red-lt);color:var(--red-tx);border-color:var(--red);}
+.tt-weekend{background:var(--amber-lt);color:var(--amber-tx);border-color:var(--amber);}
+.tt-normal{background:var(--ink3);color:var(--text3);}
+
+/* ── PROFILE PANEL ── */
+.profile-shell{padding:16px;}
+.path-switcher{
+  display:flex;gap:8px;margin-bottom:16px;
+}
+.ps-btn{
+  flex:1;padding:8px;border-radius:6px;cursor:pointer;
+  font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:0.06em;
+  text-transform:uppercase;text-align:center;border:1px solid var(--border);
+  background:transparent;color:var(--text3);transition:all 0.15s;
+}
+.ps-btn.active-a{background:var(--blue-lt);border-color:var(--blue-b);color:var(--blue-tx);}
+.ps-btn.active-b{background:var(--red-lt);border-color:var(--red-b);color:var(--red-tx);}
+
+/* profile card */
+.profile-card{
+  background:#FFFFFF;border:1px solid var(--border);border-radius:8px;
+  margin-bottom:12px;overflow:hidden;
+}
+.pc-head{
+  padding:12px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.pc-avatar{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:13px;font-weight:600;flex-shrink:0;
+}
+.av-anon{background:var(--ink3);color:var(--text3);border:1px solid var(--border);}
+.av-t1{background:var(--green-lt);color:var(--green-tx);border:1px solid var(--green);}
+.av-emg{background:var(--red-lt);color:var(--red-tx);border:1px solid var(--red);}
+.pc-name{font-size:14px;font-weight:500;color:var(--text1);}
+.pc-sub{font-size:11px;color:var(--text3);font-weight:300;}
+.tier-badge{
+  margin-left:auto;font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:0.08em;padding:3px 7px;border-radius:3px;
+}
+.tb-t1{background:var(--green-lt);color:var(--green-tx);border:1px solid var(--green);}
+.tb-t2{background:var(--amber-lt);color:var(--amber-tx);border:1px solid var(--amber);}
+.tb-t3{background:var(--ink3);color:var(--text3);border:1px solid var(--border);}
+
+.pc-body{padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
+
+/* score bar */
+.score-section{display:flex;flex-direction:column;gap:6px;}
+.score-labels{display:flex;justify-content:space-between;align-items:baseline;}
+.score-label{font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;}
+.score-val{font-family:var(--mono);font-size:22px;font-weight:600;line-height:1;}
+.score-live{color:var(--green-tx);}
+.score-raw{color:var(--text3);font-size:12px;font-weight:400;}
+.score-track{height:6px;background:var(--ink2);border-radius:3px;overflow:hidden;}
+.score-fill{height:100%;border-radius:3px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1);}
+.sf-emg{background:var(--red-b);}
+.sf-act{background:var(--amber-b);}
+.sf-cmp{background:var(--blue-b);}
+.sf-res{background:var(--green-b);}
+.sf-none{background:var(--border);}
+
+/* bucket */
+.bucket-display{
+  padding:8px 10px;border-radius:6px;
+  display:flex;align-items:center;gap:8px;
+  border:1px solid transparent;
+}
+.bd-emg{background:var(--red-lt);border-color:var(--red);}
+.bd-act{background:var(--amber-lt);border-color:var(--amber);}
+.bd-cmp{background:var(--blue-lt);border-color:var(--blue);}
+.bd-res{background:var(--green-lt);border-color:var(--green);}
+.bd-none{background:var(--ink3);border-color:var(--border);}
+.bd-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-emg{background:var(--red-b);}
+.dot-act{background:var(--amber-b);}
+.dot-cmp{background:var(--blue-b);}
+.dot-res{background:var(--green-b);}
+.dot-none{background:var(--border2);}
+.bd-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;}
+.bd-emg .bd-label{color:var(--red-tx);}
+.bd-act .bd-label{color:var(--amber-tx);}
+.bd-cmp .bd-label{color:var(--blue-tx);}
+.bd-res .bd-label{color:var(--green-tx);}
+.bd-none .bd-label{color:var(--text3);}
+.bd-consequence{font-size:11px;font-weight:300;margin-left:auto;text-align:right;}
+.bd-emg .bd-consequence{color:var(--red-tx);}
+.bd-act .bd-consequence{color:var(--amber-tx);}
+.bd-cmp .bd-consequence{color:var(--blue-tx);}
+.bd-res .bd-consequence{color:var(--green-tx);}
+
+/* identity rows */
+.id-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border);}
+.id-row:last-child{border-bottom:none;}
+.id-key{font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;}
+.id-val{font-family:var(--mono);font-size:10px;color:var(--text1);}
+.id-val.confirmed{color:var(--green-tx);}
+.id-val.inferred{color:var(--amber-tx);}
+.id-val.pending{color:var(--text3);}
+
+/* persona grid */
+.persona-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.persona-dim{
+  padding:6px 8px;background:var(--ink2);border-radius:5px;
+  border:1px solid var(--border);
+}
+.pd-label{font-family:var(--mono);font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;}
+.pd-val{font-size:11px;color:var(--text1);font-weight:500;}
+.pd-conf{height:3px;background:var(--ink2);border-radius:2px;margin-top:4px;overflow:hidden;}
+.pd-conf-fill{height:100%;border-radius:2px;background:var(--purple-b);transition:width 0.6s ease;}
+
+/* temporal context */
+.temporal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
+.tc-item{padding:5px 6px;background:var(--ink2);border-radius:4px;border:1px solid var(--border);}
+.tc-label{font-family:var(--mono);font-size:7px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;}
+.tc-val{font-family:var(--mono);font-size:10px;color:var(--text1);font-weight:500;margin-top:1px;}
+.tc-item.highlight{background:var(--red-lt);border-color:var(--red);}
+.tc-item.highlight .tc-label{color:var(--red-tx);}
+.tc-item.highlight .tc-val{color:var(--red-tx);}
+
+/* ── ORCHESTRATOR PANEL ── */
+.orch-shell{padding:12px;}
+
+.decision-card{
+  background:#FFFFFF;border:1px solid var(--teal);border-radius:8px;
+  margin-bottom:12px;overflow:hidden;animation:fadeIn 0.4s ease;
+}
+.dc-head{
+  padding:10px 12px;background:var(--teal-lt);border-bottom:1px solid #CCEDE9;
+  display:flex;align-items:center;gap:8px;
+}
+.dc-icon{font-size:14px;}
+.dc-title{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--teal-tx);letter-spacing:0.06em;flex:1;}
+.dc-path{font-family:var(--mono);font-size:9px;color:var(--teal);padding:2px 6px;background:var(--ink);border-radius:3px;}
+.dc-body{padding:10px 12px;display:flex;flex-direction:column;gap:8px;}
+
+/* 7-step pipeline mini */
+.pipeline-steps{display:flex;flex-direction:column;gap:3px;}
+.ps-step{
+  display:flex;align-items:flex-start;gap:8px;
+  padding:5px 8px;border-radius:4px;background:var(--ink3);
+}
+.ps-num{
+  font-family:var(--mono);font-size:8px;font-weight:700;
+  width:16px;height:16px;border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--border);color:var(--text3);flex-shrink:0;margin-top:1px;
+}
+.ps-step.active .ps-num{background:var(--teal);color:#FFFFFF;}
+.ps-step.done .ps-num{background:var(--green-b);color:var(--ink);}
+.ps-content{flex:1;}
+.ps-label{font-family:var(--mono);font-size:9px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;}
+.ps-step.active .ps-label{color:var(--teal-tx);}
+.ps-step.done .ps-label{color:var(--green-tx);}
+.ps-detail{font-size:11px;color:var(--text3);font-weight:300;margin-top:2px;}
+.ps-step.active .ps-detail{color:var(--text2);}
+
+/* action result */
+.action-result{
+  padding:8px 10px;border-radius:5px;border:1px solid transparent;
+}
+.ar-emg{background:var(--red-lt);border-color:var(--red);}
+.ar-act{background:var(--amber-lt);border-color:var(--amber);}
+.ar-cmp{background:var(--blue-lt);border-color:var(--blue);}
+.ar-sys{background:var(--teal-lt);border-color:var(--teal);}
+.ar-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;}
+.ar-emg .ar-label{color:var(--red-tx);}
+.ar-act .ar-label{color:var(--amber-tx);}
+.ar-cmp .ar-label{color:var(--blue-tx);}
+.ar-sys .ar-label{color:var(--teal-tx);}
+.ar-text{font-size:12px;color:var(--text1);line-height:1.5;}
+
+/* Q4 consequence line */
+.consequence-line{
+  display:flex;align-items:center;gap:6px;padding:5px 0;
+  border-top:1px solid var(--border);margin-top:4px;
+}
+.cq-label{font-family:var(--mono);font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;}
+.cq-val{font-size:11px;color:var(--text2);}
+
+/* ── AI EXPLAIN ── */
+.ai-section{
+  margin-bottom:12px;background:var(--purple-lt);border:1px solid #DDD6FE;
+  border-radius:8px;overflow:hidden;
+}
+.ai-head{
+  padding:8px 12px;background:#EDE9FE;border-bottom:1px solid #DDD6FE;
+  display:flex;align-items:center;gap:8px;
+}
+.ai-head-title{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--purple-tx);letter-spacing:0.08em;text-transform:uppercase;flex:1;}
+.ai-body{padding:10px 12px;}
+.ai-response{font-size:12px;color:var(--text2);line-height:1.7;font-weight:300;}
+.ai-loading{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--purple-tx);}
+.ai-dots span{animation:blink 1.2s infinite;}
+.ai-dots span:nth-child(2){animation-delay:0.2s;}
+.ai-dots span:nth-child(3){animation-delay:0.4s;}
+@keyframes blink{0%,100%{opacity:0.3;}50%{opacity:1;}}
+.ai-input-row{display:flex;gap:6px;margin-top:8px;}
+.ai-input{
+  flex:1;padding:6px 10px;background:#FFFFFF;border:1px solid var(--purple);
+  border-radius:4px;color:var(--text1);font-family:var(--sans);font-size:12px;
+  outline:none;
+}
+.ai-input::placeholder{color:var(--text3);}
+.ai-input:focus{border-color:var(--purple-b);}
+.ai-send{
+  padding:6px 12px;background:var(--purple-lt);border:1px solid var(--purple-b);
+  border-radius:4px;color:var(--purple-tx);font-family:var(--mono);font-size:10px;
+  font-weight:600;cursor:pointer;transition:all 0.15s;
+}
+.ai-send:hover{background:var(--purple);color:#FFFFFF;}
+
+/* ── BOTTOM BAR ── */
+.bottom-bar{
+  position:fixed;bottom:0;left:0;right:0;height:60px;
+  background:#FFFFFF;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;gap:16px;z-index:100;
+}
+.bb-metric{display:flex;flex-direction:column;gap:2px;}
+.bb-label{font-family:var(--mono);font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;}
+.bb-val{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--text1);}
+.bb-val.green{color:var(--green-tx);}
+.bb-val.red{color:var(--red-tx);}
+.bb-divider{width:1px;height:32px;background:var(--border);}
+.bb-center{flex:1;text-align:center;}
+.bb-story{font-size:12px;color:var(--text3);font-weight:300;}
+.bb-story strong{color:var(--text2);font-weight:500;}
+.ctrl-row{display:flex;gap:8px;}
+.ctrl-btn{
+  padding:6px 14px;font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:0.06em;border-radius:4px;cursor:pointer;border:1px solid var(--border);
+  background:transparent;color:var(--text2);transition:all 0.15s;
+}
+.ctrl-btn:hover{background:var(--ink3);color:var(--text1);}
+.ctrl-btn.running{background:var(--red-lt);border-color:var(--red);color:var(--red-tx);}
+.ctrl-btn.run{background:var(--green-lt);border-color:var(--green-b);color:var(--green-tx);}
+
+/* ── A2P SLA TIMER ── */
+.sla-strip{
+  padding:8px 12px;background:var(--red-lt);border:1px solid var(--red);
+  border-radius:6px;margin-bottom:8px;
+  display:flex;align-items:center;gap:10px;
+}
+.sla-label{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--red-tx);text-transform:uppercase;letter-spacing:0.08em;flex:1;}
+.sla-clock{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--red-tx);}
+.sla-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden;width:80px;flex-shrink:0;}
+.sla-fill{height:100%;border-radius:2px;background:var(--red-b);transition:width 1s linear;}
+
+/* section titles */
+.section-title{
+  font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--text3);padding:8px 0 4px;
+  border-bottom:1px solid var(--border);margin-bottom:8px;
+}
+
+/* empty state */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:200px;gap:8px;color:var(--text3);
+}
+.empty-state .es-icon{font-size:28px;opacity:0.3;}
+.empty-state p{font-size:12px;font-weight:300;}
+
+/* path badge on events */
+.path-badge{
+  width:5px;border-radius:2px;align-self:stretch;flex-shrink:0;
+}
+.pb-a{background:var(--blue-b);}
+.pb-b{background:var(--red-b);}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">ClearSky<span>/prototype</span></div>
+    <div class="client-tag">RightFlush Plumbing · Timmins ON</div>
+    <div class="live-badge"><div class="live-dot"></div>LIVE SESSION</div>
+  </div>
+  <div class="header-right">
+    <div id="hdr-time" style="font-family:var(--mono);font-size:11px;color:var(--text3);"></div>
+    <button class="hdr-btn" onclick="resetAll()">Reset</button>
+    <button class="hdr-btn primary" id="main-ctrl-btn" onclick="toggleRun()">▶ Run Scenario</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="app">
+
+  <!-- LEFT: EVENT FEED -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-head-row">
+        <div>
+          <div class="panel-title">Signal Feed</div>
+          <div class="panel-sub">All 16 providers · real-time</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <div style="display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;color:var(--blue-tx);">
+            <div style="width:8px;height:8px;border-radius:1px;background:var(--blue-b);"></div>Path A
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;color:var(--red-tx);">
+            <div style="width:8px;height:8px;border-radius:1px;background:var(--red-b);"></div>Path B
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body" id="event-feed">
+      <div class="empty-state">
+        <div class="es-icon">◎</div>
+        <p>Waiting for scenario to start</p>
+        <p style="font-family:var(--mono);font-size:10px;">Press Run Scenario</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTRE: PROFILE -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-head-row">
+        <div>
+          <div class="panel-title">Identity + Profile</div>
+          <div class="panel-sub">Hub profile · real-time state</div>
+        </div>
+      </div>
+      <div class="path-switcher" style="margin-top:10px;">
+        <button class="ps-btn active-a" id="psA" onclick="switchProfile('A')">Path A — Marie</button>
+        <button class="ps-btn" id="psB" onclick="switchProfile('B')">Path B — 2:07 AM Emergency</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="profile-shell" id="profile-shell">
+        <div class="empty-state">
+          <div class="es-icon">◉</div>
+          <p>No profile yet</p>
+          <p style="font-family:var(--mono);font-size:10px;">Waiting for first event</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: ORCHESTRATOR + AI -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-head-row">
+        <div>
+          <div class="panel-title">Orchestrator + Why</div>
+          <div class="panel-sub">Decision pipeline · AI explanation</div>
+        </div>
+        <button class="hdr-btn" onclick="askAI('Why did the Orchestrator make its last decision?')">Explain last decision</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="orch-shell" id="orch-shell">
+        <div class="ai-section">
+          <div class="ai-head">
+            <div class="ai-head-title">Ask Claude — the why behind every decision</div>
+          </div>
+          <div class="ai-body">
+            <div class="ai-response" id="ai-response" style="color:var(--text3);">Start the scenario, then ask anything. "Why did Mike get an SMS before the system knew his name?" "What would have happened if Marie bounced at the gallery page?"</div>
+            <div class="ai-input-row">
+              <input class="ai-input" id="ai-input" placeholder="Ask about any decision..." onkeydown="if(event.key==='Enter')sendAI()">
+              <button class="ai-send" onclick="sendAI()">Ask</button>
+            </div>
+          </div>
+        </div>
+        <div class="empty-state" id="orch-empty">
+          <div class="es-icon">⬡</div>
+          <p>Orchestrator waiting</p>
+          <p style="font-family:var(--mono);font-size:10px;">Decisions appear as signals arrive</p>
+        </div>
+        <div id="decisions-container"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <div class="bb-metric">
+    <div class="bb-label">Jobs Booked</div>
+    <div class="bb-val green" id="bb-jobs">0</div>
+  </div>
+  <div class="bb-divider"></div>
+  <div class="bb-metric">
+    <div class="bb-label">Revenue Est.</div>
+    <div class="bb-val green" id="bb-revenue">$0</div>
+  </div>
+  <div class="bb-divider"></div>
+  <div class="bb-metric">
+    <div class="bb-label">Active Profiles</div>
+    <div class="bb-val" id="bb-profiles">0</div>
+  </div>
+  <div class="bb-divider"></div>
+  <div class="bb-center">
+    <div class="bb-story" id="bb-story">Press <strong>Run Scenario</strong> to watch ClearSky turn signals into a booked job</div>
+  </div>
+  <div class="bb-divider"></div>
+  <div class="ctrl-row">
+    <button class="ctrl-btn" onclick="runPathA()" id="btn-a" style="border-color:var(--blue);color:var(--blue-tx);">Path A Only</button>
+    <button class="ctrl-btn" onclick="runPathB()" id="btn-b" style="border-color:var(--red);color:var(--red-tx);">Path B Only</button>
+  </div>
+</div>
+
+<script>
+// ── STATE ─────────────────────────────────────────────────────────────────
+const STATE = {
+  running: false,
+  activeProfile: 'A',
+  profileA: {
+    id: null, name: 'Anonymous', tier: 'T3', bucket: 'none',
+    score: 0, scoreRaw: 0, session: 1, sessions: 1,
+    device: 'iPhone · Bell LTE', source: 'Direct',
+    persona: { ageBand: {val:'—',conf:0}, property: {val:'—',conf:0}, income: {val:'—',conf:0}, family: {val:'—',conf:0} },
+    temporal: { hour:7, isAfterHours:false, dayOfWeek:'tuesday', isWeekend:false, season:'spring', weatherSignal:'thaw_active' },
+    events: [], fp: null, hub: null, confirmed: false
+  },
+  profileB: {
+    id: null, name: 'Unknown caller', tier: 'T3', bucket: 'none',
+    score: 0, scoreRaw: 0, session: 1, sessions: 1,
+    device: 'Mobile · Rogers LTE', source: 'Direct',
+    persona: { ageBand: {val:'—',conf:0}, property: {val:'—',conf:0}, income: {val:'—',conf:0}, family: {val:'—',conf:0} },
+    temporal: { hour:2, isAfterHours:true, dayOfWeek:'thursday', isWeekend:false, season:'spring', weatherSignal:'freeze_incoming' },
+    events: [], fp: null, hub: null, confirmed: false
+  },
+  jobs: 0, revenue: 0, profiles: 0,
+  slaRunning: false, slaStart: null, slaTimer: null,
+  lastDecision: null,
+  conversationHistory: []
+};
+
+// ── SCENARIO SCRIPTS ───────────────────────────────────────────────────────
+const PATH_A = [
+  { delay:800,  path:'A', type:'res', name:'page_load', detail:'/blog · Tim Hortons · Bell LTE', delta:3, provider:'Pixel', bucket:'res', temporal:true,
+    orchestrator: null,
+    persona: { property: 0.0, ageBand: 0.0 } },
+  { delay:2000, path:'A', type:'res', name:'scroll_50', detail:'Blog post — "how long do water heaters last"', delta:5, provider:'Pixel', bucket:'res', temporal:false,
+    orchestrator: null, persona: {} },
+  { delay:1500, path:'A', type:'res', name:'blog_question_submit', detail:'ContentRadar: "how long do water heaters last in Timmins"', delta:8, provider:'ContentRadar', bucket:'res', temporal:false,
+    orchestrator: {
+      trigger:'ContentRadar question submitted · Research bucket · score 16',
+      steps:['Receive signal candidate','Safety check — pass','Business config — no capacity constraint','Rank by priority — Research, low urgency','Dominant signal — content gap opportunity','Suppress duplicates','Select action — soft content offer'],
+      action:'res', actionLabel:'Content nurture queued',
+      actionText:'FAQ article on water heater lifespan triggered for content queue. No customer-facing action — visitor is anonymous Tier 3. ContentRadar flag count: 1 of 5.',
+      consequence:'Research → content nurture · no push · no A2P · wait for score threshold'
+    }, persona: {} },
+  { delay:2200, path:'A', type:'cmp', name:'scroll_75 + review_dwell_30s', detail:'/reviews · 60-second dwell · 4 reviews read', delta:15, provider:'Pixel', bucket:'cmp', temporal:false,
+    orchestrator: {
+      trigger:'Comparison threshold crossed · score 31 · review section dwell',
+      steps:['Receive signal candidate','Safety check — pass','Business config — open','Rank — Comparison, medium urgency','Dominant signal — trust-seeking behaviour','Suppress weaker signals','Select — retargeting audience tag'],
+      action:'cmp', actionLabel:'Comparison content served',
+      actionText:'Dynamic hero updated to Comparison variant — social proof focus. Review count and star rating elevated. Retargeting audience tagged for 7-day window.',
+      consequence:'Comparison → proof block + retargeting audience · no A2P · return visit expected'
+    }, persona: { ageBand: 0.06, property: 0.0 } },
+  { delay:3000, path:'A', type:'cmp', name:'session_2 · 9:15 AM office return', detail:'Same iPhone · corporate WiFi · cookie + FP match 94%', delta:12, provider:'Pixel + Fingerprint', bucket:'cmp', temporal:false,
+    orchestrator: null, persona: { ageBand: 0.05 } },
+  { delay:1800, path:'A', type:'cmp', name:'gallery_view + before_after_60s', detail:'/before-after · path multiplier 2.5× fires · gallery sequence', delta:20, provider:'Pixel', bucket:'cmp', temporal:false,
+    orchestrator: {
+      trigger:'Path multiplier fired · gallery → review sequence · score 63',
+      steps:['Receive signal','Safety check — pass','Business config — open','Rank — Comparison rising fast, velocity noted','Path multiplier 2.5× confirmed','Suppress lower signals','Select — FotoJobber prompt'],
+      action:'act', actionLabel:'FotoJobber CTA surfaced',
+      actionText:'Content manifest updated — FotoJobber CTA elevated on homepage. "Show us your bathroom — get a quote without a site visit." Visitor is approaching Active Project threshold at current velocity.',
+      consequence:'Active Project approaching · FotoJobber prompt active · Orchestrator watching next event'
+    }, persona: { property: 0.12, income: 0.04 } },
+  { delay:2500, path:'A', type:'id', name:'session_4 · 7:15 PM home WiFi', detail:'Residential IP · co-occurrence register · 30-min window opens', delta:0, provider:'Fingerprint', bucket:'cmp', temporal:false,
+    orchestrator: null, persona: {} },
+  { delay:1500, path:'A', type:'act', name:'fotojobber_upload', detail:'"full bathroom renovation — new tub, vanity, tile" · 3 photos', delta:22, provider:'FotoJobber', bucket:'act', temporal:false,
+    orchestrator: {
+      trigger:'FotoJobber submitted · Active Project confirmed · score 77',
+      steps:['Receive signal — FotoJobber.submit','Safety check — pass','Business config — 2 plumbers available','Rank — Active Project, high urgency, Tier 3 pending','Job scope captured verbatim','Suppress all lower signals','Select — rep notification + ViewRoom invitation'],
+      action:'act', actionLabel:'Rep notified · ViewRoom queued',
+      actionText:'Rep notification fired: "Marie T. — FotoJobber submission. Bathroom renovation. 3 photos. hub_rf_0091 pending Tier 1 confirmation. Review photos and call." ViewRoom invitation queued pending profile confirmation.',
+      consequence:'Active Project → FotoJobber/ViewRoom prompt · rep in loop · awaiting Tier 1'
+    }, persona: { property: 0.22, family: 0.08 } },
+  { delay:2000, path:'A', type:'id', name:'form_submit · Tier 1 · hub_rf_0091 created', detail:'Marie Tremblay · 705-274-0988 · m.tremblay@gmail.com', delta:20, provider:'Pixel + Hub', bucket:'act', temporal:false,
+    profileUpdate: { name:'Marie Tremblay', tier:'T1', hub:'hub_rf_0091', confirmed:true,
+      persona: { ageBand:{val:'35–50',conf:0.52}, property:{val:'House',conf:0.78}, income:{val:'Mid–High',conf:0.44}, family:{val:'Couple',conf:0.38} } },
+    orchestrator: {
+      trigger:'Conversion event · form_submit · Tier 1 confirmed · hub_rf_0091',
+      steps:['Receive conversion event','Identity confirmed — Tier 1','All prior sessions stitched — iPhone sessions linked 62% INFERRED','Score ported — 94','Full pipeline unlocked','A2P permitted','Select — booking confirmation + rep call brief'],
+      action:'sys', actionLabel:'Tier 1 unlocked · Full pipeline active',
+      actionText:'Hub profile created: hub_rf_0091. Marie Tremblay named. All four iPhone sessions retroactively linked at 62% INFERRED — visible to rep with confidence caveat. Full A2P pipeline now permitted. Rep call brief generated with FotoJobber photos pre-loaded.',
+      consequence:'Active Project → full pipeline · rep call authorised · A2P booking confirmation queued'
+    }, persona: {} },
+  { delay:2200, path:'A', type:'a2p', name:'A2P booking confirmation', detail:'SMS queued · rep approval required · "Hi Marie! Confirmed..."', delta:0, provider:'Telnyx A2P', bucket:'act', temporal:false,
+    orchestrator: null, persona: {} },
+  { delay:1800, path:'A', type:'act', name:'appointment_booked · hub_rf_0091', detail:'Rep calls 705-274-0988 · Thursday March 21 9am · Job #001 created', delta:20, provider:'Rep + Hub', bucket:'act', temporal:false,
+    profileUpdate: { booked: true },
+    orchestrator: {
+      trigger:'appointment_booked · score 94 · conversion complete',
+      steps:['Receive booking confirmation','Identity — Tier 1 confirmed by phone call','iPhone FP promoted INFERRED → CONFIRMED','Score ceiling — 94 (capped)','Job #001 created in hub','Feedback loop — outcome recorded','D+3 review request queued for rep approval'],
+      action:'sys', actionLabel:'Job booked · Feedback loop engaged',
+      actionText:'Appointment confirmed. Rep called Marie personally. iPhone fingerprint promoted from INFERRED to CONFIRMED — all 5 sessions now verified history. Job #001 scope: full bathroom renovation, March 21. D+3 review request drafted and queued. Revenue attributed: $4,200 est.',
+      consequence:'Conversion complete → D+3 review request → post-job nurture sequence → repeat booking path'
+    }, persona: {},
+    job: { name:'Marie Tremblay', type:'Bathroom Renovation', rev:4200 } }
+];
+
+const PATH_B = [
+  { delay:500,  path:'B', type:'emg', name:'page_load · /burst-pipe · 2:07 AM', detail:'Emergency URL → bucket locked immediately · before any scroll', delta:20, provider:'Pixel', bucket:'emg', temporal:true,
+    orchestrator: {
+      trigger:'Emergency URL detected · /burst-pipe · 2:07 AM · after hours',
+      steps:['Emergency URL rule fires','Safety check — pass','Business config — 24/7 emergency line active','Emergency overrides ALL other signals','No score threshold required','Suppress everything else','A2P escalation + SLA clock starts NOW'],
+      action:'emg', actionLabel:'Emergency · SLA clock started',
+      actionText:'Emergency bucket locked on page_load. URL /burst-pipe is a registered emergency pattern. temporalContext: hour=2, isAfterHours=true, weatherSignal="freeze_incoming". 15-minute SLA clock started. Telnyx A2P queued. Rep phone notification firing.',
+      consequence:'Emergency → A2P immediate · 15-min SLA · rep notified · SLA clock running'
+    }, persona: {}, startSLA: true },
+  { delay:1500, path:'B', type:'emg', name:'hero_call_click', detail:'(705) 700-1234 · mobile tap · GBP click-to-call intercept', delta:20, provider:'Pixel + Telnyx', bucket:'emg', temporal:false,
+    orchestrator: null, persona: {} },
+  { delay:800,  path:'B', type:'id', name:'Telnyx intercept · caller ID captured', detail:'705-271-XXXX · hub resolve → no match → Tier 3 pending', delta:0, provider:'Telnyx', bucket:'emg', temporal:false,
+    orchestrator: {
+      trigger:'GBP call intercept · Telnyx · caller ID captured · hub no match',
+      steps:['Telnyx intercept fires','Caller ID captured — 705-271-XXXX','Hub resolve — no match found','Tier 3 — no PII confirmed','Emergency action NOT blocked by Tier 3','Same-channel response authorised — phone call','Rep whisper fires before connection'],
+      action:'emg', actionLabel:'Rep whisper fired · connecting call',
+      actionText:'Critical rule: Emergency action does NOT require Tier 1. The 15-minute SLA applies regardless of identity tier. Rep hears whisper: "Emergency call — burst pipe — /burst-pipe page — 2:07 AM — no hub match — unknown caller." Rep answers with name capture protocol.',
+      consequence:'Emergency → rep connected regardless of tier · name capture on call · Tier 1 post-call if name given'
+    }, persona: {} },
+  { delay:2000, path:'B', type:'a2p', name:'A2P emergency SMS fired', detail:'"We received your emergency — a plumber is on the way. (705) 700-1234"', delta:0, provider:'Telnyx A2P', bucket:'emg', temporal:false,
+    orchestrator: null, persona: {} },
+  { delay:3500, path:'B', type:'id', name:'Rep call answered · name captured', detail:'Mike Arsenault · 705-271-4892 · Tier 1 post-call · hub_rf_0299', delta:0, provider:'Rep + Hub', bucket:'emg', temporal:false,
+    profileUpdate: { name:'Mike Arsenault', tier:'T1', hub:'hub_rf_0299', confirmed:true,
+      persona: { ageBand:{val:'35–55',conf:0.31}, property:{val:'House',conf:0.62}, income:{val:'Mid',conf:0.20}, family:{val:'—',conf:0} } },
+    orchestrator: null, persona: {} },
+  { delay:1500, path:'B', type:'emg', name:'dispatch_confirmed · en route', detail:'Owner dispatched · ETA 22 min · 2:19 AM', delta:0, provider:'Rep + Hub', bucket:'emg', temporal:false,
+    orchestrator: {
+      trigger:'Dispatch confirmed · SLA status check · elapsed 12 min',
+      steps:['SLA status — 12 min elapsed · within 15 min window','Dispatch confirmed by rep','Hub updated — job_status: en_route','A2P follow-up sent — ETA communicated','Feedback — SLA met · decision quality: PASS','Post-job — review request D+3 queued','Outcome logged'],
+      action:'emg', actionLabel:'SLA met · Dispatch confirmed',
+      actionText:'SLA clock: 12 minutes elapsed. Dispatch confirmed within window. Mike Arsenault — hub_rf_0299 created. Address: 44 Spruce St, Timmins. temporalContext: freeze_incoming — frozen pipe likely cause. A2P: "Mike — plumber dispatched, ETA ~22 min. (705) 700-1234." Job #002 created.',
+      consequence:'Emergency → SLA met → job dispatched → D+3 review request → post-emergency nurture'
+    }, persona: {},
+    job: { name:'Mike Arsenault', type:'Emergency — Burst Pipe', rev:1800 }, stopSLA: true }
+];
+
+// ── RENDER HELPERS ─────────────────────────────────────────────────────────
+function bucketClass(b){ return {emg:'emg',act:'act',cmp:'cmp',res:'res',none:'none'}[b]||'none'; }
+function bucketLabel(b){ return {emg:'EMERGENCY',act:'ACTIVE PROJECT',cmp:'COMPARISON',res:'RESEARCH',none:'UNCLASSIFIED'}[b]||'UNCLASSIFIED'; }
+function bucketConsequence(b){ return {
+  emg:'A2P immediate · 15-min SLA · rep notified',
+  act:'FotoJobber / ViewRoom prompt · quote sequence',
+  cmp:'Proof block · retargeting audience · nurture',
+  res:'Content nurture · no push · watch trajectory',
+  none:'Monitoring only · no action'
+}[b]||''; }
+function tierClass(t){ return {T1:'tb-t1',T2:'tb-t2',T3:'tb-t3'}[t]||'tb-t3'; }
+
+// ── EVENT FEED ─────────────────────────────────────────────────────────────
+function addEvent(ev){
+  const feed = document.getElementById('event-feed');
+  const empty = feed.querySelector('.empty-state');
+  if(empty) feed.innerHTML = '';
+
+  const bc = bucketClass(ev.bucket);
+  const typeMap = {res:'et-res',act:'et-act',cmp:'et-cmp',emg:'et-emg',sys:'et-sys',a2p:'et-a2p',id:'et-id'};
+  const tc = ev.path === 'A' ? 'pb-a' : 'pb-b';
+  const afterHours = ev.path === 'B' && STATE.profileB.temporal.isAfterHours;
+
+  let temporalHtml = '';
+  if(ev.temporal){
+    const prof = ev.path==='A'?STATE.profileA:STATE.profileB;
+    const cls = prof.temporal.isAfterHours ? 'tt-afterhours' : (prof.temporal.isWeekend ? 'tt-weekend' : 'tt-normal');
+    temporalHtml = `<span class="temporal-tag ${cls}">${prof.temporal.hour}:${String(0).padStart(2,'0')} · ${prof.temporal.isAfterHours?'AFTER HOURS':prof.temporal.season}</span>`;
+  }
+
+  const item = document.createElement('div');
+  item.className = 'event-item';
+  item.innerHTML = `
+    <div class="event-row1">
+      <div class="path-badge ${tc}"></div>
+      <span class="event-type ${typeMap[ev.type]||'et-sys'}">${ev.type}</span>
+      <span class="event-name">${ev.name}</span>
+      ${ev.delta ? `<span class="event-delta ${ev.delta>0?'delta-pos':'delta-neg'}">${ev.delta>0?'+':''}${ev.delta}</span>` : '<span class="event-delta delta-neu">—</span>'}
+    </div>
+    <div class="event-row2">
+      <span class="event-detail">${ev.detail}</span>
+      ${temporalHtml}
+      <span class="event-provider">${ev.provider}</span>
+    </div>`;
+  item.onclick = () => { if(ev.orchestrator) showDecision(ev.orchestrator, ev.path); };
+  feed.insertBefore(item, feed.firstChild);
+}
+
+// ── PROFILE RENDER ─────────────────────────────────────────────────────────
+function renderProfile(path){
+  const prof = path==='A' ? STATE.profileA : STATE.profileB;
+  const shell = document.getElementById('profile-shell');
+  const bc = bucketClass(prof.bucket);
+  const score = Math.min(prof.score,100);
+  const afterHours = prof.temporal.isAfterHours;
+  const weatherAlert = prof.temporal.weatherSignal !== 'normal';
+
+  const avatarClass = prof.confirmed ? (prof.bucket==='emg'?'av-emg':'av-t1') : 'av-anon';
+  const avatarText = prof.confirmed ? prof.name.split(' ').map(n=>n[0]).join('').toUpperCase() : '?';
+
+  shell.innerHTML = `
+    <div class="profile-card">
+      <div class="pc-head">
+        <div class="pc-avatar ${avatarClass}">${avatarText}</div>
+        <div>
+          <div class="pc-name">${prof.name}</div>
+          <div class="pc-sub">${prof.hub || 'No hub profile yet'} · Session ${prof.sessions}</div>
+        </div>
+        <div class="tier-badge ${tierClass(prof.tier)}">${prof.tier}</div>
+      </div>
+      <div class="pc-body">
+
+        <div class="section-title">Engagement Score</div>
+        <div class="score-section">
+          <div class="score-labels">
+            <span class="score-label">score_live</span>
+            <span class="score-val score-live">${score}</span>
+            <span class="score-raw">raw: ${prof.scoreRaw}</span>
+          </div>
+          <div class="score-track">
+            <div class="score-fill sf-${bc}" style="width:${score}%"></div>
+          </div>
+        </div>
+
+        <div class="bucket-display bd-${bc}">
+          <div class="bd-dot dot-${bc}"></div>
+          <div class="bd-label">${bucketLabel(prof.bucket)}</div>
+          <div class="bd-consequence">${bucketConsequence(prof.bucket)}</div>
+        </div>
+
+        <div class="section-title">Identity</div>
+        <div>
+          <div class="id-row"><span class="id-key">Device</span><span class="id-val">${prof.device}</span></div>
+          <div class="id-row"><span class="id-key">Source</span><span class="id-val">${prof.source}</span></div>
+          <div class="id-row"><span class="id-key">Fingerprint</span><span class="id-val ${prof.fp?'confirmed':'pending'}">${prof.fp||'collecting...'}</span></div>
+          <div class="id-row"><span class="id-key">Hub ID</span><span class="id-val ${prof.hub?'confirmed':'pending'}">${prof.hub||'pending conversion'}</span></div>
+          <div class="id-row"><span class="id-key">Attribution</span><span class="id-val ${prof.confirmed?'confirmed':prof.tier==='T2'?'inferred':'pending'}">${prof.confirmed?'Confirmed Tier 1':prof.tier==='T2'?'Probable — pending':'Anonymous Tier 3'}</span></div>
+        </div>
+
+        <div class="section-title">Persona Dimensions</div>
+        <div class="persona-grid">
+          ${['ageBand','property','income','family'].map(d=>`
+            <div class="persona-dim">
+              <div class="pd-label">${{ageBand:'Age Band',property:'Property',income:'Income',family:'Family Status'}[d]}</div>
+              <div class="pd-val">${prof.persona[d].val}</div>
+              <div class="pd-conf"><div class="pd-conf-fill" style="width:${Math.round(prof.persona[d].conf*100)}%"></div></div>
+            </div>`).join('')}
+        </div>
+
+        <div class="section-title">Temporal Context</div>
+        <div class="temporal-grid">
+          <div class="tc-item ${afterHours?'highlight':''}">
+            <div class="tc-label">Hour</div>
+            <div class="tc-val">${prof.temporal.hour}:00${afterHours?' ⚠':''}</div>
+          </div>
+          <div class="tc-item">
+            <div class="tc-label">Day</div>
+            <div class="tc-val">${prof.temporal.dayOfWeek.substring(0,3).toUpperCase()}</div>
+          </div>
+          <div class="tc-item">
+            <div class="tc-label">Season</div>
+            <div class="tc-val">${prof.temporal.season}</div>
+          </div>
+          <div class="tc-item ${weatherAlert?'highlight':''}">
+            <div class="tc-label">Weather</div>
+            <div class="tc-val" style="font-size:9px;">${prof.temporal.weatherSignal}</div>
+          </div>
+          <div class="tc-item">
+            <div class="tc-label">After Hrs</div>
+            <div class="tc-val">${prof.temporal.isAfterHours?'YES':'NO'}</div>
+          </div>
+          <div class="tc-item">
+            <div class="tc-label">Weekend</div>
+            <div class="tc-val">${prof.temporal.isWeekend?'YES':'NO'}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>`;
+}
+
+// ── DECISION CARD ──────────────────────────────────────────────────────────
+function showDecision(orch, path){
+  if(!orch) return;
+  STATE.lastDecision = orch;
+  const container = document.getElementById('decisions-container');
+  const empty = document.getElementById('orch-empty');
+  if(empty) empty.style.display = 'none';
+
+  const pathColor = path==='A'?'var(--blue-tx)':'var(--red-tx)';
+  const stepsHtml = orch.steps.map((s,i)=>`
+    <div class="ps-step ${i<orch.steps.length-1?'done':'active'}">
+      <div class="ps-num">${i+1}</div>
+      <div class="ps-content">
+        <div class="ps-label">${s}</div>
+      </div>
+    </div>`).join('');
+
+  const actionMap = {emg:'ar-emg',act:'ar-act',cmp:'ar-cmp',sys:'ar-sys'};
+
+  const card = document.createElement('div');
+  card.className = 'decision-card';
+  card.innerHTML = `
+    <div class="dc-head">
+      <div class="dc-icon">⬡</div>
+      <div class="dc-title">Orchestrator Decision</div>
+      <div class="dc-path" style="color:${pathColor}">PATH ${path}</div>
+    </div>
+    <div class="dc-body">
+      <div style="font-size:11px;color:var(--text3);font-weight:300;padding:4px 0 6px;border-bottom:1px solid var(--border);margin-bottom:6px;">
+        <span style="font-family:var(--mono);font-size:9px;color:var(--teal-tx);text-transform:uppercase;letter-spacing:0.06em;">Trigger: </span>${orch.trigger}
+      </div>
+      <div class="section-title">11-Step Pipeline</div>
+      <div class="pipeline-steps">${stepsHtml}</div>
+      <div class="action-result ${actionMap[orch.action]||'ar-sys'}" style="margin-top:8px;">
+        <div class="ar-label">${orch.actionLabel}</div>
+        <div class="ar-text">${orch.actionText}</div>
+        <div class="consequence-line">
+          <div class="cq-label">Bucket consequence</div>
+          <div class="cq-val">${orch.consequence}</div>
+        </div>
+      </div>
+    </div>`;
+  container.insertBefore(card, container.firstChild);
+
+  // auto-scroll orch panel
+  card.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ── SLA TIMER ─────────────────────────────────────────────────────────────
+function startSLA(){
+  STATE.slaRunning = true;
+  STATE.slaStart = Date.now();
+  const orch = document.getElementById('orch-shell');
+
+  let slaEl = document.getElementById('sla-strip');
+  if(!slaEl){
+    slaEl = document.createElement('div');
+    slaEl.id = 'sla-strip';
+    slaEl.className = 'sla-strip';
+    slaEl.innerHTML = `
+      <div class="sla-label">⚠ Emergency SLA · 15 min response</div>
+      <div class="sla-clock" id="sla-clock">15:00</div>
+      <div class="sla-track"><div class="sla-fill" id="sla-fill" style="width:100%"></div></div>`;
+    orch.insertBefore(slaEl, orch.firstChild);
+  }
+
+  STATE.slaTimer = setInterval(()=>{
+    const elapsed = (Date.now()-STATE.slaStart)/1000;
+    const remaining = Math.max(0, 900-elapsed);
+    const mm = Math.floor(remaining/60);
+    const ss = Math.floor(remaining%60);
+    const clk = document.getElementById('sla-clock');
+    const fill = document.getElementById('sla-fill');
+    if(clk) clk.textContent = `${mm}:${String(ss).padStart(2,'0')}`;
+    if(fill) fill.style.width = `${(remaining/900)*100}%`;
+    if(remaining<=0) stopSLA();
+  }, 1000);
+}
+
+function stopSLA(){
+  STATE.slaRunning = false;
+  clearInterval(STATE.slaTimer);
+  const slaEl = document.getElementById('sla-strip');
+  if(slaEl){
+    slaEl.style.background = 'var(--green-lt)';
+    slaEl.style.borderColor = 'var(--green-b)';
+    slaEl.querySelector('.sla-label').textContent = '✓ SLA met — dispatch confirmed within 15 minutes';
+    slaEl.querySelector('.sla-label').style.color = 'var(--green-tx)';
+    const clk = document.getElementById('sla-clock');
+    if(clk){ clk.textContent = '✓'; clk.style.color='var(--green-tx)'; }
+  }
+}
+
+// ── PROFILE UPDATE ─────────────────────────────────────────────────────────
+function applyEvent(ev){
+  const prof = ev.path==='A' ? STATE.profileA : STATE.profileB;
+
+  if(ev.delta){
+    prof.score = Math.min(100, prof.score + ev.delta);
+    prof.scoreRaw = Math.min(100, prof.scoreRaw + ev.delta);
+  }
+  if(ev.bucket && ev.bucket !== prof.bucket){
+    // no downgrade within session for A
+    const order = ['none','res','cmp','act','emg'];
+    if(order.indexOf(ev.bucket) >= order.indexOf(prof.bucket) || ev.bucket==='emg'){
+      prof.bucket = ev.bucket;
+    }
+  }
+
+  // persona updates
+  if(ev.persona){
+    for(const [dim, delta] of Object.entries(ev.persona)){
+      if(dim==='ageBand') prof.persona.ageBand.conf = Math.min(0.65, prof.persona.ageBand.conf + delta);
+      if(dim==='property') prof.persona.property.conf = Math.min(1.0, prof.persona.property.conf + delta);
+      if(dim==='income') prof.persona.income.conf = Math.min(0.6, prof.persona.income.conf + delta);
+      if(dim==='family') prof.persona.family.conf = Math.min(1.0, prof.persona.family.conf + delta);
+    }
+  }
+
+  // profile updates
+  if(ev.profileUpdate){
+    const u = ev.profileUpdate;
+    if(u.name) prof.name = u.name;
+    if(u.tier) prof.tier = u.tier;
+    if(u.hub){ prof.hub = u.hub; STATE.profiles++; document.getElementById('bb-profiles').textContent = STATE.profiles; }
+    if(u.confirmed) prof.confirmed = true;
+    if(u.persona){ for(const[k,v] of Object.entries(u.persona)) prof.persona[k]=v; }
+    if(!prof.fp) prof.fp = 'fp_' + Math.random().toString(36).substr(2,4) + '…' + Math.random().toString(36).substr(2,4);
+  }
+
+  // job booked
+  if(ev.job){
+    STATE.jobs++;
+    STATE.revenue += ev.job.rev;
+    document.getElementById('bb-jobs').textContent = STATE.jobs;
+    document.getElementById('bb-revenue').textContent = '$' + STATE.revenue.toLocaleString();
+    document.getElementById('bb-story').innerHTML = `<strong>${ev.job.name}</strong> booked a <strong>${ev.job.type}</strong> — est. <strong>$${ev.job.rev.toLocaleString()}</strong>`;
+  }
+
+  // SLA
+  if(ev.startSLA) startSLA();
+  if(ev.stopSLA) stopSLA();
+
+  // set fp on first event
+  if(!prof.fp && ev.path){
+    prof.fp = 'fp_' + Math.random().toString(36).substr(2,4) + '…' + Math.random().toString(36).substr(2,4);
+  }
+
+  // re-render profile if active
+  if(STATE.activeProfile === ev.path) renderProfile(ev.path);
+}
+
+// ── SCENARIO RUNNER ────────────────────────────────────────────────────────
+let timers = [];
+
+function clearTimers(){ timers.forEach(t=>clearTimeout(t)); timers=[]; }
+
+function runScenario(events){
+  let offset = 0;
+  events.forEach(ev => {
+    offset += ev.delay;
+    const t = setTimeout(()=>{
+      addEvent(ev);
+      applyEvent(ev);
+      if(ev.orchestrator) showDecision(ev.orchestrator, ev.path);
+    }, offset);
+    timers.push(t);
+  });
+}
+
+function toggleRun(){
+  if(STATE.running){
+    clearTimers();
+    STATE.running = false;
+    document.getElementById('main-ctrl-btn').textContent = '▶ Run Scenario';
+    document.getElementById('main-ctrl-btn').className = 'hdr-btn primary';
+  } else {
+    STATE.running = true;
+    document.getElementById('main-ctrl-btn').textContent = '◼ Stop';
+    document.getElementById('main-ctrl-btn').className = 'hdr-btn';
+    document.getElementById('main-ctrl-btn').style.background = 'var(--red-lt)';
+    document.getElementById('main-ctrl-btn').style.borderColor = 'var(--red)';
+    document.getElementById('main-ctrl-btn').style.color = 'var(--red-tx)';
+    // run both paths interleaved
+    const merged = [...PATH_A, ...PATH_B].sort(()=>Math.random()-0.5);
+    // actually keep order but interleave A and B
+    runBothPaths();
+  }
+}
+
+function runBothPaths(){
+  let offsetA=0, offsetB=0;
+  const baseB = 300; // B starts slightly after A (2am shows first)
+  PATH_B.forEach(ev=>{
+    offsetB += ev.delay;
+    const t = setTimeout(()=>{
+      addEvent(ev); applyEvent(ev);
+      if(ev.orchestrator) showDecision(ev.orchestrator,ev.path);
+    }, baseB+offsetB);
+    timers.push(t);
+  });
+  PATH_A.forEach(ev=>{
+    offsetA += ev.delay;
+    const t = setTimeout(()=>{
+      addEvent(ev); applyEvent(ev);
+      if(ev.orchestrator) showDecision(ev.orchestrator,ev.path);
+    }, 200+offsetA);
+    timers.push(t);
+  });
+}
+
+function runPathA(){
+  resetAll();
+  STATE.running=true;
+  runScenario(PATH_A);
+}
+
+function runPathB(){
+  resetAll();
+  STATE.running=true;
+  runScenario(PATH_B);
+  STATE.activeProfile='B';
+  document.getElementById('psA').className='ps-btn';
+  document.getElementById('psB').className='ps-btn active-b';
+}
+
+function switchProfile(p){
+  STATE.activeProfile=p;
+  document.getElementById('psA').className='ps-btn'+(p==='A'?' active-a':'');
+  document.getElementById('psB').className='ps-btn'+(p==='B'?' active-b':'');
+  renderProfile(p);
+}
+
+function resetAll(){
+  clearTimers();
+  stopSLA();
+  STATE.running=false;
+  STATE.jobs=0; STATE.revenue=0; STATE.profiles=0;
+  STATE.profileA = {id:null,name:'Anonymous',tier:'T3',bucket:'none',score:0,scoreRaw:0,session:1,sessions:1,device:'iPhone · Bell LTE',source:'Direct',persona:{ageBand:{val:'—',conf:0},property:{val:'—',conf:0},income:{val:'—',conf:0},family:{val:'—',conf:0}},temporal:{hour:7,isAfterHours:false,dayOfWeek:'tuesday',isWeekend:false,season:'spring',weatherSignal:'thaw_active'},events:[],fp:null,hub:null,confirmed:false};
+  STATE.profileB = {id:null,name:'Unknown caller',tier:'T3',bucket:'none',score:0,scoreRaw:0,session:1,sessions:1,device:'Mobile · Rogers LTE',source:'Direct',persona:{ageBand:{val:'—',conf:0},property:{val:'—',conf:0},income:{val:'—',conf:0},family:{val:'—',conf:0}},temporal:{hour:2,isAfterHours:true,dayOfWeek:'thursday',isWeekend:false,season:'spring',weatherSignal:'freeze_incoming'},events:[],fp:null,hub:null,confirmed:false};
+  document.getElementById('event-feed').innerHTML='<div class="empty-state"><div class="es-icon">◎</div><p>Waiting for scenario to start</p><p style="font-family:var(--mono);font-size:10px;">Press Run Scenario</p></div>';
+  document.getElementById('decisions-container').innerHTML='';
+  document.getElementById('profile-shell').innerHTML='<div class="empty-state"><div class="es-icon">◉</div><p>No profile yet</p><p style="font-family:var(--mono);font-size:10px;">Waiting for first event</p></div>';
+  const sla=document.getElementById('sla-strip'); if(sla) sla.remove();
+  const oe=document.getElementById('orch-empty'); if(oe) oe.style.display='';
+  document.getElementById('bb-jobs').textContent='0';
+  document.getElementById('bb-revenue').textContent='$0';
+  document.getElementById('bb-profiles').textContent='0';
+  document.getElementById('bb-story').innerHTML='Press <strong>Run Scenario</strong> to watch ClearSky turn signals into a booked job';
+  document.getElementById('main-ctrl-btn').textContent='▶ Run Scenario';
+  document.getElementById('main-ctrl-btn').className='hdr-btn primary';
+  document.getElementById('main-ctrl-btn').style='';
+  document.getElementById('ai-response').textContent='Start the scenario, then ask anything. "Why did Mike get an SMS before the system knew his name?" "What would have happened if Marie bounced at the gallery page?"';
+  document.getElementById('ai-response').style.color='var(--text3)';
+}
+
+// ── CLOCK ──────────────────────────────────────────────────────────────────
+function updateClock(){
+  const now = new Date();
+  document.getElementById('hdr-time').textContent =
+    now.toLocaleDateString('en-CA',{weekday:'short',month:'short',day:'numeric'}) + ' · ' +
+    now.toLocaleTimeString('en-CA',{hour:'2-digit',minute:'2-digit',hour12:false});
+}
+updateClock();
+setInterval(updateClock,10000);
+
+// ── AI EXPLAIN ─────────────────────────────────────────────────────────────
+async function sendAI(){
+  const input = document.getElementById('ai-input');
+  const question = input.value.trim();
+  if(!question) return;
+  input.value='';
+  askAI(question);
+}
+
+async function askAI(question){
+  const responseEl = document.getElementById('ai-response');
+  responseEl.style.color='var(--text2)';
+  responseEl.innerHTML = '<div class="ai-loading">Claude is thinking <div class="ai-dots"><span>.</span><span>.</span><span>.</span></div></div>';
+
+  // Build context from current state
+  const profA = STATE.profileA;
+  const profB = STATE.profileB;
+  const lastD = STATE.lastDecision;
+
+  const systemPrompt = `You are the ClearSky AI Decision System explaining itself to a contractor or investor. ClearSky is a managed growth platform for Northern Ontario trades businesses. The demo client is RightFlush Plumbing in Timmins, Ontario.
+
+Current system state:
+- Path A (Marie Tremblay): bucket=${profA.bucket}, score=${profA.score}, tier=${profA.tier}, hub=${profA.hub||'not yet created'}, confirmed=${profA.confirmed}
+- Path B (Mike - Emergency): bucket=${profB.bucket}, score=${profB.score}, tier=${profB.tier}, hub=${profB.hub||'not yet created'}, emergency temporal context=2AM after hours, weatherSignal=freeze_incoming
+- Jobs booked: ${STATE.jobs}, Revenue: $${STATE.revenue}
+- Last Orchestrator decision: ${lastD ? lastD.trigger : 'none yet'}
+
+Key system rules:
+- Emergency action NEVER requires Tier 1 identity — the 15-minute SLA fires regardless of whether the person is named
+- The four questions every signal answers: Did it happen? (Q1) Who did it? (Q2) What does it mean? (Q3) Where does it go? (Q4)
+- Intent buckets: Emergency, Active Project, Comparison, Research — no downgrade within a session
+- Engagement score drives bucket, never the reverse
+- temporalContext travels with every event: after-hours events increase Emergency weight
+- Cohort 2 network: every licensed client contributes anonymized trajectory data — system gets smarter with each client added
+- The system personalizes content BEFORE the person is named — and measures whether that personalization worked via variant_served, variant_impression, variant_engaged events
+
+Answer in 2-4 sentences. Plain English. No jargon. Make the contractor/investor understand the WHY behind the decision. Be specific — use the actual names, scores, and events from the current state.`;
+
+  STATE.conversationHistory.push({ role:'user', content: question });
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system: systemPrompt,
+        messages: STATE.conversationHistory
+      })
+    });
+    const data = await response.json();
+    const answer = data.content?.find(b=>b.type==='text')?.text || 'Unable to get response.';
+    STATE.conversationHistory.push({ role:'assistant', content: answer });
+    // keep history manageable
+    if(STATE.conversationHistory.length > 10) STATE.conversationHistory = STATE.conversationHistory.slice(-8);
+    responseEl.style.color='var(--text1)';
+    responseEl.textContent = answer;
+  } catch(e) {
+    responseEl.style.color='var(--red-tx)';
+    responseEl.textContent = 'API error — check console. Make sure you are running this through the Claude artifact environment.';
+  }
+}
+</script>
+</body>
+</html>

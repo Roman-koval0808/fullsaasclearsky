@@ -1,0 +1,85 @@
+// CLEARSKY PRISMA SCHEMA — A2P ADDITIONS
+//
+// These models and field additions must be merged into your existing
+// prisma/schema.prisma file.
+//
+// Run after merging: npx prisma migrate dev --name add_a2p_models
+
+// ── Field addition to existing Event model ────────────────────────────────
+// Add this field to the existing Event model:
+//
+// model Event {
+//   ...existing fields...
+//   metadata   Json?   @default("{}")   // carries ivr_path, call_control_id, call_priority
+// }
+//
+// NOTE: thread-match confidence lives in ai_context.thread_match_confidence
+// (existing generic JSONB field), not a new column -- consistent with how
+// ai_context.confidence_score already works for other signals (SIG-CONV-002,
+// SIG-COM-003, etc). Surfacing the reconciliation to a human is handled by
+// SIG-COM-006 -> ACT-NOTIFY-001 (see 004_40_signals_seed.sql), an existing
+// Action, not a new field on Event. See RightFlush-Denise-Customer-Journey.md
+// Ch5 for the full mechanism.
+
+// ── New model: CallEvent ──────────────────────────────────────────────────
+// Primary record for every inbound call. Created on call.initiated.
+// Spec ref: §2.3 (Call Event Logging schema)
+
+model CallEvent {
+  id              String    @id @default(uuid())
+  call_id         String    @unique  // Telnyx call_control_id
+  caller_id       String?            // caller phone number
+  called_number   String?            // company phone number
+  profile_id      String?            // CustomerProfile.id if matched
+  call_started_at DateTime  @default(now())
+  call_ended_at   DateTime?
+  channel         String    @default("phone")
+  ivr_path        String?            // e.g. "Main Menu > Service"
+  call_outcome    String    @default("initiated")  // connected | voicemail | abandoned | missed | initiated
+  call_priority   String    @default("standard")   // standard | emergency
+  recording_url   String?            // private bucket URL (not Telnyx temp URL)
+  transcript_id   String?
+  sms_consent     Boolean?           // null = not discussed on the call. Populated by the AI Analysis
+                                      // Engine reading the transcript for a consent exchange, not asserted
+                                      // by the IVR or entered manually by the rep.
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  voicemails      Voicemail[]
+}
+
+// ── New model: Voicemail ──────────────────────────────────────────────────
+// Created on call.recording.saved when call_outcome = voicemail | initiated.
+// Spec ref: §4.4 (Voicemail Record Schema)
+
+model Voicemail {
+  id                String    @id @default(uuid())
+  voicemail_id      String    @unique   // vm_<timestamp>
+  call_event_id     String
+  profile_id        String?
+  recording_url     String?            // private bucket URL
+  transcript_id     String?
+  transcript_text   String?
+  transcript_status String    @default("pending")  // pending | completed | failed
+  captured_at       DateTime  @default(now())
+  duration_seconds  Int?
+  ai_analysis_id    String?
+
+  call_event        CallEvent @relation(fields: [call_event_id], references: [id])
+}
+
+// ── Raw webhook log (if not already present) ──────────────────────────────
+// Every Telnyx webhook payload logged raw BEFORE processing.
+// Enables replay without data loss.
+// Spec ref: §8 CRITICAL
+
+model RawWebhookLog {
+  id           String   @id @default(uuid())
+  provider     String               // telnyx_a2p | telnyx_sms | telnyx_voice
+  event_type   String               // call.initiated | call.recording.saved | etc.
+  external_id  String               // call_control_id or message_id
+  raw_payload  Json                 // full webhook payload
+  received_at  DateTime @default(now())
+
+  @@index([external_id, event_type])  // supports idempotency check
+}

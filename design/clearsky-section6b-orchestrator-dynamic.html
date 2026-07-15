@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSky — Section 6B: Orchestrator · Dynamic Sections · Reconciliation</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f4f7;--surface:#fff;--surface2:#f7f8fa;--border:#e3e7ef;--border2:#c8cdd8;
+  --text:#111827;--text2:#4b5563;--text3:#9ca3af;
+  --green:#0a7c45;--green-bg:#eaf7f0;--green-bd:#a7dfc4;
+  --red:#b91c1c;--red-bg:#fef2f2;--red-bd:#fca5a5;
+  --amber:#92600a;--amber-bg:#fffbeb;--amber-bd:#fcd34d;
+  --blue:#1d4ed8;--blue-bg:#eff6ff;--blue-bd:#93c5fd;
+  --purple:#6d28d9;--purple-bg:#f5f3ff;--purple-bd:#c4b5fd;
+  --teal:#0d7f78;--teal-bg:#e8f7f6;--teal-bd:#9de0db;
+  --orange:#c2410c;--orange-bg:#fff7ed;--orange-bd:#fed7aa;
+  --mono:'IBM Plex Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:13px;line-height:1.5;min-height:100vh;}
+
+/* ── HEADER ── */
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.05);position:sticky;top:0;z-index:200;}
+.logo{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--green);letter-spacing:.08em;}
+.logo em{color:var(--text3);font-style:normal;}
+.hdr-nav{display:flex;gap:6px;}
+.hdr-pill{font-family:var(--mono);font-size:10px;padding:4px 12px;border-radius:4px;border:1px solid var(--border2);background:none;color:var(--text3);cursor:pointer;transition:all .15s;}
+.hdr-pill.active,.hdr-pill:hover{background:var(--green);color:#fff;border-color:var(--green);}
+.section-badge{font-family:var(--mono);font-size:10px;padding:4px 12px;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd);}
+
+/* ── PAGE ── */
+.page{max-width:1280px;margin:0 auto;padding:32px 24px 80px;}
+.sec-label{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:8px;}
+.sec-title{font-size:26px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:10px;}
+.sec-desc{font-size:13px;color:var(--text2);max-width:700px;line-height:1.65;margin-bottom:32px;}
+.sec-divider{height:1px;background:var(--border);margin:40px 0;}
+.subsec-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.subsec-desc{font-size:12px;color:var(--text2);margin-bottom:20px;line-height:1.6;}
+
+/* ── ORCHESTRATOR PANEL ── */
+.orch-panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px;}
+.orch-panel-head{background:var(--text);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;}
+.oph-title{font-family:var(--mono);font-size:11px;font-weight:600;color:#fff;letter-spacing:.08em;}
+.oph-status{font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:3px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);}
+.oph-status.evaluating{background:rgba(146,96,10,.4);color:#fcd34d;animation:blink-op .8s infinite;}
+.oph-status.complete{background:rgba(10,124,69,.4);color:#a7dfc4;}
+@keyframes blink-op{0%,100%{opacity:1}50%{opacity:.4}}
+.orch-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.orch-inputs{padding:20px;border-right:1px solid var(--border);}
+.orch-outputs{padding:20px;}
+.oi-label{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:12px;}
+.oi-row{display:flex;align-items:flex-start;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);gap:12px;}
+.oi-row:last-child{border-bottom:none;}
+.oi-key{font-family:var(--mono);font-size:10px;color:var(--text3);flex-shrink:0;min-width:120px;}
+.oi-val{font-size:11px;color:var(--text);text-align:right;line-height:1.4;}
+.oi-val.green{color:var(--green);font-weight:500;}
+.oi-val.amber{color:#d97706;font-weight:500;}
+.oi-val.blue{color:var(--blue);font-weight:500;}
+.oi-val.red{color:var(--red);font-weight:500;}
+.oi-val.purple{color:var(--purple);font-weight:500;}
+
+/* Output decisions */
+.od-item{padding:8px 0;border-bottom:1px solid var(--border);}
+.od-item:last-child{border-bottom:none;}
+.od-section{display:flex;align-items:flex-start;gap:10px;}
+.od-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.od-icon.green{background:var(--green-bg);}
+.od-icon.blue{background:var(--blue-bg);}
+.od-icon.amber{background:var(--amber-bg);}
+.od-icon.teal{background:var(--teal-bg);}
+.od-icon.purple{background:var(--purple-bg);}
+.od-icon.red{background:var(--red-bg);}
+.od-content{flex:1;}
+.od-name{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px;}
+.od-name.green{color:var(--green);}
+.od-name.blue{color:var(--blue);}
+.od-name.amber{color:#d97706;}
+.od-name.teal{color:var(--teal);}
+.od-name.purple{color:var(--purple);}
+.od-name.red{color:var(--red);}
+.od-decision{font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.od-reason{font-size:10px;color:var(--text3);line-height:1.45;}
+
+/* ── 1440 WEBSITE PREVIEW ── */
+.viewport-wrap{position:relative;margin-bottom:28px;}
+.viewport-label{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.vl-dim{padding:2px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--border);font-size:9px;}
+.viewport-chrome{background:#f1f3f5;padding:10px 14px;display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-bottom:none;border-radius:8px 8px 0 0;}
+.vp-dots{display:flex;gap:5px;}
+.vp-dot{width:10px;height:10px;border-radius:50%;}
+.vp-dot:nth-child(1){background:#ff5f57;}
+.vp-dot:nth-child(2){background:#febc2e;}
+.vp-dot:nth-child(3){background:#28c840;}
+.vp-url{font-family:var(--mono);font-size:10px;color:var(--text3);background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px 12px;flex:1;text-align:center;}
+
+/* 1440 viewport simulation */
+.viewport-sim{width:100%;background:#f8f9fa;border:1px solid var(--border);border-radius:0 0 8px 8px;overflow:hidden;position:relative;display:flex;align-items:stretch;min-height:520px;}
+
+/* Left margin */
+.vp-margin-left{width:130px;flex-shrink:0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.02) 8px,rgba(0,0,0,.02) 9px);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;border-right:1px dashed var(--border);}
+.vp-margin-label{font-family:var(--mono);font-size:8px;color:var(--text3);writing-mode:vertical-lr;transform:rotate(180deg);letter-spacing:.08em;}
+
+/* Content container */
+.vp-content{flex:1;background:var(--surface);padding:0;overflow:hidden;position:relative;}
+
+/* Right margin */
+.vp-margin-right{width:130px;flex-shrink:0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(0,0,0,.02) 8px,rgba(0,0,0,.02) 9px);display:flex;align-items:flex-start;justify-content:flex-start;padding-left:10px;border-left:1px dashed var(--border);padding-top:80px;}
+
+/* Dynamic sections inside content */
+.ds-nav{background:var(--text);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;}
+.ds-nav-logo{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--green);}
+.ds-nav-cta{font-size:10px;font-weight:600;padding:5px 14px;border-radius:5px;background:var(--green);color:#fff;}
+.ds-section{padding:16px 20px;border-bottom:1px solid var(--border);position:relative;transition:background .4s;}
+.ds-section.active{background:rgba(10,124,69,.04);}
+.ds-section-badge{position:absolute;top:8px;right:10px;font-family:var(--mono);font-size:8px;font-weight:600;padding:2px 7px;border-radius:2px;}
+.dsb-hero{background:var(--green-bg);color:var(--green);}
+.dsb-proof{background:var(--blue-bg);color:var(--blue);}
+.dsb-content{background:var(--teal-bg);color:var(--teal);}
+.dsb-form{background:var(--amber-bg);color:#d97706;}
+.dsb-urgency{background:var(--red-bg);color:var(--red);}
+.ds-hero-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.ds-hero-sub{font-size:11px;color:var(--text2);margin-bottom:10px;}
+.ds-hero-cta{display:inline-block;font-size:11px;font-weight:600;padding:7px 16px;border-radius:6px;background:var(--green);color:#fff;}
+.ds-proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ds-proof-card{background:var(--blue-bg);border:1px solid var(--blue-bd);border-radius:6px;padding:8px;}
+.ds-proof-title{font-size:10px;font-weight:600;color:var(--blue);margin-bottom:3px;}
+.ds-proof-body{font-size:9px;color:var(--text2);line-height:1.4;}
+.ds-content-items{display:flex;gap:8px;}
+.ds-content-item{flex:1;background:var(--bg);border-radius:6px;padding:8px;border:1px solid var(--border);}
+.ds-content-item-title{font-size:10px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.ds-content-item-body{font-size:9px;color:var(--text3);line-height:1.4;}
+.ds-form-wrap{display:flex;gap:8px;align-items:flex-end;}
+.ds-form-field{background:var(--bg);border:1px solid var(--border2);border-radius:5px;padding:7px 10px;font-size:10px;color:var(--text3);flex:1;}
+.ds-form-btn{font-size:10px;font-weight:600;padding:7px 14px;border-radius:5px;background:var(--green);color:#fff;white-space:nowrap;}
+.ds-urgency-strip{background:var(--red-bg);border:1px solid var(--red-bd);border-radius:6px;padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:10px;color:var(--red);font-weight:600;}
+
+/* Right-side banner */
+.vp-banner{width:112px;position:relative;}
+.rp-banner-collapsed{background:var(--green);border-radius:8px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .3s;box-shadow:0 4px 16px rgba(10,124,69,.3);}
+.rpb-pct{font-family:var(--mono);font-size:18px;font-weight:700;color:#fff;line-height:1;}
+.rpb-off{font-family:var(--mono);font-size:9px;font-weight:600;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.06em;}
+.rpb-label{font-size:9px;color:rgba(255,255,255,.7);text-align:center;line-height:1.3;}
+.rpb-pulse{width:8px;height:8px;border-radius:50%;background:#fff;animation:banner-pulse 1.5s infinite;}
+@keyframes banner-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+
+.rp-banner-expanded{background:var(--surface);border:1px solid var(--green-bd);border-radius:8px;padding:14px 10px;box-shadow:0 8px 24px rgba(10,124,69,.2);display:none;flex-direction:column;gap:8px;}
+.rpe-badge{font-family:var(--mono);font-size:8px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;}
+.rpe-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3;}
+.rpe-sub{font-size:10px;color:var(--text2);line-height:1.4;margin-bottom:8px;}
+.rpe-input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:5px;padding:7px 8px;font-size:10px;color:var(--text);font-family:var(--mono);}
+.rpe-btn{width:100%;font-size:10px;font-weight:700;padding:8px;border-radius:5px;background:var(--green);color:#fff;border:none;cursor:pointer;margin-top:4px;}
+.rpe-sent{background:var(--green-bg);border:1px solid var(--green-bd);border-radius:6px;padding:8px;font-size:10px;color:var(--green);text-align:center;display:none;}
+
+/* ── SMS + RECONCILIATION ── */
+.recon-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+.device-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.dc-head{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
+.dc-icon{font-size:18px;}
+.dc-title{font-size:12px;font-weight:700;color:var(--text);}
+.dc-sub{font-family:var(--mono);font-size:10px;color:var(--text3);}
+.dc-body{padding:16px;}
+
+/* Phone screen */
+.phone-screen{background:#1c1c1e;border-radius:12px;padding:0;overflow:hidden;margin-bottom:12px;}
+.ps-status{background:#1c1c1e;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;}
+.ps-time{font-family:var(--mono);font-size:11px;color:#fff;font-weight:600;}
+.ps-icons{font-size:10px;color:#fff;opacity:.7;}
+.ps-notif{background:#2c2c2e;margin:0 8px 8px;border-radius:10px;padding:10px 12px;}
+.ps-notif-head{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.ps-notif-app{font-size:9px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.04em;}
+.ps-notif-time{font-size:9px;color:rgba(255,255,255,.4);margin-left:auto;}
+.ps-notif-title{font-size:12px;font-weight:600;color:#fff;margin-bottom:2px;}
+.ps-notif-body{font-size:11px;color:rgba(255,255,255,.7);line-height:1.4;}
+.ps-code-input{background:#2c2c2e;margin:0 8px 8px;border-radius:10px;padding:10px 12px;display:none;}
+.ps-code-label{font-size:9px;color:rgba(255,255,255,.5);margin-bottom:6px;}
+.ps-code-field{background:#3a3a3c;border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:16px;font-weight:700;color:var(--green);letter-spacing:.2em;text-align:center;margin-bottom:8px;}
+.ps-code-btn{width:100%;padding:8px;border-radius:6px;background:var(--green);color:#fff;font-size:11px;font-weight:600;border:none;cursor:pointer;}
+
+/* Recon event */
+.recon-event{background:var(--surface);border:2px solid var(--green);border-radius:10px;padding:20px;margin-bottom:20px;display:none;}
+.re-title{font-size:14px;font-weight:700;color:var(--green);margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.re-sub{font-size:12px;color:var(--text2);margin-bottom:16px;}
+.re-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.re-card{background:var(--bg);border-radius:8px;padding:12px;border:1px solid var(--border);}
+.re-card-label{font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+.re-card-val{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--green);}
+.re-chain{display:flex;flex-direction:column;gap:6px;}
+.re-chain-item{display:flex;align-items:flex-start;gap:8px;font-size:11px;color:var(--text2);}
+.re-chain-check{color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;}
+
+/* Recon controls */
+.recon-controls{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+.rc-btn{font-family:var(--sans);font-size:12px;font-weight:600;padding:8px 18px;border-radius:7px;border:none;background:var(--green);color:#fff;cursor:pointer;transition:all .15s;}
+.rc-btn:disabled{opacity:.4;cursor:not-allowed;}
+.rc-btn.secondary{background:none;border:1px solid var(--border2);color:var(--text2);}
+.rc-btn.secondary:hover{border-color:var(--green);color:var(--green);}
+
+/* ── GBP CALL ── */
+.gbp-grid{display:grid;grid-template-columns:280px 1fr;gap:20px;margin-bottom:24px;}
+.gbp-listing{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.gbp-map{background:linear-gradient(135deg,#e8f4f0 0%,#d4e8d8 50%,#c8dfc8 100%);height:120px;position:relative;display:flex;align-items:center;justify-content:center;}
+.gbp-map-pin{font-size:28px;}
+.gbp-map-label{position:absolute;bottom:8px;right:8px;font-family:var(--mono);font-size:8px;color:var(--text3);background:rgba(255,255,255,.9);padding:2px 6px;border-radius:3px;}
+.gbp-info{padding:14px;}
+.gbp-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.gbp-rating{display:flex;align-items:center;gap:4px;margin-bottom:6px;}
+.gbp-stars{color:#d97706;font-size:11px;}
+.gbp-rating-num{font-family:var(--mono);font-size:10px;color:var(--text3);}
+.gbp-address{font-size:10px;color:var(--text3);margin-bottom:10px;}
+.gbp-call-btn{width:100%;padding:9px;border-radius:7px;background:var(--green);color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;margin-bottom:6px;}
+.gbp-call-btn:hover{background:#0d9e56;}
+.gbp-call-btn.calling{background:var(--red);animation:call-pulse .8s infinite;}
+@keyframes call-pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.gbp-call-sub{font-size:9px;color:var(--text3);text-align:center;font-family:var(--mono);}
+
+/* Rep dashboard */
+.rep-dashboard{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.rd-head{background:#1e2d24;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.rd-title{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--green);letter-spacing:.06em;}
+.rd-status{font-family:var(--mono);font-size:9px;padding:3px 10px;border-radius:3px;}
+.rd-status.idle{background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);}
+.rd-status.ringing{background:rgba(146,96,10,.4);color:#fcd34d;animation:blink-op .6s infinite;}
+.rd-status.connected{background:rgba(10,124,69,.4);color:var(--green);}
+.rd-body{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.rd-panel{background:var(--bg);border-radius:8px;padding:12px;border:1px solid var(--border);}
+.rd-panel-label{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:8px;}
+.rd-resolve-state{text-align:center;padding:16px 8px;}
+.rd-resolve-icon{font-size:28px;margin-bottom:6px;}
+.rd-resolve-text{font-size:11px;color:var(--text2);line-height:1.4;}
+.rd-resolve-text.found{color:var(--green);font-weight:600;}
+.rd-resolve-time{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px;}
+
+/* Profile surfaced in dashboard */
+.rd-profile{display:none;}
+.rdp-top{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.rdp-avatar{width:32px;height:32px;border-radius:50%;background:var(--green-bg);border:2px solid var(--green-bd);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.rdp-name{font-size:12px;font-weight:700;color:var(--text);}
+.rdp-tier{font-family:var(--mono);font-size:9px;color:var(--green);}
+.rdp-row{display:flex;align-items:center;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border);}
+.rdp-row:last-child{border-bottom:none;}
+.rdp-l{font-size:10px;color:var(--text3);}
+.rdp-v{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--text);}
+.rdp-v.green{color:var(--green);}
+.rdp-v.amber{color:#d97706;}
+
+/* Live session panel in rep dashboard */
+.rd-live-session{display:none;}
+.rls-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);}
+.rls-item:last-child{border-bottom:none;}
+.rls-dot{width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:4px;flex-shrink:0;animation:live-dot 1.5s infinite;}
+@keyframes live-dot{0%,100%{opacity:1}50%{opacity:.3}}
+.rls-text{font-size:10px;color:var(--text2);line-height:1.4;}
+.rls-text strong{color:var(--text);}
+
+/* Admin prompt */
+.admin-prompt{background:var(--surface);border:2px solid var(--amber);border-radius:10px;padding:18px;margin-bottom:16px;display:none;}
+.ap-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.ap-icon{font-size:18px;}
+.ap-title{font-size:13px;font-weight:700;color:var(--amber);}
+.ap-body{font-size:11px;color:var(--text2);line-height:1.55;margin-bottom:14px;}
+.ap-detail{background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:6px;padding:10px 12px;margin-bottom:14px;}
+.apd-row{display:flex;align-items:flex-start;justify-content:space-between;padding:3px 0;font-size:10px;}
+.apd-l{color:var(--text3);}
+.apd-v{font-family:var(--mono);color:var(--text);font-weight:500;text-align:right;}
+.ap-btns{display:flex;gap:8px;}
+.ap-confirm{font-size:12px;font-weight:700;padding:8px 20px;border-radius:7px;background:var(--green);color:#fff;border:none;cursor:pointer;}
+.ap-cancel{font-size:12px;padding:8px 14px;border-radius:7px;background:none;border:1px solid var(--border2);color:var(--text2);cursor:pointer;}
+.ap-confirmed{background:var(--green-bg);border:1px solid var(--green-bd);border-radius:7px;padding:10px 14px;font-size:11px;color:var(--green);display:none;}
+
+/* ── CALL STATES ── */
+.call-state{display:none;}
+.call-state.active{display:block;}
+
+/* General */
+.pill{display:inline-flex;align-items:center;font-family:var(--mono);font-size:9px;font-weight:600;padding:2px 8px;border-radius:3px;}
+.p-green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.p-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+.p-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd);}
+.p-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.p-purple{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-bd);}
+.p-grey{background:var(--bg);color:var(--text3);border:1px solid var(--border2);}
+
+.btn-primary{font-family:var(--sans);font-size:12px;font-weight:600;padding:9px 22px;border-radius:7px;border:none;background:var(--green);color:#fff;cursor:pointer;transition:all .15s;}
+.btn-primary:hover{background:#0d9e56;}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;}
+.btn-secondary{font-family:var(--sans);font-size:12px;padding:9px 16px;border-radius:7px;border:1px solid var(--border2);background:none;color:var(--text2);cursor:pointer;transition:all .15s;}
+.btn-secondary:hover{border-color:var(--green);color:var(--green);}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .35s ease forwards;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">CLEAR<em>SKY</em></div>
+  <div class="hdr-nav">
+    <button class="hdr-pill active" onclick="showSection('dynamic')">A · Dynamic Sections</button>
+    <button class="hdr-pill" onclick="showSection('sms')">B · SMS Reconciliation</button>
+    <button class="hdr-pill" onclick="showSection('gbp')">C · GBP Click-to-Call</button>
+  </div>
+  <div class="section-badge">Section 6B · BI Platform · Session 6</div>
+</div>
+
+<div class="page">
+
+  <div class="sec-label">Section 6B of 8 — Orchestrator in Action</div>
+  <div class="sec-title">Dynamic Sections · Cross-Device Reconciliation · GBP Call Routing</div>
+  <div class="sec-desc">Three scenarios that show the Orchestrator making specific decisions for a specific visitor at a specific moment. The page knows who is on it. The decision is deterministic. Every output is traceable back to its input.</div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SECTION A — DYNAMIC SECTIONS                                          -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="section-dynamic">
+    <div class="subsec-title">A — Orchestrator Decision · Dynamic Section Manifest</div>
+    <div class="subsec-desc">Marie's laptop session arrives from home WiFi. No cookie. No fingerprint match. But the Orchestrator has six inputs. It produces six content decisions in under 200ms. Every dynamic section on the page is a deliberate choice — not a template.</div>
+
+    <!-- Orchestrator Panel -->
+    <div class="orch-panel">
+      <div class="orch-panel-head">
+        <div class="oph-title">ORCHESTRATOR · CONTENT MANIFEST EVALUATION</div>
+        <div class="oph-status complete" id="orch-status-a">MANIFEST READY · 147ms</div>
+      </div>
+      <div class="orch-body">
+        <div class="orch-inputs">
+          <div class="oi-label">Inputs — what the Orchestrator reads</div>
+          <div class="oi-row"><span class="oi-key">Page</span><span class="oi-val">rightflush.ca/bathroom-renovations<br><span style="font-size:9px;color:var(--text3);">category: renovation · journey pos: consideration</span></span></div>
+          <div class="oi-row"><span class="oi-key">Session state</span><span class="oi-val">score 0 · fresh device · no bucket yet<br><span style="font-size:9px;color:var(--text3);">page_load only · no events yet</span></span></div>
+          <div class="oi-row"><span class="oi-key">Web history</span><span class="oi-val amber">IP co-occur: fp_3d9a…c14e · 7 min ago<br><span style="font-size:9px;color:var(--text3);">Active Project · gallery · form_name_focus · hero CTA</span></span></div>
+          <div class="oi-row"><span class="oi-key">Identity tier</span><span class="oi-val">Tier 3 · 62% · IP co-occurrence<br><span style="font-size:9px;color:var(--text3);">No A2P · no cross-channel · content permitted</span></span></div>
+          <div class="oi-row"><span class="oi-key">ContentRadar</span><span class="oi-val green">bathroom renovation · Timmins · spike active<br><span style="font-size:9px;color:var(--text3);">spring demand +34% vs prior 4 weeks</span></span></div>
+          <div class="oi-row"><span class="oi-key">Context</span><span class="oi-val">7:22 PM · Tuesday · residential IP · home<br><span style="font-size:9px;color:var(--text3);">evening browse · high conversion time window</span></span></div>
+        </div>
+        <div class="orch-outputs">
+          <div class="oi-label">Outputs — content manifest for this session</div>
+          <div class="od-item">
+            <div class="od-section">
+              <div class="od-icon green">🏠</div>
+              <div class="od-content">
+                <div class="od-name green">Hero</div>
+                <div class="od-decision">"Thinking about a new bathroom?" — renovation variant</div>
+                <div class="od-reason">Household history shows bathroom renovation page visited 7 min ago. Serve category-matched hero, not generic headline.</div>
+              </div>
+            </div>
+          </div>
+          <div class="od-item">
+            <div class="od-section">
+              <div class="od-icon blue">⭐</div>
+              <div class="od-content">
+                <div class="od-name blue">Proof block</div>
+                <div class="od-decision">Bathroom before/after photos + review mentioning bathroom</div>
+                <div class="od-reason">Household IP has gallery interaction in prior session. Surface the proof elements already engaged with.</div>
+              </div>
+            </div>
+          </div>
+          <div class="od-item">
+            <div class="od-section">
+              <div class="od-icon teal">📋</div>
+              <div class="od-content">
+                <div class="od-name teal">Content strip</div>
+                <div class="od-decision">Process content — "what a RightFlush renovation looks like"</div>
+                <div class="od-reason">Household signal is Active Project — not Research. Process content, not educational content.</div>
+              </div>
+            </div>
+          </div>
+          <div class="od-item">
+            <div class="od-section">
+              <div class="od-icon amber">📝</div>
+              <div class="od-content">
+                <div class="od-name amber">Form</div>
+                <div class="od-decision">Short form — name and phone only</div>
+                <div class="od-reason">Household prior session had form_name_focus. Reduce friction. Two fields only — remove every barrier.</div>
+              </div>
+            </div>
+          </div>
+          <div class="od-item">
+            <div class="od-section">
+              <div class="od-icon red">⚡</div>
+              <div class="od-content">
+                <div class="od-name red">Urgency signal</div>
+                <div class="od-decision">Show — "Spring slots filling — 3 April openings left"</div>
+                <div class="od-reason">ContentRadar confirms +34% demand spike. Urgency is real and data-backed. Not manufactured.</div>
+              </div>
+            </div>
+          </div>
+          <div class="od-item">
+            <div class="od-section">
+              <div class="od-icon purple">🎯</div>
+              <div class="od-content">
+                <div class="od-name purple">Right banner</div>
+                <div class="od-decision">SMS discount — 15% off — trigger at dwell_90s — collapsed on load</div>
+                <div class="od-reason">Tier 3 — no A2P channel. High-intent household. Incentive is the only conversion pull available. Banner collects the phone number as a side effect.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1440 Website Preview -->
+    <div class="subsec-title" style="margin-bottom:8px;">The Website — 1440px Viewport · 1180px Content Container</div>
+    <div class="subsec-desc">Every section below is rendering from the Orchestrator manifest above. The right margin carries the banner. Hover the collapsed banner to expand. After 90 seconds dwell it expands automatically.</div>
+
+    <div class="viewport-wrap">
+      <div class="viewport-label">
+        <span class="vl-dim">1440px viewport</span>
+        <span style="color:var(--text3);">→</span>
+        <span class="vl-dim">130px margin</span>
+        <span style="color:var(--text3);">+</span>
+        <span class="vl-dim">1180px content</span>
+        <span style="color:var(--text3);">+</span>
+        <span class="vl-dim">130px margin</span>
+      </div>
+      <div class="viewport-chrome">
+        <div class="vp-dots"><div class="vp-dot"></div><div class="vp-dot"></div><div class="vp-dot"></div></div>
+        <div class="vp-url">rightflush.ca/bathroom-renovations</div>
+      </div>
+      <div class="viewport-sim">
+        <!-- Left margin -->
+        <div class="vp-margin-left"><span class="vp-margin-label">130px · left margin</span></div>
+
+        <!-- Content -->
+        <div class="vp-content">
+          <div class="ds-nav">
+            <div class="ds-nav-logo">RIGHTFLUSH</div>
+            <div class="ds-nav-cta">Get Free Quote</div>
+          </div>
+
+          <!-- Hero — Dynamic -->
+          <div class="ds-section active" id="ds-hero">
+            <span class="ds-section-badge dsb-hero">HERO · Orchestrator variant: bathroom_renovation</span>
+            <div style="padding-top:8px;">
+              <div class="ds-hero-title">Thinking about a new bathroom?</div>
+              <div class="ds-hero-sub">Timmins' trusted renovation team. See what's possible — and get a free quote this week.</div>
+              <div class="ds-hero-cta">Get a Free Quote →</div>
+            </div>
+          </div>
+
+          <!-- Proof — Dynamic -->
+          <div class="ds-section" id="ds-proof">
+            <span class="ds-section-badge dsb-proof">PROOF · variant: gallery_bathroom + review_bathroom</span>
+            <div style="padding-top:8px;" class="ds-proof-grid">
+              <div class="ds-proof-card">
+                <div class="ds-proof-title">Before & After — Master Bath</div>
+                <div class="ds-proof-body">Complete gut and rebuild. New tile, vanity, fixtures. 4 days start to finish. Timmins, ON.</div>
+              </div>
+              <div class="ds-proof-card">
+                <div class="ds-proof-title">★★★★★ — "Beautiful work"</div>
+                <div class="ds-proof-body">"Transformed our bathroom completely. On budget, on time. We get compliments every time someone visits." — L. Bouchard, Timmins</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content strip — Dynamic -->
+          <div class="ds-section" id="ds-content">
+            <span class="ds-section-badge dsb-content">CONTENT · process-oriented · Active Project signal</span>
+            <div style="padding-top:8px;" class="ds-content-items">
+              <div class="ds-content-item">
+                <div class="ds-content-item-title">Step 1 — Photo quote</div>
+                <div class="ds-content-item-body">Send us photos. We price it accurately. No surprises on job day.</div>
+              </div>
+              <div class="ds-content-item">
+                <div class="ds-content-item-title">Step 2 — Schedule</div>
+                <div class="ds-content-item-body">Pick a date. We confirm within 2 hours. Locked in.</div>
+              </div>
+              <div class="ds-content-item">
+                <div class="ds-content-item-title">Step 3 — Done right</div>
+                <div class="ds-content-item-body">Clean site. Guaranteed work. One call if anything isn't perfect.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Urgency -->
+          <div class="ds-section" id="ds-urgency">
+            <span class="ds-section-badge dsb-urgency">URGENCY · ContentRadar: spring_renovation_spike</span>
+            <div style="padding-top:8px;">
+              <div class="ds-urgency-strip">🗓 Spring renovation slots filling fast — 3 April openings remaining. Book this week to secure your date.</div>
+            </div>
+          </div>
+
+          <!-- Form — Short variant -->
+          <div class="ds-section" id="ds-form">
+            <span class="ds-section-badge dsb-form">FORM · short variant · 2 fields · friction reduced</span>
+            <div style="padding-top:8px;">
+              <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px;">Get your free renovation quote</div>
+              <div class="ds-form-wrap">
+                <div class="ds-form-field">Your name</div>
+                <div class="ds-form-field">Mobile number</div>
+                <div class="ds-form-btn">Send →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right margin — banner -->
+        <div class="vp-margin-right">
+          <div class="vp-banner">
+            <!-- Collapsed state -->
+            <div class="rp-banner-collapsed" id="banner-collapsed" onclick="expandBanner()">
+              <div class="rpb-pct">15%</div>
+              <div class="rpb-off">OFF</div>
+              <div class="rpb-label">Tap to claim your discount</div>
+              <div class="rpb-pulse"></div>
+            </div>
+            <!-- Expanded state -->
+            <div class="rp-banner-expanded" id="banner-expanded">
+              <div class="rpe-badge">Limited offer · SMS code</div>
+              <div class="rpe-title">15% off your bathroom renovation</div>
+              <div class="rpe-sub">Enter your mobile number. We'll text you a code instantly — no app needed.</div>
+              <input class="rpe-input" id="banner-phone" type="tel" placeholder="705-274-0988" value="705-274-0988">
+              <button class="rpe-btn" onclick="sendSmsCode()">Send my code →</button>
+              <div class="rpe-sent" id="banner-sent">✓ Code sent to your phone — check your messages</div>
+            </div>
+          </div>
+          <div style="margin-top:8px;font-family:var(--mono);font-size:8px;color:var(--text3);line-height:1.4;">130px<br>right<br>margin</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+      <button class="btn-primary" onclick="triggerDwell()">⏱ Simulate dwell_90s — auto-expand banner</button>
+      <button class="btn-secondary" onclick="resetDynamic()">↺ Reset</button>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text3);" id="dynamic-status">Banner collapsed on load — Orchestrator trigger: dwell_90s</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SECTION B — SMS RECONCILIATION                                         -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="section-sms" style="display:none;">
+    <div class="subsec-title">B — SMS Discount Code · Cross-Device Deterministic Reconciliation</div>
+    <div class="subsec-desc">Marie enters her phone number on the laptop. The hub resolves it to hub_rf_0091. A signed one-time code is sent via A2P. She opens the code on her iPhone and enters it on the plumbing website. That single event links both devices at 100% certainty — because only the person who received the SMS could have entered the code.</div>
+
+    <div class="recon-controls">
+      <button class="btn-primary" id="btn-step1" onclick="reconStep(1)">1 · Phone entered on laptop</button>
+      <button class="btn-primary" id="btn-step2" onclick="reconStep(2)" disabled>2 · Hub resolves · SMS sent</button>
+      <button class="btn-primary" id="btn-step3" onclick="reconStep(3)" disabled>3 · Code entered on iPhone</button>
+      <button class="btn-primary" id="btn-step4" onclick="reconStep(4)" disabled>4 · Reconciliation fires</button>
+      <button class="btn-secondary" onclick="resetRecon()">↺ Reset</button>
+    </div>
+
+    <div class="recon-grid">
+      <!-- Laptop -->
+      <div class="device-card">
+        <div class="dc-head" style="background:var(--surface2);">
+          <div class="dc-icon">💻</div>
+          <div>
+            <div class="dc-title">Marie's Laptop · Desktop Chrome</div>
+            <div class="dc-sub">cs_b22f…7a91 · fp_9c1b…4e2a · 205.x.x.x · Tier 3 · 62%</div>
+          </div>
+        </div>
+        <div class="dc-body">
+          <div id="laptop-state-0" class="call-state active">
+            <div style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:10px;">
+              <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:4px;">Right-side banner — expanded</div>
+              <div style="font-size:10px;color:var(--text2);line-height:1.5;">Marie has dwelled 90 seconds. The banner auto-expanded. She is reading the 15% offer. The phone input field is pre-populated from the form she started earlier — the pixel detected form_phone_focus on this session and cached the partial value.</div>
+            </div>
+            <div style="background:var(--green-bg);border:1px solid var(--green-bd);border-radius:7px;padding:10px 12px;">
+              <div style="font-family:var(--mono);font-size:9px;color:var(--green);font-weight:600;margin-bottom:4px;">Banner phone field</div>
+              <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--text);">705-274-0988</div>
+              <div style="font-size:10px;color:var(--text3);margin-top:2px;">Tap "1 · Phone entered on laptop" to proceed</div>
+            </div>
+          </div>
+          <div id="laptop-state-1" class="call-state">
+            <div style="background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:8px;padding:12px;margin-bottom:10px;">
+              <div style="font-family:var(--mono);font-size:9px;color:var(--amber);font-weight:600;margin-bottom:4px;">Hub resolve firing</div>
+              <div style="font-size:10px;color:var(--text2);">GET /hub/profiles/resolve?phone=sha256("+17052740988")<br>→ Waiting for response…</div>
+            </div>
+          </div>
+          <div id="laptop-state-2" class="call-state">
+            <div style="background:var(--green-bg);border:1px solid var(--green-bd);border-radius:8px;padding:12px;margin-bottom:10px;">
+              <div style="font-family:var(--mono);font-size:9px;color:var(--green);font-weight:600;margin-bottom:6px;">Hub resolve — match found · hub_rf_0091</div>
+              <div style="font-size:10px;color:var(--text2);line-height:1.5;">Marie Tremblay · existing profile. This is not a new conversion — it is a channel capture event. Code RF-7742 issued and bound to this phone number and this session.</div>
+            </div>
+            <div style="background:var(--teal-bg);border:1px solid var(--teal-bd);border-radius:7px;padding:10px 12px;">
+              <div style="font-family:var(--mono);font-size:9px;color:var(--teal);font-weight:600;margin-bottom:4px;">A2P SMS queued · Telnyx</div>
+              <div style="font-size:10px;color:var(--text2);">→ 705-274-0988 · "Your RightFlush discount code: RF-7742. Enter at rightflush.ca to claim 15% off. Expires in 30 minutes."</div>
+            </div>
+          </div>
+          <div id="laptop-state-3" class="call-state">
+            <div style="background:var(--green-bg);border:1px solid var(--green-bd);border-radius:8px;padding:12px;">
+              <div style="font-family:var(--mono);font-size:9px;color:var(--green);font-weight:600;margin-bottom:4px;">Waiting for code entry on iPhone…</div>
+              <div style="font-size:10px;color:var(--text2);">Laptop session holds. Co-occurrence register updated — code RF-7742 issued to 705-274-0988 which is linked to hub_rf_0091. Any session that validates RF-7742 will be linked to this profile at Tier 1 certainty.</div>
+            </div>
+          </div>
+          <div id="laptop-state-4" class="call-state">
+            <div style="background:var(--green-bg);border:1px solid var(--green-bd);border-radius:8px;padding:12px;">
+              <div style="font-family:var(--mono);font-size:9px;color:var(--green);font-weight:600;margin-bottom:4px;">✓ Reconciliation complete · Laptop → hub_rf_0091</div>
+              <div style="font-size:10px;color:var(--text2);line-height:1.5;">Laptop session cs_b22f…7a91 confirmed as hub_rf_0091 via phone number match. Dynamic sections updating to named profile context. Rep notified: Marie Tremblay is live on the website.</div>
+              <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">
+                <span class="pill p-green">Tier 1 · confirmed</span>
+                <span class="pill p-green">Named · Marie Tremblay</span>
+                <span class="pill p-green">A2P now available</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone -->
+      <div class="device-card">
+        <div class="dc-head" style="background:#1c1c1e;">
+          <div class="dc-icon">📱</div>
+          <div>
+            <div class="dc-title" style="color:#fff;">Marie's iPhone · iOS Safari</div>
+            <div class="dc-sub" style="color:rgba(255,255,255,.5);">cs_7f3a…9b2c · fp_3d9a…c14e · Active Project · Tier 3</div>
+          </div>
+        </div>
+        <div class="dc-body" style="background:#1c1c1e;padding:12px;">
+          <!-- State 0 — waiting -->
+          <div id="iphone-state-0" class="call-state active">
+            <div class="phone-screen">
+              <div class="ps-status">
+                <div class="ps-time">7:28 PM</div>
+                <div class="ps-icons">📶 📡 🔋</div>
+              </div>
+              <div style="padding:0 8px 8px;font-size:9px;color:rgba(255,255,255,.3);text-align:center;">No messages yet — waiting for SMS</div>
+            </div>
+          </div>
+          <!-- State 2 — SMS received -->
+          <div id="iphone-state-2" class="call-state">
+            <div class="phone-screen">
+              <div class="ps-status">
+                <div class="ps-time">7:28 PM</div>
+                <div class="ps-icons">📶 📡 🔋</div>
+              </div>
+              <div class="ps-notif">
+                <div class="ps-notif-head">
+                  <span class="ps-notif-app">MESSAGES</span>
+                  <span class="ps-notif-time">now</span>
+                </div>
+                <div class="ps-notif-title">RightFlush Plumbing</div>
+                <div class="ps-notif-body">Your RightFlush discount code: RF-7742. Enter at rightflush.ca to claim 15% off. Expires in 30 minutes.</div>
+              </div>
+            </div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5);text-align:center;margin-top:6px;">SMS received · tap step 3 to enter the code</div>
+          </div>
+          <!-- State 3 — code entry -->
+          <div id="iphone-state-3" class="call-state">
+            <div class="phone-screen">
+              <div class="ps-status">
+                <div class="ps-time">7:29 PM</div>
+                <div class="ps-icons">📶 📡 🔋</div>
+              </div>
+              <div class="ps-code-input" style="display:block;">
+                <div class="ps-code-label">Enter your discount code</div>
+                <div class="ps-code-field">RF-7742</div>
+                <button class="ps-code-btn" onclick="reconStep(4)">Claim my 15% discount →</button>
+              </div>
+            </div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5);text-align:center;margin-top:6px;">Marie opens rightflush.ca on her iPhone · enters RF-7742</div>
+          </div>
+          <!-- State 4 — confirmed -->
+          <div id="iphone-state-4" class="call-state">
+            <div class="phone-screen">
+              <div class="ps-status">
+                <div class="ps-time">7:29 PM</div>
+                <div class="ps-icons">📶 📡 🔋</div>
+              </div>
+              <div class="ps-notif" style="background:rgba(10,124,69,.3);">
+                <div class="ps-notif-head">
+                  <span class="ps-notif-app" style="color:rgba(167,223,196,.8);">RIGHTFLUSH</span>
+                  <span class="ps-notif-time" style="color:rgba(167,223,196,.5);">now</span>
+                </div>
+                <div class="ps-notif-title" style="color:#a7dfc4;">✓ Discount code accepted</div>
+                <div class="ps-notif-body" style="color:rgba(167,223,196,.8);">15% off applied to your renovation quote. Your consultant will call to confirm details.</div>
+              </div>
+            </div>
+            <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;">
+              <span class="pill p-green">Tier 1 confirmed</span>
+              <span class="pill p-green">Both devices linked</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reconciliation event panel -->
+    <div class="recon-event" id="recon-event">
+      <div class="re-title">🔗 Reconciliation Event Fired <span class="pill p-green" style="font-size:10px;">discount_code_validated</span></div>
+      <div class="re-sub">Code RF-7742 validated on iPhone session cs_7f3a…9b2c. Code was issued to 705-274-0988 which belongs to hub_rf_0091. The two sessions are now linked at deterministic certainty — not probabilistic inference.</div>
+      <div class="re-grid">
+        <div class="re-card"><div class="re-card-label">Laptop session</div><div class="re-card-val">cs_b22f…7a91 → hub_rf_0091 ✓</div></div>
+        <div class="re-card"><div class="re-card-label">iPhone session</div><div class="re-card-val">cs_7f3a…9b2c → hub_rf_0091 ✓</div></div>
+        <div class="re-card"><div class="re-card-label">Prior iPhone sessions</div><div class="re-card-val">4 sessions → CONFIRMED (was INFERRED)</div></div>
+        <div class="re-card"><div class="re-card-label">Confidence</div><div class="re-card-val">100% · deterministic · not probabilistic</div></div>
+      </div>
+      <div class="re-chain">
+        <div style="font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Why this is deterministic — the chain of custody</div>
+        <div class="re-chain-item"><span class="re-chain-check">✓</span><span>Code RF-7742 issued to phone number 705-274-0988 on the laptop session — logged with timestamp and session ID</span></div>
+        <div class="re-chain-item"><span class="re-chain-check">✓</span><span>705-274-0988 resolved to hub_rf_0091 at the moment of issue — the phone number ownership is confirmed</span></div>
+        <div class="re-chain-item"><span class="re-chain-check">✓</span><span>Code RF-7742 entered on iPhone session cs_7f3a…9b2c — the pixel captured the entry event with the full session context</span></div>
+        <div class="re-chain-item"><span class="re-chain-check">✓</span><span>Only the person who received the SMS on that phone number could have entered that code — one-time use, 30-minute expiry, signed token</span></div>
+        <div class="re-chain-item"><span class="re-chain-check">✓</span><span>Therefore cs_7f3a…9b2c belongs to the same person as hub_rf_0091 — with no probabilistic inference required</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SECTION C — GBP CLICK-TO-CALL                                         -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="section-gbp" style="display:none;">
+    <div class="subsec-title">C — GBP Click-to-Call · Telnyx Routing · Rep Dashboard · Admin Prompt</div>
+    <div class="subsec-desc">A caller taps the GBP phone number. Telnyx intercepts before connecting the call. The hub has 400ms to resolve the caller ID and surface the profile to the rep dashboard before they say hello. If the caller opens the website during the call the rep sees it live.</div>
+
+    <!-- Path selector -->
+    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
+      <button class="btn-primary" id="gbp-path-a-btn" onclick="selectGBPPath('matched')">Path A — Caller has a hub profile</button>
+      <button class="btn-secondary" id="gbp-path-b-btn" onclick="selectGBPPath('unmatched')">Path B — Unknown caller · admin prompt</button>
+    </div>
+
+    <div class="gbp-grid">
+      <!-- GBP Listing -->
+      <div class="gbp-listing">
+        <div class="gbp-map">
+          <div class="gbp-map-pin">📍</div>
+          <div class="gbp-map-label">Timmins, ON</div>
+        </div>
+        <div class="gbp-info">
+          <div class="gbp-name">RightFlush Plumbing & Heating</div>
+          <div class="gbp-rating">
+            <div class="gbp-stars">★★★★★</div>
+            <div class="gbp-rating-num">4.9 · 214 reviews</div>
+          </div>
+          <div class="gbp-address">Timmins, ON · Licensed & Insured · Open now</div>
+          <button class="gbp-call-btn" id="gbp-call-btn" onclick="startCall()">
+            <span>📞</span> <span id="gbp-btn-label">705-274-9564</span>
+          </button>
+          <div class="gbp-call-sub" id="gbp-call-sub">Tap to call · routes via Telnyx · caller ID captured</div>
+        </div>
+        <!-- Telnyx intercept -->
+        <div id="telnyx-strip" style="display:none;padding:10px 14px;background:var(--teal-bg);border-top:1px solid var(--teal-bd);">
+          <div style="font-family:var(--mono);font-size:9px;font-weight:600;color:var(--teal);margin-bottom:4px;">TELNYX INTERCEPT</div>
+          <div style="font-size:10px;color:var(--text2);">Caller ID captured. Webhook fired to ClearSky hub. Resolve call in progress. Call held for <span id="resolve-timer">0</span>ms.</div>
+        </div>
+        <div id="resolve-result" style="display:none;padding:10px 14px;border-top:1px solid var(--border);">
+          <div style="font-family:var(--mono);font-size:9px;font-weight:600;margin-bottom:4px;" id="resolve-result-label">—</div>
+          <div style="font-size:10px;color:var(--text2);" id="resolve-result-body">—</div>
+        </div>
+      </div>
+
+      <!-- Rep Dashboard -->
+      <div class="rep-dashboard">
+        <div class="rd-head">
+          <div class="rd-title">REP DASHBOARD · HUB</div>
+          <div class="rd-status idle" id="rd-status">IDLE</div>
+        </div>
+        <div class="rd-body">
+          <!-- Caller profile panel -->
+          <div class="rd-panel">
+            <div class="rd-panel-label">Caller Profile</div>
+            <div class="rd-resolve-state" id="rd-resolve-idle">
+              <div class="rd-resolve-icon">📞</div>
+              <div class="rd-resolve-text">No active call<br><span style="font-size:9px;color:var(--text3);">Tap the GBP number to start</span></div>
+            </div>
+            <div class="rd-resolve-state" id="rd-resolve-loading" style="display:none;">
+              <div class="rd-resolve-icon" style="animation:spin 1s linear infinite;display:inline-block;">⏳</div>
+              <div class="rd-resolve-text">Resolving caller ID…</div>
+              <div class="rd-resolve-time" id="rd-resolve-ms">0ms</div>
+            </div>
+            <div class="rd-profile" id="rd-profile-matched">
+              <div class="rdp-top">
+                <div class="rdp-avatar">👩</div>
+                <div>
+                  <div class="rdp-name">Marie Tremblay</div>
+                  <div class="rdp-tier">hub_rf_0091 · Tier 1 · 100%</div>
+                </div>
+              </div>
+              <div class="rdp-row"><span class="rdp-l">Phone</span><span class="rdp-v">705-274-0988</span></div>
+              <div class="rdp-row"><span class="rdp-l">Bucket</span><span class="rdp-v amber">Active Project</span></div>
+              <div class="rdp-row"><span class="rdp-l">Prior jobs</span><span class="rdp-v green">1 completed · March 2026</span></div>
+              <div class="rdp-row"><span class="rdp-l">Last inquiry</span><span class="rdp-v">Bathroom renovation · FotoJobber</span></div>
+              <div class="rdp-row"><span class="rdp-l">Review left</span><span class="rdp-v green">★★★★★ · March 24</span></div>
+            </div>
+            <div class="rd-profile" id="rd-profile-unmatched">
+              <div style="text-align:center;padding:12px 0;">
+                <div style="font-size:20px;margin-bottom:6px;">❓</div>
+                <div style="font-size:11px;font-weight:600;color:var(--amber);">No profile found</div>
+                <div style="font-size:10px;color:var(--text3);margin-top:4px;">705-555-0147<br>Pending Tier 2 profile created</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live session panel -->
+          <div class="rd-panel">
+            <div class="rd-panel-label">Live Website Sessions</div>
+            <div id="rd-sessions-idle" style="text-align:center;padding:20px 0;font-size:10px;color:var(--text3);">No active sessions</div>
+            <div class="rd-live-session" id="rd-live-session-matched">
+              <div class="rls-item">
+                <div class="rls-dot"></div>
+                <div class="rls-text"><strong>Marie Tremblay</strong> · hub_rf_0091<br>rightflush.ca/bathroom-renovations<br>Active · 4m 12s on page · gallery viewed</div>
+              </div>
+              <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
+                <div style="font-family:var(--mono);font-size:9px;color:var(--teal);font-weight:600;margin-bottom:4px;">Rep can see what Marie sees</div>
+                <div style="font-size:10px;color:var(--text2);">Current section: bathroom gallery. Hovering before/after slider. Score_live: 77. This session was confirmed via SMS code at 7:29 PM.</div>
+              </div>
+            </div>
+            <div class="rd-live-session" id="rd-live-session-unmatched">
+              <div class="rls-item">
+                <div class="rls-dot" style="background:var(--amber);"></div>
+                <div class="rls-text"><strong>Anonymous · Tier 3 · 68%</strong><br>rightflush.ca/bathroom-renovations<br>Same residential IP as caller · 5m 30s on page</div>
+              </div>
+              <div style="margin-top:10px;">
+                <button class="btn-primary" style="font-size:11px;padding:7px 14px;width:100%;" onclick="showAdminPrompt()">Connect session to this call →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin prompt -->
+    <div class="admin-prompt" id="admin-prompt">
+      <div class="ap-head">
+        <div class="ap-icon">⚠️</div>
+        <div class="ap-title">Manual Session Link — Rep Confirmation Required</div>
+      </div>
+      <div class="ap-body">You are about to manually link an anonymous website session to this phone call. This action will be logged with your rep ID and timestamp. It cannot be undone automatically — it will require a support escalation to reverse.</div>
+      <div class="ap-detail">
+        <div class="apd-row"><span class="apd-l">Caller phone</span><span class="apd-v">705-555-0147 · Pending Tier 2 profile</span></div>
+        <div class="apd-row"><span class="apd-l">Session to link</span><span class="apd-v">cs_c99f…3a11 · anonymous · Tier 3 · 68%</span></div>
+        <div class="apd-row"><span class="apd-l">Match signal</span><span class="apd-v">Residential IP co-occurrence · 68% · same IP as caller geolocation</span></div>
+        <div class="apd-row"><span class="apd-l">Rep making decision</span><span class="apd-v">rep_004 · logged · timestamped</span></div>
+      </div>
+      <div class="ap-btns">
+        <button class="ap-confirm" onclick="confirmAdminLink()">Confirm — link this session</button>
+        <button class="ap-cancel" onclick="cancelAdminLink()">Cancel</button>
+      </div>
+      <div class="ap-confirmed" id="ap-confirmed">
+        ✓ Session linked · manual_session_link event logged · rep_004 · <span id="ap-timestamp"></span> · Anonymous session upgraded · Pending Tier 2 profile now has website history attached · Rep notified in hub
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ── SECTION TOGGLE ────────────────────────────────────────────────────────────
+function showSection(id){
+  document.getElementById('section-dynamic').style.display = id==='dynamic'?'block':'none';
+  document.getElementById('section-sms').style.display = id==='sms'?'block':'none';
+  document.getElementById('section-gbp').style.display = id==='gbp'?'block':'none';
+  document.querySelectorAll('.hdr-pill').forEach((p,i)=>{
+    p.classList.toggle('active',['dynamic','sms','gbp'][i]===id);
+  });
+}
+
+// ── SECTION A — DYNAMIC SECTIONS ─────────────────────────────────────────────
+let dwellTimer = null;
+
+function expandBanner(){
+  document.getElementById('banner-collapsed').style.display='none';
+  document.getElementById('banner-expanded').style.display='flex';
+  document.getElementById('dynamic-status').textContent='Banner expanded — phone number field active';
+}
+
+function sendSmsCode(){
+  document.getElementById('banner-sent').style.display='block';
+  document.getElementById('dynamic-status').textContent='✓ Hub resolve fired · match found · hub_rf_0091 · A2P SMS queued to 705-274-0988';
+}
+
+function triggerDwell(){
+  document.getElementById('dynamic-status').textContent='dwell_90s fired — Orchestrator evaluating banner trigger conditions…';
+  setTimeout(()=>{
+    document.getElementById('dynamic-status').textContent='All conditions met · banner expanding…';
+    setTimeout(expandBanner,600);
+  },1000);
+}
+
+function resetDynamic(){
+  document.getElementById('banner-collapsed').style.display='flex';
+  document.getElementById('banner-expanded').style.display='none';
+  document.getElementById('banner-sent').style.display='none';
+  document.getElementById('dynamic-status').textContent='Banner collapsed on load — Orchestrator trigger: dwell_90s';
+}
+
+// ── SECTION B — SMS RECONCILIATION ───────────────────────────────────────────
+let reconCurrentStep = 0;
+
+function showReconState(device, step){
+  document.querySelectorAll('[id^="'+device+'-state-"]').forEach(el=>el.classList.remove('active'));
+  const el = document.getElementById(device+'-state-'+step);
+  if(el){ el.classList.add('active'); el.classList.add('fade-in'); }
+}
+
+function reconStep(step){
+  reconCurrentStep = step;
+  // Buttons
+  const btns = ['btn-step1','btn-step2','btn-step3','btn-step4'];
+  btns.forEach((id,i)=>{
+    document.getElementById(id).disabled = (i+1) > step;
+  });
+
+  if(step===1){
+    showReconState('laptop',1);
+    showReconState('iphone',0);
+    setTimeout(()=>{ document.getElementById('btn-step2').disabled=false; },600);
+  }
+  if(step===2){
+    showReconState('laptop',2);
+    setTimeout(()=>{
+      showReconState('iphone',2);
+      document.getElementById('btn-step3').disabled=false;
+    },800);
+  }
+  if(step===3){
+    showReconState('laptop',3);
+    showReconState('iphone',3);
+    document.getElementById('btn-step4').disabled=false;
+  }
+  if(step===4){
+    showReconState('laptop',4);
+    showReconState('iphone',4);
+    const ev = document.getElementById('recon-event');
+    ev.style.display='block';
+    ev.classList.add('fade-in');
+  }
+}
+
+function resetRecon(){
+  reconCurrentStep=0;
+  ['laptop','iphone'].forEach(d=>{
+    document.querySelectorAll('[id^="'+d+'-state-"]').forEach(el=>el.classList.remove('active'));
+    const s0=document.getElementById(d+'-state-0');
+    if(s0) s0.classList.add('active');
+  });
+  document.getElementById('recon-event').style.display='none';
+  ['btn-step2','btn-step3','btn-step4'].forEach(id=>{ document.getElementById(id).disabled=true; });
+  document.getElementById('btn-step1').disabled=false;
+}
+
+// ── SECTION C — GBP CALL ──────────────────────────────────────────────────────
+let gbpPath = 'matched';
+let callActive = false;
+let resolveInterval = null;
+
+function selectGBPPath(path){
+  gbpPath = path;
+  document.getElementById('gbp-path-a-btn').className = path==='matched'?'btn-primary':'btn-secondary';
+  document.getElementById('gbp-path-b-btn').className = path==='unmatched'?'btn-primary':'btn-secondary';
+  resetCall();
+}
+
+function startCall(){
+  if(callActive) return;
+  callActive = true;
+  const btn = document.getElementById('gbp-call-btn');
+  btn.classList.add('calling');
+  document.getElementById('gbp-btn-label').textContent='Connecting…';
+  document.getElementById('gbp-call-sub').textContent='Telnyx intercepting · capturing caller ID…';
+  document.getElementById('rd-status').className='rd-status ringing';
+  document.getElementById('rd-status').textContent='INCOMING CALL';
+  document.getElementById('telnyx-strip').style.display='block';
+
+  // Resolve timer animation
+  let ms = 0;
+  resolveInterval = setInterval(()=>{
+    ms += 47;
+    document.getElementById('resolve-timer').textContent=ms;
+    document.getElementById('rd-resolve-ms').textContent=ms+'ms';
+    if(ms>=380){
+      clearInterval(resolveInterval);
+      showResolveResult();
+    }
+  },40);
+
+  // Show loading state
+  document.getElementById('rd-resolve-idle').style.display='none';
+  document.getElementById('rd-resolve-loading').style.display='block';
+}
+
+function showResolveResult(){
+  document.getElementById('rd-resolve-loading').style.display='none';
+  const resultEl = document.getElementById('resolve-result');
+  resultEl.style.display='block';
+  const btn = document.getElementById('gbp-call-btn');
+  btn.classList.remove('calling');
+  document.getElementById('gbp-btn-label').textContent='Call connected ✓';
+  document.getElementById('rd-status').className='rd-status connected';
+  document.getElementById('rd-status').textContent='CALL CONNECTED';
+
+  if(gbpPath==='matched'){
+    document.getElementById('resolve-result-label').style.color='var(--green)';
+    document.getElementById('resolve-result-label').textContent='✓ Match found · hub_rf_0091 · 347ms';
+    document.getElementById('resolve-result-body').textContent='Marie Tremblay · Active Project · prior job confirmed. Full context surfaced to rep before first word spoken.';
+    document.getElementById('rd-profile-matched').style.display='block';
+    document.getElementById('rd-sessions-idle').style.display='none';
+    setTimeout(()=>{
+      document.getElementById('rd-live-session-matched').style.display='block';
+    },1800);
+  } else {
+    document.getElementById('resolve-result-label').style.color='var(--amber)';
+    document.getElementById('resolve-result-label').textContent='⚠ No match · 705-555-0147 · Tier 2 pending created';
+    document.getElementById('resolve-result-body').textContent='Unknown caller. Pending Tier 2 profile created with phone number anchor. No prior history available.';
+    document.getElementById('rd-profile-unmatched').style.display='block';
+    document.getElementById('rd-sessions-idle').style.display='none';
+    setTimeout(()=>{
+      document.getElementById('rd-live-session-unmatched').style.display='block';
+    },2200);
+  }
+}
+
+function showAdminPrompt(){
+  document.getElementById('admin-prompt').style.display='block';
+  document.getElementById('admin-prompt').classList.add('fade-in');
+}
+
+function confirmAdminLink(){
+  const now = new Date();
+  const ts = now.toLocaleTimeString('en-CA',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('ap-timestamp').textContent=ts;
+  document.getElementById('ap-btns').style.display='none';
+  document.getElementById('ap-confirmed').style.display='block';
+  document.getElementById('ap-confirmed').classList.add('fade-in');
+}
+
+function cancelAdminLink(){
+  document.getElementById('admin-prompt').style.display='none';
+}
+
+function resetCall(){
+  callActive=false;
+  clearInterval(resolveInterval);
+  document.getElementById('gbp-call-btn').classList.remove('calling');
+  document.getElementById('gbp-btn-label').textContent='705-274-9564';
+  document.getElementById('gbp-call-sub').textContent='Tap to call · routes via Telnyx · caller ID captured';
+  document.getElementById('rd-status').className='rd-status idle';
+  document.getElementById('rd-status').textContent='IDLE';
+  document.getElementById('telnyx-strip').style.display='none';
+  document.getElementById('resolve-result').style.display='none';
+  document.getElementById('rd-resolve-idle').style.display='block';
+  document.getElementById('rd-resolve-loading').style.display='none';
+  document.getElementById('rd-profile-matched').style.display='none';
+  document.getElementById('rd-profile-unmatched').style.display='none';
+  document.getElementById('rd-sessions-idle').style.display='block';
+  document.getElementById('rd-live-session-matched').style.display='none';
+  document.getElementById('rd-live-session-unmatched').style.display='none';
+  document.getElementById('admin-prompt').style.display='none';
+  document.getElementById('ap-btns').style.display='flex';
+  document.getElementById('ap-confirmed').style.display='none';
+  document.getElementById('resolve-timer').textContent='0';
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+selectGBPPath('matched');
+</script>
+</body>
+</html>

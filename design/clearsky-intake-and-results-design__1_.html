@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSky — Intake Form & Results Screen Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0F2444;
+  --blue: #1B3A6B;
+  --orange: #E8600A;
+  --orange-light: #FFF0E8;
+  --green: #0D7A4E;
+  --green-light: #E6F7F0;
+  --red: #C0392B;
+  --red-light: #FDF0EF;
+  --amber: #B45309;
+  --amber-light: #FFFBEB;
+  --slate: #64748B;
+  --border: #E2E8F0;
+  --bg: #F7F9FC;
+  --white: #FFFFFF;
+  --text: #0F2444;
+  --text-muted: #64748B;
+}
+
+body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--text); }
+
+.app { display: flex; gap: 32px; padding: 24px; min-height: 100vh; align-items: flex-start; max-width: 1400px; margin: 0 auto; }
+
+/* ── INTAKE FORM ── */
+.intake { width: 440px; flex-shrink: 0; }
+
+.form-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+
+.form-header { background: var(--navy); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; }
+
+.logo-mark { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; color: white; letter-spacing: -0.5px; }
+.logo-mark span { color: var(--orange); }
+
+.step-indicator { font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+
+.progress-bar { height: 3px; background: rgba(255,255,255,0.1); }
+.progress-fill { height: 3px; background: var(--orange); width: 33%; }
+
+.form-body { padding: 24px; }
+
+.form-title { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 4px; letter-spacing: -0.5px; }
+.form-subtitle { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+
+.field-group { margin-bottom: 16px; }
+
+.field-label { font-size: 11px; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: block; }
+
+.field-input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Sora', sans-serif; font-size: 13px; color: var(--text); background: var(--white); outline: none; transition: border-color 0.15s; }
+.field-input:focus { border-color: var(--blue); }
+.field-input.filled { border-color: #C7D3F0; background: #F8FAFF; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.trade-section { margin-bottom: 16px; }
+
+.trade-card { border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+.trade-card.selected { border-color: var(--blue); }
+.trade-card.secondary { border-color: #CBD5E1; }
+
+.trade-header { display: flex; align-items: center; padding: 10px 14px; gap: 10px; cursor: pointer; background: var(--white); }
+
+.trade-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.trade-radio.checked { border-color: var(--blue); background: var(--blue); }
+.trade-radio.checked::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: white; display: block; }
+.trade-radio.secondary-checked { border-color: #64748B; background: #64748B; }
+.trade-radio.secondary-checked::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: white; display: block; }
+
+.trade-name { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; }
+.trade-name.muted { color: #94A3B8; }
+
+.trade-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+.tag-main { background: var(--navy); color: white; }
+.tag-secondary { background: #E2E8F0; color: var(--slate); }
+
+.trade-pct { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: var(--blue); background: #EEF2FF; padding: 3px 8px; border-radius: 5px; margin-left: 4px; }
+.trade-pct.secondary { color: #64748B; background: #F1F5F9; }
+
+.trade-services { padding: 12px 14px; background: #F8FAFC; border-top: 1px solid var(--border); }
+.services-label { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.service-count { font-size: 11px; color: var(--orange); font-weight: 600; margin-bottom: 8px; }
+.service-count.secondary { color: #64748B; }
+
+.services-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+
+.service-chip { font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border); color: var(--slate); cursor: pointer; background: white; }
+.service-chip.selected { background: var(--blue); color: white; border-color: var(--blue); }
+
+.revenue-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+.mini-field label { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+.mini-input { width: 100%; padding: 7px 10px; border: 1.5px solid var(--border); border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text); outline: none; }
+
+.how-busy { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 4px; }
+
+.busy-opt { padding: 8px 4px; border: 1.5px solid var(--border); border-radius: 8px; text-align: center; cursor: pointer; background: white; }
+.busy-opt.selected { border-color: var(--blue); background: #EEF2FF; }
+.busy-val { font-size: 11px; font-weight: 700; color: var(--navy); }
+.busy-label { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
+.busy-opt.selected .busy-val { color: var(--blue); }
+
+.calls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
+
+.call-opt { padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; background: white; }
+.call-opt.selected { border-color: var(--blue); background: #EEF2FF; }
+.call-val { font-size: 11px; font-weight: 700; color: var(--navy); }
+.call-label { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+.call-opt.selected .call-val { color: var(--blue); }
+
+.form-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+
+.btn-next { background: var(--orange); color: white; border: none; border-radius: 8px; padding: 10px 24px; font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
+.footer-note { font-size: 11px; color: var(--text-muted); }
+
+/* ── RESULTS ── */
+.results { flex: 1; }
+
+.results-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+
+.results-header { background: var(--navy); padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; }
+.biz-name { font-size: 16px; font-weight: 700; color: white; letter-spacing: -0.3px; }
+.biz-meta { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+.confidence-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 6px 14px; font-size: 11px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px; }
+.conf-dot { width: 6px; height: 6px; border-radius: 50%; background: #F59E0B; flex-shrink: 0; }
+
+.results-body { padding: 24px 28px; }
+
+.gap-hero { background: linear-gradient(135deg, #0F2444 0%, #1B3A6B 100%); border-radius: 12px; padding: 24px; margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; }
+
+.gap-main-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.gap-main-value { font-family: 'JetBrains Mono', monospace; font-size: 48px; font-weight: 500; color: var(--orange); letter-spacing: -2px; line-height: 1; }
+.gap-main-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 6px; }
+
+.gap-scenarios { display: flex; flex-direction: column; gap: 10px; }
+
+.scenario { background: rgba(255,255,255,0.06); border-radius: 8px; padding: 12px 14px; border: 1px solid rgba(255,255,255,0.08); }
+.scenario-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.scenario-value { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 500; color: white; }
+.scenario-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+.section-title { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.rating-row { display: flex; align-items: center; gap: 12px; background: var(--orange-light); border: 1px solid #FFD4B3; border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; }
+.rating-stars { font-size: 20px; font-weight: 700; color: var(--orange); font-family: 'JetBrains Mono', monospace; }
+.rating-detail { flex: 1; }
+.rating-title { font-size: 13px; font-weight: 600; color: var(--navy); }
+.rating-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.rating-cost { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 600; color: var(--orange); }
+
+.local-pack { background: var(--red-light); border: 1px solid #FECACA; border-radius: 10px; padding: 16px; margin-bottom: 20px; }
+.pack-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.pack-title { font-size: 13px; font-weight: 700; color: var(--red); }
+.pack-gap { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 600; color: var(--red); }
+
+.pack-keywords { display: flex; flex-direction: column; gap: 6px; }
+
+.keyword-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: white; border-radius: 6px; border: 1px solid #FEE2E2; }
+.kw-text { font-size: 12px; color: var(--text); flex: 1; font-family: 'JetBrains Mono', monospace; }
+.kw-pos { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+.kw-pos.not-in { background: var(--red-light); color: var(--red); }
+.kw-pos.pos2 { background: var(--amber-light); color: var(--amber); }
+.kw-pos.pos1 { background: var(--green-light); color: var(--green); }
+.kw-gap { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+
+.gap-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+
+.gap-item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; position: relative; overflow: hidden; }
+.gap-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.gap-item.layer1::before { background: var(--blue); }
+.gap-item.layer2::before { background: var(--orange); }
+.gap-item.layer3::before { background: #7C3AED; }
+.gap-item.layer4::before { background: var(--green); }
+
+.gap-item-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.gap-item-label { font-size: 11px; font-weight: 600; color: var(--text-muted); }
+
+.gap-item-status { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
+.status-strong { background: var(--green-light); color: var(--green); }
+.status-critical { background: var(--red-light); color: var(--red); }
+.status-weak { background: var(--amber-light); color: var(--amber); }
+
+.gap-item-value { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 500; color: var(--navy); letter-spacing: -0.5px; }
+.gap-item-detail { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+.bar-track { background: #F1F5F9; border-radius: 3px; height: 4px; margin-top: 8px; }
+.bar-fill { height: 4px; border-radius: 3px; }
+
+.capture-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.capture-card { background: #F8FAFC; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: center; }
+.capture-label { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.capture-value { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 500; color: var(--navy); }
+
+.results-footer { padding: 16px 28px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: #FAFBFC; }
+.footer-msg { font-size: 12px; color: var(--text-muted); max-width: 360px; line-height: 1.5; }
+.btn-talk { background: var(--orange); color: white; border: none; border-radius: 8px; padding: 12px 24px; font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- INTAKE FORM -->
+  <div class="intake">
+    <div class="form-card">
+      <div class="form-header">
+        <div class="logo-mark">Clear<span>Sky</span></div>
+        <div class="step-indicator">Step 1 of 3</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+
+      <div class="form-body">
+        <div class="form-title">Your business</div>
+        <div class="form-subtitle">We look up your digital presence — no login needed.</div>
+
+        <div class="field-group">
+          <label class="field-label">Business name</label>
+          <input class="field-input filled" value="Manito Plumbing and Heating Ltd." readonly>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Website <span style="color:#94A3B8;font-weight:400;text-transform:none;">(optional)</span></label>
+          <input class="field-input filled" value="https://manitoplumbing.ca/" readonly>
+        </div>
+
+        <div class="two-col">
+          <div class="field-group">
+            <label class="field-label">City</label>
+            <input class="field-input filled" value="Timmins" readonly>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Years in business</label>
+            <input class="field-input filled" value="14" readonly>
+          </div>
+        </div>
+
+        <div class="trade-section">
+          <label class="field-label">Trade — select all that apply</label>
+
+          <div class="trade-card selected">
+            <div class="trade-header">
+              <div class="trade-radio checked"></div>
+              <div class="trade-name">Plumber</div>
+              <span class="trade-tag tag-main">Main</span>
+              <span class="trade-pct">70%</span>
+            </div>
+            <div class="trade-services">
+              <div class="services-label">Select up to 5 services</div>
+              <div class="service-count">3 of 5 selected</div>
+              <div class="services-grid">
+                <div class="service-chip selected">Bathroom Plumbing</div>
+                <div class="service-chip selected">Drain Cleaning</div>
+                <div class="service-chip selected">Water Heater Services</div>
+                <div class="service-chip">Sewer Services</div>
+                <div class="service-chip">Sump Pumps</div>
+                <div class="service-chip">Emergency Plumbing</div>
+                <div class="service-chip">Pipe & Repiping</div>
+              </div>
+              <div class="revenue-row">
+                <div class="mini-field">
+                  <label>Avg job value</label>
+                  <input class="mini-input" value="$2,800" readonly>
+                </div>
+                <div class="mini-field">
+                  <label>Revenue split</label>
+                  <input class="mini-input" value="70%" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trade-card secondary">
+            <div class="trade-header">
+              <div class="trade-radio secondary-checked"></div>
+              <div class="trade-name">HVAC</div>
+              <span class="trade-tag tag-secondary">Secondary</span>
+              <span class="trade-pct secondary">30%</span>
+            </div>
+            <div class="trade-services">
+              <div class="services-label">Select up to 5 services</div>
+              <div class="service-count secondary">2 of 5 selected</div>
+              <div class="services-grid">
+                <div class="service-chip selected">Furnace Repair</div>
+                <div class="service-chip selected">AC Repair</div>
+                <div class="service-chip">Heat Pumps</div>
+                <div class="service-chip">Installation</div>
+              </div>
+              <div class="revenue-row">
+                <div class="mini-field">
+                  <label>Avg job value</label>
+                  <input class="mini-input" value="$2,500" readonly>
+                </div>
+                <div class="mini-field">
+                  <label>Revenue split</label>
+                  <input class="mini-input" value="30%" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trade-card" style="opacity:0.5;">
+            <div class="trade-header">
+              <div class="trade-radio"></div>
+              <div class="trade-name muted">Electrician</div>
+            </div>
+          </div>
+          <div class="trade-card" style="opacity:0.5;">
+            <div class="trade-header">
+              <div class="trade-radio"></div>
+              <div class="trade-name muted">Roofer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">How busy are you right now?</label>
+          <div class="how-busy">
+            <div class="busy-opt">
+              <div class="busy-val">85%</div>
+              <div class="busy-label">Really busy</div>
+            </div>
+            <div class="busy-opt selected">
+              <div class="busy-val">70%</div>
+              <div class="busy-label">Normal</div>
+            </div>
+            <div class="busy-opt">
+              <div class="busy-val">55%</div>
+              <div class="busy-label">Slow</div>
+            </div>
+            <div class="busy-opt">
+              <div class="busy-val">40%</div>
+              <div class="busy-label">Really slow</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Of every 10 calls, how many become paying jobs?</label>
+          <div class="calls-grid">
+            <div class="call-opt">
+              <div class="call-val">8 or more</div>
+              <div class="call-label">Strong closer</div>
+            </div>
+            <div class="call-opt selected">
+              <div class="call-val">5 to 7</div>
+              <div class="call-label">Above average</div>
+            </div>
+            <div class="call-opt">
+              <div class="call-val">3 to 4</div>
+              <div class="call-label">Average</div>
+            </div>
+            <div class="call-opt">
+              <div class="call-val">Fewer than 3</div>
+              <div class="call-label">Below average</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-footer">
+        <div class="footer-note">No login needed · Takes 2 minutes</div>
+        <button class="btn-next">Run Diagnostic →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results">
+    <div class="results-card">
+      <div class="results-header">
+        <div>
+          <div class="biz-name">Manito Plumbing and Heating Ltd.</div>
+          <div class="biz-meta">Plumber + HVAC · Timmins ON · 14 years in business · Normal capacity</div>
+        </div>
+        <div class="confidence-pill">
+          <div class="conf-dot"></div>
+          Medium confidence · ±25% range
+        </div>
+      </div>
+
+      <div class="results-body">
+
+        <div class="gap-hero">
+          <div>
+            <div class="gap-main-label">Total revenue gap</div>
+            <div class="gap-main-value">$203K</div>
+            <div class="gap-main-sub">Estimated annual opportunity across plumbing and HVAC</div>
+          </div>
+          <div class="gap-scenarios">
+            <div class="scenario">
+              <div class="scenario-label">Conservative recovery</div>
+              <div class="scenario-value">$36K</div>
+              <div class="scenario-sub">17.7% capture · 30% idle capacity · 14yr tenure</div>
+            </div>
+            <div class="scenario">
+              <div class="scenario-label">Ultra conservative</div>
+              <div class="scenario-value">$30K</div>
+              <div class="scenario-sub">15% below conservative estimate</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Capture rate breakdown</div>
+
+        <div class="capture-row">
+          <div class="capture-card">
+            <div class="capture-label">Available capacity</div>
+            <div class="capture-value">30%</div>
+          </div>
+          <div class="capture-card">
+            <div class="capture-label">Call to purchase</div>
+            <div class="capture-value">60%</div>
+          </div>
+          <div class="capture-card">
+            <div class="capture-label">Brand tenure</div>
+            <div class="capture-value">1.09x Trusted</div>
+          </div>
+        </div>
+
+        <div class="section-title">Your Google Business Profile · Layer 1</div>
+
+        <div class="rating-row">
+          <div class="rating-stars">4.8 ★</div>
+          <div class="rating-detail">
+            <div class="rating-title">Strong rating — 137 reviews — above your 14-year benchmark of 84</div>
+            <div class="rating-sub">GBP composite score 82/100. Response rate at 17% is your main weakness.</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:#94A3B8;margin-bottom:2px;">GBP gap</div>
+            <div class="rating-cost">$40K</div>
+          </div>
+        </div>
+
+        <div class="section-title">Local pack visibility · Layer 2</div>
+
+        <div class="local-pack">
+          <div class="pack-header">
+            <div class="pack-title">Not in the local pack for most keywords</div>
+            <div class="pack-gap">$163K gap</div>
+          </div>
+          <div class="pack-keywords">
+            <div class="keyword-row">
+              <div class="kw-text">plumber timmins</div>
+              <div class="kw-pos not-in">Not in pack</div>
+              <div class="kw-gap">$111K/yr</div>
+            </div>
+            <div class="keyword-row">
+              <div class="kw-text">emergency plumber timmins</div>
+              <div class="kw-pos not-in">Not in pack</div>
+              <div class="kw-gap">$10K/yr</div>
+            </div>
+            <div class="keyword-row">
+              <div class="kw-text">plumbing repair timmins</div>
+              <div class="kw-pos pos2">Position 2</div>
+              <div class="kw-gap">$3K/yr</div>
+            </div>
+            <div class="keyword-row">
+              <div class="kw-text">hvac timmins</div>
+              <div class="kw-pos not-in">Not in pack</div>
+              <div class="kw-gap">$14K/yr</div>
+            </div>
+            <div class="keyword-row">
+              <div class="kw-text">furnace repair timmins</div>
+              <div class="kw-pos pos1">Position 1 ✓</div>
+              <div class="kw-gap">$0 — winning</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Full gap breakdown</div>
+
+        <div class="gap-breakdown">
+          <div class="gap-item layer1">
+            <div class="gap-item-header">
+              <div class="gap-item-label">GBP Profile · Layer 1</div>
+              <div class="gap-item-status status-strong">Strong</div>
+            </div>
+            <div class="gap-item-value">$40K</div>
+            <div class="gap-item-detail">4.8 stars · 137 reviews · Response rate needs attention</div>
+            <div class="bar-track"><div class="bar-fill" style="width:20%;background:#1B3A6B;"></div></div>
+          </div>
+
+          <div class="gap-item layer2">
+            <div class="gap-item-header">
+              <div class="gap-item-label">Local Pack · Layer 2</div>
+              <div class="gap-item-status status-critical">Critical</div>
+            </div>
+            <div class="gap-item-value">$163K</div>
+            <div class="gap-item-detail">Not in pack for 8 of 10 keywords across both trades</div>
+            <div class="bar-track"><div class="bar-fill" style="width:85%;background:#E8600A;"></div></div>
+          </div>
+
+          <div class="gap-item layer3">
+            <div class="gap-item-header">
+              <div class="gap-item-label">Site Performance · Layer 3</div>
+              <div class="gap-item-status status-weak">Weak</div>
+            </div>
+            <div class="gap-item-value">Mocked</div>
+            <div class="gap-item-detail">PageSpeed data not yet available for this session</div>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;background:#7C3AED;"></div></div>
+          </div>
+
+          <div class="gap-item layer4">
+            <div class="gap-item-header">
+              <div class="gap-item-label">Content Gap · Layer 4</div>
+              <div class="gap-item-status status-critical">Pending</div>
+            </div>
+            <div class="gap-item-value">Mocked</div>
+            <div class="gap-item-detail">Content analysis pending Firecrawl integration</div>
+            <div class="bar-track"><div class="bar-fill" style="width:0%;background:#0D7A4E;"></div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="results-footer">
+        <div class="footer-msg">Some inputs are estimated. A ClearSky advisor can confirm details and narrow this from ±25% toward ±15%. Layers 3–12 pending full integration.</div>
+        <button class="btn-talk">Talk to an advisor →</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

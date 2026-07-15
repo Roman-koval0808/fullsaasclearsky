@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSky — Provider Integration Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:   #0A7C45;
+    --green-lt:#E6F4EE;
+    --green-dk:#064D2A;
+    --red:     #B91C1C;
+    --red-lt:  #FEF2F2;
+    --red-dk:  #7F1D1D;
+    --amber:   #92600A;
+    --amber-lt:#FFFBEB;
+    --amber-dk:#5C3A06;
+    --blue:    #1D4ED8;
+    --blue-lt: #EFF6FF;
+    --blue-dk: #1E3A8A;
+    --purple:  #6D28D9;
+    --purple-lt:#F5F3FF;
+    --purple-dk:#3B0764;
+    --teal:    #0D7F78;
+    --teal-lt: #F0FDFA;
+    --teal-dk: #083B38;
+    --gray:    #374151;
+    --gray-lt: #F9FAFB;
+    --gray-md: #6B7280;
+    --gray-bd: #E5E7EB;
+    --mono:    'IBM Plex Mono', monospace;
+    --sans:    'DM Sans', sans-serif;
+    --ink:     #111827;
+    --paper:   #FFFFFF;
+    --surface: #F8F9FA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--ink);
+    color: white;
+    padding: 28px 40px 24px;
+    border-bottom: 3px solid var(--teal);
+  }
+  .header-top {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .header h1 {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    /* match teal */
+    color: #4DD9D0;
+  }
+  .header .session-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #6B7280;
+    letter-spacing: 0.06em;
+  }
+  .header h2 {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .header p {
+    font-size: 14px;
+    color: #9CA3AF;
+    font-weight: 300;
+    max-width: 680px;
+  }
+
+  /* ── PROVIDER SELECTOR ── */
+  .selector-bar {
+    background: var(--paper);
+    border-bottom: 1px solid var(--gray-bd);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .selector-bar::-webkit-scrollbar { display: none; }
+  .sel-tab {
+    padding: 16px 24px 14px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-md);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .sel-tab:hover { color: var(--ink); }
+  .sel-tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--teal);
+  }
+  .sel-tab .outcome-pill {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .pill-write  { background: var(--green-lt); color: var(--green-dk); }
+  .pill-branch { background: var(--amber-lt); color: var(--amber-dk); }
+  .pill-store  { background: var(--gray-lt);  color: var(--gray);     border: 1px solid var(--gray-bd); }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 36px 40px 0;
+  }
+
+  .card-grid {
+    display: none;
+  }
+  .card-grid.active {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* ── LEFT PANEL: PROVIDER META ── */
+  .meta-panel {
+    background: var(--paper);
+    border: 1px solid var(--gray-bd);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .meta-header {
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid var(--gray-bd);
+  }
+  .meta-provider-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--gray-md);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .meta-provider-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .meta-provider-sub {
+    font-size: 13px;
+    color: var(--gray-md);
+    font-weight: 300;
+  }
+
+  .meta-row {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--gray-bd);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .meta-row:last-child { border-bottom: none; }
+  .meta-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-md);
+  }
+  .meta-value {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .meta-value.mono {
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .meta-value.tag {
+    display: inline-flex;
+    width: fit-content;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .tag-stream-a { background: var(--teal-lt); color: var(--teal-dk); }
+  .tag-stream-b { background: var(--gray-lt);  color: var(--gray); border: 1px solid var(--gray-bd); }
+  .tag-webhook  { background: var(--blue-lt);  color: var(--blue-dk); }
+  .tag-native   { background: var(--green-lt); color: var(--green-dk); }
+  .tag-polling  { background: var(--purple-lt); color: var(--purple-dk); }
+  .tag-realtime { background: var(--amber-lt); color: var(--amber-dk); }
+
+  /* ── RIGHT PANEL: FOUR QUESTIONS ── */
+  .questions-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .q-card {
+    background: var(--paper);
+    border: 1px solid var(--gray-bd);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .q-header {
+    padding: 14px 20px 12px;
+    border-bottom: 1px solid var(--gray-bd);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .q-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--gray-md);
+    min-width: 24px;
+  }
+  .q-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    flex: 1;
+  }
+  .q-status {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  .status-pass   { background: var(--green-lt); color: var(--green-dk); }
+  .status-branch { background: var(--amber-lt); color: var(--amber-dk); }
+  .status-skip   { background: var(--gray-lt);  color: var(--gray-md);  border: 1px solid var(--gray-bd); }
+  .status-drop   { background: var(--red-lt);   color: var(--red-dk); }
+
+  .q-body {
+    padding: 16px 20px;
+  }
+
+  .q-check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .q-check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .check-icon {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 18px;
+    margin-top: 1px;
+  }
+  .check-pass  { color: var(--green); }
+  .check-fail  { color: var(--red); }
+  .check-warn  { color: var(--amber); }
+  .check-info  { color: var(--blue); }
+
+  .q-code {
+    background: #F1F5F9;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.7;
+    color: #334155;
+    white-space: pre;
+    overflow-x: auto;
+    margin-top: 12px;
+  }
+  .code-comment { color: #94A3B8; }
+  .code-key     { color: var(--blue); }
+  .code-val     { color: var(--green-dk); }
+  .code-str     { color: #7C3AED; }
+
+  .q-branch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .branch-box {
+    border-radius: 7px;
+    padding: 12px 14px;
+    border: 1px solid transparent;
+  }
+  .branch-t1  { background: var(--green-lt); border-color: #BBF7D0; }
+  .branch-t2  { background: var(--amber-lt); border-color: #FDE68A; }
+  .branch-t3  { background: var(--gray-lt);  border-color: var(--gray-bd); }
+  .branch-drop{ background: var(--red-lt);   border-color: #FECACA; }
+
+  .branch-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .bl-t1  { color: var(--green-dk); }
+  .bl-t2  { color: var(--amber-dk); }
+  .bl-t3  { color: var(--gray); }
+  .bl-drop{ color: var(--red-dk); }
+
+  .branch-text {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* ── DESTINATION BANNER ── */
+  .dest-banner {
+    margin-top: 16px;
+    border-radius: 10px;
+    padding: 18px 20px;
+    border: 1.5px solid transparent;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .dest-write  { background: var(--green-lt); border-color: #86EFAC; }
+  .dest-branch { background: var(--amber-lt); border-color: #FCD34D; }
+  .dest-store  { background: var(--gray-lt);  border-color: var(--gray-bd); }
+
+  .dest-icon {
+    font-family: var(--mono);
+    font-size: 22px;
+    min-width: 32px;
+    text-align: center;
+    margin-top: 2px;
+  }
+  .dest-body {}
+  .dest-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .dest-write .dest-title  { color: var(--green-dk); }
+  .dest-branch .dest-title { color: var(--amber-dk); }
+  .dest-store .dest-title  { color: var(--gray); }
+
+  .dest-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink);
+    font-weight: 300;
+  }
+
+  /* ── PAYLOAD BOX ── */
+  .payload-section {
+    margin-bottom: 14px;
+  }
+  .payload-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-md);
+    margin-bottom: 6px;
+  }
+
+  /* ── SCORE SIGNAL ── */
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--blue-lt);
+    border-radius: 6px;
+    border: 1px solid #BFDBFE;
+  }
+  .score-delta {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--blue-dk);
+    min-width: 56px;
+  }
+  .score-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .score-bucket {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--blue-dk);
+    letter-spacing: 0.04em;
+  }
+  .score-note {
+    font-size: 12px;
+    color: var(--gray-md);
+    font-weight: 300;
+  }
+
+  .score-row.no-score {
+    background: var(--gray-lt);
+    border-color: var(--gray-bd);
+  }
+  .score-row.no-score .score-delta { color: var(--gray-md); }
+  .score-row.no-score .score-bucket { color: var(--gray); }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-md);
+    margin: 12px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-bd);
+  }
+
+  /* ── FULL-WIDTH NOTE ── */
+  .full-note {
+    background: var(--purple-lt);
+    border: 1px solid #DDD6FE;
+    border-radius: 7px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--purple-dk);
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+  .full-note strong {
+    font-weight: 600;
+  }
+
+  /* ── WRITE SUMMARY TABLE ── */
+  .write-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .write-table th {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-md);
+    text-align: left;
+    padding: 6px 10px;
+    border-bottom: 2px solid var(--gray-bd);
+  }
+  .write-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--gray-bd);
+    color: var(--ink);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .write-table tr:last-child td { border-bottom: none; }
+  .write-table td:first-child {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gray-md);
+    white-space: nowrap;
+    width: 140px;
+  }
+  .write-yes { color: var(--green-dk); font-weight: 600; }
+  .write-no  { color: var(--gray-md); }
+  .write-cond { color: var(--amber-dk); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <h1>ClearSky Software</h1>
+    <span class="session-tag">Session 10 · Provider Integration Cards · Prototype</span>
+  </div>
+  <h2>Provider Integration Card</h2>
+  <p>Three providers. Three outcome paths. One canonical format for all 16.</p>
+</div>
+
+<!-- SELECTOR -->
+<div class="selector-bar">
+  <button class="sel-tab active" onclick="show('p1', this)">
+    Website Pixel
+    <span class="outcome-pill pill-write">Profile write</span>
+  </button>
+  <button class="sel-tab" onclick="show('p2', this)">
+    GBP Review
+    <span class="outcome-pill pill-branch">Branches</span>
+  </button>
+  <button class="sel-tab" onclick="show('p3', this)">
+    DataForSEO
+    <span class="outcome-pill pill-store">Context store</span>
+  </button>
+  <button class="sel-tab" onclick="show('p4', this)">
+    Google + Bing Ads
+    <span class="outcome-pill pill-write">Profile write</span>
+  </button>
+  <button class="sel-tab" onclick="show('p5', this)">
+    Facebook Ads
+    <span class="outcome-pill pill-branch">Branches</span>
+  </button>
+  <button class="sel-tab" onclick="show('p6', this)">
+    YouTube Paid
+    <span class="outcome-pill pill-write">Profile write</span>
+  </button>
+  <button class="sel-tab" onclick="show('p7', this)">
+    QR Code
+    <span class="outcome-pill pill-write">Profile write</span>
+  </button>
+  <button class="sel-tab" onclick="show('p8', this)">
+    Email + SMS
+    <span class="outcome-pill pill-write">Tier 1 always</span>
+  </button>
+  <button class="sel-tab" onclick="show('p9', this)">
+    GBP Click
+    <span class="outcome-pill pill-branch">Conditional</span>
+  </button>
+</div>
+
+<div class="main">
+
+  <!-- ════════════════════════════════════════════════════════
+       PROVIDER 1 — WEBSITE PIXEL
+  ════════════════════════════════════════════════════════ -->
+  <div class="card-grid active" id="p1">
+
+    <!-- META -->
+    <div class="meta-panel">
+      <div class="meta-header">
+        <div class="meta-provider-num">Provider 01 of 16</div>
+        <div class="meta-provider-name">ClearSky Pixel</div>
+        <div class="meta-provider-sub">Website behavioural event capture</div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Stream</span>
+        <span class="meta-value tag tag-stream-a">Stream A — contact event</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Delivery method</span>
+        <span class="meta-value tag tag-native">Platform native · continuous</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Volume</span>
+        <span class="meta-value">Highest of all 16 providers. Multiple events per session. Every page, every visitor.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Identity anchor</span>
+        <span class="meta-value">Session cookie (cs_XXXX) + device fingerprint. cs_token JWT on forwarded links upgrades to Tier 1 at first pageview.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Pre-classified?</span>
+        <span class="meta-value">Yes — intentBucket and sessionId travel with every event. Skips most inference.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Build status</span>
+        <span class="meta-value"><strong style="color:var(--green)">✓ Complete</strong> — 25 pages wired, all event types defined, hub payload schema confirmed.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Outcome</span>
+        <span class="meta-value tag pill-write" style="padding:4px 10px;font-size:12px">Profile write (or enrich)</span>
+      </div>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div class="questions-panel">
+
+      <!-- Q1 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q1</span>
+          <span class="q-title">Did this event actually happen?  —  Event validity</span>
+          <span class="q-status status-pass">Passes</span>
+        </div>
+        <div class="q-body">
+          <div class="payload-section">
+            <div class="payload-label">Arriving payload (every event)</div>
+            <div class="q-code"><span class="code-comment">// POST /hub/events</span>
+{
+  <span class="code-key">"event"</span>:        <span class="code-str">"clearsky.website.activity"</span>,
+  <span class="code-key">"version"</span>:      <span class="code-str">"1.0"</span>,
+  <span class="code-key">"timestamp"</span>:    <span class="code-str">"2026-05-25T14:23:11Z"</span>,
+  <span class="code-key">"sessionId"</span>:    <span class="code-str">"sess_9d2f1a"</span>,
+  <span class="code-key">"clientId"</span>:     <span class="code-str">"clearsky_client_042"</span>,
+  <span class="code-key">"eventType"</span>:    <span class="code-str">"scroll_75"</span>,
+  <span class="code-key">"intentBucket"</span>: <span class="code-str">"comparison"</span>,
+  <span class="code-key">"engagementScore"</span>: <span class="code-val">34</span>,
+  <span class="code-key">"pageUrl"</span>:      <span class="code-str">"https://rightflush.ca/reviews"</span>,
+  <span class="code-key">"temporalContext"</span>: {
+    <span class="code-key">"hour"</span>:          <span class="code-val">14</span>,
+    <span class="code-key">"isAfterHours"</span>:  <span class="code-val">false</span>,
+    <span class="code-key">"dayOfWeek"</span>:     <span class="code-str">"tuesday"</span>,
+    <span class="code-key">"isWeekend"</span>:     <span class="code-val">false</span>,
+    <span class="code-key">"season"</span>:        <span class="code-str">"spring"</span>,
+    <span class="code-key">"monthOfYear"</span>:   <span class="code-val">5</span>,
+    <span class="code-key">"weatherSignal"</span>: <span class="code-str">"thaw_active"</span>
+  }
+}</div>
+          </div>
+          <ul class="q-check-list">
+            <li><span class="check-icon check-pass">✓</span> clientId present and authenticated against known client registry</li>
+            <li><span class="check-icon check-pass">✓</span> event schema complete — all required fields present</li>
+            <li><span class="check-icon check-pass">✓</span> no duplicate: sessionId + eventType + timestamp combination not previously seen</li>
+            <li><span class="check-icon check-fail">✗</span> Drop if: bot pattern detected in traffic signature, schema malformed, or duplicate event ID</li>
+          </ul>
+          <div class="section-divider" style="margin-top:12px">temporalContext — built once at session open · travels with every event</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+            <div style="background:var(--blue-lt);border:1px solid #BFDBFE;border-radius:7px;padding:10px 12px">
+              <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--blue-dk);text-transform:uppercase;margin-bottom:6px">Time of day + after hours</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">Emergency keyword at 2am = genuine crisis. Same keyword at 2pm = could be comparison. <code style="font-family:var(--mono);font-size:10px">isAfterHours</code> increases Emergency bucket weight and tightens SLA.</div>
+            </div>
+            <div style="background:var(--blue-lt);border:1px solid #BFDBFE;border-radius:7px;padding:10px 12px">
+              <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--blue-dk);text-transform:uppercase;margin-bottom:6px">Day of week + weekend</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">Saturday morning emergency carries higher urgency weight — contractor capacity is limited and visitor knows it. Weekend urgency signal is more credible. Friday urgency copy ("slots filling") is most credible.</div>
+            </div>
+            <div style="background:var(--blue-lt);border:1px solid #BFDBFE;border-radius:7px;padding:10px 12px">
+              <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--blue-dk);text-transform:uppercase;margin-bottom:6px">Season + month</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">Sump pump inquiry in March = urgent. Same inquiry in August = research. End-of-month booking = budget-cycle persona signal. Season drives content strip and proof block selection.</div>
+            </div>
+            <div style="background:var(--blue-lt);border:1px solid #BFDBFE;border-radius:7px;padding:10px 12px">
+              <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--blue-dk);text-transform:uppercase;margin-bottom:6px">weatherSignal — ContentRadar bridge</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">Connects ContentRadar watch market state to individual session. If frozen pipe demand flag active: <code style="font-family:var(--mono);font-size:10px">weatherSignal: "freeze_incoming"</code> — urgency signal on page becomes more aggressive and more credible.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q2</span>
+          <span class="q-title">Who did this?  —  Attribution confidence</span>
+          <span class="q-status status-branch">Branches</span>
+        </div>
+        <div class="q-body">
+          <div class="q-branch-grid">
+            <div class="branch-box branch-t1">
+              <div class="branch-label bl-t1">Tier 1 — if cs_token present</div>
+              <div class="branch-text">JWT validated against hub. Named from millisecond zero. Full pipeline immediately. All actions permitted.</div>
+            </div>
+            <div class="branch-box branch-t1">
+              <div class="branch-label bl-t1">Tier 1 — post-conversion</div>
+              <div class="branch-text">Form submitted, phone clicked, booking confirmed. Hub resolve returns profileId. Cookie updated. All prior sessions stitched.</div>
+            </div>
+            <div class="branch-box branch-t3">
+              <div class="branch-label bl-t3">Tier 3 — anonymous session</div>
+              <div class="branch-text">Cookie + fingerprint only. Score and bucket tracked. Profile held. No customer-facing action until conversion event fires.</div>
+            </div>
+            <div class="branch-box branch-drop">
+              <div class="branch-label bl-drop">Mobile carrier IP — discard</div>
+              <div class="branch-text">Bell Mobility / Rogers / Telus NAT detected. IP discarded immediately as identity signal. Session continues, IP never used.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q3</span>
+          <span class="q-title">What does this mean?  —  Classification + Persona</span>
+          <span class="q-status status-pass">Classified</span>
+        </div>
+        <div class="q-body">
+
+          <div class="section-divider">3A — Engagement score delta</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="score-row">
+              <div class="score-delta">+7</div>
+              <div class="score-info">
+                <span class="score-bucket">scroll_75 → COMPARISON bucket signal</span>
+                <span class="score-note">Deep page read — about or reviews visible. Path multiplier eligible if post-gallery.</span>
+              </div>
+            </div>
+            <div class="score-row">
+              <div class="score-delta">+20</div>
+              <div class="score-info">
+                <span class="score-bucket">emergency_cta_click → EMERGENCY — immediate escalation</span>
+                <span class="score-note">Crisis confirmed. Bucket locks Emergency. 15-min SLA clock starts.</span>
+              </div>
+            </div>
+            <div class="score-row">
+              <div class="score-delta">+12</div>
+              <div class="score-info">
+                <span class="score-bucket">fotojobber_submit → ACTIVE PROJECT</span>
+                <span class="score-note">Personal commitment. Own home shown. Job described verbatim.</span>
+              </div>
+            </div>
+          </div>
+          <div class="full-note" style="margin-top:10px">
+            <strong>No-downgrade rule:</strong> Bucket never moves to a lower state within a session. Demotion is queued for session end only when score_live decays below threshold AND idle time exceeds grace period. Both conditions required simultaneously.
+          </div>
+
+          <div class="section-divider" style="margin-top:16px">3B — Persona layer — inferPersona() runs on every pixel event</div>
+          <p style="font-size:13px;color:var(--gray-md);margin-bottom:10px;font-weight:300;">Every pixel event that passes Q1 and Q2 is also evaluated by <span style="font-family:var(--mono);font-size:11px">inferPersona()</span> non-blocking. The same event that updates the score also accumulates confidence across four persona dimensions. Persona never overrides bucket or score. It modifies the content manifest on top of them.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+            <div style="background:var(--purple-lt);border:1px solid #DDD6FE;border-radius:7px;padding:12px 14px">
+              <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--purple-dk);text-transform:uppercase;margin-bottom:8px">Age band</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">device_desktop</span> → 55+ · +0.06</div>
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">session_daytime_weekday</span> → 55+ · +0.05</div>
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">fsa_median_age_over_50</span> → 55+ · +0.10</div>
+                <div style="color:var(--gray-md);font-size:11px;margin-top:4px">Cap: 0.650 · Threshold: 0.35</div>
+              </div>
+            </div>
+            <div style="background:var(--purple-lt);border:1px solid #DDD6FE;border-radius:7px;padding:12px 14px">
+              <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--purple-dk);text-transform:uppercase;margin-bottom:8px">Property type</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">fotojobber_submit</span> → house · +0.22</div>
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">bathroom_reno_page_load</span> → house · +0.12</div>
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">contentradar_condo_faq</span> → condo · +0.30</div>
+                <div style="color:var(--gray-md);font-size:11px;margin-top:4px">Cap: 1.000 · Threshold: 0.35</div>
+              </div>
+            </div>
+            <div style="background:var(--purple-lt);border:1px solid #DDD6FE;border-radius:7px;padding:12px 14px">
+              <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--purple-dk);text-transform:uppercase;margin-bottom:8px">Income band</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">fsa_median_income_high</span> → high · +0.12</div>
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">specials_cta_click</span> → low · +0.10</div>
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">fotojobber_premium</span> → high · +0.10</div>
+                <div style="color:var(--gray-md);font-size:11px;margin-top:4px">Cap: 0.600 · Threshold: 0.40</div>
+              </div>
+            </div>
+            <div style="background:var(--purple-lt);border:1px solid #DDD6FE;border-radius:7px;padding:12px 14px">
+              <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--purple-dk);text-transform:uppercase;margin-bottom:8px">Family status</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">child_safety_faq</span> → family · +0.28</div>
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">session_pattern_2_devices</span> → couple · +0.12</div>
+                <div style="margin-bottom:3px"><span style="font-family:var(--mono);font-size:10px;color:var(--purple)">fsa_avg_household_over_3</span> → family · +0.08</div>
+                <div style="color:var(--gray-md);font-size:11px;margin-top:4px">Cap: 1.000 · Threshold: 0.35</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:var(--ink);border-radius:7px;padding:12px 14px;margin-bottom:10px">
+            <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#9CA3AF;text-transform:uppercase;margin-bottom:8px">Four edge cases — inferPersona() must handle all four</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="font-size:12px;color:#E5E7EB;line-height:1.5"><span style="color:#4DD9D0;font-family:var(--mono);font-size:10px">1 double-count prevention</span> — same event type not re-scored in same session</div>
+              <div style="font-size:12px;color:#E5E7EB;line-height:1.5"><span style="color:#4DD9D0;font-family:var(--mono);font-size:10px">2 contradiction reset</span> — delta ≥ 0.25 toward different class resets confidence to that delta only</div>
+              <div style="font-size:12px;color:#E5E7EB;line-height:1.5"><span style="color:#4DD9D0;font-family:var(--mono);font-size:10px">3 hard cap enforcement</span> — confidence never exceeds cap regardless of accumulation</div>
+              <div style="font-size:12px;color:#E5E7EB;line-height:1.5"><span style="color:#4DD9D0;font-family:var(--mono);font-size:10px">4 atomic write</span> — Prisma $transaction — partial updates never written to profile</div>
+            </div>
+          </div>
+
+          <div class="full-note">
+            <strong>Persona is the 7th Orchestrator input.</strong> Bucket, score, tier, session state, web history, ContentRadar state, and context (1–6) are evaluated first. Persona modifies the content manifest output — proof block, tone, CTA variant, urgency text, form length, content strip. A dimension is only applied when its confidence meets threshold. Below threshold it accumulates silently.
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Q3C -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q3</span>
+          <span class="q-title">3C — Ad session start + content response events</span>
+          <span class="q-status status-branch">New events required</span>
+        </div>
+        <div class="q-body">
+
+          <div class="section-divider">3C-i — ad_session_start · fires on every paid landing</div>
+          <p style="font-size:13px;color:var(--gray-md);margin-bottom:10px;font-weight:300;">When UTM source is a paid platform — Google, Facebook, YouTube, Bing — a dedicated session-open event fires before any behavioural events. Carries everything the ad decision put into the click. This is Stream A — it travels with the session and writes to the hub profile.</p>
+
+          <div class="q-code" style="margin-bottom:14px">
+<span class="code-comment">// Fires immediately on page load when paid UTM detected</span>
+<span class="code-comment">// Before scroll, dwell, or any behavioural event</span>
+{
+  <span class="code-key">"eventType"</span>:        <span class="code-str">"ad_session_start"</span>,
+  <span class="code-key">"utmSource"</span>:        <span class="code-str">"google"</span>,          <span class="code-comment">// google | facebook | youtube | bing</span>
+  <span class="code-key">"utmCampaign"</span>:      <span class="code-str">"spring-2026-emergency"</span>,
+  <span class="code-key">"utmTerm"</span>:          <span class="code-str">"emergency plumber Timmins"</span>,  <span class="code-comment">// keyword — Google only</span>
+  <span class="code-key">"utmContent"</span>:       <span class="code-str">"headline-variant-b"</span>,  <span class="code-comment">// creative ID — if populated in campaign</span>
+  <span class="code-key">"matchType"</span>:        <span class="code-str">"exact"</span>,          <span class="code-comment">// exact | phrase | broad — Google only</span>
+  <span class="code-key">"audienceSegment"</span>:  <span class="code-str">"homeowner-35-54"</span>,  <span class="code-comment">// Meta only — if passed via utm_content</span>
+  <span class="code-key">"landingPage"</span>:      <span class="code-str">"/emergency"</span>,
+  <span class="code-key">"bucketPreload"</span>:    <span class="code-str">"emergency"</span>,      <span class="code-comment">// keyword-driven bucket pre-load if keyword declared intent</span>
+  <span class="code-key">"device"</span>:           <span class="code-str">"mobile"</span>,
+  <span class="code-key">"sessionId"</span>:        <span class="code-str">"sess_9d2f1a"</span>
+}</div>
+
+          <div class="full-note" style="margin-bottom:14px">
+            <strong>Process dependency — not just a code dependency:</strong> <code style="font-family:var(--mono);font-size:11px">utmContent</code> carrying the creative variant requires the campaign manager to populate the tracking template in Google Ads or Meta before launch. ClearSky reads whatever arrives — but if the field is empty, Gap 2 stays open. This must be documented in the onboarding runbook as a required campaign setup step.
+          </div>
+
+          <div class="section-divider">3C-ii — content response events · fires after dynamic content is served</div>
+          <p style="font-size:13px;color:var(--gray-md);margin-bottom:10px;font-weight:300;">Three events that close the personalization feedback loop. Without these, the system knows what caused the variant to be served — it does not know what the variant caused.</p>
+
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+            <div style="background:var(--blue-lt);border:1px solid #BFDBFE;border-radius:7px;padding:12px 14px">
+              <div style="font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--blue-dk);margin-bottom:6px">variant_served — fires when Orchestrator writes manifest to page</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">Fields: <code style="font-family:var(--mono);font-size:10px">section</code> (hero/proof/form/cta/urgency/content_strip) · <code style="font-family:var(--mono);font-size:10px">variantBucket</code> (which variant selected) · <code style="font-family:var(--mono);font-size:10px">score_live</code> at moment of serving · <code style="font-family:var(--mono);font-size:10px">personaDimensionsApplied</code> · <code style="font-family:var(--mono);font-size:10px">adSessionId</code> if paid source. Writes to hub + Cohort 2.</div>
+            </div>
+            <div style="background:var(--amber-lt);border:1px solid #FDE68A;border-radius:7px;padding:12px 14px">
+              <div style="font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--amber-dk);margin-bottom:6px">variant_impression — 3s in viewport with no interaction</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">Same fields as variant_served plus <code style="font-family:var(--mono);font-size:10px">dwellBeforeBypass</code>. Bypass confirmed — visitor saw the content and moved on. This is the most valuable signal: personalization decision actively not working. Routes to tuning candidates queue — does not affect score.</div>
+            </div>
+            <div style="background:var(--green-lt);border:1px solid #BBF7D0;border-radius:7px;padding:12px 14px">
+              <div style="font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--green-dk);margin-bottom:6px">variant_engaged — existing click/form/tool events with variantBucket attached</div>
+              <div style="font-size:12px;color:var(--ink);line-height:1.6">Not a new event — <code style="font-family:var(--mono);font-size:10px">variantBucket</code> field added to all existing interaction events. <code style="font-family:var(--mono);font-size:10px">hero_cta_click</code> now carries which version of the hero was clicked. Minimal implementation cost — one field addition across existing events.</div>
+            </div>
+          </div>
+
+          <div style="background:var(--ink);border-radius:7px;padding:12px 14px">
+            <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.12em;color:#9CA3AF;text-transform:uppercase;margin-bottom:8px">What these three events answer together</div>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <div style="font-size:12px;color:#E5E7EB;line-height:1.5"><span style="color:#4DD9D0;font-family:var(--mono);font-size:10px">Stream A individual</span> — did this specific session respond to the content decision made for them</div>
+              <div style="font-size:12px;color:#E5E7EB;line-height:1.5"><span style="color:#4DD9D0;font-family:var(--mono);font-size:10px">Cohort 2 aggregate</span> — which variant + persona + bucket combination converts across all sessions</div>
+              <div style="font-size:12px;color:#E5E7EB;line-height:1.5"><span style="color:#4DD9D0;font-family:var(--mono);font-size:10px">Paid + organic split</span> — does ad_session_start change content response vs organic arrival at same bucket</div>
+              <div style="font-size:12px;color:#E5E7EB;line-height:1.5"><span style="color:#4DD9D0;font-family:var(--mono);font-size:10px">Persona validation</span> — did the inferred persona lead to the right content decision or consistently produce bypasses</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q4</span>
+          <span class="q-title">Where does this go?  —  Destination</span>
+          <span class="q-status status-pass">Hub write</span>
+        </div>
+        <div class="q-body">
+          <div class="dest-banner dest-write">
+            <div class="dest-icon">→</div>
+            <div class="dest-body">
+              <div class="dest-title">Profile write / enrich</div>
+              <div class="dest-desc">Every valid pixel event updates the hub profile — creating it on first conversion, enriching it on every subsequent event. Anonymous sessions write to session store and stitch to profile at conversion.</div>
+            </div>
+          </div>
+          <div class="section-divider" style="margin-top:14px">What writes to hub on each event</div>
+          <table class="write-table">
+            <thead>
+              <tr><th>Field</th><th>Value / action</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>score_raw</td><td class="write-yes">Updated — cumulative delta added</td></tr>
+              <tr><td>score_live</td><td class="write-yes">Recalculated — score_raw × time-decay factor</td></tr>
+              <tr><td>intentBucket</td><td class="write-yes">Updated if threshold crossed (no downgrade in-session)</td></tr>
+              <tr><td>sessionId</td><td class="write-yes">Written to session store with every event</td></tr>
+              <tr><td>hubProfileId</td><td class="write-cond">Written at conversion only — null before named</td></tr>
+              <tr><td>persona dimensions</td><td class="write-yes">inferPersona() runs non-blocking on every event — ageBand, property, incomeBand, familyStatus + confidence values accumulated</td></tr>
+              <tr><td>PersonaSignalLog</td><td class="write-yes">Append-only row per qualifying signal — dimension, delta, conf before/after, threshold crossed flag</td></tr>
+              <tr><td>FSA enrichment</td><td class="write-cond">enrichWithFsa() runs once on first IP postal code — census lookup, no per-event cost</td></tr>
+              <tr><td>content manifest</td><td class="write-yes">applyPersonaModifiers() wraps base manifest — proof block, tone, CTA variant, urgency text, form length modified if threshold met</td></tr>
+              <tr><td>Orchestrator trigger</td><td class="write-yes">Fires when bucket changes or score crosses action threshold</td></tr>
+              <tr><td>ad_session_start</td><td class="write-yes">Written on paid landing — utmSource, utmTerm, utmContent, matchType, audienceSegment, landingPage, bucketPreload · Stream A · hub + session store</td></tr>
+              <tr><td>variant_served</td><td class="write-yes">Written when manifest delivered — section, variantBucket, score_live, personaDimensionsApplied, adSessionId · hub + Cohort 2</td></tr>
+              <tr><td>variant_impression</td><td class="write-cond">Written on 3s bypass — same fields + dwellBeforeBypass · tuning candidates queue only · no score delta</td></tr>
+              <tr><td>variantBucket field</td><td class="write-yes">Added to all existing interaction events — no new event, one field addition · enables variant_engaged tracking</td></tr>
+              <tr><td>temporalContext</td><td class="write-yes">Built at session open — hour, isAfterHours, dayOfWeek, isWeekend, season, monthOfYear, weatherSignal — travels with every subsequent event</td></tr>
+              <tr><td>bucket consequence</td><td class="write-yes">Emergency → A2P immediate + 15min SLA · Active Project → FotoJobber/ViewRoom prompt · Comparison → proof block + retargeting · Research → content nurture · no downgrade in-session</td></tr>
+              <tr><td>Context Store</td><td class="write-no">Not written — pixel events never route to Context Store</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /questions-panel -->
+  </div><!-- /p1 -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PROVIDER 2 — GBP REVIEW
+  ════════════════════════════════════════════════════════ -->
+  <div class="card-grid" id="p2">
+
+    <!-- META -->
+    <div class="meta-panel">
+      <div class="meta-header">
+        <div class="meta-provider-num">Provider 05 of 16</div>
+        <div class="meta-provider-name">GBP Review</div>
+        <div class="meta-provider-sub">Google Business Profile — review posted</div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Stream</span>
+        <span class="meta-value tag tag-stream-a">Stream A — contact event</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Delivery method</span>
+        <span class="meta-value tag tag-webhook">Webhook push — Google calls ClearSky</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Volume</span>
+        <span class="meta-value">Low frequency. High signal value per event. Every review is a trust event and a job timing signal.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Identity anchor</span>
+        <span class="meta-value">Display name only. No email. No phone. No device signal. True Tier 2 candidate — name + job timing correlation only.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Pre-classified?</span>
+        <span class="meta-value">No. Must infer intent from review text, star rating, and timing. NLP extraction required.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Build status</span>
+        <span class="meta-value"><strong style="color:var(--amber)">⚠ Not yet built</strong> — webhook endpoint, NLP extraction, and hub write all required.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Outcome</span>
+        <span class="meta-value tag pill-branch" style="padding:4px 10px;font-size:12px">Branches — Tier 2 hold or enrich</span>
+      </div>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div class="questions-panel">
+
+      <!-- Q1 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q1</span>
+          <span class="q-title">Did this event actually happen?  —  Event validity</span>
+          <span class="q-status status-pass">Passes</span>
+        </div>
+        <div class="q-body">
+          <div class="payload-section">
+            <div class="payload-label">Arriving payload — Google webhook</div>
+            <div class="q-code"><span class="code-comment">// POST /hub/providers/gbp-review</span>
+{
+  <span class="code-key">"provider"</span>:      <span class="code-str">"google_business_profile"</span>,
+  <span class="code-key">"event_type"</span>:   <span class="code-str">"review_posted"</span>,
+  <span class="code-key">"review_id"</span>:    <span class="code-str">"ChIJ_abc123"</span>,
+  <span class="code-key">"reviewer_name"</span>: <span class="code-str">"Margaret T."</span>,
+  <span class="code-key">"rating"</span>:        <span class="code-val">1</span>,
+  <span class="code-key">"review_text"</span>:  <span class="code-str">"Called twice, no one answered..."</span>,
+  <span class="code-key">"timestamp"</span>:    <span class="code-str">"2026-05-25T09:14:00Z"</span>,
+  <span class="code-key">"location_id"</span>:  <span class="code-str">"rightflush_timmins"</span>
+}</div>
+          </div>
+          <ul class="q-check-list">
+            <li><span class="check-icon check-pass">✓</span> Google webhook signature validated — event confirmed as real</li>
+            <li><span class="check-icon check-pass">✓</span> review_id not previously seen — not a duplicate</li>
+            <li><span class="check-icon check-pass">✓</span> High event confidence — Google confirmed the post occurred</li>
+            <li><span class="check-icon check-warn">!</span> Event confidence ≠ attribution confidence. This review definitely happened. We do not yet know who Margaret T. is.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q2</span>
+          <span class="q-title">Who did this?  —  Attribution confidence</span>
+          <span class="q-status status-branch">Always branches</span>
+        </div>
+        <div class="q-body">
+          <ul class="q-check-list" style="margin-bottom:12px">
+            <li><span class="check-icon check-info">→</span> Hub resolve: search for matching profile by name + recent job timing</li>
+            <li><span class="check-icon check-info">→</span> If recent job found within plausible window — Tier 2 candidate (name is common, timing is correlation not confirmation)</li>
+            <li><span class="check-icon check-info">→</span> If no match — Tier 2 new pending profile created with display name only</li>
+            <li><span class="check-icon check-warn">!</span> GBP review can never reach Tier 1 through this event alone. No PII in payload. No upgrade path from this signal.</li>
+          </ul>
+          <div class="q-branch-grid">
+            <div class="branch-box branch-t2">
+              <div class="branch-label bl-t2">Tier 2 — name matches recent job</div>
+              <div class="branch-text">Profile updated with review. Status remains pending. Same-channel response only: rep can reply on GBP. Cannot SMS or call Margaret T. based on this event.</div>
+            </div>
+            <div class="branch-box branch-t2">
+              <div class="branch-label bl-t2">Tier 2 — no match · new pending</div>
+              <div class="branch-text">New pending profile created with reviewer_name and timestamp. Held. Waits for a future Tier 1 event to confirm identity and merge.</div>
+            </div>
+          </div>
+          <div class="full-note">
+            <strong>Same-channel rule enforced:</strong> Review reply is drafted by AI and queued for rep approval. Rep can post on GBP. System cannot cross to SMS or voice. Non-negotiable — no exceptions.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q3</span>
+          <span class="q-title">What does this mean?  —  Classification</span>
+          <span class="q-status status-branch">Classified with conditions</span>
+        </div>
+        <div class="q-body">
+          <ul class="q-check-list" style="margin-bottom:12px">
+            <li><span class="check-icon check-info">→</span> NLP extraction runs on review_text: service type, sentiment, urgency language, objection type</li>
+            <li><span class="check-icon check-info">→</span> Star rating maps directly to persona signal — 1★ flags service recovery needed</li>
+            <li><span class="check-icon check-warn">!</span> Score delta applies only if Tier 2 match found to a profile with an existing score</li>
+          </ul>
+          <div class="score-row" style="background:var(--amber-lt);border-color:#FDE68A;">
+            <div class="score-delta" style="color:var(--amber-dk)">−15</div>
+            <div class="score-info">
+              <span class="score-bucket" style="color:var(--amber-dk)">1★ review → disengagement signal</span>
+              <span class="score-note">Applied to matched Tier 2 profile only. Flags service recovery. Rep notified.</span>
+            </div>
+          </div>
+          <div style="margin-top:8px" class="score-row">
+            <div class="score-delta">+8</div>
+            <div class="score-info">
+              <span class="score-bucket">4–5★ review → trust confirmation signal</span>
+              <span class="score-note">Positive sentiment. Job timing corroborates profile. Persona enriched.</span>
+            </div>
+          </div>
+          <div class="full-note" style="margin-top:10px">
+            <strong>No score write if no profile match:</strong> When a new pending profile is created from a review, it starts with no engagement score. Score begins accumulating on the first Tier 1 event that confirms identity.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q4</span>
+          <span class="q-title">Where does this go?  —  Destination</span>
+          <span class="q-status status-branch">Tier 2 hold</span>
+        </div>
+        <div class="q-body">
+          <div class="dest-banner dest-branch">
+            <div class="dest-icon">⌛</div>
+            <div class="dest-body">
+              <div class="dest-title">Tier 2 hold — same-channel response only</div>
+              <div class="dest-desc">Profile created or updated with pending status. Review text, rating, NLP extraction, and timestamp written. AI reply draft queued. Rep notified. No cross-channel action until identity upgrades to Tier 1.</div>
+            </div>
+          </div>
+          <div class="section-divider" style="margin-top:14px">What writes where</div>
+          <table class="write-table">
+            <thead>
+              <tr><th>Field</th><th>Value / action</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>hub profile</td><td class="write-cond">Created (pending) or enriched — Tier 2 status always</td></tr>
+              <tr><td>review_text</td><td class="write-yes">Written to profile — NLP extracted fields stored</td></tr>
+              <tr><td>score_raw</td><td class="write-cond">Updated only if matched to existing profile with score</td></tr>
+              <tr><td>reply draft</td><td class="write-yes">AI-generated, queued for rep approval — never auto-posted</td></tr>
+              <tr><td>rep notification</td><td class="write-yes">Fired immediately — rating, text excerpt, action required</td></tr>
+              <tr><td>A2P / cross-channel</td><td class="write-no">Blocked — Tier 2 same-channel rule. No exceptions.</td></tr>
+              <tr><td>Context Store</td><td class="write-no">Not written — this is a Stream A contact event</td></tr>
+              <tr><td>public_reply_posted</td><td class="write-no">Always false until rep approves and manually posts</td></tr>
+                          <tr><td>bucket consequence</td><td class="write-yes">Emergency → A2P immediate + 15min SLA · Active Project → FotoJobber/ViewRoom prompt · Comparison → proof block + retargeting · Research → content nurture</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /p2 -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PROVIDER 3 — DATAFORSEO
+  ════════════════════════════════════════════════════════ -->
+  <div class="card-grid" id="p3">
+
+    <!-- META -->
+    <div class="meta-panel">
+      <div class="meta-header">
+        <div class="meta-provider-num">Provider 14 of 16</div>
+        <div class="meta-provider-name">DataForSEO</div>
+        <div class="meta-provider-sub">Watch market keyword demand + SERP rankings</div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Stream</span>
+        <span class="meta-value tag tag-stream-b">Stream B — market intelligence</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Delivery method</span>
+        <span class="meta-value tag tag-polling">Polling pull — ClearSky fetches on schedule</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Volume</span>
+        <span class="meta-value">Scheduled fetches. Daily SERP snapshots. Real-time keyword demand on ContentRadar flag events.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Identity anchor</span>
+        <span class="meta-value">None. This provider carries no individual identity. Not possible by design. Always Tier 3 by definition.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Pre-classified?</span>
+        <span class="meta-value">Yes — Stream B is always pre-classified as market intelligence. No inference needed.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Build status</span>
+        <span class="meta-value"><strong style="color:var(--amber)">⚠ Integrated, not complete</strong> — DataForSEO API connected. Context Store write path and ContentRadar flag trigger need build.</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Outcome</span>
+        <span class="meta-value tag pill-store" style="padding:4px 10px;font-size:12px;border:1px solid var(--gray-bd)">Context Store only — no profile ever</span>
+      </div>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div class="questions-panel">
+
+      <!-- Q1 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q1</span>
+          <span class="q-title">Did this event actually happen?  —  Event validity</span>
+          <span class="q-status status-pass">Passes</span>
+        </div>
+        <div class="q-body">
+          <div class="payload-section">
+            <div class="payload-label">Arriving payload — DataForSEO API response</div>
+            <div class="q-code"><span class="code-comment">// Scheduled poll or ContentRadar flag trigger</span>
+{
+  <span class="code-key">"provider"</span>:       <span class="code-str">"dataforseo"</span>,
+  <span class="code-key">"fetch_type"</span>:    <span class="code-str">"serp_snapshot"</span>,
+  <span class="code-key">"market"</span>:         <span class="code-str">"Timmins, ON"</span>,
+  <span class="code-key">"keyword"</span>:        <span class="code-str">"emergency plumber Timmins"</span>,
+  <span class="code-key">"demand_state"</span>:   <span class="code-str">"rising"</span>,
+  <span class="code-key">"client_rank"</span>:    <span class="code-val">3</span>,
+  <span class="code-key">"rank_gap"</span>:       <span class="code-val">2</span>,
+  <span class="code-key">"competitor_urls"</span>: [<span class="code-str">"plumbingco.ca"</span>, <span class="code-str">"timminspro.ca"</span>],
+  <span class="code-key">"timestamp"</span>:      <span class="code-str">"2026-05-25T06:00:00Z"</span>
+}</div>
+          </div>
+          <ul class="q-check-list">
+            <li><span class="check-icon check-pass">✓</span> API key authenticated — valid DataForSEO response</li>
+            <li><span class="check-icon check-pass">✓</span> Response schema complete — all required fields present</li>
+            <li><span class="check-icon check-pass">✓</span> Market and keyword match registered watch list</li>
+            <li><span class="check-icon check-info">→</span> No individual to attribute. Q2 is not evaluated — this is a Stream B provider.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q2</span>
+          <span class="q-title">Who did this?  —  Attribution confidence</span>
+          <span class="q-status status-skip">Skipped — Stream B</span>
+        </div>
+        <div class="q-body">
+          <div class="branch-box branch-t3" style="margin-bottom:0">
+            <div class="branch-label bl-t3">Always Tier 3 — no evaluation needed</div>
+            <div class="branch-text">DataForSEO carries no individual identity. Attribution is not evaluated because it is not possible. This is a design property of Stream B, not a classification failure. Q2 is bypassed entirely for all Stream B providers. The system proceeds directly to Q3 (what does it mean for the market).</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q3</span>
+          <span class="q-title">What does this mean?  —  Market classification</span>
+          <span class="q-status status-pass">Classified</span>
+        </div>
+        <div class="q-body">
+          <ul class="q-check-list" style="margin-bottom:12px">
+            <li><span class="check-icon check-info">→</span> demand_state evaluated: rising / stable / falling — updates watch market demand model</li>
+            <li><span class="check-icon check-info">→</span> rank_gap calculated: client_rank vs position 1 — feeds Layer 2 gap analysis</li>
+            <li><span class="check-icon check-info">→</span> If demand_state = "rising" AND rank_gap > 1: ContentRadar flag may trigger — accelerated content production queue</li>
+            <li><span class="check-icon check-info">→</span> Competitor URLs stored: used by scraper pipeline for content gap analysis</li>
+          </ul>
+          <div class="score-row no-score">
+            <div class="score-delta" style="font-size:14px">N/A</div>
+            <div class="score-info">
+              <span class="score-bucket">No individual score delta — no person attached</span>
+              <span class="score-note">Market demand state informs how the Orchestrator weights keywords in Stream A events. Indirect influence only.</span>
+            </div>
+          </div>
+          <div class="full-note" style="margin-top:10px">
+            <strong>Indirect Orchestrator influence:</strong> A rising demand state for "emergency plumber Timmins" increases the Orchestrator's urgency weighting for any Stream A visitor who arrived via that keyword. DataForSEO enriches context — it never drives a direct action.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-card">
+        <div class="q-header">
+          <span class="q-num">Q4</span>
+          <span class="q-title">Where does this go?  —  Destination</span>
+          <span class="q-status status-skip">Context Store only</span>
+        </div>
+        <div class="q-body">
+          <div class="dest-banner dest-store">
+            <div class="dest-icon">◎</div>
+            <div class="dest-body">
+              <div class="dest-title">Context Store only — no profile, no action, no exceptions</div>
+              <div class="dest-desc">All DataForSEO data routes to the Context Store. It informs how the Orchestrator interprets Stream A contact events. It never creates a hub profile, never receives a session ID, and never triggers a customer-facing action. This is permanent — not a temporary hold.</div>
+            </div>
+          </div>
+          <div class="section-divider" style="margin-top:14px">What writes where</div>
+          <table class="write-table">
+            <thead>
+              <tr><th>Field</th><th>Value / action</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Context Store</td><td class="write-yes">Keyword demand state, SERP snapshot, rank gap, competitor URLs</td></tr>
+              <tr><td>ContentRadar flag</td><td class="write-cond">Fired if demand rising AND rank gap &gt; 1 — triggers content queue</td></tr>
+              <tr><td>Watch market model</td><td class="write-yes">Updated — next Orchestrator read includes new demand state</td></tr>
+              <tr><td>hub profile</td><td class="write-no">Never written — not possible for Stream B</td></tr>
+              <tr><td>session ID</td><td class="write-no">Never assigned — no individual attached</td></tr>
+              <tr><td>Orchestrator action</td><td class="write-no">No direct action — context enrichment only</td></tr>
+              <tr><td>rep notification</td><td class="write-cond">Only if ContentRadar flag fires — market alert, not a contact event</td></tr>
+              <tr><td>A2P / any channel</td><td class="write-no">Never. No exceptions. Stream B never triggers customer-facing action.</td></tr>
+                          <tr><td>bucket consequence</td><td class="write-yes">Emergency → A2P immediate + 15min SLA · Active Project → FotoJobber/ViewRoom prompt · Comparison → proof block + retargeting · Research → content nurture</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /p3 -->
+
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PROVIDER 4 — GOOGLE ADS + BING ADS
+  ════════════════════════════════════════════════════════ -->
+  <div class="card-grid" id="p4">
+    <div class="meta-panel">
+      <div class="meta-header">
+        <div class="meta-provider-num">Providers 02 + 03 of 16</div>
+        <div class="meta-provider-name">Google Ads + Bing Ads</div>
+        <div class="meta-provider-sub">Paid search — keyword declared intent</div>
+      </div>
+      <div class="meta-row"><span class="meta-label">Stream</span><span class="meta-value tag tag-stream-a">Stream A — contact event</span></div>
+      <div class="meta-row"><span class="meta-label">Delivery method</span><span class="meta-value tag tag-native">UTM → pixel on landing</span></div>
+      <div class="meta-row"><span class="meta-label">Identity anchor</span><span class="meta-value">Session ID. Keyword declared at click. High confidence — visitor chose this search term.</span></div>
+      <div class="meta-row"><span class="meta-label">Gap 1 — Pre-click</span><span class="meta-value">Impressions not clicked — Stream B only. Google Ads API + Microsoft Ads API scheduled pull → Context Store.</span></div>
+      <div class="meta-row"><span class="meta-label">Gap 2 — Creative variant</span><span class="meta-value">utm_content must carry creative ID. Set in campaign tracking template. Process dependency — not code. If empty, creative attribution is lost.</span></div>
+      <div class="meta-row"><span class="meta-label">Stream B provider</span><span class="meta-value">Google Ads API + Microsoft Ads API — impression, CTR, creative performance per campaign. Scheduled pull → Context Store.</span></div>
+      <div class="meta-row"><span class="meta-label">Build status</span><span class="meta-value"><strong style="color:var(--amber)">⚠ Partial</strong> — UTM captured. ad_session_start event not yet defined. Creative ID capture depends on campaign setup.</span></div>
+    </div>
+    <div class="questions-panel">
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q1</span><span class="q-title">Did this event happen?  —  Event validity</span><span class="q-status status-pass">Passes</span></div>
+        <div class="q-body">
+          <div class="payload-label">ad_session_start — fires on paid landing before any behavioural event</div>
+          <div class="q-code"><span class="code-comment">// Fires when utm_source = google | bing detected on page load</span>
+{
+  <span class="code-key">"eventType"</span>:      <span class="code-str">"ad_session_start"</span>,
+  <span class="code-key">"utmSource"</span>:      <span class="code-str">"google"</span>,
+  <span class="code-key">"utmMedium"</span>:      <span class="code-str">"cpc"</span>,
+  <span class="code-key">"utmCampaign"</span>:    <span class="code-str">"spring-2026-emergency"</span>,
+  <span class="code-key">"utmTerm"</span>:        <span class="code-str">"emergency plumber Timmins"</span>,
+  <span class="code-key">"utmContent"</span>:     <span class="code-str">"headline-b-no-callout"</span>, <span class="code-comment">// creative ID — if set in campaign</span>
+  <span class="code-key">"matchType"</span>:      <span class="code-str">"exact"</span>,        <span class="code-comment">// exact | phrase | broad</span>
+  <span class="code-key">"landingPage"</span>:    <span class="code-str">"/emergency"</span>,
+  <span class="code-key">"bucketPreload"</span>:  <span class="code-str">"emergency"</span>,    <span class="code-comment">// keyword-driven pre-load</span>
+  <span class="code-key">"device"</span>:         <span class="code-str">"mobile"</span>,
+  <span class="code-key">"sessionId"</span>:      <span class="code-str">"sess_9d2f1a"</span>,
+  <span class="code-key">"temporalContext"</span>: {
+    <span class="code-key">"hour"</span>:          <span class="code-val">14</span>,
+    <span class="code-key">"isAfterHours"</span>:  <span class="code-val">false</span>,
+    <span class="code-key">"dayOfWeek"</span>:     <span class="code-str">"tuesday"</span>,
+    <span class="code-key">"isWeekend"</span>:     <span class="code-val">false</span>,
+    <span class="code-key">"season"</span>:        <span class="code-str">"spring"</span>,
+    <span class="code-key">"monthOfYear"</span>:   <span class="code-val">5</span>,
+    <span class="code-key">"weatherSignal"</span>: <span class="code-str">"thaw_active"</span>
+  }
+}</div>
+          <ul class="q-check-list" style="margin-top:10px">
+            <li><span class="check-icon check-pass">✓</span> utm_source present and matches known paid platform list</li>
+            <li><span class="check-icon check-pass">✓</span> sessionId assigned before this event fires</li>
+            <li><span class="check-icon check-warn">!</span> utmContent empty if campaign tracking template not configured — log gap, do not drop event</li>
+          </ul>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q2</span><span class="q-title">Who did this?  —  Attribution</span><span class="q-status status-pass">Tier 3 → upgrades</span></div>
+        <div class="q-body">
+          <div class="q-branch-grid">
+            <div class="branch-box branch-t3"><div class="branch-label bl-t3">Tier 3 at landing</div><div class="branch-text">Cookie + fingerprint only. Keyword and creative written to session. Profile holds anonymously until conversion event fires.</div></div>
+            <div class="branch-box branch-t1"><div class="branch-label bl-t1">Tier 1 at conversion</div><div class="branch-text">Form submit, call click, or booking. Hub resolve + merge. All paid context (keyword, creative, campaign) stitched to named profile retroactively.</div></div>
+          </div>
+          <div class="full-note" style="margin-top:10px"><strong>Retroactive stitch is critical:</strong> The keyword that drove the session must survive through to the named profile. Without it you know the person converted — you do not know which keyword and creative produced a converting customer.</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q3</span><span class="q-title">What does this mean?  —  Classification</span><span class="q-status status-pass">Classified</span></div>
+        <div class="q-body">
+          <div class="section-divider">Keyword → bucket pre-load</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+            <div class="score-row"><div class="score-delta" style="font-size:14px">EMG</div><div class="score-info"><span class="score-bucket">emergency plumber · burst pipe · no hot water → Emergency bucket pre-loaded</span><span class="score-note">Score pre-loaded before first pixel fires. Visitor arrives already classified.</span></div></div>
+            <div class="score-row"><div class="score-delta" style="font-size:14px">ACT</div><div class="score-info"><span class="score-bucket">plumber quote · bathroom renovation cost → Active Project pre-load</span><span class="score-note">Declared purchase intent in the keyword itself.</span></div></div>
+            <div class="score-row"><div class="score-delta" style="font-size:14px">CMP</div><div class="score-info"><span class="score-bucket">best plumber Timmins · plumber reviews → Comparison pre-load</span><span class="score-note">Evaluating options — not yet decided.</span></div></div>
+          </div>
+          <div class="section-divider">Stream B — what Gap 1 produces</div>
+          <div class="branch-box branch-t3"><div class="branch-label bl-t3">Context Store — aggregate creative performance</div><div class="branch-text">Google Ads API + Microsoft Ads API scheduled pull: impressions, clicks, CTR, cost per click per creative per campaign. Informs Orchestrator's understanding of which creative is burning frequency without converting. No individual identity. Never writes to a profile.</div></div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q4</span><span class="q-title">Where does this go?  —  Destination</span><span class="q-status status-pass">Hub write</span></div>
+        <div class="q-body">
+          <div class="dest-banner dest-write"><div class="dest-icon">→</div><div class="dest-body"><div class="dest-title">Session store → stitched to profile at conversion</div><div class="dest-desc">ad_session_start fields held in session store. At conversion, full paid context retroactively attached to hub profile. Enables cost-per-booked-job calculation, not just cost-per-click.</div></div></div>
+          <table class="write-table" style="margin-top:12px">
+            <thead><tr><th>Field</th><th>Value / action</th></tr></thead>
+            <tbody>
+              <tr><td>utmTerm</td><td class="write-yes">Keyword written to session — survives to profile at conversion</td></tr>
+              <tr><td>utmContent</td><td class="write-cond">Creative ID written if present — gap flagged if empty</td></tr>
+              <tr><td>matchType</td><td class="write-yes">exact / phrase / broad — persona signal for intent confidence</td></tr>
+              <tr><td>bucketPreload</td><td class="write-yes">Applied before first behavioural pixel event</td></tr>
+              <tr><td>landingPage</td><td class="write-yes">Which page the ad sent them to</td></tr>
+              <tr><td>variant_served</td><td class="write-yes">Landing page variant written — closes creative → content → conversion chain</td></tr>
+              <tr><td>Context Store (Gap 1)</td><td class="write-yes">API pull → creative performance aggregate → Stream B</td></tr>
+              <tr><td>Onboarding requirement</td><td class="write-cond">utm_content tracking template must be set in campaign before launch — documented in runbook</td></tr>
+                          <tr><td>bucket consequence</td><td class="write-yes">Emergency → A2P immediate + 15min SLA · Active Project → FotoJobber/ViewRoom prompt · Comparison → proof block + retargeting · Research → content nurture</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /p4 -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PROVIDER 5 — FACEBOOK ADS
+  ════════════════════════════════════════════════════════ -->
+  <div class="card-grid" id="p5">
+    <div class="meta-panel">
+      <div class="meta-header">
+        <div class="meta-provider-num">Provider 04 of 16</div>
+        <div class="meta-provider-name">Facebook / Meta Ads</div>
+        <div class="meta-provider-sub">Paid social — audience-based · no keyword</div>
+      </div>
+      <div class="meta-row"><span class="meta-label">Stream</span><span class="meta-value tag tag-stream-a">Stream A — contact event</span></div>
+      <div class="meta-row"><span class="meta-label">Delivery method</span><span class="meta-value tag tag-native">UTM → pixel on landing</span></div>
+      <div class="meta-row"><span class="meta-label">Identity anchor</span><span class="meta-value">Session ID only. No keyword. Audience segment is the signal — but does not survive the click in standard UTM.</span></div>
+      <div class="meta-row"><span class="meta-label">Gap 1 — Pre-click</span><span class="meta-value">Impressions, frequency, creative performance — Meta Graph API scheduled pull → Context Store only.</span></div>
+      <div class="meta-row"><span class="meta-label">Gap 3 — Audience match</span><span class="meta-value">Cross-reference Meta Graph API event timing with pixel session open timing. Probabilistic — not deterministic. One click in the window approaches deterministic. Multiple clicks in same window is aggregate only.</span></div>
+      <div class="meta-row"><span class="meta-label">Build status</span><span class="meta-value"><strong style="color:var(--amber)">⚠ Partial</strong> — UTM source captured. Audience segment and creative ID not in standard UTM. Graph API pull not built.</span></div>
+    </div>
+    <div class="questions-panel">
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q1</span><span class="q-title">Did this event happen?  —  Event validity</span><span class="q-status status-pass">Passes</span></div>
+        <div class="q-body">
+          <div class="payload-label">ad_session_start — Facebook variant</div>
+          <div class="q-code"><span class="code-comment">// utm_source = facebook detected on page load</span>
+{
+  <span class="code-key">"eventType"</span>:       <span class="code-str">"ad_session_start"</span>,
+  <span class="code-key">"utmSource"</span>:       <span class="code-str">"facebook"</span>,
+  <span class="code-key">"utmCampaign"</span>:     <span class="code-str">"homeowner-retarget-spring"</span>,
+  <span class="code-key">"utmContent"</span>:      <span class="code-str">"creative-a-before-after"</span>, <span class="code-comment">// only if set in Meta campaign</span>
+  <span class="code-key">"audienceSegment"</span>:  <span class="code-str">"homeowner-35-54"</span>,  <span class="code-comment">// only if passed via utm_content convention</span>
+  <span class="code-key">"utmTerm"</span>:         <span class="code-str">null</span>,            <span class="code-comment">// always null — Facebook has no keyword</span>
+  <span class="code-key">"landingPage"</span>:     <span class="code-str">"/bathroom-renovations"</span>,
+  <span class="code-key">"bucketPreload"</span>:   <span class="code-str">"comparison"</span>,   <span class="code-comment">// inferred from campaign — not keyword-declared</span>
+  <span class="code-key">"sessionTimestamp"</span>:<span class="code-str">"2026-05-25T14:23:11Z"</span>, <span class="code-comment">// used for Graph API cross-reference</span>
+  <span class="code-key">"sessionId"</span>:       <span class="code-str">"sess_9d2f1a"</span>,
+  <span class="code-key">"temporalContext"</span>: {
+    <span class="code-key">"hour"</span>:          <span class="code-val">14</span>,
+    <span class="code-key">"isAfterHours"</span>:  <span class="code-val">false</span>,
+    <span class="code-key">"dayOfWeek"</span>:     <span class="code-str">"tuesday"</span>,
+    <span class="code-key">"isWeekend"</span>:     <span class="code-val">false</span>,
+    <span class="code-key">"season"</span>:        <span class="code-str">"spring"</span>,
+    <span class="code-key">"monthOfYear"</span>:   <span class="code-val">5</span>,
+    <span class="code-key">"weatherSignal"</span>: <span class="code-str">"thaw_active"</span>
+  }
+}</div>
+          <div class="full-note" style="margin-top:10px"><strong>bucketPreload is inferred, not declared.</strong> Google Ads pre-loads from keyword. Facebook has no keyword — bucket pre-load is set by campaign purpose, not visitor intent signal. Treat as a softer prior — on-site behaviour overrides it quickly.</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q2</span><span class="q-title">Who did this?  —  Attribution + Gap 3</span><span class="q-status status-branch">Probabilistic</span></div>
+        <div class="q-body">
+          <ul class="q-check-list" style="margin-bottom:10px">
+            <li><span class="check-icon check-info">→</span> Session opens with utm_source=facebook — session ID assigned, Tier 3</li>
+            <li><span class="check-icon check-info">→</span> Meta Graph API pull runs on schedule — returns click events with timestamps per ad creative per audience</li>
+            <li><span class="check-icon check-info">→</span> Cross-reference: session open timestamp vs Meta click timestamp for matching campaign</li>
+            <li><span class="check-icon check-warn">!</span> One click in window → high-confidence audience match. Multiple clicks → aggregate signal only — individual match not claimed</li>
+          </ul>
+          <div class="q-branch-grid">
+            <div class="branch-box branch-t1"><div class="branch-label bl-t1">High confidence — single click in window</div><div class="branch-text">Audience segment attached to session with high-confidence flag. Written to profile at conversion. Not Tier 1 — still needs PII confirmation — but audience signal is strong.</div></div>
+            <div class="branch-box branch-t3"><div class="branch-label bl-t3">Aggregate only — multiple clicks in window</div><div class="branch-text">Cannot attribute individual session to specific audience. Context Store receives aggregate: this campaign drove N sessions in this window. No individual profile enrichment.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q3</span><span class="q-title">What does this mean?  —  Classification</span><span class="q-status status-pass">Classified</span></div>
+        <div class="q-body">
+          <div class="score-row" style="margin-bottom:8px"><div class="score-delta" style="font-size:14px">CMP</div><div class="score-info"><span class="score-bucket">Retargeting audience → Comparison bucket pre-load</span><span class="score-note">Prior site visit implied. Has seen the brand. Evaluating rather than discovering.</span></div></div>
+          <div class="score-row"><div class="score-delta" style="font-size:14px">RES</div><div class="score-info"><span class="score-bucket">Cold audience → Research bucket pre-load</span><span class="score-note">No prior signal. First exposure. On-site behaviour classifies quickly.</span></div></div>
+          <div class="full-note" style="margin-top:10px"><strong>Stream B — Gap 1 + Gap 3 aggregate:</strong> Meta Graph API produces creative performance (impressions, reach, CTR, frequency) and audience performance (which segment engaged). Writes to Context Store. Informs Orchestrator — if homeowner-35-54 audience produces Research bucket arrivals consistently, campaign targeting needs adjustment.</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q4</span><span class="q-title">Where does this go?  —  Destination</span><span class="q-status status-branch">Session store + Context Store</span></div>
+        <div class="q-body">
+          <div class="dest-banner dest-branch"><div class="dest-icon">⌛</div><div class="dest-body"><div class="dest-title">Session store (Stream A) + Context Store (Stream B)</div><div class="dest-desc">ad_session_start fields held in session store — stitched to profile at conversion. Graph API aggregate routes to Context Store — never to individual profiles.</div></div></div>
+          <table class="write-table" style="margin-top:12px">
+            <thead><tr><th>Field</th><th>Value / action</th></tr></thead>
+            <tbody>
+              <tr><td>utmCampaign</td><td class="write-yes">Written to session — survives to profile at conversion</td></tr>
+              <tr><td>utmContent</td><td class="write-cond">Creative ID if set in campaign — gap flagged if empty</td></tr>
+              <tr><td>audienceSegment</td><td class="write-cond">Written if single-click window match — flagged as probabilistic</td></tr>
+              <tr><td>sessionTimestamp</td><td class="write-yes">Stored for Graph API cross-reference window</td></tr>
+              <tr><td>bucketPreload</td><td class="write-yes">Applied — softer prior than keyword, overridden by on-site behaviour</td></tr>
+              <tr><td>Graph API pull</td><td class="write-yes">Stream B → Context Store — creative + audience aggregate performance</td></tr>
+              <tr><td>Individual profile</td><td class="write-no">Audience segment written only on single-click high-confidence match — never auto-assumed</td></tr>
+                          <tr><td>bucket consequence</td><td class="write-yes">Emergency → A2P immediate + 15min SLA · Active Project → FotoJobber/ViewRoom prompt · Comparison → proof block + retargeting · Research → content nurture</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /p5 -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PROVIDER 6 — YOUTUBE PAID
+  ════════════════════════════════════════════════════════ -->
+  <div class="card-grid" id="p6">
+    <div class="meta-panel">
+      <div class="meta-header">
+        <div class="meta-provider-num">Provider 10 of 16</div>
+        <div class="meta-provider-name">YouTube Paid Ad</div>
+        <div class="meta-provider-sub">Paid video — keyword + non-skip signal</div>
+      </div>
+      <div class="meta-row"><span class="meta-label">Stream</span><span class="meta-value tag tag-stream-a">Stream A — contact event</span></div>
+      <div class="meta-row"><span class="meta-label">Delivery method</span><span class="meta-value tag tag-native">UTM → pixel on landing</span></div>
+      <div class="meta-row"><span class="meta-label">Unique signal</span><span class="meta-value">Non-skip confirmation. A visitor who watched the full ad before clicking is demonstrably warmer than one who skipped at 5 seconds. This signal exists nowhere else in the 16 providers.</span></div>
+      <div class="meta-row"><span class="meta-label">Gap — non-skip not captured</span><span class="meta-value">Non-skip is listed in the architecture as captured but no pixel event or UTM field currently carries it. Needs explicit capture in ad_session_start payload.</span></div>
+      <div class="meta-row"><span class="meta-label">Stream B</span><span class="meta-value">YouTube Data API v3 — free quota. View rate, skip rate, CTR per video creative → Context Store.</span></div>
+      <div class="meta-row"><span class="meta-label">Build status</span><span class="meta-value"><strong style="color:var(--amber)">⚠ Partial</strong> — UTM captured. non-skip field not in session payload. YouTube Data API pull not built.</span></div>
+    </div>
+    <div class="questions-panel">
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q1–Q4</span><span class="q-title">Same pattern as Google Ads — one critical addition</span><span class="q-status status-pass">Passes</span></div>
+        <div class="q-body">
+          <div class="payload-label">ad_session_start — YouTube variant</div>
+          <div class="q-code"><span class="code-comment">// utm_source = youtube + utm_medium = cpc detected</span>
+{
+  <span class="code-key">"eventType"</span>:    <span class="code-str">"ad_session_start"</span>,
+  <span class="code-key">"utmSource"</span>:    <span class="code-str">"youtube"</span>,
+  <span class="code-key">"utmCampaign"</span>:  <span class="code-str">"before-after-video-spring"</span>,
+  <span class="code-key">"utmTerm"</span>:      <span class="code-str">"bathroom renovation Timmins"</span>,
+  <span class="code-key">"utmContent"</span>:   <span class="code-str">"video-60s-testimonial"</span>,  <span class="code-comment">// creative ID</span>
+  <span class="code-key">"nonSkip"</span>:      <span class="code-val">true</span>,             <span class="code-comment">// CRITICAL — watched full ad before clicking</span>
+  <span class="code-key">"videoId"</span>:      <span class="code-str">"dQw4w9WgXcQ"</span>,   <span class="code-comment">// YouTube video ID</span>
+  <span class="code-key">"landingPage"</span>:  <span class="code-str">"/bathroom-renovations"</span>,
+  <span class="code-key">"bucketPreload"</span>:<span class="code-str">"comparison"</span>,
+  <span class="code-key">"sessionId"</span>:    <span class="code-str">"sess_9d2f1a"</span>,
+  <span class="code-key">"temporalContext"</span>: {
+    <span class="code-key">"hour"</span>:          <span class="code-val">14</span>,
+    <span class="code-key">"isAfterHours"</span>:  <span class="code-val">false</span>,
+    <span class="code-key">"dayOfWeek"</span>:     <span class="code-str">"tuesday"</span>,
+    <span class="code-key">"isWeekend"</span>:     <span class="code-val">false</span>,
+    <span class="code-key">"season"</span>:        <span class="code-str">"spring"</span>,
+    <span class="code-key">"monthOfYear"</span>:   <span class="code-val">5</span>,
+    <span class="code-key">"weatherSignal"</span>: <span class="code-str">"thaw_active"</span>
+  }
+}</div>
+          <div class="full-note" style="margin-top:10px"><strong>nonSkip = true is a pre-engagement signal unlike anything in paid search.</strong> The visitor was exposed to the full brand story before clicking. Score pre-load and bucket assignment should weight this session higher than a keyword click. Recommended: add +5 to initial score when nonSkip = true.</div>
+          <div class="section-divider" style="margin-top:12px">Stream B — YouTube Data API v3</div>
+          <div class="branch-box branch-t3" style="margin-top:8px"><div class="branch-label bl-t3">Context Store — video performance aggregate</div><div class="branch-text">View rate, skip rate, average watch time, CTR per video creative. Free API quota. Tells Orchestrator whether the video creative is building brand warmth (high view rate, low CTR) or driving direct intent (lower view rate, high CTR). Both are valid — different content strategies.</div></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /p6 -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PROVIDER 7 — QR CODE
+  ════════════════════════════════════════════════════════ -->
+  <div class="card-grid" id="p7">
+    <div class="meta-panel">
+      <div class="meta-header">
+        <div class="meta-provider-num">Provider 12 of 16</div>
+        <div class="meta-provider-name">QR Code</div>
+        <div class="meta-provider-sub">Offline → online · placement-tagged</div>
+      </div>
+      <div class="meta-row"><span class="meta-label">Stream</span><span class="meta-value tag tag-stream-a">Stream A — contact event</span></div>
+      <div class="meta-row"><span class="meta-label">Delivery method</span><span class="meta-value tag tag-native">Short link UTM → pixel on landing</span></div>
+      <div class="meta-row"><span class="meta-label">Always mobile</span><span class="meta-value">QR codes are scanned on mobile devices. Mobile confirmed is deterministic — not inferred. Device signal is certain.</span></div>
+      <div class="meta-row"><span class="meta-label">Placement tag = creative ID</span><span class="meta-value">utm_content carries the physical placement — truck decal, invoice, yard sign, direct mail, business card. This is the QR equivalent of creative variant. Critical for understanding which offline channel is driving sessions.</span></div>
+      <div class="meta-row"><span class="meta-label">Personalised vs broadcast</span><span class="meta-value">Personalised QR (CID present) → Tier 1 immediately. Broadcast QR (no CID) → Tier 3, anonymous session, standard pixel flow.</span></div>
+      <div class="meta-row"><span class="meta-label">Gap — qr_session_start missing</span><span class="meta-value">No dedicated session-open event. Placement tag not read at session open. Mobile confirmation not explicitly captured. Needs qr_session_start parallel to ad_session_start.</span></div>
+      <div class="meta-row"><span class="meta-label">Build status</span><span class="meta-value"><strong style="color:var(--amber)">⚠ Partial</strong> — UTM arrives. No dedicated event reads placement tag or confirms mobile at session open.</span></div>
+    </div>
+    <div class="questions-panel">
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q1</span><span class="q-title">Did this event happen?  —  Event validity</span><span class="q-status status-pass">Passes</span></div>
+        <div class="q-body">
+          <div class="payload-label">qr_session_start — fires when utm_source = qr detected</div>
+          <div class="q-code"><span class="code-comment">// utm_source = qr detected on page load</span>
+{
+  <span class="code-key">"eventType"</span>:      <span class="code-str">"qr_session_start"</span>,
+  <span class="code-key">"utmSource"</span>:      <span class="code-str">"qr"</span>,
+  <span class="code-key">"utmCampaign"</span>:    <span class="code-str">"spring-2026-direct-mail"</span>,
+  <span class="code-key">"placementTag"</span>:   <span class="code-str">"truck-decal-unit-1"</span>,   <span class="code-comment">// utm_content = physical placement</span>
+  <span class="code-key">"mobileConfirmed"</span>:<span class="code-val">true</span>,              <span class="code-comment">// always true — QR = mobile</span>
+  <span class="code-key">"isPersonalised"</span>: <span class="code-val">false</span>,             <span class="code-comment">// true if CID present in URL</span>
+  <span class="code-key">"cid"</span>:            <span class="code-str">null</span>,              <span class="code-comment">// CID if personalised QR</span>
+  <span class="code-key">"landingPage"</span>:    <span class="code-str">"/specials"</span>,
+  <span class="code-key">"sessionId"</span>:      <span class="code-str">"sess_9d2f1a"</span>,
+  <span class="code-key">"temporalContext"</span>: {
+    <span class="code-key">"hour"</span>:          <span class="code-val">14</span>,
+    <span class="code-key">"isAfterHours"</span>:  <span class="code-val">false</span>,
+    <span class="code-key">"dayOfWeek"</span>:     <span class="code-str">"tuesday"</span>,
+    <span class="code-key">"isWeekend"</span>:     <span class="code-val">false</span>,
+    <span class="code-key">"season"</span>:        <span class="code-str">"spring"</span>,
+    <span class="code-key">"monthOfYear"</span>:   <span class="code-val">5</span>,
+    <span class="code-key">"weatherSignal"</span>: <span class="code-str">"thaw_active"</span>
+  }
+}</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q2</span><span class="q-title">Who did this?  —  Attribution</span><span class="q-status status-branch">Branches on CID</span></div>
+        <div class="q-body">
+          <div class="q-branch-grid">
+            <div class="branch-box branch-t1"><div class="branch-label bl-t1">Tier 1 — personalised QR (CID present)</div><div class="branch-text">CID in URL → hub validate-token. Named from first pageview. Strongest offline-to-online attribution. Used on invoices, thank-you cards, direct mail to known contacts.</div></div>
+            <div class="branch-box branch-t3"><div class="branch-label bl-t3">Tier 3 — broadcast QR (no CID)</div><div class="branch-text">Anonymous session. Cookie + fingerprint. Standard pixel flow. Placement tag tells you which physical location drove the scan — but not who scanned it. Upgrades to Tier 1 at conversion.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q3 + Q4</span><span class="q-title">Classification + Destination</span><span class="q-status status-pass">Hub write</span></div>
+        <div class="q-body">
+          <div class="score-row" style="margin-bottom:10px"><div class="score-delta" style="font-size:14px">ACT</div><div class="score-info"><span class="score-bucket">Invoice QR → Active Project pre-load</span><span class="score-note">Prior job completed. High-intent return. Placement tells you context.</span></div></div>
+          <table class="write-table">
+            <thead><tr><th>Field</th><th>Value / action</th></tr></thead>
+            <tbody>
+              <tr><td>placementTag</td><td class="write-yes">Written to session and profile — which offline touchpoint drove the session</td></tr>
+              <tr><td>mobileConfirmed</td><td class="write-yes">Always true — deterministic · persona signal · channel preference inference</td></tr>
+              <tr><td>isPersonalised</td><td class="write-yes">Determines Tier path immediately</td></tr>
+              <tr><td>cid → Tier 1</td><td class="write-cond">If personalised — hub validate-token fires, Tier 1 from millisecond zero</td></tr>
+              <tr><td>Offline attribution</td><td class="write-yes">placementTag enables cost-per-session per physical placement — truck vs invoice vs mail</td></tr>
+                          <tr><td>bucket consequence</td><td class="write-yes">Emergency → A2P immediate + 15min SLA · Active Project → FotoJobber/ViewRoom prompt · Comparison → proof block + retargeting · Research → content nurture</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /p7 -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PROVIDER 8 — EMAIL + SMS
+  ════════════════════════════════════════════════════════ -->
+  <div class="card-grid" id="p8">
+    <div class="meta-panel">
+      <div class="meta-header">
+        <div class="meta-provider-num">Providers 13 + 14 of 16</div>
+        <div class="meta-provider-name">Email + SMS Personalised</div>
+        <div class="meta-provider-sub">Owned channels — cs_token · always Tier 1</div>
+      </div>
+      <div class="meta-row"><span class="meta-label">Stream</span><span class="meta-value tag tag-stream-a">Stream A — contact event</span></div>
+      <div class="meta-row"><span class="meta-label">Identity anchor</span><span class="meta-value">Email: CID → Tier 1 at millisecond zero. SMS: CID + phone number match → Very High, dual confirmed. Strongest anchors in the system after cs_token.</span></div>
+      <div class="meta-row"><span class="meta-label">cs_token</span><span class="meta-value">Signed JWT in link URL. Validated against hub before first pixel event. anonymousId = null from millisecond zero. Named visitor on first pageview.</span></div>
+      <div class="meta-row"><span class="meta-label">Gap — purpose not read at session open</span><span class="meta-value">JWT payload carries purpose field: follow_up · quote_ready · appointment_reminder · seasonal. This is the email/SMS equivalent of creative variant. Currently not confirmed as read and stored by pixel at session open.</span></div>
+      <div class="meta-row"><span class="meta-label">Build status</span><span class="meta-value"><strong style="color:var(--amber)">⚠ Partial</strong> — cs_token validated, Tier 1 fires. JWT purpose field not confirmed stored. campaignId not confirmed stored.</span></div>
+    </div>
+    <div class="questions-panel">
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q1</span><span class="q-title">Did this event happen?  —  Event validity</span><span class="q-status status-pass">Passes</span></div>
+        <div class="q-body">
+          <div class="payload-label">owned_channel_session_start — fires on cs_token detection</div>
+          <div class="q-code"><span class="code-comment">// cs_token detected in URL params — fires before any other event</span>
+<span class="code-comment">// Token stripped from URL immediately after read — never in browser history</span>
+{
+  <span class="code-key">"eventType"</span>:    <span class="code-str">"owned_channel_session_start"</span>,
+  <span class="code-key">"channel"</span>:      <span class="code-str">"email"</span>,          <span class="code-comment">// email | sms — from JWT payload</span>
+  <span class="code-key">"purpose"</span>:      <span class="code-str">"quote_ready"</span>,    <span class="code-comment">// follow_up | quote_ready | appointment_reminder | seasonal</span>
+  <span class="code-key">"campaignId"</span>:   <span class="code-str">"camp_991"</span>,
+  <span class="code-key">"hubProfileId"</span>: <span class="code-str">"hub_rf_0291"</span>,    <span class="code-comment">// from JWT sub — named from millisecond zero</span>
+  <span class="code-key">"csToken"</span>:      <span class="code-str">"eyJ..."</span>,         <span class="code-comment">// validated against hub before this event fires</span>
+  <span class="code-key">"sessionId"</span>:    <span class="code-str">"sess_9d2f1a"</span>,
+  <span class="code-key">"landingPage"</span>:  <span class="code-str">"/specials"</span>,
+  <span class="code-key">"temporalContext"</span>: {
+    <span class="code-key">"hour"</span>:          <span class="code-val">14</span>,
+    <span class="code-key">"isAfterHours"</span>:  <span class="code-val">false</span>,
+    <span class="code-key">"dayOfWeek"</span>:     <span class="code-str">"tuesday"</span>,
+    <span class="code-key">"isWeekend"</span>:     <span class="code-val">false</span>,
+    <span class="code-key">"season"</span>:        <span class="code-str">"spring"</span>,
+    <span class="code-key">"monthOfYear"</span>:   <span class="code-val">5</span>,
+    <span class="code-key">"weatherSignal"</span>: <span class="code-str">"thaw_active"</span>
+  }
+}
+</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q2</span><span class="q-title">Who did this?  —  Attribution</span><span class="q-status status-pass">Always Tier 1</span></div>
+        <div class="q-body">
+          <div class="branch-box branch-t1"><div class="branch-label bl-t1">Tier 1 — named from millisecond zero</div><div class="branch-text">cs_token validated before first pixel event. hubProfileId written immediately. anonymousId = null. Full pipeline active. All channels permitted. No resolution step needed — identity is already confirmed.</div></div>
+          <div class="full-note" style="margin-top:10px"><strong>Purpose field closes the content response loop for owned channels.</strong> If purpose = quote_ready and the visitor spends 4 minutes on the specials page and books — the quote_ready email worked. If purpose = follow_up and the visitor bounces in 8 seconds — the follow-up content didn't land. Without purpose, you know the email was clicked. You do not know which type of email produced which behaviour.</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q3 + Q4</span><span class="q-title">Classification + Destination</span><span class="q-status status-pass">Direct hub write</span></div>
+        <div class="q-body">
+          <div class="section-divider">Purpose → bucket pre-load mapping</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
+            <div class="score-row"><div class="score-delta" style="font-size:12px">ACT</div><div class="score-info"><span class="score-bucket">quote_ready · appointment_reminder → Active Project pre-load</span><span class="score-note">Named contact returning for a specific transaction. Highest conversion probability.</span></div></div>
+            <div class="score-row"><div class="score-delta" style="font-size:12px">CMP</div><div class="score-info"><span class="score-bucket">follow_up · seasonal → Comparison pre-load</span><span class="score-note">Re-engagement. May be warming back up — watch on-site behaviour.</span></div></div>
+          </div>
+          <table class="write-table">
+            <thead><tr><th>Field</th><th>Value / action</th></tr></thead>
+            <tbody>
+              <tr><td>purpose</td><td class="write-yes">Read from JWT · written to session and profile · content response feedback enabled</td></tr>
+              <tr><td>campaignId</td><td class="write-yes">Written to profile — connects email send to on-site behaviour to conversion</td></tr>
+              <tr><td>hubProfileId</td><td class="write-yes">Written immediately — Tier 1 from first event</td></tr>
+              <tr><td>channel</td><td class="write-yes">email or sms — informs channel preference persona signal</td></tr>
+              <tr><td>variant_served</td><td class="write-yes">Landing page variant written — purpose + variant + behaviour = complete owned channel feedback loop</td></tr>
+              <tr><td>SMS dual confirm</td><td class="write-yes">SMS only — CID + phone number match logged as dual confirmation at session open</td></tr>
+                          <tr><td>bucket consequence</td><td class="write-yes">Emergency → A2P immediate + 15min SLA · Active Project → FotoJobber/ViewRoom prompt · Comparison → proof block + retargeting · Research → content nurture</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /p8 -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       PROVIDER 9 — GBP WEBSITE CLICK
+  ════════════════════════════════════════════════════════ -->
+  <div class="card-grid" id="p9">
+    <div class="meta-panel">
+      <div class="meta-header">
+        <div class="meta-provider-num">Provider 05 of 16</div>
+        <div class="meta-provider-name">GBP Website Click</div>
+        <div class="meta-provider-sub">Google Business Profile → website · local intent</div>
+      </div>
+      <div class="meta-row"><span class="meta-label">Stream</span><span class="meta-value tag tag-stream-a">Stream A — contact event</span></div>
+      <div class="meta-row"><span class="meta-label">Delivery method</span><span class="meta-value tag tag-native">Referrer + UTM (if set) → pixel on landing</span></div>
+      <div class="meta-row"><span class="meta-label">UTM is manual</span><span class="meta-value">GBP does not auto-populate UTM. Rep must set the tracking template in GBP during onboarding. If not set, session arrives as direct traffic with google.com referrer — indistinguishable from organic.</span></div>
+      <div class="meta-row"><span class="meta-label">Pre-click context — GBP profile</span><span class="meta-value">Visitor saw star rating, review count, photos, hours, and services before clicking. This context is available via GBP Insights API but currently routes to Stream B aggregate only. For returning known contacts it could enrich the profile.</span></div>
+      <div class="meta-row"><span class="meta-label">High local intent</span><span class="meta-value">Clicking the website button on a GBP listing is a strong local intent signal. Visitor has already evaluated the listing. Arrives warmer than most organic sources.</span></div>
+      <div class="meta-row"><span class="meta-label">Build status</span><span class="meta-value"><strong style="color:var(--amber)">⚠ Partial</strong> — Referrer captured if present. UTM conditional on onboarding setup. No dedicated session-open event. Pre-click GBP context not captured at individual level.</span></div>
+    </div>
+    <div class="questions-panel">
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q1</span><span class="q-title">Did this event happen?  —  Event validity</span><span class="q-status status-branch">Conditional on setup</span></div>
+        <div class="q-body">
+          <div class="payload-label">gbp_session_start — fires when GBP referrer or UTM detected</div>
+          <div class="q-code"><span class="code-comment">// Detection: utm_source=gbp OR referrer contains google.com/maps OR google.com/search</span>
+{
+  <span class="code-key">"eventType"</span>:       <span class="code-str">"gbp_session_start"</span>,
+  <span class="code-key">"utmSource"</span>:       <span class="code-str">"gbp"</span>,            <span class="code-comment">// present only if tracking template set</span>
+  <span class="code-key">"referrer"</span>:        <span class="code-str">"google.com/maps"</span>, <span class="code-comment">// maps vs search — different intent warmth</span>
+  <span class="code-key">"utmCampaign"</span>:     <span class="code-str">"gbp-profile"</span>,    <span class="code-comment">// if set in tracking template</span>
+  <span class="code-key">"sourceConfidence"</span>:<span class="code-str">"utm_confirmed"</span>,  <span class="code-comment">// utm_confirmed | referrer_inferred | unknown</span>
+  <span class="code-key">"landingPage"</span>:     <span class="code-str">"/"</span>,
+  <span class="code-key">"sessionId"</span>:       <span class="code-str">"sess_9d2f1a"</span>,
+  <span class="code-key">"temporalContext"</span>: {
+    <span class="code-key">"hour"</span>:          <span class="code-val">14</span>,
+    <span class="code-key">"isAfterHours"</span>:  <span class="code-val">false</span>,
+    <span class="code-key">"dayOfWeek"</span>:     <span class="code-str">"tuesday"</span>,
+    <span class="code-key">"isWeekend"</span>:     <span class="code-val">false</span>,
+    <span class="code-key">"season"</span>:        <span class="code-str">"spring"</span>,
+    <span class="code-key">"monthOfYear"</span>:   <span class="code-val">5</span>,
+    <span class="code-key">"weatherSignal"</span>: <span class="code-str">"thaw_active"</span>
+  }
+}</div>
+          <div class="full-note" style="margin-top:10px"><strong>Maps vs Search referrer carries different intent weight.</strong> google.com/maps means the visitor was navigation-oriented — looking for a local business to call or visit. google.com/search means they were in results comparison mode. Both are high local intent but maps is warmer — they were already in action mode.</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q2</span><span class="q-title">Who did this?  —  Attribution</span><span class="q-status status-pass">Tier 3 → upgrades</span></div>
+        <div class="q-body">
+          <div class="branch-box branch-t3" style="margin-bottom:10px"><div class="branch-label bl-t3">Always Tier 3 at landing</div><div class="branch-text">No PII travels through GBP click. Session ID and fingerprint only. Standard upgrade path — Tier 1 at form submit, call click, or booking. If returning known contact, cookie match may resolve profile immediately.</div></div>
+          <div class="full-note"><strong>Onboarding dependency:</strong> If UTM tracking template is not set in GBP during onboarding, this session is indistinguishable from direct traffic. Must be verified in the QA pass checklist — confirmed UTM firing on a test click from the GBP listing. This is the most commonly missed setup step.</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-header"><span class="q-num">Q3 + Q4</span><span class="q-title">Classification + Destination</span><span class="q-status status-pass">Hub write</span></div>
+        <div class="q-body">
+          <div class="score-row" style="margin-bottom:10px"><div class="score-delta" style="font-size:12px">CMP</div><div class="score-info"><span class="score-bucket">GBP click → Comparison bucket pre-load</span><span class="score-note">Visitor evaluated the listing before clicking. Already in comparison mode. Warmer than organic homepage arrival.</span></div></div>
+          <div class="section-divider">Stream B — GBP Insights API</div>
+          <div class="branch-box branch-t3" style="margin-bottom:10px"><div class="branch-label bl-t3">Context Store — GBP aggregate performance</div><div class="branch-text">GBP Insights API: views, searches, direction requests, call volume, website click volume — aggregate only. Never individual. Tells Orchestrator how the GBP listing is performing as a traffic source relative to seasonal demand.</div></div>
+          <table class="write-table">
+            <thead><tr><th>Field</th><th>Value / action</th></tr></thead>
+            <tbody>
+              <tr><td>referrer</td><td class="write-yes">maps vs search written — different bucket pre-load weight</td></tr>
+              <tr><td>sourceConfidence</td><td class="write-yes">utm_confirmed | referrer_inferred | unknown — transparency on how source was detected</td></tr>
+              <tr><td>bucketPreload</td><td class="write-yes">Comparison on GBP click — warmer than organic</td></tr>
+              <tr><td>GBP Insights API</td><td class="write-yes">Stream B → Context Store — aggregate click volume, seasonal patterns</td></tr>
+              <tr><td>Onboarding gate</td><td class="write-cond">UTM tracking template must be verified in QA checklist — most commonly missed step</td></tr>
+                          <tr><td>bucket consequence</td><td class="write-yes">Emergency → A2P immediate + 15min SLA · Active Project → FotoJobber/ViewRoom prompt · Comparison → proof block + retargeting · Research → content nurture</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /p9 -->
+
+</div><!-- /main -->
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.card-grid').forEach(g => g.classList.remove('active'));
+    document.querySelectorAll('.sel-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "clearsky-rightflush-demo",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "ClearSky × RightFlush demo — the customer site (live monitoring HUD), the journey replay, and the code-vs-stories findings, served together. Mirrors the Vercel deploy.",
+  "scripts": {
+    "dev": "node scripts/serve-local.mjs",
+    "start": "node scripts/serve-local.mjs",
+    "build": "node scripts/build-site.mjs",
+    "replay": "npm --prefix prototype run demo",
+    "test": "npm --prefix prototype test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

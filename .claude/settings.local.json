@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(python --version)",
+      "PowerShell(py --version)",
+      "PowerShell(python -c \"import openpyxl; print\\(openpyxl.__version__\\)\")",
+      "Bash(cd \"C:\\\\Users\\\\rdred\\\\Desktop\\\\clearsky-blueprint\" && which extract-text 2>&1; find / -iname \"extract-text*\" 2>/dev/null | head -5)",
+      "PowerShell(python -c \"import openpyxl; print\\('ok', openpyxl.__version__\\)\" 2>&1)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)",
+      "Bash(git status *)",
+      "Bash(git add *)",
+      "Bash(echo \"---EXIT $?---\")",
+      "Bash(git diff *)",
+      "Bash(git rm *)",
+      "Bash(git mv *)",
+      "Bash(ls -la \"/c/Users/rdred/Downloads/clearsky-provider-tier-mapping.md\")",
+      "Bash(cp \"/c/Users/rdred/Downloads/clearsky-provider-tier-mapping.md\" \"/c/Users/rdred/Desktop/clearsky-blueprint/specs/clearsky-provider-tier-mapping.md\" && ls -la \"/c/Users/rdred/Desktop/clearsky-blueprint/specs/clearsky-provider-tier-mapping.md\")",
+      "Bash(git ls-remote *)",
+      "Bash(echo \"EXIT CODE: $?\")",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(git checkout *)",
+      "Bash(gh pr create --title 'Add George1 customer journey: comparison-shopper reaching active bucket via content' --body ' *)",
+      "Read(//c/Program Files/**)",
+      "Bash(where.exe gh *)"
+    ]
+  }
+}

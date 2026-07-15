@@ -1,0 +1,585 @@
+<title>ClearSky — Journey Replay</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --surface-2: #fbfcfd;
+    --ink: #111827;
+    --muted: #4b5563;
+    --faint: #9ca3af;
+    --border: #e3e7ef;
+    --border-strong: #c8cdd8;
+    --teal: #0d7f78; --teal-bg: #e8f7f6; --teal-bd: #9de0db;
+    --green: #0a7c45; --green-bg: #eaf7f0; --green-bd: #a7dfc4;
+    --red: #b91c1c; --red-bg: #fef2f2; --red-bd: #fca5a5;
+    --amber: #b45309; --amber-bg: #fef6e7; --amber-bd: #f4d290;
+    --blue: #1d4ed8; --blue-bg: #eff6ff; --blue-bd: #93c5fd;
+    --purple: #6d28d9; --purple-bg: #f5f3ff; --purple-bd: #c4b5fd;
+    --slate: #475569; --slate-bg: #f1f5f9; --slate-bd: #cbd5e1;
+    --sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --mono: ui-monospace, 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --shadow: 0 1px 2px rgba(16,24,40,.04), 0 8px 24px -12px rgba(16,24,40,.12);
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); line-height: 1.5;
+    font-feature-settings: "cv05", "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 64px; }
+
+  /* ── Masthead ─────────────────────────────────────────── */
+  header.mast { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .logo {
+    width: 34px; height: 34px; border-radius: 9px; flex: none;
+    background: linear-gradient(135deg, var(--teal), #0aa39a);
+    display: grid; place-items: center; box-shadow: var(--shadow);
+  }
+  .logo svg { width: 20px; height: 20px; }
+  .brand h1 { font-size: 1.06rem; margin: 0; letter-spacing: -.01em; font-weight: 600; }
+  .brand p { margin: 2px 0 0; font-size: .78rem; color: var(--muted); }
+  .mast-note {
+    font-family: var(--mono); font-size: .68rem; color: var(--muted);
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 11px; max-width: 320px; line-height: 1.45;
+  }
+  .mast-note b { color: var(--teal); font-weight: 600; }
+
+  /* ── Journey tabs ─────────────────────────────────────── */
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab {
+    font: inherit; font-size: .82rem; cursor: pointer;
+    background: var(--surface); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 7px 15px; transition: .16s ease; display: inline-flex; gap: 8px; align-items: center;
+  }
+  .tab .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); }
+  .tab:hover { border-color: var(--border-strong); color: var(--ink); }
+  .tab[aria-selected="true"] { background: var(--teal); border-color: var(--teal); color: #fff; font-weight: 600; }
+  .tab[aria-selected="true"] .dot { background: #fff; }
+
+  /* ── Console card ─────────────────────────────────────── */
+  .console { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+
+  /* profile bar */
+  .profile { display: flex; align-items: center; gap: 18px; padding: 14px 18px; border-bottom: 1px solid var(--border); flex-wrap: wrap; background: var(--surface-2); }
+  .who { display: flex; align-items: center; gap: 11px; min-width: 150px; }
+  .avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--slate-bg); color: var(--slate); display: grid; place-items: center; font-weight: 600; font-size: .8rem; border: 1px solid var(--border); }
+  .who .name { font-weight: 600; font-size: .92rem; }
+  .who .persona { font-size: .7rem; color: var(--faint); font-family: var(--mono); }
+  .stat { display: flex; flex-direction: column; gap: 3px; }
+  .stat .k { font-size: .6rem; text-transform: uppercase; letter-spacing: .09em; color: var(--faint); font-weight: 600; }
+  .badge { font-family: var(--mono); font-size: .78rem; font-weight: 600; padding: 3px 9px; border-radius: 6px; border: 1px solid; display: inline-block; transition: .2s ease; }
+  .score-wrap { flex: 1 1 190px; min-width: 160px; }
+  .meter { height: 8px; background: #eef1f5; border-radius: 999px; overflow: hidden; margin-top: 5px; border: 1px solid var(--border); }
+  .meter > span { display: block; height: 100%; width: 0; border-radius: 999px; transition: width .5s cubic-bezier(.2,.7,.2,1), background .3s; }
+  .score-num { font-family: var(--mono); font-weight: 600; font-size: .78rem; }
+  .stepcount { font-family: var(--mono); font-size: .72rem; color: var(--muted); margin-left: auto; }
+
+  /* controls */
+  .controls { display: flex; align-items: center; gap: 8px; padding: 11px 18px; border-bottom: 1px solid var(--border); }
+  .ctrl { font: inherit; cursor: pointer; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; font-size: .82rem; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; transition: .14s; }
+  .ctrl:hover:not(:disabled) { border-color: var(--border-strong); background: var(--surface-2); }
+  .ctrl:disabled { opacity: .4; cursor: default; }
+  .ctrl.primary { background: var(--teal); border-color: var(--teal); color: #fff; font-weight: 600; }
+  .ctrl.primary:hover:not(:disabled) { background: #0a6b65; }
+  .ctrl svg { width: 13px; height: 13px; }
+  .hint { margin-left: auto; font-size: .7rem; color: var(--faint); font-family: var(--mono); }
+
+  /* ── Stage: two columns ───────────────────────────────── */
+  .stage { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 0; min-height: 340px; }
+  .col { padding: 20px 22px; }
+  .col.trigger { border-right: 1px solid var(--border); background: var(--surface-2); }
+  .col-label { font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; color: var(--faint); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .col-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  .actor-chip { display: inline-flex; align-items: center; gap: 7px; font-size: .74rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+  .actor-chip .glyph { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+  .actor-chip.sys .glyph { background: var(--purple); }
+  .actor-chip.rep .glyph { background: var(--amber); }
+  .actor-chip.clock .glyph { background: var(--red); }
+
+  .event-tag { font-family: var(--mono); font-size: .72rem; color: var(--teal); background: var(--teal-bg); border: 1px solid var(--teal-bd); padding: 2px 8px; border-radius: 6px; }
+  .trig-head { font-size: 1.28rem; line-height: 1.25; font-weight: 600; letter-spacing: -.015em; margin: 16px 0 8px; text-wrap: balance; }
+  .trig-time { font-family: var(--mono); font-size: .74rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .trig-meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* system column blocks */
+  .block { margin-bottom: 16px; }
+  .block:last-child { margin-bottom: 0; }
+  .block-h { font-size: .6rem; text-transform: uppercase; letter-spacing: .1em; color: var(--faint); font-weight: 700; margin-bottom: 8px; }
+  .notes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .notes li { font-size: .84rem; color: var(--ink); padding-left: 16px; position: relative; }
+  .notes li::before { content: "›"; position: absolute; left: 2px; color: var(--teal); font-weight: 700; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-family: var(--mono); font-size: .72rem; font-weight: 600; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); }
+  .chip.dim { opacity: .5; }
+  .chip.sig { background: var(--blue-bg); border-color: var(--blue-bd); color: var(--blue); }
+  .chip.sig.dom { background: var(--teal-bg); border-color: var(--teal-bd); color: var(--teal); }
+  .chip.gap { background: var(--amber-bg); border-color: var(--amber-bd); color: var(--amber); cursor: help; }
+  .chip.gap.gap-new { background: var(--red-bg); border-color: var(--red-bd); color: var(--red); }
+
+  /* AI analysis dims */
+  .dims { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px,1fr)); gap: 6px; }
+  .dim { border: 1px solid var(--border); border-radius: 7px; padding: 6px 9px; background: var(--surface); }
+  .dim .dk { font-size: .56rem; text-transform: uppercase; letter-spacing: .07em; color: var(--faint); font-weight: 700; }
+  .dim .dv { font-family: var(--mono); font-size: .8rem; font-weight: 600; margin-top: 1px; }
+  .dim.hot { background: var(--red-bg); border-color: var(--red-bd); }
+  .dim.hot .dv { color: var(--red); }
+  .dim.warm { background: var(--amber-bg); border-color: var(--amber-bd); }
+  .dim.warm .dv { color: var(--amber); }
+  .dim.go .dv { color: var(--green); }
+
+  /* actions */
+  .acts { display: flex; flex-direction: column; gap: 6px; }
+  .act { display: flex; align-items: center; gap: 9px; padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+  .act .ico { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; flex: none; font-size: .7rem; font-weight: 700; }
+  .act.done .ico { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-bd); }
+  .act.wait .ico { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-bd); }
+  .act .aid { font-family: var(--mono); font-size: .72rem; font-weight: 600; color: var(--ink); }
+  .act .aname { font-size: .8rem; color: var(--muted); }
+  .act .owner { margin-left: auto; font-family: var(--mono); font-size: .64rem; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; }
+
+  /* breach styling */
+  .col.system.breach { background: linear-gradient(180deg, var(--red-bg), var(--surface) 120px); }
+  .breach-banner { display: flex; align-items: center; gap: 9px; font-weight: 600; color: var(--red); font-size: .92rem; margin-bottom: 12px; padding: 9px 12px; background: var(--red-bg); border: 1px solid var(--red-bd); border-radius: 9px; }
+  .breach-banner svg { width: 16px; height: 16px; flex: none; }
+  .esc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .esc { display: flex; align-items: center; gap: 10px; font-size: .84rem; padding: 8px 11px; border: 1px solid var(--red-bd); border-radius: 8px; background: var(--surface); }
+  .esc .n { font-family: var(--mono); font-weight: 700; color: var(--red); font-size: .78rem; width: 16px; }
+  .bridge-note { margin-top: 14px; padding: 11px 13px; border: 1px dashed var(--teal-bd); background: var(--teal-bg); border-radius: 9px; font-size: .84rem; color: #0a5f5a; }
+  .bridge-note b { color: var(--teal); }
+
+  /* fade */
+  .fade { animation: fade .28s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  /* ── Timeline ─────────────────────────────────────────── */
+  .timeline { display: flex; align-items: center; gap: 0; padding: 16px 18px 6px; overflow-x: auto; }
+  .tl-track { display: flex; align-items: center; gap: 0; min-width: max-content; }
+  .tl-node { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; background: none; border: none; font: inherit; padding: 0 3px; }
+  .tl-dot { width: 13px; height: 13px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border-strong); transition: .18s; }
+  .tl-node:hover .tl-dot { border-color: var(--teal); }
+  .tl-node[aria-current="true"] .tl-dot { background: var(--teal); border-color: var(--teal); transform: scale(1.25); box-shadow: 0 0 0 4px var(--teal-bg); }
+  .tl-node.breach .tl-dot { border-color: var(--red); }
+  .tl-node.breach[aria-current="true"] .tl-dot { background: var(--red); box-shadow: 0 0 0 4px var(--red-bg); }
+  .tl-node.convert .tl-dot { border-color: var(--green); }
+  .tl-node.convert[aria-current="true"] .tl-dot { background: var(--green); box-shadow: 0 0 0 4px var(--green-bg); }
+  .tl-node.done .tl-dot::after { }
+  .tl-node.passed .tl-dot { background: var(--teal-bd); border-color: var(--teal-bd); }
+  .tl-seg { width: 26px; height: 2px; background: var(--border); }
+  .tl-seg.passed { background: var(--teal-bd); }
+  .tl-cap { font-family: var(--mono); font-size: .58rem; color: var(--faint); white-space: nowrap; max-width: 64px; overflow: hidden; text-overflow: ellipsis; }
+  .tl-node[aria-current="true"] .tl-cap { color: var(--ink); font-weight: 600; }
+
+  /* legend / footer */
+  .footer { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 18px; font-size: .74rem; color: var(--muted); }
+  .leg { display: inline-flex; align-items: center; gap: 6px; }
+  .leg .sw { width: 10px; height: 10px; border-radius: 3px; }
+  .gapcount { margin-left: auto; font-family: var(--mono); }
+  .gapcount b { color: var(--amber); }
+
+  @media (max-width: 720px) {
+    .stage { grid-template-columns: 1fr; }
+    .col.trigger { border-right: none; border-bottom: 1px solid var(--border); }
+    .stepcount { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 6px; }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 15a4 4 0 013.8-4 5 5 0 019.7-1.3A3.5 3.5 0 0119 16H7a3 3 0 01-3-1z" fill="#fff" opacity=".95"/></svg>
+      </div>
+      <div>
+        <h1>ClearSky — AI Decision System</h1>
+        <p>Journey replay · one customer, walked through the seven-stage pipeline</p>
+      </div>
+    </div>
+    <div class="mast-note">
+      Every step below is produced by the <b>prototype engine</b> running the journey
+      end-to-end — not a mockup. <code>npm&nbsp;run&nbsp;sim</code>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Journeys"></nav>
+
+  <section class="console" aria-live="polite">
+    <div class="profile">
+      <div class="who">
+        <div class="avatar" id="avatar">B</div>
+        <div>
+          <div class="name" id="who-name">Barry</div>
+          <div class="persona" id="who-persona">persona: John1</div>
+        </div>
+      </div>
+      <div class="stat">
+        <span class="k">Identity tier</span>
+        <span class="badge" id="tier-badge">Tier 2B</span>
+      </div>
+      <div class="stat">
+        <span class="k">Intent bucket</span>
+        <span class="badge" id="bucket-badge">unclassified</span>
+      </div>
+      <div class="stat score-wrap">
+        <span class="k">Engagement score · <span class="score-num" id="score-num">0</span>/100</span>
+        <div class="meter"><span id="meter-fill"></span></div>
+      </div>
+      <span class="stepcount"><span id="step-i">1</span> / <span id="step-n">13</span></span>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl" id="prev" aria-label="Previous step">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 6l-6 6 6 6"/></svg> Prev
+      </button>
+      <button class="ctrl primary" id="play" aria-label="Play journey">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play
+      </button>
+      <button class="ctrl" id="next" aria-label="Next step">
+        Next <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <span class="hint">← / → to step · space to play</span>
+    </div>
+
+    <div class="stage">
+      <div class="col trigger">
+        <div class="col-label">Trigger</div>
+        <div id="trigger-body"></div>
+      </div>
+      <div class="col system" id="system-col">
+        <div class="col-label">ClearSky decides</div>
+        <div id="system-body"></div>
+      </div>
+    </div>
+
+    <div class="timeline"><div class="tl-track" id="tl-track"></div></div>
+  </section>
+
+  <div class="footer">
+    <span class="leg"><span class="sw" style="background:var(--teal)"></span> executed / identified</span>
+    <span class="leg"><span class="sw" style="background:var(--red)"></span> SLA breach</span>
+    <span class="leg"><span class="sw" style="background:var(--amber)"></span> tracker gap</span>
+    <span class="leg"><span class="sw" style="background:var(--red)"></span> NEW gap (just flagged)</span>
+    <span class="gapcount">gaps surfaced this journey: <b id="gap-total">0</b></span>
+  </div>
+</div>
+
+<script id="trace-data" type="application/json">[{"id":"barry","title":"Barry's Story — ClearSky pixel → home page → Lead Grabber","source":"customer-journeys/01-clearsky-home-01John.md","steps":[{"day":0,"device":"phone","event":"page_load","label":"no hot water — lands on the home page","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"unclassified","scoreRaw":0,"identifiers":[]},"profileWasNew":false,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)"],"gaps":[]},{"day":0,"device":"phone","event":"scroll_25","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":3,"identifiers":[]},"profileWasNew":false,"notes":["score 0 +3 → 3","bucket unclassified → research (research outranks on the ladder)"],"gaps":[]},{"day":0,"device":"phone","event":"scroll_50","label":"past the services grid, no card clicks","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":8,"identifiers":[]},"profileWasNew":false,"notes":["score 3 +5 → 8"],"gaps":[]},{"day":0,"device":"phone","event":"dwell_30","label":"pauses on 'How it works'","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":12,"identifiers":[]},"profileWasNew":false,"notes":["score 8 +4 → 12"],"gaps":[]},{"day":0,"device":"phone","event":"faq_expand","label":"hot water tank replacement cost","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":17,"identifiers":[]},"profileWasNew":false,"notes":["score 12 +5 → 17"],"gaps":[]},{"day":0,"device":"phone","event":"faq_expand","label":"emergency plumbing cost","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":22,"identifiers":[]},"profileWasNew":false,"notes":["score 17 +5 → 22"],"gaps":[]},{"day":0,"device":"phone","event":"lg_open","label":"opens the Lead Grabber panel","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"active","scoreRaw":30,"identifiers":[]},"profileWasNew":false,"notes":["score 22 +8 → 30","bucket research → active (active outranks on the ladder)"],"gaps":[]},{"day":0,"device":"phone","event":"lg_submit","label":"submits name + phone + 'no hot water, call me right away'","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":true,"notes":["score 30 +15 → 45","crossed 35 → Site Personalization eligible (Tier 2/2B)","strong identifier (phone) → Tier 1 immediately; merged this device's anonymous history onto hub_1","cross-device records are NOT merged (fingerprint cap <70%, §4.7)"],"gaps":[{"ref":"8","note":"≥35 personalization threshold generalized from §10, not locked"}],"pipeline":{"eventId":"evt_1","analysis":{"sentiment":"ambiguous","urgency":"high","emergency":false,"emergencyType":"no_hot_water","opportunity":"high","momentum":"ready_to_book","risk":"low","summary":"I have no hot water, can I have your company give me a call right away."},"signals":["NEW_CUSTOMER_OPPORTUNITY","BOOKING_OPPORTUNITY"],"dominant":"NEW_CUSTOMER_OPPORTUNITY","suppressed":["BOOKING_OPPORTUNITY"],"actions":[{"actionId":"ACT-CALL-002","name":"Send urgent alert to team","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]},{"actionId":"ACT-CALL-004","name":"Log opportunity to CRM","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]},{"actionId":"ACT-CALL-005","name":"Generate call-context summary (internal)","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]},{"actionId":"ACT-CALL-001","name":"Create callback task","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]}],"feedback":{"signalValidity":"likely_valid","actionExecutionQuality":"worked_as_expected","humanReviewState":"not_applicable","decisionQuality":"reasonable_so_far","productionRulesChanged":false,"tuningCandidates":[]},"gaps":[],"notes":["S1 AI analysis → emergency:false urgency:high opportunity:high momentum:ready_to_book sentiment:ambiguous"]}},{"day":0,"minute":0,"device":"phone","event":"sla_register","label":"callback committed","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":["ACT-CALL-001 callback task created + auto-reply \"a rep will call in 10 minutes\" — SLA clock started"],"gaps":[]},{"day":0,"minute":15,"device":"phone","event":"sla_check","label":"10 min pass, then 11… still no call. At 15 min the system checks the logs","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":["no outbound contact by sla+5 (15m) — three escalation channels fire to the rep","SLA BREACH → escalation channels fire to the rep: SMS, push, autocall","  1. SMS — \"callback to 705-264-2251 is overdue. Call now.\"","  2. push notification — same content","  3. automated call — \"you're in violation of your SLA. Press 1 to be connected now.\""],"gaps":[{"ref":"35","note":"who the breach escalates to when the assigned rep IS the owner (Bert) — and whether escalation repeats — is open"}]},{"day":0,"minute":15,"device":"phone","event":"autocall_authorize","label":"Bert presses 1 — authorizes the bridge","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":["rep pressed 1 → autocaller bridges rep↔customer; IVR plays the merge/recording disclosure before joining","callback recovered 5 min past the promise, only because the escalation caught what the rep missed"],"gaps":[]},{"day":0,"device":"phone","event":"call_completed","label":"bridge connects — Bert talks to Barry","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"KBS","note":"CallEvent→events bridge is unbuilt; this call reaches S1–S7 via the story-proposed multi-fire mechanism"}],"pipeline":{"eventId":"evt_2","analysis":{"sentiment":"ambiguous","urgency":"high","emergency":false,"emergencyType":"no_hot_water","opportunity":"medium","momentum":"interested","risk":"low","summary":"Owner confirmed the water heater has been rumbling for a week and there is no hot water this morning; flat-rate pricing applies, with no extra charge for same-day. He committed to arrive at the customer's home at 3:00 PM and to text when on the way."},"signals":[],"suppressed":[],"actions":[],"gaps":[{"ref":"KBS","note":"CallEvent→events bridge is unbuilt; this call reaches S1–S7 via the story-proposed multi-fire mechanism"}],"notes":["S1 AI analysis → emergency:false urgency:high opportunity:medium momentum:interested sentiment:ambiguous"]}},{"day":0,"minute":16,"device":"phone","event":"commitment_extracted","label":"I'll be out at 3:00 PM","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":["post-call transcript → extracted \"I'll be out at 3:00 PM\"","ACT-CALL-010 (write to rep calendar, proposed) + ACT-CALL-004 (log to Barry's profile) — both automatic, recap only"],"gaps":[{"ref":"41","note":"ACT-CALL-010 is a proposed Action; also open whether the rep's 'on my way' text goes through A2P or a personal phone"}]},{"day":0,"device":"phone","event":"voicemail_received","label":"Bert's operational voicemail — $500 deposit logged to Barry's profile (Gap 36)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"36","note":"Supplier/inventory purchasing system is outside scope"}]},{"day":0,"device":"phone","event":"send_follow_up_message","label":"Order confirmed: $500 deposit received, $1,500 balance due on installation.","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[]},{"day":10,"device":"phone","event":"send_follow_up_message","label":"Arrival notice: Your water heater has arrived.","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":["demote active → comparison (score_live 27.4 < 35 AND idle 10d > 3d grace)"],"gaps":[{"ref":"V2","note":"grace/half-life from story; confirm vs current Four Buckets report"}]},{"day":13,"device":"phone","event":"send_follow_up_message","label":"Installation day reminder: installation is tomorrow at 4:00 PM.","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[]},{"day":10,"device":"phone","event":"supplier_delivery_received","label":"Supplier delivery lands at shop (Gap 37)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"37","note":"No trigger for supplier delivery received"}]},{"day":14,"device":"phone","event":"job_completed","label":"Job completed (Gap 38)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"38","note":"No Action for job-completed event"}]},{"day":14,"device":"phone","event":"invoice_sent","label":"Invoice sent (Gap 39)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"39","note":"No Action for sending an invoice or balance collection"}]},{"day":14,"device":"phone","event":"payment_received","label":"Balance collected (Gap 39)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"39","note":"No Action for sending an invoice or balance collection"}]},{"day":10,"device":"phone","event":"outbound_call_voicemail","label":"Bert leaves voicemail offering time slots (Gap 42)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"42","note":"Outbound call to voicemail capture is inferred"}]},{"day":10,"device":"phone","event":"scheduling_email_sent","label":"Scheduling email sent with available slots (Gap 43)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"43","note":"Self-service slot selection is proposed"}]},{"day":10,"device":"phone","event":"slot_selected","label":"Barry clicks and chooses 4:00 PM Monday (Gap 43 / Gap 41)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"43","note":"Self-service slot selection is proposed"}]},{"day":44,"device":"phone","event":"review_request_sent","label":"One month later: review ask sent (Gap 24)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"24","note":"No Action exists for review request"}]},{"day":74,"device":"phone","event":"relationship_check_in_sent","label":"Two months later: relationship check-in (KBS Post-job system)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[]},{"day":74,"device":"phone","event":"facebook_follow_ask","label":"Bert asks Barry to follow RightFlush on Facebook","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[]},{"day":75,"device":"phone","event":"facebook_followed","label":"Barry follows Facebook page → reciprocal follow-back triggered","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":45,"hubProfileId":"hub_1","identifiers":["phone:sha256(+17052642251)"]},"profileWasNew":false,"notes":[],"gaps":[]}]},{"id":"denise","title":"Denise's Story — RightFlush full loop","source":"RightFlush-Denise-Customer-Journey.md","steps":[{"day":0,"device":"phone","event":"page_load","label":"reads the ContentRadar-seeded blog post","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":3,"identifiers":[]},"profileWasNew":false,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)","score 0 +3 → 3","bucket unclassified → research (research outranks on the ladder)"],"gaps":[]},{"day":0,"device":"phone","event":"scroll_25","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":6,"identifiers":[]},"profileWasNew":false,"notes":["score 3 +3 → 6"],"gaps":[]},{"day":0,"device":"phone","event":"scroll_50","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":11,"identifiers":[]},"profileWasNew":false,"notes":["score 6 +5 → 11"],"gaps":[]},{"day":0,"device":"phone","event":"dwell_30","label":"~35s, closes the tab","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":15,"identifiers":[]},"profileWasNew":false,"notes":["score 11 +4 → 15"],"gaps":[]},{"day":3,"device":"laptop","event":"page_load","label":"different device — looks like a different person","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":5,"identifiers":[]},"profileWasNew":false,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)","score 0 +5 → 5","bucket unclassified → comparison (comparison outranks on the ladder)"],"gaps":[]},{"day":3,"device":"laptop","event":"scroll_25","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":8,"identifiers":[]},"profileWasNew":false,"notes":["score 5 +3 → 8"],"gaps":[]},{"day":3,"device":"laptop","event":"scroll_50","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":13,"identifiers":[]},"profileWasNew":false,"notes":["score 8 +5 → 13"],"gaps":[]},{"day":3,"device":"laptop","event":"dwell_30","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":17,"identifiers":[]},"profileWasNew":false,"notes":["score 13 +4 → 17"],"gaps":[]},{"day":11,"device":"phone","event":"page_load","label":"day-11 return, straight to FAQ","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":19,"identifiers":[]},"profileWasNew":false,"notes":["score 15 +4 → 19"],"gaps":[]},{"day":11,"device":"phone","event":"scroll_25","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":22,"identifiers":[]},"profileWasNew":false,"notes":["score 19 +3 → 22"],"gaps":[]},{"day":11,"device":"phone","event":"scroll_50","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":27,"identifiers":[]},"profileWasNew":false,"notes":["score 22 +5 → 27"],"gaps":[]},{"day":11,"device":"phone","event":"dwell_30","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":31,"identifiers":[]},"profileWasNew":false,"notes":["score 27 +4 → 31"],"gaps":[]},{"day":11,"device":"phone","event":"dwell_60","label":"reads past a minute → crosses 35","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":38,"identifiers":[]},"profileWasNew":false,"notes":["score 31 +7 → 38","crossed 35 → Site Personalization eligible (Tier 2/2B)"],"gaps":[{"ref":"8","note":"≥35 personalization threshold generalized from §10, not locked"}]},{"day":11,"device":"phone","event":"email_capture","label":"downloads the Homeowner's Guide — email only","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"research","scoreRaw":38,"hubProfileId":"hub_1","identifiers":["email:sha256(denise@example.com)"]},"profileWasNew":true,"notes":["strong identifier (email) → Tier 1 immediately; merged this device's anonymous history onto hub_1","cross-device records are NOT merged (fingerprint cap <70%, §4.7)"],"gaps":[{"ref":"32","note":"SIG-CONV-001 is defined twice across the two seed files; using the 004_40_signals_seed definition"}],"pipeline":{"eventId":"evt_3","signals":["SIG-CONV-001"],"dominant":"SIG-CONV-001","suppressed":[],"actions":[{"actionId":"ACT-NURTURE-ENROLL","name":"Enroll in NurtureSequence","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]}],"feedback":{"signalValidity":"likely_valid","actionExecutionQuality":"worked_as_expected","humanReviewState":"not_applicable","decisionQuality":"reasonable_so_far","productionRulesChanged":false,"tuningCandidates":[]},"gaps":[{"ref":"32","note":"SIG-CONV-001 is defined twice across the two seed files; using the 004_40_signals_seed definition"}],"notes":[]}}]},{"id":"denise-call","title":"Denise's Story — the call (Ch3–5)","source":"RightFlush-Denise-Customer-Journey.md","steps":[{"day":0,"device":"phone","event":"email_capture","label":"already Tier 1 from the guide download","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"research","scoreRaw":0,"hubProfileId":"hub_1","identifiers":["email:sha256(denise@example.com)"]},"profileWasNew":true,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)","bucket unclassified → research (research outranks on the ladder)","strong identifier (email) → Tier 1 immediately; merged this device's anonymous history onto hub_1","cross-device records are NOT merged (fingerprint cap <70%, §4.7)"],"gaps":[{"ref":"32","note":"SIG-CONV-001 is defined twice across the two seed files; using the 004_40_signals_seed definition"}],"pipeline":{"eventId":"evt_4","signals":["SIG-CONV-001"],"dominant":"SIG-CONV-001","suppressed":[],"actions":[{"actionId":"ACT-NURTURE-ENROLL","name":"Enroll in NurtureSequence","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]}],"feedback":{"signalValidity":"likely_valid","actionExecutionQuality":"worked_as_expected","humanReviewState":"not_applicable","decisionQuality":"reasonable_so_far","productionRulesChanged":false,"tuningCandidates":[]},"gaps":[{"ref":"32","note":"SIG-CONV-001 is defined twice across the two seed files; using the 004_40_signals_seed definition"}],"notes":[]}},{"day":30,"device":"phone","event":"call_click","label":"taps Call Now (+15, active)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":15,"hubProfileId":"hub_1","identifiers":["email:sha256(denise@example.com)"]},"profileWasNew":false,"notes":["demote research → unclassified (score_live 0.0 < 8 AND idle 30d > 14d grace)","score 0 +15 → 15","bucket unclassified → active (active outranks on the ladder)"],"gaps":[{"ref":"V2","note":"grace/half-life from story; confirm vs current Four Buckets report"}]},{"day":30,"device":"phone","event":"ivr_dtmf","label":"presses 2 — Estimates/Quotes (+10)","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":25,"hubProfileId":"hub_1","identifiers":["email:sha256(denise@example.com)"]},"profileWasNew":false,"notes":["score 15 +10 → 25"],"gaps":[{"ref":"KBS","note":"IVR-selection scoring depends on the unbuilt CallEvent→events bridge"}]},{"day":30,"device":"phone","event":"call_completed","label":"live call — consultation booked","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":25,"hubProfileId":"hub_1","identifiers":["email:sha256(denise@example.com)"]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"KBS","note":"CallEvent→events bridge is unbuilt; this call reaches S1–S7 via the story-proposed multi-fire mechanism"}],"pipeline":{"eventId":"evt_5","analysis":{"sentiment":"ambiguous","urgency":"medium","emergency":false,"emergencyType":"general","opportunity":"medium","momentum":"ready_to_book","risk":"low","summary":"Homeowner wants a full bathroom renovation and is ready to book an in-home consultation for July 20th at 10am. Mentioned a heated towel rack if it fits the budget."},"signals":["BOOKING_OPPORTUNITY"],"dominant":"BOOKING_OPPORTUNITY","suppressed":[],"actions":[{"actionId":"ACT-CALL-001","name":"Create callback task","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]},{"actionId":"ACT-CALL-004","name":"Log opportunity to CRM","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]}],"feedback":{"signalValidity":"likely_valid","actionExecutionQuality":"worked_as_expected","humanReviewState":"not_applicable","decisionQuality":"reasonable_so_far","productionRulesChanged":false,"tuningCandidates":[]},"gaps":[{"ref":"KBS","note":"CallEvent→events bridge is unbuilt; this call reaches S1–S7 via the story-proposed multi-fire mechanism"}],"notes":["S1 AI analysis → emergency:false urgency:medium opportunity:medium momentum:ready_to_book sentiment:ambiguous"]}},{"day":34,"device":"phone","event":"voicemail","label":"reschedule request","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"comparison","scoreRaw":25,"hubProfileId":"hub_1","identifiers":["email:sha256(denise@example.com)"]},"profileWasNew":false,"notes":["demote active → comparison (score_live 20.5 < 35 AND idle 4d > 3d grace)"],"gaps":[{"ref":"V2","note":"grace/half-life from story; confirm vs current Four Buckets report"},{"ref":"KBS","note":"CallEvent→events bridge is unbuilt; this call reaches S1–S7 via the story-proposed multi-fire mechanism"}],"pipeline":{"eventId":"evt_6","analysis":{"sentiment":"ambiguous","urgency":"medium","emergency":false,"emergencyType":"general","opportunity":"medium","momentum":"interested","risk":"low","summary":"Hi it's Denise. Something came up on the 20th in the morning. Any chance we could move the consultation to noon instead? Give me a call when you can."},"signals":["CALLBACK_REQUIRED"],"dominant":"CALLBACK_REQUIRED","suppressed":[],"actions":[{"actionId":"ACT-CALL-001","name":"Create callback task","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]}],"feedback":{"signalValidity":"likely_valid","actionExecutionQuality":"worked_as_expected","humanReviewState":"not_applicable","decisionQuality":"reasonable_so_far","productionRulesChanged":false,"tuningCandidates":[]},"gaps":[{"ref":"KBS","note":"CallEvent→events bridge is unbuilt; this call reaches S1–S7 via the story-proposed multi-fire mechanism"}],"notes":["S1 AI analysis → emergency:false urgency:medium opportunity:medium momentum:interested sentiment:ambiguous"]}}]},{"id":"denise-review","title":"Denise's Story — the 5-star review (Ch9)","source":"RightFlush-Denise-Customer-Journey.md","steps":[{"day":0,"device":"phone","event":"review_received","label":"5 stars, praise + referral language","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"unclassified","scoreRaw":0,"identifiers":[]},"profileWasNew":false,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)"],"gaps":[{"ref":"23","note":"SIG-GROW-002 wired to its correct action (ACT-REV-005), fixing the seed mis-wire to ACT-REV-007"},{"ref":"23","note":"SIG-GROW-005 wired to its correct action (ACT-TASK-001), fixing the seed mis-wire to ACT-REV-007"}],"pipeline":{"eventId":"evt_7","signals":["SIG-GROW-002","SIG-GROW-005"],"dominant":"SIG-GROW-002","suppressed":["SIG-GROW-005"],"actions":[{"actionId":"ACT-REV-005","name":"Mark testimonial candidate","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]},{"actionId":"ACT-TASK-001","name":"Create internal task","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]}],"feedback":{"signalValidity":"likely_valid","actionExecutionQuality":"worked_as_expected","humanReviewState":"not_applicable","decisionQuality":"reasonable_so_far","productionRulesChanged":false,"tuningCandidates":[]},"gaps":[{"ref":"23","note":"SIG-GROW-002 wired to its correct action (ACT-REV-005), fixing the seed mis-wire to ACT-REV-007"},{"ref":"23","note":"SIG-GROW-005 wired to its correct action (ACT-TASK-001), fixing the seed mis-wire to ACT-REV-007"}],"notes":[]}}]},{"id":"george","title":"George's Story — comparison shopper reaches `active` anonymously (Ch1)","source":"customer-journeys/02-clearsky-home-01George.md","steps":[{"day":0,"device":"laptop","event":"page_load","label":"Saturday morning — opens the home page on his laptop","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"unclassified","scoreRaw":0,"identifiers":[]},"profileWasNew":false,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)"],"gaps":[]},{"day":0,"device":"laptop","event":"scroll_50","label":"reads down through all eight service cards","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":5,"identifiers":[]},"profileWasNew":false,"notes":["score 0 +5 → 5","bucket unclassified → comparison (comparison outranks on the ladder)"],"gaps":[]},{"day":0,"device":"laptop","event":"scroll_75","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":12,"identifiers":[]},"profileWasNew":false,"notes":["score 5 +7 → 12"],"gaps":[]},{"day":0,"device":"laptop","event":"svc_click","label":"clicks /pipe-repair — the closest match, but a compromise","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":12,"identifiers":[]},"profileWasNew":false,"notes":[],"gaps":[{"ref":"NEW-A","note":"NEW (Rory, not yet in tracker): the services grid's card copy is written for named/urgent problems (burst pipe, no hot water), not a slow undiagnosed one a homeowner is getting ahead of — the system sees engagement, not the customer's own framing. A content-level echo of Barry's Ch1 Emergency-band gap."}]},{"day":0,"device":"laptop","event":"faq_expand","label":"'How does flat-rate pricing work?' — the reassurance he needed","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":17,"identifiers":[]},"profileWasNew":false,"notes":["score 12 +5 → 17"],"gaps":[]},{"day":0,"device":"laptop","event":"faq_expand","label":"'Do you charge for estimates?' — a number without committing","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":22,"identifiers":[]},"profileWasNew":false,"notes":["score 17 +5 → 22"],"gaps":[]},{"day":0,"device":"laptop","event":"page_load","label":"Before & After gallery — this page's page_load is already tagged comparison","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":26,"identifiers":[]},"profileWasNew":false,"notes":["score 22 +4 → 26"],"gaps":[]},{"day":0,"device":"laptop","event":"ba_slider_drag","label":"drags the before/after sliders on a few projects","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":34,"identifiers":[]},"profileWasNew":false,"notes":["score 26 +8 → 34"],"gaps":[]},{"day":0,"device":"laptop","event":"testimonials_view","label":"reads a few testimonials","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":40,"identifiers":[]},"profileWasNew":false,"notes":["score 34 +6 → 40","crossed 35 → Site Personalization eligible (Tier 2/2B)"],"gaps":[{"ref":"8","note":"≥35 personalization threshold generalized from §10, not locked"}]},{"day":0,"device":"laptop","event":"fin_plan_view","label":"opens the 0%-for-12-months plan","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":45,"identifiers":[]},"profileWasNew":false,"notes":["score 40 +5 → 45"],"gaps":[]},{"day":0,"device":"laptop","event":"fin_plan_view","label":"opens a second plan — reads the actual terms","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":50,"identifiers":[]},"profileWasNew":false,"notes":["score 45 +5 → 50"],"gaps":[]},{"day":0,"device":"laptop","event":"financing_guide_download","label":"downloads 'Financing Your Home Expansion' → ACTIVE bucket, still Tier 2B (no identifier)","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"active","scoreRaw":62,"identifiers":[]},"profileWasNew":false,"notes":["score 50 +12 → 62","bucket comparison → active (active outranks on the ladder)"],"gaps":[{"ref":"NEW-B","note":"NEW (Rory, not yet in tracker): no signal keys off reaching `active` via content engagement with no conversion tool touched. 'Engaged enough to look like a hot lead but gave us no way to reach them' is indistinguishable, in bucket terms, from a real Lead Grabber/FotoJobber conversion — but one has a phone/email on file and the other doesn't."}]},{"day":0,"device":"laptop","event":"tab_close","label":"closes the tab to show his wife the PDF — a highly-engaged 2B session simply goes quiet","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"active","scoreRaw":62,"identifiers":[]},"profileWasNew":false,"notes":[],"gaps":[]}]},{"id":"peter","title":"Peter1 — FAQ research, no conversion","source":"customer-journeys/03-clearsky-home-01Peter.md (stub)","steps":[{"day":0,"device":"laptop","event":"page_load","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"research","scoreRaw":4,"identifiers":[]},"profileWasNew":false,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)","score 0 +4 → 4","bucket unclassified → research (research outranks on the ladder)"],"gaps":[]},{"day":0,"device":"laptop","event":"scroll_25","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"research","scoreRaw":7,"identifiers":[]},"profileWasNew":false,"notes":["score 4 +3 → 7"],"gaps":[]},{"day":0,"device":"laptop","event":"dwell_30","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"research","scoreRaw":11,"identifiers":[]},"profileWasNew":false,"notes":["score 7 +4 → 11"],"gaps":[]},{"day":20,"device":"laptop","event":"page_load","label":"returns 20 days later — well past grace","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"research","scoreRaw":15,"identifiers":[]},"profileWasNew":false,"notes":["score 11 +4 → 15"],"gaps":[]}]},{"id":"betty","title":"Betty1 — blog → guide download","source":"customer-journeys/04-clearsky-home-01Betty.md (stub)","steps":[{"day":0,"device":"phone","event":"page_load","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":3,"identifiers":[]},"profileWasNew":false,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)","score 0 +3 → 3","bucket unclassified → research (research outranks on the ladder)"],"gaps":[]},{"day":0,"device":"phone","event":"scroll_50","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":8,"identifiers":[]},"profileWasNew":false,"notes":["score 3 +5 → 8"],"gaps":[]},{"day":0,"device":"phone","event":"dwell_60","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":15,"identifiers":[]},"profileWasNew":false,"notes":["score 8 +7 → 15"],"gaps":[]},{"day":0,"device":"phone","event":"email_capture","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"research","scoreRaw":15,"hubProfileId":"hub_1","identifiers":["email:sha256(betty@example.com)"]},"profileWasNew":true,"notes":["strong identifier (email) → Tier 1 immediately; merged this device's anonymous history onto hub_1","cross-device records are NOT merged (fingerprint cap <70%, §4.7)"],"gaps":[{"ref":"32","note":"SIG-CONV-001 is defined twice across the two seed files; using the 004_40_signals_seed definition"}],"pipeline":{"eventId":"evt_8","signals":["SIG-CONV-001"],"dominant":"SIG-CONV-001","suppressed":[],"actions":[{"actionId":"ACT-NURTURE-ENROLL","name":"Enroll in NurtureSequence","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]}],"feedback":{"signalValidity":"likely_valid","actionExecutionQuality":"worked_as_expected","humanReviewState":"not_applicable","decisionQuality":"reasonable_so_far","productionRulesChanged":false,"tuningCandidates":[]},"gaps":[{"ref":"32","note":"SIG-CONV-001 is defined twice across the two seed files; using the 004_40_signals_seed definition"}],"notes":[]}}]},{"id":"francine","title":"Francine1 — ad → Lead Grabber (email-me)","source":"customer-journeys/05-clearsky-home-01Francine.md (stub)","steps":[{"day":0,"device":"phone","event":"page_load","label":"arrives from a Google Ad (2B)","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"unclassified","scoreRaw":0,"identifiers":[]},"profileWasNew":false,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)"],"gaps":[]},{"day":0,"device":"phone","event":"dwell_30","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"research","scoreRaw":4,"identifiers":[]},"profileWasNew":false,"notes":["score 0 +4 → 4","bucket unclassified → research (research outranks on the ladder)"],"gaps":[]},{"day":0,"device":"phone","event":"lg_open","state":{"fingerprint":"fp_phone","tier":"T2B","bucket":"active","scoreRaw":12,"identifiers":[]},"profileWasNew":false,"notes":["score 4 +8 → 12","bucket research → active (active outranks on the ladder)"],"gaps":[]},{"day":0,"device":"phone","event":"lg_submit","state":{"fingerprint":"fp_phone","tier":"T1","bucket":"active","scoreRaw":27,"hubProfileId":"hub_1","identifiers":["email:sha256(francine@example.com)"]},"profileWasNew":true,"notes":["score 12 +15 → 27","strong identifier (email) → Tier 1 immediately; merged this device's anonymous history onto hub_1","cross-device records are NOT merged (fingerprint cap <70%, §4.7)"],"gaps":[],"pipeline":{"eventId":"evt_9","analysis":{"sentiment":"ambiguous","urgency":"medium","emergency":false,"emergencyType":"general","opportunity":"high","momentum":"interested","risk":"low","summary":"Please email me a quote for a full bathroom renovation."},"signals":["NEW_CUSTOMER_OPPORTUNITY"],"dominant":"NEW_CUSTOMER_OPPORTUNITY","suppressed":[],"actions":[{"actionId":"ACT-CALL-002","name":"Send urgent alert to team","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]},{"actionId":"ACT-CALL-004","name":"Log opportunity to CRM","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]},{"actionId":"ACT-CALL-005","name":"Generate call-context summary (internal)","owner":"system","status":"completed","postedExternally":false,"approvalWaitHours":null,"notes":[]}],"feedback":{"signalValidity":"likely_valid","actionExecutionQuality":"worked_as_expected","humanReviewState":"not_applicable","decisionQuality":"reasonable_so_far","productionRulesChanged":false,"tuningCandidates":[]},"gaps":[],"notes":["S1 AI analysis → emergency:false urgency:medium opportunity:high momentum:interested sentiment:ambiguous"]}}]},{"id":"coreen","title":"Coreen1 — gallery → Call Now (still 2B)","source":"customer-journeys/06-clearsky-home-01Coreen.md (stub)","steps":[{"day":0,"device":"laptop","event":"page_load","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":5,"identifiers":[]},"profileWasNew":false,"notes":["cleared 10s floor → new Tier 2B record (cookie + fingerprint, no identifier)","score 0 +5 → 5","bucket unclassified → comparison (comparison outranks on the ladder)"],"gaps":[]},{"day":0,"device":"laptop","event":"scroll_50","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"comparison","scoreRaw":10,"identifiers":[]},"profileWasNew":false,"notes":["score 5 +5 → 10"],"gaps":[]},{"day":0,"device":"laptop","event":"call_click","label":"taps Call Now — anonymous, session-bound number carries her history","state":{"fingerprint":"fp_laptop","tier":"T2B","bucket":"active","scoreRaw":25,"identifiers":[]},"profileWasNew":false,"notes":["score 10 +15 → 25","bucket comparison → active (active outranks on the ladder)"],"gaps":[]}]}]</script>
+<script>
+(function () {
+  "use strict";
+  const DATA = JSON.parse(document.getElementById("trace-data").textContent);
+
+  // persona / display helpers
+  const PERSONA = { barry: { name: "Barry", tag: "John1 → Barry Smith", init: "B" }, denise: { name: "Denise", tag: "returning visitor", init: "D" }, "denise-call": { name: "Denise", tag: "Tier 1 contact", init: "D" }, "denise-review": { name: "Denise", tag: "past customer", init: "D" }, george: { name: "George", tag: "George1 — comparison shopper", init: "G" },
+    peter: { name: "Peter", tag: "Peter1 · draft — journey not yet written", init: "P" },
+    betty: { name: "Betty", tag: "Betty1 · draft — journey not yet written", init: "B" },
+    francine: { name: "Francine", tag: "Francine1 · draft — journey not yet written", init: "F" },
+    coreen: { name: "Coreen", tag: "Coreen1 · draft — journey not yet written", init: "C" } };
+
+  const EVENT_LABEL = {
+    page_load: "Page load", scroll_25: "Scrolled 25%", scroll_50: "Scrolled 50%", scroll_75: "Scrolled 75%",
+    dwell_30: "Dwelled 30s", dwell_60: "Dwelled past a minute", faq_expand: "Expanded an FAQ",
+    lg_open: "Opened the Lead Grabber", lg_submit: "Submitted the Lead Grabber",
+    email_capture: "Downloaded the guide", contact_form: "Submitted the contact form",
+    call_click: "Tapped Call Now", ivr_dtmf: "Pressed an IVR key", call_completed: "Live call — completed",
+    voicemail: "Left a voicemail", review_received: "Left a review",
+    sla_register: "Callback promised", sla_check: "Callback SLA — 15-minute check",
+    autocall_authorize: "Autocaller bridge-merge", commitment_extracted: "Commitment captured",
+    svc_click: "Opened a service page", ba_slider_drag: "Dragged before/after slider",
+    testimonials_view: "Read testimonials", fin_plan_view: "Opened a financing plan",
+    financing_guide_download: "Downloaded financing guide", tab_close: "Left the site",
+    voicemail_received: "Voicemail received", send_follow_up_message: "SMS follow-up",
+    supplier_delivery_received: "Supplier delivery", job_completed: "Job completed",
+    invoice_sent: "Invoice sent", payment_received: "Payment received",
+    outbound_call_voicemail: "Left a voicemail", scheduling_email_sent: "Scheduling email",
+    slot_selected: "Slot booked", review_request_sent: "Review request",
+    relationship_check_in_sent: "Relationship check-in", facebook_follow_ask: "Asked for a follow",
+    facebook_followed: "Followed on Facebook"
+  };
+
+  // who triggered each step
+  function actorFor(evt, persona) {
+    if (["sla_register", "commitment_extracted"].includes(evt)) return { label: "ClearSky system", cls: "sys" };
+    if (evt === "sla_check") return { label: "SLA clock", cls: "clock" };
+    if (evt === "autocall_authorize") return { label: "Bert · owner", cls: "rep" };
+    return { label: persona, cls: "" };
+  }
+
+  const TIER = {
+    T1: { label: "Tier 1", c: "var(--teal)", bg: "var(--teal-bg)", bd: "var(--teal-bd)" },
+    T2: { label: "Tier 2", c: "var(--amber)", bg: "var(--amber-bg)", bd: "var(--amber-bd)" },
+    T2B: { label: "Tier 2B", c: "var(--slate)", bg: "var(--slate-bg)", bd: "var(--slate-bd)" },
+    T3: { label: "Tier 3", c: "var(--faint)", bg: "#f3f4f6", bd: "#e5e7eb" }
+  };
+  const BUCKET = {
+    unclassified: { c: "var(--faint)", bg: "#f3f4f6", bd: "#e5e7eb" },
+    research: { c: "var(--blue)", bg: "var(--blue-bg)", bd: "var(--blue-bd)" },
+    comparison: { c: "var(--purple)", bg: "var(--purple-bg)", bd: "var(--purple-bd)" },
+    active: { c: "var(--teal)", bg: "var(--teal-bg)", bd: "var(--teal-bd)" },
+    emergency: { c: "var(--red)", bg: "var(--red-bg)", bd: "var(--red-bd)" }
+  };
+
+  const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
+
+  let journeyIdx = 0, stepIdx = 0, playing = false, timer = null;
+
+  // ── tabs ──
+  const tabsEl = document.getElementById("tabs");
+  DATA.forEach((j, i) => {
+    const b = document.createElement("button");
+    b.className = "tab"; b.setAttribute("role", "tab"); b.setAttribute("aria-selected", i === 0);
+    b.innerHTML = '<span class="dot"></span>' + esc(shortTitle(j));
+    b.onclick = () => { selectJourney(i); };
+    tabsEl.appendChild(b);
+  });
+  function shortTitle(j) {
+    if (j.id === "barry") return "Barry — Lead Grabber → SLA breach";
+    if (j.id === "denise") return "Denise — anonymous → Tier 1";
+    if (j.id === "denise-call") return "Denise — the call";
+    if (j.id === "denise-review") return "Denise — the review";
+    if (j.id === "george") return "George — active without converting";
+    if (j.id === "peter") return "Peter — research, no convert (draft)";
+    if (j.id === "betty") return "Betty — guide download (draft)";
+    if (j.id === "francine") return "Francine — Lead Grabber (draft)";
+    if (j.id === "coreen") return "Coreen — Call Now, anon (draft)";
+    return j.title;
+  }
+
+  function selectJourney(i) {
+    stopPlay();
+    journeyIdx = i; stepIdx = 0;
+    [...tabsEl.children].forEach((t, k) => t.setAttribute("aria-selected", k === i));
+    buildTimeline();
+    render();
+  }
+
+  // ── timeline ──
+  function isBreach(s) { return s.event === "sla_check" && s.notes.some((n) => /BREACH/.test(n)); }
+  function isConvert(s) { return s.profileWasNew || s.event === "commitment_extracted" || (s.pipeline && (s.pipeline.dominant || "").includes("BOOKING")); }
+
+  function buildTimeline() {
+    const track = document.getElementById("tl-track");
+    track.innerHTML = "";
+    const steps = DATA[journeyIdx].steps;
+    steps.forEach((s, i) => {
+      if (i > 0) { const seg = document.createElement("div"); seg.className = "tl-seg"; seg.dataset.i = i; track.appendChild(seg); }
+      const node = document.createElement("button");
+      node.className = "tl-node" + (isBreach(s) ? " breach" : "") + (isConvert(s) ? " convert" : "");
+      node.dataset.i = i;
+      node.setAttribute("aria-label", "Step " + (i + 1) + ": " + (EVENT_LABEL[s.event] || s.event));
+      node.innerHTML = '<span class="tl-dot"></span><span class="tl-cap">' + esc(EVENT_LABEL[s.event] || s.event) + "</span>";
+      node.onclick = () => { stopPlay(); stepIdx = i; render(); };
+      track.appendChild(node);
+    });
+  }
+
+  // ── render ──
+  function render() {
+    const j = DATA[journeyIdx];
+    const steps = j.steps;
+    const s = steps[stepIdx];
+    const prev = stepIdx > 0 ? steps[stepIdx - 1] : null;
+    const persona = PERSONA[j.id] || { name: "Visitor", tag: "", init: "?" };
+
+    // profile bar
+    document.getElementById("avatar").textContent = persona.init;
+    document.getElementById("who-name").textContent = persona.name;
+    document.getElementById("who-persona").textContent = persona.tag;
+    document.getElementById("step-i").textContent = stepIdx + 1;
+    document.getElementById("step-n").textContent = steps.length;
+
+    const tier = TIER[s.state.tier] || TIER.T2B;
+    const tb = document.getElementById("tier-badge");
+    tb.textContent = tier.label; tb.style.color = tier.c; tb.style.background = tier.bg; tb.style.borderColor = tier.bd;
+    if (prev && prev.state.tier !== s.state.tier) pulse(tb);
+
+    const buck = BUCKET[s.state.bucket] || BUCKET.unclassified;
+    const bb = document.getElementById("bucket-badge");
+    bb.textContent = s.state.bucket; bb.style.color = buck.c; bb.style.background = buck.bg; bb.style.borderColor = buck.bd;
+
+    document.getElementById("score-num").textContent = s.state.scoreRaw;
+    const fill = document.getElementById("meter-fill");
+    fill.style.width = s.state.scoreRaw + "%";
+    fill.style.background = buck.c;
+
+    renderTrigger(s, persona.name);
+    renderSystem(s, prev);
+    updateTimeline();
+    updateControls();
+
+    // gap total across journey
+    const gt = new Set();
+    steps.forEach((st) => st.gaps.forEach((g) => gt.add(g.ref)));
+    document.getElementById("gap-total").textContent = gt.size;
+  }
+
+  function pulse(el) {
+    el.animate([{ transform: "scale(1)" }, { transform: "scale(1.14)" }, { transform: "scale(1)" }], { duration: 420, easing: "ease" });
+  }
+
+  function renderTrigger(s, persona) {
+    const a = actorFor(s.event, persona);
+    let time = "day " + s.day;
+    if (s.minute !== undefined) time += " · +" + s.minute + " min";
+    const head = s.label || EVENT_LABEL[s.event] || s.event;
+    const el = document.getElementById("trigger-body");
+    el.className = "fade";
+    el.innerHTML =
+      '<span class="actor-chip ' + a.cls + '"><span class="glyph"></span>' + esc(a.label) + "</span>" +
+      '<div class="trig-head">' + esc(head) + "</div>" +
+      '<div class="trig-time">' +
+        '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg> ' +
+        esc(time) + '</div>' +
+      '<div class="trig-meta"><span class="event-tag">' + esc(s.event) + "</span>" +
+        '<span class="chip">device: ' + esc(s.state.fingerprint.replace("fp_", "")) + "</span></div>";
+    void el.offsetWidth;
+  }
+
+  function renderSystem(s, prev) {
+    const col = document.getElementById("system-col");
+    const body = document.getElementById("system-body");
+    const breach = s.event === "sla_check" && s.notes.some((n) => /BREACH/.test(n));
+    col.classList.toggle("breach", breach);
+    body.className = "fade";
+    let html = "";
+
+    // Special-case the escalation moment for drama
+    if (breach) {
+      html += '<div class="breach-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9l-8 14A2 2 0 004 21h16a2 2 0 001.7-3l-8-14a2 2 0 00-3.4 0z"/></svg> SLA breach — no callback within 15 minutes</div>';
+      html += '<ul class="esc-list">' +
+        '<li class="esc"><span class="n">1</span> SMS to the rep — “callback is overdue. Call now.”</li>' +
+        '<li class="esc"><span class="n">2</span> Push notification — same message</li>' +
+        '<li class="esc"><span class="n">3</span> Automated call — “press 1 to be connected now”</li></ul>';
+    } else {
+      // score / bucket / identity notes
+      if (s.notes && s.notes.length) {
+        const shown = s.notes.filter((n) => !/^ /.test(n) && !/escalation channels/.test(n));
+        if (shown.length) html += '<div class="block"><div class="block-h">Engine trace</div><ul class="notes">' +
+          shown.map((n) => "<li>" + esc(n) + "</li>").join("") + "</ul></div>";
+      }
+    }
+
+    if (s.event === "autocall_authorize") {
+      html += '<div class="bridge-note"><b>Autocaller bridge-merge.</b> Bert presses <b>1</b> → the autocaller connects him straight to the customer. It never dials on its own; it needs his authorization first. <span style="color:var(--muted)">(A capability RightFlush has never had before.)</span></div>';
+    }
+
+    const p = s.pipeline;
+    if (p) {
+      // AI analysis dimensions
+      if (p.analysis) {
+        const A = p.analysis;
+        const dim = (k, v, cls) => '<div class="dim ' + (cls || "") + '"><div class="dk">' + k + '</div><div class="dv">' + esc(v) + "</div></div>";
+        html += '<div class="block"><div class="block-h">S1 · AI analysis (6 dimensions)</div><div class="dims">' +
+          dim("emergency", A.emergency, A.emergency ? "hot" : "") +
+          dim("urgency", A.urgency, A.urgency === "critical" ? "hot" : A.urgency === "high" ? "warm" : "") +
+          dim("opportunity", A.opportunity, A.opportunity === "high" ? "go" : "") +
+          dim("momentum", A.momentum, A.momentum === "ready_to_book" ? "go" : "") +
+          dim("sentiment", A.sentiment) +
+          dim("risk", A.risk, A.risk === "high" ? "hot" : "") +
+          "</div></div>";
+      }
+      // signals
+      if (p.signals && p.signals.length) {
+        html += '<div class="block"><div class="block-h">S2 · signals detected → S3 dominant</div><div class="chips">' +
+          p.signals.map((sig) => '<span class="chip sig' + (sig === p.dominant ? " dom" : "") + '">' + (sig === p.dominant ? "★ " : "") + esc(sig) + "</span>").join("") +
+          "</div></div>";
+      } else if (p.analysis) {
+        html += '<div class="block"><div class="block-h">S2 · signals</div><div class="chips"><span class="chip dim">no signal fired — logged only</span></div></div>';
+      }
+      // actions
+      if (p.actions && p.actions.length) {
+        html += '<div class="block"><div class="block-h">S4 / S5 · actions</div><div class="acts">' +
+          p.actions.map((a) => {
+            const done = a.status === "completed";
+            return '<div class="act ' + (done ? "done" : "wait") + '">' +
+              '<span class="ico">' + (done ? "✓" : "⏸") + "</span>" +
+              '<span class="aid">' + esc(a.actionId) + "</span>" +
+              '<span class="aname">' + esc(a.name) + "</span>" +
+              '<span class="owner">' + (done ? "auto" : "awaits " + esc(a.owner)) + "</span></div>";
+          }).join("") + "</div></div>";
+      }
+      // feedback
+      if (p.feedback) {
+        const f = p.feedback;
+        html += '<div class="block"><div class="block-h">S7 · feedback</div><div class="chips">' +
+          '<span class="chip">signal: ' + esc(f.signalValidity) + "</span>" +
+          '<span class="chip">execution: ' + esc(f.actionExecutionQuality) + "</span>" +
+          '<span class="chip">review: ' + esc(f.humanReviewState) + "</span></div></div>";
+      }
+    }
+
+    // gaps
+    if (s.gaps && s.gaps.length) {
+      const seen = new Set();
+      const chips = s.gaps.filter((g) => { const k = g.ref; if (seen.has(k)) return false; seen.add(k); return true; })
+        .map((g) => {
+          const isNew = /^NEW/.test(g.ref);
+          const label = /^\d+$/.test(g.ref) ? "tracker #" + g.ref : (isNew ? "NEW gap" : g.ref);
+          return '<span class="chip gap' + (isNew ? " gap-new" : "") + '" title="' + esc(g.note) + '">⚑ ' + esc(label) + "</span>";
+        }).join("");
+      html += '<div class="block"><div class="block-h">Gaps flagged (hover for detail)</div><div class="chips">' + chips + "</div></div>";
+    }
+
+    if (!html) html = '<div class="block"><ul class="notes"><li>logged — no state change</li></ul></div>';
+    body.innerHTML = html;
+    void body.offsetWidth;
+  }
+
+  function updateTimeline() {
+    const nodes = document.querySelectorAll(".tl-node");
+    nodes.forEach((n) => {
+      const i = +n.dataset.i;
+      n.setAttribute("aria-current", i === stepIdx);
+      n.classList.toggle("passed", i < stepIdx);
+    });
+    document.querySelectorAll(".tl-seg").forEach((sg) => sg.classList.toggle("passed", +sg.dataset.i <= stepIdx));
+    const cur = document.querySelector('.tl-node[aria-current="true"]');
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+  }
+
+  function updateControls() {
+    document.getElementById("prev").disabled = stepIdx === 0;
+    document.getElementById("next").disabled = stepIdx === DATA[journeyIdx].steps.length - 1;
+  }
+
+  // ── controls ──
+  document.getElementById("prev").onclick = () => { stopPlay(); if (stepIdx > 0) { stepIdx--; render(); } };
+  document.getElementById("next").onclick = () => { stopPlay(); step(); };
+  document.getElementById("play").onclick = togglePlay;
+
+  function step() { const n = DATA[journeyIdx].steps.length; if (stepIdx < n - 1) { stepIdx++; render(); return true; } return false; }
+
+  function togglePlay() {
+    if (playing) { stopPlay(); return; }
+    if (stepIdx === DATA[journeyIdx].steps.length - 1) { stepIdx = 0; render(); }
+    playing = true; setPlayBtn();
+    timer = setInterval(() => { if (!step()) stopPlay(); }, 1500);
+  }
+  function stopPlay() { playing = false; if (timer) clearInterval(timer); timer = null; setPlayBtn(); }
+  function setPlayBtn() {
+    const b = document.getElementById("play");
+    b.innerHTML = playing
+      ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg> Pause'
+      : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play';
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") { e.preventDefault(); document.getElementById("next").click(); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); document.getElementById("prev").click(); }
+    else if (e.key === " ") { e.preventDefault(); togglePlay(); }
+  });
+
+  buildTimeline();
+  render();
+})();
+</script>

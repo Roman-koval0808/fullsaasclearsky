@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burst Pipe &amp; Flooding Timmins — Emergency Plumber | Total Trades Solutions</title>
+<meta name="description" content="Burst pipe or flooding in Timmins? Total Trades Solutions responds 24/7. 15-minute response commitment. We answer every call — no voicemail. (705) 700-1234.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --white:     #FFFFFF;
+  --surface:   #F8F6F1;
+  --border:    #E8E4DC;
+  --text:      #111714;
+  --text2:     #4A5E52;
+  --text3:     #8A9E92;
+  --green:     #1B5E3B;
+  --green-mid: #2D7A52;
+  --green-lt:  #EBF5EF;
+  --rust:      #C24A1E;
+  --rust-mid:  #A83818;
+  --rust-dk:   #7A2910;
+  --rust-lt:   #FAEDE8;
+  --gold:      #B8862A;
+  --ink:       #0D1F14;
+  --sans:      'Barlow', sans-serif;
+  --cond:      'Barlow Condensed', sans-serif;
+  --nav-h:     68px;
+  --trust-h:   40px;
+  --col:       1180px;
+  --radius:    6px;
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; font-size:16px; }
+body { font-family:var(--sans); background:var(--white); color:var(--text); overflow-x:hidden; }
+img { max-width:100%; display:block; }
+a { text-decoration:none; color:inherit; }
+button { cursor:pointer; font-family:inherit; }
+.page-content { margin-top:calc(var(--trust-h) + var(--nav-h)); }
+
+/* TRUST BAR */
+.trust-bar { position:fixed; top:0; left:0; right:0; z-index:200; height:var(--trust-h); background:var(--ink); display:flex; align-items:center; padding:0 24px; }
+.trust-bar-inner { max-width:var(--col); margin:0 auto; width:100%; display:flex; align-items:center; justify-content:space-between; }
+.trust-items { display:flex; align-items:center; }
+.trust-item { display:flex; align-items:center; gap:7px; font-size:12px; font-weight:500; color:rgba(255,255,255,0.75); padding:0 18px; border-right:1px solid rgba(255,255,255,0.1); }
+.trust-item:first-child { padding-left:0; }
+.trust-item:last-child { border-right:none; }
+.trust-item svg { width:13px; height:13px; stroke:var(--gold); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+.trust-item .stars { color:var(--gold); font-size:11px; letter-spacing:1px; }
+.trust-right { display:flex; align-items:center; }
+.trust-phone { font-family:var(--cond); font-size:15px; font-weight:700; color:#fff; letter-spacing:0.04em; }
+
+/* NAV */
+nav { position:fixed; top:var(--trust-h); left:0; right:0; z-index:190; height:var(--nav-h); background:var(--white); border-bottom:1px solid var(--border); transition:box-shadow 0.3s; }
+nav.scrolled { box-shadow:0 2px 20px rgba(0,0,0,0.08); }
+.nav-inner { max-width:var(--col); margin:0 auto; width:100%; height:100%; display:flex; align-items:center; padding:0 24px; gap:32px; }
+.nav-logo { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.nav-logo-mark { width:38px; height:38px; background:var(--green); border-radius:8px; display:flex; align-items:center; justify-content:center; }
+.nav-logo-mark svg { width:22px; height:22px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.nav-logo-text { display:flex; flex-direction:column; line-height:1.1; }
+.nav-logo-name { font-family:var(--cond); font-size:20px; font-weight:800; color:var(--ink); text-transform:uppercase; letter-spacing:0.02em; }
+.nav-logo-tag { font-size:10px; color:var(--text3); font-weight:500; letter-spacing:0.06em; text-transform:uppercase; }
+.nav-services { display:flex; align-items:center; gap:2px; flex:1; }
+.nav-svc { display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 12px; border-radius:var(--radius); transition:background 0.2s; text-decoration:none; }
+.nav-svc:hover { background:var(--green-lt); }
+.nav-svc-icon { width:28px; height:28px; display:flex; align-items:center; justify-content:center; }
+.nav-svc-icon svg { width:22px; height:22px; stroke:var(--green); fill:none; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+.nav-svc-label { font-size:10px; font-weight:600; color:var(--text2); letter-spacing:0.03em; white-space:nowrap; }
+.nav-right { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.nav-emergency { display:flex; align-items:center; gap:6px; padding:8px 14px; border-radius:var(--radius); background:var(--rust); border:1.5px solid var(--rust); font-size:13px; font-weight:600; color:#fff; text-decoration:none; }
+.nav-emergency svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.nav-book { display:flex; align-items:center; gap:6px; padding:8px 18px; border-radius:var(--radius); background:var(--green); color:#fff; font-size:13px; font-weight:600; text-decoration:none; transition:background 0.2s; }
+.nav-book:hover { background:var(--green-mid); }
+
+/* MOBILE */
+.mobile-header { display:none; position:fixed; top:0; left:0; right:0; z-index:200; height:60px; background:var(--white); border-bottom:1px solid var(--border); padding:0 16px; align-items:center; justify-content:space-between; }
+.mobile-hamburger { width:40px; height:40px; border:none; background:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; }
+.mobile-hamburger span { display:block; width:22px; height:2px; background:var(--ink); transition:all 0.3s; transform-origin:center; }
+.mobile-hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.mobile-hamburger.open span:nth-child(2) { opacity:0; }
+.mobile-hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+.mobile-logo-name { font-family:var(--cond); font-size:18px; font-weight:800; color:var(--ink); text-transform:uppercase; }
+.mobile-right { display:flex; align-items:center; gap:8px; }
+.mobile-emergency-btn { display:flex; align-items:center; gap:5px; background:var(--rust); color:#fff; font-family:var(--cond); font-size:13px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; padding:7px 12px; border-radius:var(--radius); text-decoration:none; }
+.mobile-emergency-btn svg { width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.mobile-call-btn { width:36px; height:36px; border-radius:50%; background:var(--green); border:none; display:flex; align-items:center; justify-content:center; text-decoration:none; }
+.mobile-call-btn svg { width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2; }
+.mobile-menu { display:none; position:fixed; top:60px; left:0; right:0; bottom:0; z-index:180; background:var(--white); overflow-y:auto; border-top:1px solid var(--border); flex-direction:column; }
+.mobile-menu.open { display:flex; }
+.mobile-menu-emergency { display:flex; align-items:center; gap:10px; padding:18px 20px; background:var(--rust-lt); border-bottom:1px solid rgba(194,74,30,0.15); font-family:var(--cond); font-size:17px; font-weight:700; color:var(--rust); text-transform:uppercase; text-decoration:none; }
+.mobile-menu-emergency svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.mobile-menu-section { padding:16px 20px 8px; }
+.mobile-menu-section-title { font-size:10px; font-weight:700; color:var(--text3); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:4px; }
+.mobile-menu-link { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); font-size:15px; font-weight:500; color:var(--text); text-decoration:none; }
+.mobile-menu-link svg { width:18px; height:18px; stroke:var(--green); fill:none; stroke-width:1.75; flex-shrink:0; }
+.mobile-menu-book { margin:16px 20px 20px; display:block; text-align:center; background:var(--green); color:#fff; font-family:var(--cond); font-size:17px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:14px; border-radius:var(--radius); text-decoration:none; }
+
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s ease,transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-delay-1 { transition-delay:0.1s; }
+.reveal-delay-2 { transition-delay:0.2s; }
+.reveal-delay-3 { transition-delay:0.3s; }
+
+/* ════════════════════════
+   BURST PIPE PAGE STYLES
+   ════════════════════════ */
+
+/* LIVE STATUS BAR */
+.live-bar { background:var(--rust); padding:0; }
+.live-bar-inner { max-width:var(--col); margin:0 auto; display:flex; align-items:center; gap:20px; padding:10px 24px; flex-wrap:wrap; }
+.live-dot { width:8px; height:8px; border-radius:50%; background:#fff; animation:livePulse 1.5s ease-in-out infinite; flex-shrink:0; }
+@keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)} }
+.live-text { font-family:var(--cond); font-size:13px; font-weight:700; color:#fff; letter-spacing:0.1em; text-transform:uppercase; }
+.live-divider { width:1px; height:16px; background:rgba(255,255,255,0.3); flex-shrink:0; }
+.live-detail { font-size:13px; color:rgba(255,255,255,0.85); }
+.live-clock { font-family:var(--cond); font-size:14px; font-weight:700; color:#fff; margin-left:auto; flex-shrink:0; }
+
+/* HERO — split layout, phone dominates */
+.bp-hero {
+  background:var(--ink); position:relative; overflow:hidden;
+  min-height:calc(100vh - var(--trust-h) - var(--nav-h) - 40px);
+  display:flex; flex-direction:column; justify-content:center;
+}
+.bp-hero-bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 65% 40%,rgba(194,74,30,0.22) 0%,transparent 55%),
+    radial-gradient(ellipse at 5% 80%,rgba(184,134,42,0.05) 0%,transparent 40%);
+}
+.bp-hero-grid {
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.bp-hero-inner { position:relative; z-index:2; max-width:var(--col); margin:0 auto; width:100%; padding:72px 24px; display:grid; grid-template-columns:1fr 420px; gap:64px; align-items:center; }
+
+/* Left — call dominant */
+.bp-hero-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(194,74,30,0.2); border:1px solid rgba(194,74,30,0.5); border-radius:100px; padding:6px 14px; font-size:12px; font-weight:700; color:rgba(255,255,255,0.9); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:28px; }
+.bp-hero-tag-dot { width:6px; height:6px; border-radius:50%; background:var(--rust); animation:livePulse 1.2s infinite; }
+.bp-hero-headline { font-family:var(--cond); font-weight:900; font-size:clamp(52px,7vw,96px); line-height:0.88; text-transform:uppercase; color:#fff; margin-bottom:28px; }
+.bp-hero-headline em { font-style:normal; color:var(--rust); display:block; }
+.bp-hero-headline .dim { color:rgba(255,255,255,0.25); }
+.bp-hero-sub { font-size:18px; font-weight:300; color:rgba(255,255,255,0.6); line-height:1.65; max-width:480px; margin-bottom:40px; }
+
+/* The call number — above fold, biggest element */
+.bp-call-label { font-size:11px; font-weight:700; color:rgba(255,255,255,0.35); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px; }
+.bp-call-btn { display:inline-flex; align-items:center; gap:14px; background:var(--rust); color:#fff; font-family:var(--cond); font-weight:900; font-size:clamp(28px,4vw,42px); letter-spacing:0.02em; padding:18px 32px; border-radius:var(--radius); text-decoration:none; transition:all 0.2s; box-shadow:0 8px 32px rgba(194,74,30,0.4); margin-bottom:24px; display:flex; width:fit-content; }
+.bp-call-btn:hover { background:var(--rust-mid); transform:translateY(-2px); }
+.bp-call-btn svg { width:28px; height:28px; stroke:currentColor; fill:none; stroke-width:2; flex-shrink:0; }
+
+.bp-commitment { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius); padding:14px 18px; margin-bottom:28px; }
+.bp-commitment svg { width:20px; height:20px; stroke:var(--gold); fill:none; stroke-width:2; flex-shrink:0; }
+.bp-commitment-text { font-size:14px; color:rgba(255,255,255,0.7); line-height:1.4; }
+.bp-commitment-text strong { color:#fff; }
+
+.bp-callback-toggle { display:inline-flex; align-items:center; gap:8px; font-size:13px; color:rgba(255,255,255,0.4); cursor:pointer; background:none; border:none; padding:0; transition:color 0.2s; }
+.bp-callback-toggle:hover { color:rgba(255,255,255,0.7); }
+.bp-callback-toggle svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; }
+
+/* Callback form */
+.bp-callback-form { display:none; margin-top:16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:var(--radius); padding:20px; animation:slideDown 0.3s ease; }
+@keyframes slideDown { from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)} }
+.bp-callback-form.open { display:block; }
+.bp-form-label { font-size:10px; font-weight:700; color:rgba(255,255,255,0.35); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:7px; display:block; }
+.bp-form-input { width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:var(--radius); padding:12px 14px; font-size:14px; font-family:inherit; color:#fff; outline:none; margin-bottom:10px; }
+.bp-form-input::placeholder { color:rgba(255,255,255,0.25); }
+.bp-form-input:focus { border-color:var(--rust); }
+.bp-form-submit { width:100%; background:var(--rust); color:#fff; border:none; border-radius:var(--radius); padding:13px; font-family:var(--cond); font-weight:700; font-size:15px; letter-spacing:0.05em; text-transform:uppercase; cursor:pointer; }
+.bp-form-submit:hover { background:var(--rust-mid); }
+
+/* Right — problem type cards */
+.bp-hero-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; overflow:hidden; }
+.bp-card-header { padding:18px 20px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.bp-card-title { font-family:var(--cond); font-size:13px; font-weight:700; color:rgba(255,255,255,0.35); letter-spacing:0.1em; text-transform:uppercase; }
+.bp-problem-list { display:flex; flex-direction:column; }
+.bp-problem { display:flex; align-items:flex-start; gap:14px; padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.05); text-decoration:none; cursor:pointer; transition:all 0.2s; }
+.bp-problem:last-child { border-bottom:none; }
+.bp-problem:hover { background:rgba(194,74,30,0.12); padding-left:24px; }
+.bp-problem-icon { width:38px; height:38px; border-radius:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.2s; }
+.bp-problem:hover .bp-problem-icon { background:rgba(194,74,30,0.3); border-color:rgba(194,74,30,0.5); }
+.bp-problem-icon svg { width:18px; height:18px; stroke:rgba(255,255,255,0.5); fill:none; stroke-width:1.75; }
+.bp-problem:hover .bp-problem-icon svg { stroke:var(--rust); }
+.bp-problem-name { font-family:var(--cond); font-size:15px; font-weight:700; color:#fff; text-transform:uppercase; margin-bottom:3px; }
+.bp-problem-desc { font-size:12px; color:rgba(255,255,255,0.35); line-height:1.4; }
+.bp-card-footer { padding:14px 20px; background:rgba(255,255,255,0.02); border-top:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; gap:8px; }
+.bp-card-footer svg { width:14px; height:14px; stroke:var(--gold); fill:none; stroke-width:2; flex-shrink:0; }
+.bp-card-footer-text { font-size:11px; color:rgba(255,255,255,0.35); line-height:1.4; }
+
+/* WHAT TO DO SECTION */
+.bp-steps { background:var(--white); padding:80px 24px; }
+.bp-steps-inner { max-width:var(--col); margin:0 auto; }
+.section-label { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; color:var(--rust); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:14px; }
+.section-label::before { content:''; display:block; width:20px; height:2px; background:var(--rust); }
+.section-headline { font-family:var(--cond); font-weight:800; font-size:clamp(34px,4.5vw,54px); line-height:0.95; text-transform:uppercase; color:var(--ink); margin-bottom:16px; }
+.section-sub { font-size:17px; font-weight:300; color:var(--text2); line-height:1.7; max-width:580px; margin-bottom:48px; }
+.bp-steps-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; }
+.bp-step { position:relative; }
+.bp-step-num { font-family:var(--cond); font-size:60px; font-weight:900; color:var(--rust-lt); line-height:1; margin-bottom:-10px; }
+.bp-step-content { position:relative; z-index:1; }
+.bp-step-title { font-family:var(--cond); font-weight:700; font-size:18px; color:var(--ink); text-transform:uppercase; margin-bottom:8px; }
+.bp-step-desc { font-size:13px; color:var(--text2); line-height:1.65; }
+.bp-step-urgent { display:inline-block; font-size:11px; font-weight:700; color:var(--rust); background:var(--rust-lt); border-radius:100px; padding:3px 10px; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px; }
+.bp-step-arrow { position:absolute; top:30px; right:-16px; width:32px; display:flex; align-items:center; z-index:2; }
+.bp-step-arrow svg { width:20px; height:20px; stroke:var(--border); fill:none; stroke-width:2; stroke-linecap:round; }
+
+/* WATER DAMAGE TIPS */
+.bp-tips { background:var(--surface); padding:72px 24px; }
+.bp-tips-inner { max-width:var(--col); margin:0 auto; }
+.bp-tips-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:40px; }
+.bp-tip { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+.bp-tip-icon { width:40px; height:40px; border-radius:8px; background:var(--rust-lt); display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+.bp-tip-icon svg { width:20px; height:20px; stroke:var(--rust); fill:none; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+.bp-tip-title { font-family:var(--cond); font-size:16px; font-weight:700; color:var(--ink); text-transform:uppercase; margin-bottom:8px; }
+.bp-tip-desc { font-size:13px; color:var(--text2); line-height:1.65; }
+
+/* PROOF BAND */
+.bp-proof { background:var(--ink); padding:64px 24px; }
+.bp-proof-inner { max-width:var(--col); margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.bp-proof-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius); padding:24px; }
+.bp-proof-stars { color:var(--gold); font-size:13px; letter-spacing:2px; margin-bottom:12px; }
+.bp-proof-text { font-size:13px; color:rgba(255,255,255,0.65); line-height:1.7; margin-bottom:14px; font-style:italic; }
+.bp-proof-attr { display:flex; align-items:center; gap:8px; }
+.bp-proof-dot { width:5px; height:5px; border-radius:50%; background:var(--rust); flex-shrink:0; }
+.bp-proof-name { font-size:11px; color:rgba(255,255,255,0.3); font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }
+
+/* SERVICE AREAS */
+.bp-areas { background:var(--green-lt); padding:40px 24px; border-top:1px solid rgba(27,94,59,0.12); border-bottom:1px solid rgba(27,94,59,0.12); }
+.bp-areas-inner { max-width:var(--col); margin:0 auto; display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+.bp-areas-label { font-family:var(--cond); font-size:16px; font-weight:700; color:var(--green); text-transform:uppercase; flex-shrink:0; }
+.bp-areas-divider { width:1px; height:20px; background:rgba(27,94,59,0.2); flex-shrink:0; }
+.bp-area-chip { display:flex; align-items:center; gap:5px; background:#fff; border:1px solid rgba(27,94,59,0.2); border-radius:100px; padding:5px 14px; font-size:13px; font-weight:500; color:var(--green); text-decoration:none; transition:all 0.2s; }
+.bp-area-chip:hover { background:var(--green); color:#fff; }
+.bp-area-chip svg { width:11px; height:11px; stroke:currentColor; fill:none; stroke-width:2.5; }
+
+/* BIG CTA */
+.bp-cta-band { background:var(--rust); padding:0 24px; }
+.bp-cta-inner { max-width:var(--col); margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:48px 0; gap:32px; flex-wrap:wrap; }
+.bp-cta-headline { font-family:var(--cond); font-weight:900; font-size:clamp(28px,4vw,48px); color:#fff; text-transform:uppercase; line-height:0.95; margin-bottom:8px; }
+.bp-cta-sub { font-size:15px; color:rgba(255,255,255,0.7); font-weight:300; }
+.bp-cta-right { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.bp-cta-call { display:inline-flex; align-items:center; gap:10px; background:#fff; color:var(--rust); font-family:var(--cond); font-weight:800; font-size:18px; letter-spacing:0.04em; text-transform:uppercase; padding:18px 32px; border-radius:var(--radius); text-decoration:none; transition:all 0.2s; }
+.bp-cta-call:hover { background:rgba(255,255,255,0.92); }
+.bp-cta-call svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.bp-cta-secondary { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); color:#fff; font-size:14px; font-weight:500; padding:18px 22px; border-radius:var(--radius); cursor:pointer; border-style:solid; transition:all 0.2s; }
+.bp-cta-secondary:hover { background:rgba(255,255,255,0.22); }
+
+/* FOOTER */
+footer { background:var(--ink); padding:64px 24px 32px; }
+.footer-inner { max-width:var(--col); margin:0 auto; }
+.footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.06); margin-bottom:32px; }
+.footer-brand-name { font-family:var(--cond); font-size:24px; font-weight:800; color:#fff; text-transform:uppercase; letter-spacing:0.02em; margin-bottom:6px; }
+.footer-brand-tag { font-size:12px; color:rgba(255,255,255,0.3); margin-bottom:20px; }
+.footer-brand-phone { font-family:var(--cond); font-size:26px; font-weight:700; color:var(--gold); letter-spacing:0.02em; display:block; margin-bottom:4px; }
+.footer-brand-email { font-size:13px; color:rgba(255,255,255,0.35); }
+.footer-col-title { font-size:11px; font-weight:700; color:rgba(255,255,255,0.3); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:16px; }
+.footer-links { display:flex; flex-direction:column; gap:8px; }
+.footer-link { font-size:13px; color:rgba(255,255,255,0.5); transition:color 0.2s; }
+.footer-link:hover { color:#fff; }
+.footer-bottom { display:flex; align-items:center; justify-content:space-between; font-size:11px; color:rgba(255,255,255,0.2); }
+
+/* LEAD GRABBER — speak-now only */
+.lead-grabber { position:fixed; bottom:96px; right:24px; z-index:490; width:56px; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.lg-btn { width:56px; height:56px; border-radius:50%; background:var(--rust); color:#fff; border:none; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(194,74,30,0.4); cursor:pointer; transition:all 0.2s; }
+.lg-btn:hover { background:var(--rust-mid); transform:scale(1.05); }
+.lg-btn svg { width:24px; height:24px; stroke:#fff; fill:none; stroke-width:2; }
+.lg-label { font-size:9px; font-weight:700; color:var(--rust); letter-spacing:0.04em; text-align:center; white-space:nowrap; }
+.lg-panel { position:fixed; bottom:90px; right:90px; z-index:490; width:300px; background:var(--white); border:1px solid var(--border); border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.12); overflow:hidden; display:none; }
+.lg-panel.open { display:block; animation:slideUp 0.3s ease; }
+@keyframes slideUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+.lg-header { background:var(--rust); padding:16px 18px; display:flex; align-items:center; justify-content:space-between; }
+.lg-header-title { font-family:var(--cond); font-size:18px; font-weight:700; color:#fff; text-transform:uppercase; }
+.lg-header-sub { font-size:11px; color:rgba(255,255,255,0.65); }
+.lg-close { background:none; border:none; color:rgba(255,255,255,0.6); cursor:pointer; }
+.lg-close svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.lg-body { padding:16px; }
+.lg-note { display:flex; align-items:center; gap:10px; background:var(--rust-lt); border:1px solid rgba(194,74,30,0.2); border-radius:var(--radius); padding:12px; margin-bottom:12px; }
+.lg-note svg { width:16px; height:16px; stroke:var(--rust); fill:none; stroke-width:2; flex-shrink:0; }
+.lg-note span { font-size:12px; color:var(--rust); font-weight:500; line-height:1.4; }
+.lg-input { width:100%; border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; font-size:13px; font-family:inherit; outline:none; margin-bottom:8px; }
+.lg-input:focus { border-color:var(--rust); }
+.lg-submit { width:100%; background:var(--rust); color:#fff; border:none; border-radius:var(--radius); padding:12px; font-family:var(--cond); font-weight:700; font-size:16px; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; }
+.lg-submit:hover { background:var(--rust-mid); }
+
+/* AI CHAT */
+.chat-widget { position:fixed; bottom:24px; right:24px; z-index:500; display:flex; flex-direction:column; align-items:flex-end; gap:12px; }
+.chat-bubble { width:56px; height:56px; border-radius:50%; background:var(--green); color:#fff; border:none; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(27,94,59,0.4); cursor:pointer; transition:all 0.2s; }
+.chat-bubble:hover { background:var(--green-mid); transform:scale(1.05); }
+.chat-bubble svg { width:26px; height:26px; stroke:#fff; fill:none; stroke-width:2; }
+.chat-panel { width:320px; background:var(--white); border:1px solid var(--border); border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.12); overflow:hidden; display:none; }
+.chat-panel.open { display:flex; flex-direction:column; animation:slideUp 0.3s ease; }
+.chat-panel-header { background:var(--green); padding:16px 18px; display:flex; align-items:center; justify-content:space-between; }
+.chat-header-info { display:flex; align-items:center; gap:10px; }
+.chat-avatar { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; }
+.chat-avatar svg { width:20px; height:20px; stroke:#fff; fill:none; stroke-width:2; }
+.chat-name { font-size:14px; font-weight:600; color:#fff; }
+.chat-status { font-size:11px; color:rgba(255,255,255,0.65); }
+.chat-close { background:none; border:none; color:rgba(255,255,255,0.6); cursor:pointer; }
+.chat-close svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; }
+.chat-messages { padding:16px; min-height:100px; display:flex; flex-direction:column; gap:10px; }
+.chat-msg { max-width:85%; padding:10px 14px; border-radius:12px; font-size:13px; line-height:1.5; }
+.chat-msg.bot { background:var(--surface); color:var(--text); border-bottom-left-radius:4px; align-self:flex-start; }
+.chat-msg.user { background:var(--green); color:#fff; border-bottom-right-radius:4px; align-self:flex-end; }
+.chat-quick { padding:0 16px 12px; display:flex; flex-wrap:wrap; gap:6px; }
+.chat-quick-btn { background:var(--green-lt); border:1px solid rgba(27,94,59,0.2); border-radius:100px; padding:5px 12px; font-size:12px; color:var(--green); font-weight:500; cursor:pointer; transition:all 0.2s; }
+.chat-quick-btn:hover { background:var(--green); color:#fff; }
+.chat-input-row { display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--border); }
+.chat-input { flex:1; border:1px solid var(--border); border-radius:100px; padding:8px 14px; font-size:13px; font-family:inherit; outline:none; }
+.chat-input:focus { border-color:var(--green); }
+.chat-send { width:36px; height:36px; border-radius:50%; background:var(--green); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.chat-send svg { width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2.5; }
+
+/* PIXEL TOAST */
+.pixel-toast { position:fixed; bottom:24px; left:24px; z-index:600; background:var(--ink); color:#fff; font-family:var(--cond); font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; padding:10px 16px; border-radius:var(--radius); display:flex; align-items:center; gap:8px; opacity:0; transform:translateY(8px); transition:opacity 0.3s,transform 0.3s; pointer-events:none; max-width:280px; }
+.pixel-toast.show { opacity:1; transform:translateY(0); }
+.pixel-toast-dot { width:6px; height:6px; border-radius:50%; background:var(--rust); animation:livePulse 1.2s infinite; flex-shrink:0; }
+
+/* RESPONSIVE */
+@media(max-width:1024px) {
+  .bp-hero-inner { grid-template-columns:1fr; }
+  .bp-hero-card { max-width:480px; }
+  .bp-steps-grid { grid-template-columns:repeat(2,1fr); }
+  .bp-tips-grid { grid-template-columns:1fr 1fr; }
+  .bp-proof-inner { grid-template-columns:1fr 1fr; }
+  .footer-top { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:768px) {
+  :root { --trust-h:0px; --nav-h:60px; }
+  .trust-bar { display:none; }
+  nav { display:none; }
+  .mobile-header { display:flex; }
+  .page-content { margin-top:60px; }
+  .bp-steps-grid { grid-template-columns:1fr; }
+  .bp-tips-grid { grid-template-columns:1fr; }
+  .bp-proof-inner { grid-template-columns:1fr; }
+  .bp-cta-inner { flex-direction:column; }
+  .footer-top { grid-template-columns:1fr 1fr; gap:32px; }
+  .footer-bottom { flex-direction:column; gap:8px; text-align:center; }
+  .live-clock { display:none; }
+}
+@media(max-width:480px) {
+  .footer-top { grid-template-columns:1fr; }
+  .bp-cta-right { width:100%; flex-direction:column; }
+  .bp-cta-call,.bp-cta-secondary { width:100%; justify-content:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-items">
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Licensed &amp; Insured</div>
+      <div class="trust-item"><span class="stars">★★★★★</span>4.7 · 64 Reviews</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24/7 Emergency</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>15-Min Response</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins &amp; Area</div>
+    </div>
+    <div class="trust-right"><a href="tel:7057001234" class="trust-phone">(705) 700-1234</a></div>
+  </div>
+</div>
+
+<!-- DESKTOP NAV -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="nav-logo-text"><span class="nav-logo-name">Total Trades</span><span class="nav-logo-tag">Timmins ON</span></div>
+    </a>
+    <div class="nav-services">
+      <a href="/hot-water" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="nav-svc-label">Hot Water</span></a>
+      <a href="/blocked-drains" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div><span class="nav-svc-label">Drains</span></a>
+      <a href="/bathroom-renovations" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg></div><span class="nav-svc-label">Bathrooms</span></a>
+      <a href="/leak-detection" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="nav-svc-label">Leaks</span></a>
+      <a href="/gas-plumbing" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><span class="nav-svc-label">Gas</span></a>
+      <a href="/pipe-repair" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div><span class="nav-svc-label">Pipes</span></a>
+      <a href="/reviews" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="nav-svc-label">Reviews</span></a>
+      <a href="/blog" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="nav-svc-label">Blog</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>Emergency</a>
+      <a href="/book" class="nav-book">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header" id="mobileHeader">
+  <button class="mobile-hamburger" id="mobileHamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+  <span class="mobile-logo-name">Total Trades Solutions</span>
+  <div class="mobile-right">
+    <a href="/emergency" class="mobile-emergency-btn"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency</a>
+    <a href="tel:7057001234" class="mobile-call-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></a>
+  </div>
+</div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/emergency" class="mobile-menu-emergency" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency 24/7 — We answer now</a>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Services</div>
+    <a href="/hot-water" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hot Water Systems</a>
+    <a href="/blocked-drains" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>Blocked Drains</a>
+    <a href="/leak-detection" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>Leak Detection</a>
+    <a href="/pipe-repair" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg>Pipe Repair</a>
+  </div>
+  <a href="/book" class="mobile-menu-book" onclick="closeMobileMenu()">Book Appointment</a>
+</div>
+
+<!-- PAGE CONTENT -->
+<main class="page-content">
+
+  <!-- LIVE STATUS BAR -->
+  <div class="live-bar">
+    <div class="live-bar-inner">
+      <div class="live-dot"></div>
+      <span class="live-text">We're available now</span>
+      <div class="live-divider"></div>
+      <span class="live-detail">Emergency line — answered within 15 minutes · (705) 700-1234</span>
+      <span class="live-clock" id="liveClock"></span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="bp-hero">
+    <div class="bp-hero-bg"></div>
+    <div class="bp-hero-grid"></div>
+    <div class="bp-hero-inner">
+
+      <!-- LEFT — call dominant -->
+      <div>
+        <div class="bp-hero-tag"><div class="bp-hero-tag-dot"></div>Burst Pipe &amp; Flooding · Timmins, Ontario</div>
+        <h1 class="bp-hero-headline">
+          Water going<br>
+          <em>everywhere.</em><br>
+          <span class="dim">We stop it.</span>
+        </h1>
+        <p class="bp-hero-sub">Burst pipe, active flooding, water coming through the ceiling — Total Trades Solutions dispatches immediately. 15-minute response commitment. A licensed plumber — not an answering service.</p>
+
+        <div class="bp-call-label">Call now — we pick up</div>
+        <a href="tel:7057001234" class="bp-call-btn" id="heroCallBtn">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+          (705) 700-1234
+        </a>
+
+        <div class="bp-commitment">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div class="bp-commitment-text"><strong>15-minute response commitment.</strong> Dispatched the moment you call. The owner answers emergency calls personally. 24 hours a day, 365 days a year.</div>
+        </div>
+
+        <button class="bp-callback-toggle" onclick="toggleCallback()" id="callbackToggle">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Can't call right now? Request a callback
+        </button>
+
+        <div class="bp-callback-form" id="callbackForm">
+          <label class="bp-form-label">Your name</label>
+          <input class="bp-form-input" type="text" placeholder="First name" id="cbName">
+          <label class="bp-form-label">Your phone number</label>
+          <input class="bp-form-input" type="tel" placeholder="(705) 000-0000" id="cbPhone">
+          <label class="bp-form-label">What's happening?</label>
+          <input class="bp-form-input" type="text" placeholder="e.g. burst pipe in basement, water coming through ceiling" id="cbIssue">
+          <button class="bp-form-submit" onclick="submitCallback()">Request callback — we'll call within 15 minutes</button>
+        </div>
+      </div>
+
+      <!-- RIGHT — problem type selector -->
+      <div>
+        <div class="bp-hero-card">
+          <div class="bp-card-header"><div class="bp-card-title">What's happening?</div></div>
+          <div class="bp-problem-list">
+            <a href="tel:7057001234" class="bp-problem" id="probBurst">
+              <div class="bp-problem-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div>
+              <div><div class="bp-problem-name">Burst pipe</div><div class="bp-problem-desc">Water spraying or running fast — shut off the main first, then call</div></div>
+            </a>
+            <a href="tel:7057001234" class="bp-problem" id="probFlood">
+              <div class="bp-problem-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+              <div><div class="bp-problem-name">Flooding inside the home</div><div class="bp-problem-desc">Water accumulating on floors — we dispatch immediately</div></div>
+            </a>
+            <a href="tel:7057001234" class="bp-problem" id="probCeiling">
+              <div class="bp-problem-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+              <div><div class="bp-problem-name">Water through the ceiling</div><div class="bp-problem-desc">Leak from upstairs bathroom, roof, or pipe above</div></div>
+            </a>
+            <a href="tel:7057001234" class="bp-problem" id="probFrozen">
+              <div class="bp-problem-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg></div>
+              <div><div class="bp-problem-name">Frozen or suspected frozen pipe</div><div class="bp-problem-desc">No water flow in winter — thaw carefully or call us first</div></div>
+            </a>
+            <a href="tel:7057001234" class="bp-problem" id="probSewer">
+              <div class="bp-problem-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+              <div><div class="bp-problem-name">Sewage backup</div><div class="bp-problem-desc">Raw sewage in the home — health emergency, call now</div></div>
+            </a>
+          </div>
+          <div class="bp-card-footer">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="bp-card-footer-text">Every call connects to a <strong>licensed Total Trades Solutions plumber</strong> — not a call centre. The owner answers emergencies personally.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHAT TO DO SECTION -->
+  <section class="bp-steps" data-pixel-event="steps_view" data-pixel-label="What to do section" data-pixel-delta="3" data-pixel-bucket="emergency">
+    <div class="bp-steps-inner">
+      <div class="section-label reveal">While we're on the way</div>
+      <h2 class="section-headline reveal">What to do right now.</h2>
+      <p class="section-sub reveal">Steps to protect your home in the next 15 minutes while a plumber is dispatched.</p>
+      <div class="bp-steps-grid">
+        <div class="bp-step reveal">
+          <div class="bp-step-num">01</div>
+          <div class="bp-step-content">
+            <div class="bp-step-urgent">Do this first</div>
+            <div class="bp-step-title">Shut off the main water valve</div>
+            <p class="bp-step-desc">The main shutoff is usually in the basement near the foundation wall or where the water line enters the house. Turn it clockwise until it stops. This cuts water to the entire home and stops active flooding immediately.</p>
+          </div>
+          <div class="bp-step-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="bp-step reveal reveal-delay-1">
+          <div class="bp-step-num">02</div>
+          <div class="bp-step-content">
+            <div class="bp-step-title">Turn off the hot water tank</div>
+            <p class="bp-step-desc">Gas heater: turn the dial to Pilot. Electric: switch off the breaker marked Water Heater. Prevents the tank from running dry and burning out. Takes 30 seconds and saves a costly repair.</p>
+          </div>
+          <div class="bp-step-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="bp-step reveal reveal-delay-2">
+          <div class="bp-step-num">03</div>
+          <div class="bp-step-content">
+            <div class="bp-step-title">Get valuables off the floor</div>
+            <p class="bp-step-desc">Documents, electronics, furniture, stored boxes — move them up or out of the affected area. Water spreads faster than it looks. Five minutes of moving things now saves hours of dealing with water damage later.</p>
+          </div>
+          <div class="bp-step-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+        <div class="bp-step reveal reveal-delay-3">
+          <div class="bp-step-num">04</div>
+          <div class="bp-step-content">
+            <div class="bp-step-title">We're on our way</div>
+            <p class="bp-step-desc">A licensed plumber is dispatched the moment you call. They'll confirm their ETA and call when they're 5 minutes out. Keep your phone close. If the situation changes while we're en route, call back immediately.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WATER DAMAGE TIPS -->
+  <div class="bp-tips" data-pixel-event="tips_view" data-pixel-label="Damage tips section" data-pixel-delta="2" data-pixel-bucket="emergency">
+    <div class="bp-tips-inner">
+      <div class="section-label" style="color:var(--text3)"><span style="display:block;width:20px;height:2px;background:var(--text3)"></span>While you wait</div>
+      <h2 class="section-headline reveal">Limiting water damage<br>in the first 15 minutes.</h2>
+      <div class="bp-tips-grid">
+        <div class="bp-tip reveal">
+          <div class="bp-tip-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+          <div class="bp-tip-title">Soak up standing water fast</div>
+          <p class="bp-tip-desc">Towels, mops, and anything absorbent. The longer water sits on hardwood or drywall, the more damage it does. Even 10 minutes of effort now reduces the restoration bill significantly.</p>
+        </div>
+        <div class="bp-tip reveal reveal-delay-1">
+          <div class="bp-tip-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+          <div class="bp-tip-title">Open windows if it's warm out</div>
+          <p class="bp-tip-desc">Air circulation slows mold growth, which can start within 24–48 hours of a water event. In winter, keep the house warm — don't leave windows open if it's below zero.</p>
+        </div>
+        <div class="bp-tip reveal reveal-delay-2">
+          <div class="bp-tip-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div class="bp-tip-title">Document everything</div>
+          <p class="bp-tip-desc">Take photos and video before cleanup — of the source, the water spread, and affected materials. Your insurance company will need this evidence. Start a claim if damage is significant.</p>
+        </div>
+        <div class="bp-tip reveal">
+          <div class="bp-tip-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <div class="bp-tip-title">Don't use electrical appliances</div>
+          <p class="bp-tip-desc">If water is near electrical outlets, junction boxes, or your electrical panel — do not touch anything. If you're concerned about safety, switch off the main breaker and stay clear until the plumber arrives.</p>
+        </div>
+        <div class="bp-tip reveal reveal-delay-1">
+          <div class="bp-tip-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="bp-tip-title">Don't use drain cleaners</div>
+          <p class="bp-tip-desc">Chemical drain products can make blockages worse and damage pipes when the issue is a burst or disconnected joint. Leave the pipes alone — we'll diagnose and fix it correctly.</p>
+        </div>
+        <div class="bp-tip reveal reveal-delay-2">
+          <div class="bp-tip-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="bp-tip-title">Find your insurance documents</div>
+          <p class="bp-tip-desc">Locate your home insurance policy number and the claims phone number while you wait. Significant water damage — especially from a burst pipe or sewer backup — is usually covered. Start the claim as soon as it's safe to.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROOF -->
+  <div class="bp-proof" data-pixel-event="proof_view" data-pixel-label="Emergency proof" data-pixel-delta="4" data-pixel-bucket="emergency">
+    <div class="bp-proof-inner">
+      <div class="bp-proof-card reveal">
+        <div class="bp-proof-stars">★★★★★</div>
+        <p class="bp-proof-text">"Burst pipe at 11pm on a Sunday. Called Total Trades Solutions and they were at my door in under 20 minutes. Fixed it, cleaned up, price was exactly what they quoted. Won't call anyone else."</p>
+        <div class="bp-proof-attr"><div class="bp-proof-dot"></div><span class="bp-proof-name">Sarah T. · Timmins · Google Review</span></div>
+      </div>
+      <div class="bp-proof-card reveal reveal-delay-1">
+        <div class="bp-proof-stars">★★★★★</div>
+        <p class="bp-proof-text">"Came home to water coming through the kitchen ceiling. Pipe had burst in the bathroom above. Called Total Trades Solutions — owner picked up himself, was on site within 30 minutes. Professional and calm when I was panicking."</p>
+        <div class="bp-proof-attr"><div class="bp-proof-dot"></div><span class="bp-proof-name">Greg W. · Cochrane · Google Review</span></div>
+      </div>
+      <div class="bp-proof-card reveal reveal-delay-2">
+        <div class="bp-proof-stars">★★★★★</div>
+        <p class="bp-proof-text">"February cold snap froze the pipe under the kitchen sink. Caught it before it burst. Total Trades Solutions replaced the section with PEX, insulated it properly, and explained exactly why it happened. No repeat issue the following winter."</p>
+        <div class="bp-proof-attr"><div class="bp-proof-dot"></div><span class="bp-proof-name">Linda K. · Kapuskasing · Google Review</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE AREAS -->
+  <div class="bp-areas reveal">
+    <div class="bp-areas-inner">
+      <span class="bp-areas-label">We respond to</span>
+      <div class="bp-areas-divider"></div>
+      <a href="/timmins" class="bp-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins</a>
+      <a href="/cochrane" class="bp-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Cochrane</a>
+      <a href="/south-porcupine" class="bp-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>South Porcupine</a>
+      <a href="/iroquois-falls" class="bp-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Iroquois Falls</a>
+      <a href="/kapuskasing" class="bp-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Kapuskasing</a>
+      <a href="/matheson" class="bp-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Matheson</a>
+      <a href="/kirkland-lake" class="bp-area-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Kirkland Lake</a>
+    </div>
+  </div>
+
+  <!-- BOTTOM CTA BAND -->
+  <div class="bp-cta-band">
+    <div class="bp-cta-inner">
+      <div>
+        <div class="bp-cta-headline">Still dealing with it?<br>We're still here.</div>
+        <div class="bp-cta-sub">No voicemail. No call centre. A plumber picks up.</div>
+      </div>
+      <div class="bp-cta-right">
+        <a href="tel:7057001234" class="bp-cta-call" id="ctaCallBtn">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>
+          Call (705) 700-1234
+        </a>
+        <button class="bp-cta-secondary" onclick="toggleLG()">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Request callback
+        </button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Total Trades Solutions</div>
+        <div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div>
+        <a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a>
+        <div class="footer-brand-email">info@totaltradessolutions.ca</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/emergency" class="footer-link">Emergency 24/7</a>
+          <a href="/hot-water" class="footer-link">Hot Water Systems</a>
+          <a href="/blocked-drains" class="footer-link">Blocked Drains</a>
+          <a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a>
+          <a href="/leak-detection" class="footer-link">Leak Detection</a>
+          <a href="/gas-plumbing" class="footer-link">Gas Plumbing</a>
+          <a href="/pipe-repair" class="footer-link">Pipe Repair</a>
+          <a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about" class="footer-link">About Us</a>
+          <a href="/reviews" class="footer-link">Reviews</a>
+          <a href="/our-guarantee" class="footer-link">Our Guarantee</a>
+          <a href="/blog" class="footer-link">Blog</a>
+          <a href="/faq" class="footer-link">FAQ</a>
+          <a href="/book" class="footer-link">Book Appointment</a>
+          <a href="/privacy" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Service Areas</div>
+        <div class="footer-links">
+          <a href="/timmins" class="footer-link">Timmins</a>
+          <a href="/cochrane" class="footer-link">Cochrane</a>
+          <a href="/south-porcupine" class="footer-link">South Porcupine</a>
+          <a href="/iroquois-falls" class="footer-link">Iroquois Falls</a>
+          <a href="/kapuskasing" class="footer-link">Kapuskasing</a>
+          <a href="/matheson" class="footer-link">Matheson</a>
+          <a href="/kirkland-lake" class="footer-link">Kirkland Lake</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Total Trades Solutions. All rights reserved.</span>
+      <span>Licensed · Insured · Ontario College of Trades</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LEAD GRABBER — speak-now only -->
+<div class="lead-grabber">
+  <button class="lg-btn" id="lgBtn" onclick="toggleLG()"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></button>
+  <span class="lg-label">Call back</span>
+</div>
+<div class="lg-panel" id="lgPanel">
+  <div class="lg-header">
+    <div><div class="lg-header-title">Call back request</div><div class="lg-header-sub">We'll call within 15 minutes</div></div>
+    <button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="lg-body">
+    <div class="lg-note">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <span>A licensed plumber will call you back within 15 minutes — day or night.</span>
+    </div>
+    <input class="lg-input" type="text" placeholder="Your name" id="lgName">
+    <input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone">
+    <input class="lg-input" type="text" placeholder="What's happening?" id="lgIssue">
+    <button class="lg-submit" onclick="submitLG()">Request call back now</button>
+  </div>
+</div>
+
+<!-- AI CHAT -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div><div class="chat-name">Total Trades Solutions Assistant</div><div class="chat-status">Online · for emergencies call (705) 700-1234</div></div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">For emergencies, please call (705) 700-1234 — a plumber answers 24/7. I can help with general questions while you wait.</div>
+    </div>
+    <div class="chat-quick">
+      <button class="chat-quick-btn" onclick="quickAsk('How do I shut off the main water valve?')">Shut off water</button>
+      <button class="chat-quick-btn" onclick="quickAsk('What do I do about a burst pipe?')">Burst pipe steps</button>
+      <button class="chat-quick-btn" onclick="quickAsk('Should I call my insurance?')">Insurance</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" placeholder="Ask a question…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+  <button class="chat-bubble" id="chatBubble" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+</div>
+
+<!-- PIXEL TOAST -->
+<div class="pixel-toast" id="pixelToast"><div class="pixel-toast-dot"></div><span id="pixelToastText">Pixel fired</span></div>
+
+<script>
+/* LIVE CLOCK */
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  const s = now.getSeconds().toString().padStart(2,'0');
+  const el = document.getElementById('liveClock');
+  if (el) el.textContent = h + ':' + m + ':' + s;
+}
+updateClock(); setInterval(updateClock, 1000);
+
+/* NAV + SCROLL */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  if (nav) { if (window.scrollY > 20) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+  });
+});
+document.querySelectorAll('.reveal').forEach(el => {
+  if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+});
+
+/* MOBILE MENU */
+function toggleMobileMenu() {
+  const m = document.getElementById('mobileMenu'), b = document.getElementById('mobileHamburger');
+  const o = m.classList.toggle('open'); b.classList.toggle('open', o); document.body.style.overflow = o ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileHamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* CLEARSKY PIXEL — Emergency bucket fires immediately on page load */
+let _score = 0, _bucket = 'unclassified', _scrollDepth = 0, _dwellStart = Date.now(), _toastTimeout;
+const _bp = ['emergency','active','comparison','research','unclassified'];
+function firePixel(event, label, delta, bucket) {
+  _score = Math.min(_score + delta, 100);
+  if (bucket && bucket !== 'unclassified') {
+    const c = _bp.indexOf(_bucket), n = _bp.indexOf(bucket);
+    if (c === -1 || n < c || _bucket === 'unclassified') _bucket = bucket;
+  }
+  const t = document.getElementById('pixelToast');
+  document.getElementById('pixelToastText').textContent = label + (delta > 0 ? ' +' + delta : '');
+  t.classList.add('show'); clearTimeout(_toastTimeout);
+  _toastTimeout = setTimeout(() => t.classList.remove('show'), 2200);
+  console.log('[ClearSky Pixel]', { event, score: _score, bucket: _bucket, delta, label });
+}
+
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement.scrollHeight - window.innerHeight; if (doc <= 0) return;
+  const pct = Math.round((window.scrollY / doc) * 100);
+  if (pct > _scrollDepth) {
+    if (pct >= 25 && _scrollDepth < 25) firePixel('scroll_25', 'Scroll 25%', 3, 'emergency');
+    if (pct >= 50 && _scrollDepth < 50) firePixel('scroll_50', 'Scroll 50%', 5, 'emergency');
+    if (pct >= 75 && _scrollDepth < 75) firePixel('scroll_75', 'Scroll 75%', 7, 'emergency');
+    if (pct >= 90 && _scrollDepth < 90) firePixel('scroll_90', 'Scroll 90%', 10, 'emergency');
+    _scrollDepth = pct;
+  }
+});
+let _d30=false,_d60=false,_d120=false;
+setInterval(() => {
+  const s = Math.round((Date.now() - _dwellStart) / 1000);
+  if (s>=30  && !_d30)  { _d30=true;  firePixel('dwell_30','30s dwell',4,'emergency'); }
+  if (s>=60  && !_d60)  { _d60=true;  firePixel('dwell_60','60s dwell',7,'emergency'); }
+  if (s>=120 && !_d120) { _d120=true; firePixel('dwell_120','2min dwell',10,'emergency'); }
+}, 1000);
+
+const _obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, evt = el.dataset.pixelEvent;
+      if (evt) { firePixel(evt, el.dataset.pixelLabel||evt, parseInt(el.dataset.pixelDelta||'0'), el.dataset.pixelBucket||'emergency'); _obs.unobserve(el); }
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-pixel-event]').forEach(el => _obs.observe(el));
+
+/* Page load — URL contains /burst-pipe — Emergency bucket rule fires */
+firePixel('page_load', 'Burst Pipe page — Emergency bucket', 20, 'emergency');
+
+/* CTA events */
+document.getElementById('heroCallBtn').addEventListener('click', () => firePixel('hero_call', 'Call CTA — hero', 20, 'emergency'));
+document.getElementById('ctaCallBtn').addEventListener('click', () => firePixel('cta_call', 'Call CTA — bottom', 20, 'emergency'));
+document.getElementById('navEmergencyBtn').addEventListener('click', () => firePixel('nav_emergency', 'Nav: Emergency', 15, 'emergency'));
+
+/* Problem card clicks */
+['probBurst','probFlood','probCeiling','probFrozen','probSewer'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('click', () => firePixel('problem_click', 'Problem: ' + id, 20, 'emergency'));
+});
+
+/* CALLBACK FORM */
+function toggleCallback() {
+  const form = document.getElementById('callbackForm');
+  const isOpen = form.classList.toggle('open');
+  if (isOpen) firePixel('callback_open', 'Callback form opened', 12, 'emergency');
+}
+function submitCallback() {
+  firePixel('callback_submit', 'Callback submitted', 20, 'emergency');
+  const btn = document.querySelector('.bp-form-submit');
+  btn.textContent = 'Request sent — we\'ll call within 15 minutes ✓';
+  btn.style.background = 'var(--green)';
+}
+
+/* LEAD GRABBER */
+let _lgOpen = false;
+function toggleLG() {
+  _lgOpen = !_lgOpen;
+  document.getElementById('lgPanel').classList.toggle('open', _lgOpen);
+  if (_lgOpen) firePixel('lg_open', 'Lead Grabber opened', 12, 'emergency');
+}
+function submitLG() {
+  firePixel('lg_submit', 'Lead Grabber submitted', 20, 'emergency');
+  const btn = document.querySelector('.lg-submit');
+  btn.textContent = 'Received — calling within 15 minutes ✓';
+  btn.style.background = 'var(--green)';
+  setTimeout(() => { btn.textContent = 'Request call back now'; btn.style.background = ''; }, 4000);
+}
+
+/* AI CHAT */
+let _chatOpen = false;
+function toggleChat() {
+  _chatOpen = !_chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open', _chatOpen);
+  if (_chatOpen) firePixel('chat_open', 'AI Chat opened', 6, 'emergency');
+}
+function quickAsk(q) {
+  _addChatMsg(q, 'user');
+  firePixel('chat_question', 'Emergency question: ' + q.substring(0,30), 10, 'emergency');
+  const r = {
+    'How do I shut off the main water valve?': 'Your main shutoff is usually in the basement near where the water line enters the house — often a gate valve or ball valve. Turn it clockwise until it stops. If you can\'t find it, follow the cold water pipe from the water heater back to the wall.',
+    'What do I do about a burst pipe?': '1. Shut off the main water valve. 2. Turn off the hot water tank. 3. Call us at (705) 700-1234. Don\'t try to patch it yourself — the repair needs to be done right so it doesn\'t fail again.',
+    'Should I call my insurance?': 'Yes — if there\'s water damage, call your insurance company as soon as the immediate crisis is under control. Take photos and video first. Most home policies cover burst pipe damage. Your policy number is on your insurance documents.'
+  };
+  setTimeout(() => _addChatMsg(r[q] || 'For emergencies, call (705) 700-1234 directly — a plumber answers 24/7. That\'s always faster.', 'bot'), 800);
+}
+function sendChat() {
+  const inp = document.getElementById('chatInput'); if (!inp.value.trim()) return;
+  _addChatMsg(inp.value, 'user'); firePixel('chat_question', 'Emergency chat question', 10, 'emergency'); inp.value = '';
+  setTimeout(() => _addChatMsg('For emergencies, please call (705) 700-1234 directly — a plumber answers 24/7. That\'s always the fastest path.', 'bot'), 800);
+}
+function _addChatMsg(text, type) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div'); div.className = 'chat-msg ' + type; div.textContent = text;
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Total Trades Solutions — Timmins, Ontario | Owner-Operated Since 2018</title>
+<meta name="description" content="Total Trades Solutions has been serving Timmins and Northern Ontario since 2018. Owner-operated, licensed, TSSA certified. Two plumbers who know this community and this housing stock personally.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--white:#FFFFFF;--surface:#F8F6F1;--border:#E8E4DC;--text:#111714;--text2:#4A5E52;--text3:#8A9E92;--green:#1B5E3B;--green-mid:#2D7A52;--green-lt:#EBF5EF;--green-dk:#0D3B27;--rust:#C24A1E;--rust-mid:#A83818;--rust-lt:#FAEDE8;--gold:#B8862A;--gold-lt:#FBF5E6;--ink:#0D1F14;--sans:'Barlow',sans-serif;--cond:'Barlow Condensed',sans-serif;--nav-h:68px;--trust-h:40px;--col:1180px;--radius:6px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:var(--sans);background:var(--white);color:var(--text);overflow-x:hidden;}
+img{max-width:100%;display:block;}a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:inherit;}
+.page-content{margin-top:calc(var(--trust-h) + var(--nav-h));}
+.trust-bar{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--trust-h);background:var(--ink);display:flex;align-items:center;padding:0 24px;}
+.trust-bar-inner{max-width:var(--col);margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;}
+.trust-items{display:flex;align-items:center;}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.75);padding:0 18px;border-right:1px solid rgba(255,255,255,0.1);}
+.trust-item:first-child{padding-left:0;}.trust-item:last-child{border-right:none;}
+.trust-item svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.trust-item .stars{color:var(--gold);font-size:11px;letter-spacing:1px;}
+.trust-right{display:flex;align-items:center;}
+.trust-phone{font-family:var(--cond);font-size:15px;font-weight:700;color:#fff;letter-spacing:0.04em;}
+nav{position:fixed;top:var(--trust-h);left:0;right:0;z-index:190;height:var(--nav-h);background:var(--white);border-bottom:1px solid var(--border);transition:box-shadow 0.3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.08);}
+.nav-inner{max-width:var(--col);margin:0 auto;width:100%;height:100%;display:flex;align-items:center;padding:0 24px;gap:32px;}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-logo-mark{width:38px;height:38px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.nav-logo-mark svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.nav-logo-name{font-family:var(--cond);font-size:20px;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:0.02em;}
+.nav-logo-tag{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:0.06em;text-transform:uppercase;}
+.nav-services{display:flex;align-items:center;gap:2px;flex:1;}
+.nav-svc{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:var(--radius);transition:background 0.2s;text-decoration:none;}
+.nav-svc:hover{background:var(--green-lt);}
+.nav-svc-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;}
+.nav-svc-icon svg{width:22px;height:22px;stroke:var(--green);fill:none;stroke-width:1.75;}
+.nav-svc-label{font-size:10px;font-weight:600;color:var(--text2);letter-spacing:0.03em;white-space:nowrap;}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-emergency{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius);background:var(--rust-lt);border:1.5px solid var(--rust);font-size:13px;font-weight:600;color:var(--rust);transition:all 0.2s;text-decoration:none;}
+.nav-emergency:hover{background:var(--rust);color:#fff;}
+.nav-emergency svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.nav-book{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:var(--radius);background:var(--green);color:#fff;font-size:13px;font-weight:600;text-decoration:none;transition:background 0.2s;}
+.nav-book:hover{background:var(--green-mid);}
+.mobile-header{display:none;position:fixed;top:0;left:0;right:0;z-index:200;height:60px;background:var(--white);border-bottom:1px solid var(--border);padding:0 16px;align-items:center;justify-content:space-between;}
+.mobile-hamburger{width:40px;height:40px;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.mobile-hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:all 0.3s;transform-origin:center;}
+.mobile-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.mobile-hamburger.open span:nth-child(2){opacity:0;}
+.mobile-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-logo-name{font-family:var(--cond);font-size:18px;font-weight:800;color:var(--ink);text-transform:uppercase;}
+.mobile-right{display:flex;align-items:center;gap:8px;}
+.mobile-emergency-btn{display:flex;align-items:center;gap:5px;background:var(--rust);color:#fff;font-family:var(--cond);font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:7px 12px;border-radius:var(--radius);text-decoration:none;}
+.mobile-emergency-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.mobile-call-btn{width:36px;height:36px;border-radius:50%;background:var(--green);border:none;display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.mobile-call-btn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;bottom:0;z-index:180;background:var(--white);overflow-y:auto;border-top:1px solid var(--border);flex-direction:column;}
+.mobile-menu.open{display:flex;}
+.mobile-menu-emergency{display:flex;align-items:center;gap:10px;padding:18px 20px;background:var(--rust-lt);border-bottom:1px solid rgba(194,74,30,0.15);font-family:var(--cond);font-size:17px;font-weight:700;color:var(--rust);text-transform:uppercase;text-decoration:none;}
+.mobile-menu-emergency svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.mobile-menu-section{padding:16px 20px 8px;}
+.mobile-menu-section-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;}
+.mobile-menu-link{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px;font-weight:500;color:var(--text);text-decoration:none;}
+.mobile-menu-link svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:1.75;flex-shrink:0;}
+.mobile-menu-book{margin:16px 20px 20px;display:block;text-align:center;background:var(--green);color:#fff;font-family:var(--cond);font-size:17px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:14px;border-radius:var(--radius);text-decoration:none;}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+
+/* ═══ ABOUT PAGE ═══ */
+
+/* HERO */
+.about-hero{background:var(--ink);padding:80px 24px 72px;position:relative;overflow:hidden;}
+.about-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(27,94,59,0.18) 0%,transparent 55%),radial-gradient(ellipse at 5% 80%,rgba(184,134,42,0.06) 0%,transparent 40%);}
+.about-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:60px 60px;}
+.about-hero-inner{position:relative;z-index:2;max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:center;}
+.about-hero-label{font-size:11px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.about-hero-label::before{content:'';display:block;width:20px;height:2px;background:rgba(255,255,255,0.25);}
+.about-hero-headline{font-family:var(--cond);font-weight:900;font-size:clamp(44px,6vw,80px);line-height:0.9;text-transform:uppercase;color:#fff;margin-bottom:24px;}
+.about-hero-headline em{font-style:normal;color:var(--gold);}
+.about-hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:36px;}
+.about-hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.about-hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:0.05em;text-transform:uppercase;padding:13px 24px;border-radius:var(--radius);text-decoration:none;transition:background 0.2s;}
+.about-hero-cta:hover{background:var(--green-mid);}
+.about-hero-cta svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.about-hero-cta.secondary{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);}
+.about-hero-cta.secondary:hover{background:rgba(255,255,255,0.14);}
+
+/* Owner card */
+.about-owner-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;overflow:hidden;}
+.about-owner-photo{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,#1a3a28 0%,#2D7A52 50%,#1B5E3B 100%);display:flex;align-items:center;justify-content:center;position:relative;}
+.about-owner-photo-placeholder{text-align:center;}
+.about-owner-photo-placeholder svg{width:64px;height:64px;stroke:rgba(255,255,255,0.2);fill:none;stroke-width:1;margin:0 auto 12px;}
+.about-owner-photo-note{font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.06em;text-transform:uppercase;}
+.about-owner-photo-badge{position:absolute;bottom:14px;left:14px;background:var(--green);color:#fff;font-family:var(--cond);font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;border-radius:100px;}
+.about-owner-body{padding:20px;}
+.about-owner-name{font-family:var(--cond);font-size:22px;font-weight:800;color:#fff;text-transform:uppercase;margin-bottom:4px;}
+.about-owner-title{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:14px;}
+.about-owner-creds{display:flex;flex-direction:column;gap:6px;}
+.about-owner-cred{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);}
+.about-owner-cred svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:2;flex-shrink:0;}
+
+/* OWNER STORY */
+.about-story{padding:80px 24px;background:var(--white);}
+.about-story-inner{max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.about-story-label{font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.about-story-label::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.about-story-headline{font-family:var(--cond);font-weight:800;font-size:clamp(32px,4vw,48px);line-height:0.95;text-transform:uppercase;color:var(--ink);margin-bottom:28px;}
+.about-story-body{font-size:16px;color:var(--text2);line-height:1.8;}
+.about-story-body p{margin-bottom:18px;}
+.about-story-body p:last-child{margin-bottom:0;}
+.about-story-body strong{color:var(--text);font-weight:600;}
+
+/* Timeline */
+.about-timeline{display:flex;flex-direction:column;gap:0;margin-top:8px;}
+.about-tl-item{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--border);}
+.about-tl-item:first-child{padding-top:0;}
+.about-tl-item:last-child{border-bottom:none;}
+.about-tl-year{font-family:var(--cond);font-weight:900;font-size:24px;color:var(--green);line-height:1;flex-shrink:0;width:56px;}
+.about-tl-content{}
+.about-tl-title{font-family:var(--cond);font-weight:700;font-size:16px;color:var(--ink);text-transform:uppercase;margin-bottom:4px;}
+.about-tl-desc{font-size:13px;color:var(--text2);line-height:1.65;}
+
+/* TEAM SECTION */
+.about-team{background:var(--surface);padding:72px 24px;}
+.about-team-inner{max-width:var(--col);margin:0 auto;}
+.about-team-label{font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.about-team-label::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.about-team-headline{font-family:var(--cond);font-weight:800;font-size:clamp(32px,4vw,48px);line-height:0.95;text-transform:uppercase;color:var(--ink);margin-bottom:48px;}
+.about-team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.about-team-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.about-team-photo{aspect-ratio:4/3;background:linear-gradient(135deg,#1B5E3B 0%,#2D7A52 100%);display:flex;align-items:center;justify-content:center;}
+.about-team-photo svg{width:48px;height:48px;stroke:rgba(255,255,255,0.2);fill:none;stroke-width:1;}
+.about-team-body{padding:20px;}
+.about-team-name{font-family:var(--cond);font-size:20px;font-weight:800;color:var(--ink);text-transform:uppercase;margin-bottom:4px;}
+.about-team-role{font-size:12px;color:var(--text3);margin-bottom:14px;}
+.about-team-creds{display:flex;flex-direction:column;gap:6px;}
+.about-team-cred{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);}
+.about-team-cred svg{width:13px;height:13px;stroke:var(--green);fill:none;stroke-width:2;flex-shrink:0;}
+
+/* HOW WE WORK */
+.about-how{padding:72px 24px;background:var(--white);border-top:1px solid var(--border);}
+.about-how-inner{max-width:var(--col);margin:0 auto;}
+.about-how-label{font-size:11px;font-weight:700;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.about-how-label::before{content:'';display:block;width:20px;height:2px;background:var(--green);}
+.about-how-headline{font-family:var(--cond);font-weight:800;font-size:clamp(32px,4vw,48px);line-height:0.95;text-transform:uppercase;color:var(--ink);margin-bottom:48px;}
+.about-how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+.about-how-item{border-top:3px solid var(--border);padding-top:24px;}
+.about-how-item.green{border-top-color:var(--green);}
+.about-how-item.gold{border-top-color:var(--gold);}
+.about-how-item.rust{border-top-color:var(--rust);}
+.about-how-title{font-family:var(--cond);font-weight:700;font-size:18px;color:var(--ink);text-transform:uppercase;margin-bottom:10px;}
+.about-how-desc{font-size:14px;color:var(--text2);line-height:1.7;}
+
+/* PROOF BAND */
+.about-proof{background:var(--ink);padding:64px 24px;}
+.about-proof-inner{max-width:var(--col);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-proof-quote-mark{font-family:var(--cond);font-size:140px;font-weight:900;color:rgba(255,255,255,0.04);line-height:0.7;margin-bottom:-20px;}
+.about-proof-quote{font-size:20px;font-weight:300;font-style:italic;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:20px;}
+.about-proof-attr{display:flex;align-items:center;gap:10px;}
+.about-proof-stars{color:var(--gold);font-size:13px;letter-spacing:2px;}
+.about-proof-name{font-size:12px;font-weight:600;color:rgba(255,255,255,0.35);letter-spacing:0.04em;text-transform:uppercase;}
+.about-proof-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);}
+.about-proof-stat{background:rgba(255,255,255,0.03);padding:28px 24px;}
+.about-proof-num{font-family:var(--cond);font-weight:900;font-size:48px;color:#fff;line-height:1;margin-bottom:6px;}
+.about-proof-num em{font-style:normal;color:var(--gold);font-size:32px;}
+.about-proof-label{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;}
+
+/* CTA */
+.about-cta{background:var(--surface);padding:56px 24px;border-top:1px solid var(--border);}
+.about-cta-inner{max-width:var(--col);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+.about-cta-text{}
+.about-cta-headline{font-family:var(--cond);font-weight:800;font-size:clamp(28px,3.5vw,44px);color:var(--ink);text-transform:uppercase;line-height:0.95;margin-bottom:10px;}
+.about-cta-sub{font-size:15px;color:var(--text2);font-weight:300;}
+.about-cta-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.about-cta-primary{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:0.05em;text-transform:uppercase;padding:14px 26px;border-radius:var(--radius);text-decoration:none;transition:background 0.2s;}
+.about-cta-primary:hover{background:var(--green-mid);}
+.about-cta-secondary{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--text);border:1.5px solid var(--border);font-size:14px;font-weight:500;padding:14px 22px;border-radius:var(--radius);text-decoration:none;transition:all 0.2s;}
+.about-cta-secondary:hover{border-color:var(--green);color:var(--green);}
+
+/* FOOTER */
+footer{background:var(--ink);padding:64px 24px 32px;}
+.footer-inner{max-width:var(--col);margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:32px;}
+.footer-brand-name{font-family:var(--cond);font-size:24px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:0.02em;margin-bottom:6px;}
+.footer-brand-tag{font-size:12px;color:rgba(255,255,255,0.3);margin-bottom:20px;}
+.footer-brand-phone{font-family:var(--cond);font-size:26px;font-weight:700;color:var(--gold);letter-spacing:0.02em;display:block;margin-bottom:4px;}
+.footer-brand-email{font-size:13px;color:rgba(255,255,255,0.35);}
+.footer-col-title{font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;}
+.footer-links{display:flex;flex-direction:column;gap:8px;}
+.footer-link{font-size:13px;color:rgba(255,255,255,0.5);transition:color 0.2s;}
+.footer-link:hover{color:#fff;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.2);}
+
+/* FLOATING TOOLS */
+.lead-grabber{position:fixed;bottom:96px;right:24px;z-index:490;width:56px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.lg-btn{width:56px;height:56px;border-radius:50%;background:var(--rust);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(194,74,30,0.35);cursor:pointer;transition:all 0.2s;}
+.lg-btn:hover{background:var(--rust-mid);transform:scale(1.05);}
+.lg-btn svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;}
+.lg-label{font-size:9px;font-weight:600;color:var(--rust);letter-spacing:0.04em;text-align:center;white-space:nowrap;}
+.lg-panel{position:fixed;bottom:90px;right:90px;z-index:490;width:300px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.12);overflow:hidden;display:none;}
+.lg-panel.open{display:block;animation:slideUp 0.3s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.lg-header{background:var(--rust);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.lg-header-title{font-family:var(--cond);font-size:18px;font-weight:700;color:#fff;text-transform:uppercase;}
+.lg-header-sub{font-size:11px;color:rgba(255,255,255,0.65);}
+.lg-close{background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;}
+.lg-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.lg-body{padding:16px;}
+.lg-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.lg-option{padding:12px;border:1.5px solid var(--border);border-radius:var(--radius);text-align:center;cursor:pointer;transition:all 0.2s;}
+.lg-option:hover,.lg-option.selected{border-color:var(--rust);background:var(--rust-lt);}
+.lg-option svg{width:22px;height:22px;stroke:var(--rust);fill:none;stroke-width:2;margin:0 auto 6px;display:block;}
+.lg-option span{font-size:12px;font-weight:600;color:var(--rust);}
+.lg-input{width:100%;border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:13px;font-family:inherit;outline:none;margin-bottom:8px;}
+.lg-input:focus{border-color:var(--rust);}
+.lg-submit{width:100%;background:var(--rust);color:#fff;border:none;border-radius:var(--radius);padding:12px;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;}
+.chat-widget{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px;}
+.chat-bubble{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(27,94,59,0.4);cursor:pointer;transition:all 0.2s;}
+.chat-bubble:hover{background:var(--green-mid);transform:scale(1.05);}
+.chat-bubble svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;}
+.chat-panel{width:320px;background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.12);overflow:hidden;display:none;}
+.chat-panel.open{display:flex;flex-direction:column;animation:slideUp 0.3s ease;}
+.chat-panel-header{background:var(--green);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.chat-header-info{display:flex;align-items:center;gap:10px;}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;}
+.chat-avatar svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;}
+.chat-name{font-size:14px;font-weight:600;color:#fff;}
+.chat-status{font-size:11px;color:rgba(255,255,255,0.65);}
+.chat-close{background:none;border:none;color:rgba(255,255,255,0.6);cursor:pointer;}
+.chat-close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.chat-messages{padding:16px;min-height:100px;display:flex;flex-direction:column;gap:10px;}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;}
+.chat-msg.bot{background:var(--surface);color:var(--text);border-bottom-left-radius:4px;align-self:flex-start;}
+.chat-msg.user{background:var(--green);color:#fff;border-bottom-right-radius:4px;align-self:flex-end;}
+.chat-quick{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:6px;}
+.chat-quick-btn{background:var(--green-lt);border:1px solid rgba(27,94,59,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:var(--green);font-weight:500;cursor:pointer;transition:all 0.2s;}
+.chat-quick-btn:hover{background:var(--green);color:#fff;}
+.chat-input-row{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);}
+.chat-input{flex:1;border:1px solid var(--border);border-radius:100px;padding:8px 14px;font-size:13px;font-family:inherit;outline:none;}
+.chat-input:focus{border-color:var(--green);}
+.chat-send{width:36px;height:36px;border-radius:50%;background:var(--green);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.chat-send svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5;}
+.pixel-toast{position:fixed;bottom:24px;left:24px;z-index:600;background:var(--ink);color:#fff;font-family:var(--cond);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:10px 16px;border-radius:var(--radius);display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;pointer-events:none;max-width:280px;}
+.pixel-toast.show{opacity:1;transform:translateY(0);}
+.pixel-toast-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 1.2s infinite;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+@media(max-width:1024px){.about-hero-inner,.about-story-inner,.about-proof-inner{grid-template-columns:1fr;}.about-team-grid,.about-how-grid{grid-template-columns:1fr 1fr;}.about-cta-inner{flex-direction:column;}.footer-top{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){:root{--trust-h:0px;--nav-h:60px;}.trust-bar{display:none;}nav{display:none;}.mobile-header{display:flex;}.page-content{margin-top:60px;}.about-team-grid{grid-template-columns:1fr;}.about-how-grid{grid-template-columns:1fr;}.footer-top{grid-template-columns:1fr 1fr;gap:32px;}.footer-bottom{flex-direction:column;gap:8px;text-align:center;}}
+@media(max-width:480px){.footer-top{grid-template-columns:1fr;}.about-cta-actions{flex-direction:column;}.about-cta-primary,.about-cta-secondary{justify-content:center;}}
+</style>
+</head>
+<body>
+
+<div class="trust-bar"><div class="trust-bar-inner"><div class="trust-items"><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Licensed &amp; Insured</div><div class="trust-item"><span class="stars">★★★★★</span>4.7 · 64 Reviews</div><div class="trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>24/7 Emergency</div><div class="trust-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Timmins &amp; Area</div></div><div class="trust-right"><a href="tel:7057001234" class="trust-phone">(705) 700-1234</a></div></div></div>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><div class="nav-logo-mark"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="nav-logo-text"><span class="nav-logo-name">Total Trades</span><span class="nav-logo-tag">Timmins ON</span></div></a>
+    <div class="nav-services">
+      <a href="/hot-water" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="nav-svc-label">Hot Water</span></a>
+      <a href="/blocked-drains" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg></div><span class="nav-svc-label">Drains</span></a>
+      <a href="/bathroom-renovations" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg></div><span class="nav-svc-label">Bathrooms</span></a>
+      <a href="/leak-detection" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><span class="nav-svc-label">Leaks</span></a>
+      <a href="/gas-plumbing" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><span class="nav-svc-label">Gas</span></a>
+      <a href="/pipe-repair" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 12H5a4 4 0 0 1 0-8h14"/><path d="M12 12h7a4 4 0 0 1 0 8H5"/></svg></div><span class="nav-svc-label">Pipes</span></a>
+      <a href="/reviews" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="nav-svc-label">Reviews</span></a>
+      <a href="/blog" class="nav-svc"><div class="nav-svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><span class="nav-svc-label">Blog</span></a>
+    </div>
+    <div class="nav-right">
+      <a href="/emergency" class="nav-emergency" id="navEmergencyBtn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>Emergency</a>
+      <a href="/book" class="nav-book" id="navBookBtn">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-header" id="mobileHeader"><button class="mobile-hamburger" id="mobileHamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button><span class="mobile-logo-name">Total Trades Solutions</span><div class="mobile-right"><a href="/emergency" class="mobile-emergency-btn"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency</a><a href="tel:7057001234" class="mobile-call-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></a></div></div>
+<div class="mobile-menu" id="mobileMenu"><a href="/emergency" class="mobile-menu-emergency" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Emergency 24/7</a><div class="mobile-menu-section"><div class="mobile-menu-section-title">Services</div><a href="/hot-water" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hot Water Systems</a><a href="/blocked-drains" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22V12m0 0C12 7 7 4 7 4s1 4 5 8zm0 0c0-5 5-8 5-8s-1 4-5 8z"/></svg>Blocked Drains</a><a href="/bathroom-renovations" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><rect x="2" y="11" width="20" height="8" rx="2"/><path d="M6 11V4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7"/></svg>Bathroom Renovations</a></div><div class="mobile-menu-section"><div class="mobile-menu-section-title">Company</div><a href="/about" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>About Us</a><a href="/reviews" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Reviews</a><a href="/our-guarantee" class="mobile-menu-link" onclick="closeMobileMenu()"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Our Guarantee</a></div><a href="/book" class="mobile-menu-book" onclick="closeMobileMenu()">Book Appointment</a></div>
+
+<main class="page-content">
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-grid"></div>
+    <div class="about-hero-inner">
+      <div>
+        <div class="about-hero-label">About Total Trades Solutions</div>
+        <h1 class="about-hero-headline">Built in Timmins.<br>For <em>Timmins.</em></h1>
+        <p class="about-hero-sub">Total Trades Solutions started in 2018 with one licensed plumber and a truck. Today it's two licensed plumbers and an office support person — but the owner is still on the tools, and the same person who answers the phone stands behind every job that gets done.</p>
+        <div class="about-hero-actions">
+          <a href="/contact" class="about-hero-cta"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Book a free estimate</a>
+          <a href="tel:7057001234" class="about-hero-cta secondary" id="heroCallBtn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg>(705) 700-1234</a>
+        </div>
+      </div>
+      <!-- Owner card -->
+      <div class="about-owner-card">
+        <div class="about-owner-photo">
+          <div class="about-owner-photo-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <div class="about-owner-photo-note">Owner photo placeholder</div>
+          </div>
+          <div class="about-owner-photo-badge">Est. 2018 · Timmins, ON</div>
+        </div>
+        <div class="about-owner-body">
+          <div class="about-owner-name">James Dredhart</div>
+          <div class="about-owner-title">Owner · Licensed Plumber · Total Trades Solutions</div>
+          <div class="about-owner-creds">
+            <div class="about-owner-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ontario College of Trades — 306A Journeyperson</div>
+            <div class="about-owner-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>TSSA certified gas fitter</div>
+            <div class="about-owner-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>6 years in Timmins plumbing</div>
+            <div class="about-owner-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Owner still on the tools</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OWNER STORY -->
+  <section class="about-story" data-pixel-event="about_story" data-pixel-label="Owner story read" data-pixel-delta="8" data-pixel-bucket="comparison">
+    <div class="about-story-inner">
+      <div class="reveal">
+        <div class="about-story-label">The story</div>
+        <h2 class="about-story-headline">Started with one truck.<br>Built on referrals.</h2>
+        <div class="about-story-body">
+          <p>Total Trades Solutions started in 2018. The owner — James — had been working for another plumbing outfit in Timmins for several years and decided to start his own operation. No business plan. No marketing budget. Just a truck, a licence, and a phone number he gave to people he'd done good work for.</p>
+          <p>The first year was general work. Dripping taps. Blocked drains. The calls you get when someone gives your number to a neighbour. The kind of work that doesn't leave much margin but builds a reputation if you do it right. James did it right. Showed up when he said he would. Quoted clearly before starting. Didn't add things to the invoice that weren't discussed.</p>
+          <p>By 2020 the phone was busy enough to hire a second licensed plumber. By 2022 a part-time office person joined to manage calls and scheduling — so James and the team could stay on jobs without the phone going to voicemail. That's still the model today. <strong>Three people. No voicemail. Every call answered by someone who can actually help.</strong></p>
+          <p>The team has done hundreds of jobs in Timmins and surrounding area. Emergency callouts at 2am in February. Bathroom renovations that took three weeks. Water heater replacements that took an afternoon. The housing stock in this part of Northern Ontario — the 1950s and 60s builds in Schumacher, the 70s houses in Mountjoy, the newer builds on the south end — James knows what's behind the walls. That matters when you're diagnosing a problem.</p>
+          <p>We're not a franchise. We're not a chain. We don't sub out work to whoever is available. Every job is done by a Total Trades Solutions plumber who we'd send to our own home.</p>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="reveal reveal-delay-1">
+        <div class="about-timeline">
+          <div class="about-tl-item">
+            <div class="about-tl-year">2018</div>
+            <div class="about-tl-content">
+              <div class="about-tl-title">Started — one truck, one plumber</div>
+              <p class="about-tl-desc">James registered Total Trades Solutions and took the first jobs through word of mouth. Timmins and immediate area only. Emergency work, drains, fixtures — whatever the phone brought in.</p>
+            </div>
+          </div>
+          <div class="about-tl-item">
+            <div class="about-tl-year">2019</div>
+            <div class="about-tl-content">
+              <div class="about-tl-title">First Google reviews — 4.9 stars</div>
+              <p class="about-tl-desc">Word of mouth translated to the first handful of Google reviews. Consistent feedback on three things: showed up on time, explained the problem clearly, didn't overcharge.</p>
+            </div>
+          </div>
+          <div class="about-tl-item">
+            <div class="about-tl-year">2020</div>
+            <div class="about-tl-content">
+              <div class="about-tl-title">Second licensed plumber joins the team</div>
+              <p class="about-tl-desc">Demand was consistent enough to bring on a second licensed journeyperson. Expanded service area to South Porcupine, Iroquois Falls, and Matheson.</p>
+            </div>
+          </div>
+          <div class="about-tl-item">
+            <div class="about-tl-year">2021</div>
+            <div class="about-tl-content">
+              <div class="about-tl-title">Bathroom renovation work grows significantly</div>
+              <p class="about-tl-desc">Bathroom renovation referrals started arriving consistently. Plumbing scope on renovations — rough-in, fixture trim, coordination with GCs — became a major part of the business.</p>
+            </div>
+          </div>
+          <div class="about-tl-item">
+            <div class="about-tl-year">2022</div>
+            <div class="about-tl-content">
+              <div class="about-tl-title">Office support joins — no more voicemail</div>
+              <p class="about-tl-desc">Part-time office person joined to handle calls and scheduling. From this point, every call during business hours is answered by a real person. Emergency calls go directly to the owner's mobile.</p>
+            </div>
+          </div>
+          <div class="about-tl-item">
+            <div class="about-tl-year">2024</div>
+            <div class="about-tl-content">
+              <div class="about-tl-title">Expanded to Cochrane, Kapuskasing, Kirkland Lake</div>
+              <p class="about-tl-desc">Consistent demand from communities beyond the core service area led to scheduled runs to outlying markets. Seven communities now served regularly.</p>
+            </div>
+          </div>
+          <div class="about-tl-item">
+            <div class="about-tl-year">2026</div>
+            <div class="about-tl-content">
+              <div class="about-tl-title">64 reviews · 4.7 stars · still on the tools</div>
+              <p class="about-tl-desc">James still takes jobs. That won't change. When something gets complicated, the owner shows up — not a junior hire sent to manage the situation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="about-team" data-pixel-event="about_team" data-pixel-label="Team section" data-pixel-delta="6" data-pixel-bucket="comparison">
+    <div class="about-team-inner">
+      <div class="about-team-label reveal">The team</div>
+      <h2 class="about-team-headline reveal">Three people.<br>Every call answered.</h2>
+      <div class="about-team-grid">
+        <div class="about-team-card reveal">
+          <div class="about-team-photo"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="about-team-body">
+            <div class="about-team-name">James Dredhart</div>
+            <div class="about-team-role">Owner · Licensed Plumber · Est. 2018</div>
+            <div class="about-team-creds">
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>306A Journeyperson — Ontario College of Trades</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>TSSA certified gas fitter</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>15+ years plumbing experience</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Still on the tools on every job he leads</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Answers emergency calls personally</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-team-card reveal reveal-delay-1">
+          <div class="about-team-photo" style="background:linear-gradient(135deg,#2D7A52 0%,#1B5E3B 100%);"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="about-team-body">
+            <div class="about-team-name">Kevin Walsh</div>
+            <div class="about-team-role">Licensed Plumber · With Total Trades Solutions since 2020</div>
+            <div class="about-team-creds">
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>306A Journeyperson — Ontario College of Trades</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>TSSA certified gas fitter</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Specialises in bathroom renovations and pipe repair</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Known for clean, thorough finish work</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-team-card reveal reveal-delay-2">
+          <div class="about-team-photo" style="background:linear-gradient(135deg,#0D3B27 0%,#1B5E3B 100%);"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="about-team-body">
+            <div class="about-team-name">Sandra Kowalski</div>
+            <div class="about-team-role">Office &amp; Scheduling · With Total Trades Solutions since 2022</div>
+            <div class="about-team-creds">
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Answers every call during business hours</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Manages scheduling for all seven service areas</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Coordinates with GCs on renovation timelines</div>
+              <div class="about-team-cred"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>The reason there's no voicemail</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section class="about-how" data-pixel-event="about_how" data-pixel-label="How we work section" data-pixel-delta="6" data-pixel-bucket="comparison">
+    <div class="about-how-inner">
+      <div class="about-how-label reveal">How we work</div>
+      <h2 class="about-how-headline reveal">The things that don't change.</h2>
+      <div class="about-how-grid">
+        <div class="about-how-item green reveal">
+          <div class="about-how-title">We quote before we start</div>
+          <p class="about-how-desc">Every job gets a flat-rate price before any work begins. Not a rough estimate. Not a range. A number — agreed between you and us — that appears on the invoice. If the scope changes, we tell you before continuing and get your approval. No surprises.</p>
+        </div>
+        <div class="about-how-item green reveal reveal-delay-1">
+          <div class="about-how-title">We show up when we say we will</div>
+          <p class="about-how-desc">If we say we'll be there at 9am, we'll be there at 9am or we'll call ahead. Timmins is a small city and people talk. We've built this business on referrals. Every job where we show up late or leave a mess is a job that doesn't generate the next one.</p>
+        </div>
+        <div class="about-how-item green reveal reveal-delay-2">
+          <div class="about-how-title">We explain what we find</div>
+          <p class="about-how-desc">Before starting, we tell you what the problem is, what we're going to do, and why. If we find something unexpected, we stop and explain it. You understand what's happening in your own home. No technical jargon designed to confuse. Plain language, every time.</p>
+        </div>
+        <div class="about-how-item gold reveal">
+          <div class="about-how-title">We don't oversell</div>
+          <p class="about-how-desc">If a cartridge replacement fixes the dripping tap, we replace the cartridge. We don't recommend a full fixture replacement because the margin is better. Three separate plumbers told one of our current regular customers to replace a fixture that needed a $95 part. That's not how we operate.</p>
+        </div>
+        <div class="about-how-item gold reveal reveal-delay-1">
+          <div class="about-how-title">We know the housing stock</div>
+          <p class="about-how-desc">The 1960s bungalow in Schumacher has different plumbing problems than the 2010 build on the south end. The galvanised supply lines, the cast iron drains, the undersized gas mains in older Timmins properties — we've seen all of it. We know what to look for and what to expect.</p>
+        </div>
+        <div class="about-how-item gold reveal reveal-delay-2">
+          <div class="about-how-title">We stand behind the work</div>
+          <p class="about-how-desc">If something we installed or repaired fails due to our work, we come back and fix it. No charge. No fight. 1-year guarantee on installations, 90 days on service work. That's not in the fine print — it's the first thing we tell people when they ask about our guarantee.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF BAND -->
+  <div class="about-proof" data-pixel-event="about_proof" data-pixel-label="About proof" data-pixel-delta="5" data-pixel-bucket="comparison">
+    <div class="about-proof-inner">
+      <div class="reveal">
+        <div class="about-proof-quote-mark">"</div>
+        <p class="about-proof-quote">No hot water on Christmas morning with four kids in the house. One call and they had it sorted by noon. The owner came himself. That says everything about how they run this business. Won't call anyone else.</p>
+        <div class="about-proof-attr">
+          <span class="about-proof-stars">★★★★★</span>
+          <span class="about-proof-name">Mark R. · South Porcupine · Google Review</span>
+        </div>
+      </div>
+      <div class="about-proof-stats reveal reveal-delay-1">
+        <div class="about-proof-stat"><div class="about-proof-num">4.7<em>★</em></div><div class="about-proof-label">Google rating</div></div>
+        <div class="about-proof-stat"><div class="about-proof-num">64</div><div class="about-proof-label">Verified reviews</div></div>
+        <div class="about-proof-stat"><div class="about-proof-num">6<em>yr</em></div><div class="about-proof-label">In Timmins</div></div>
+        <div class="about-proof-stat"><div class="about-proof-num">3</div><div class="about-proof-label">Person team</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="about-cta">
+    <div class="about-cta-inner">
+      <div class="about-cta-text">
+        <div class="about-cta-headline">Ready to work with us?</div>
+        <div class="about-cta-sub">Free estimate · Flat-rate pricing · Workmanship guaranteed</div>
+      </div>
+      <div class="about-cta-actions">
+        <a href="/contact" class="about-cta-primary" id="ctaBookBtn"><svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Get a free quote</a>
+        <a href="/reviews" class="about-cta-secondary">Read 64 reviews</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer><div class="footer-inner"><div class="footer-top"><div><div class="footer-brand-name">Total Trades Solutions</div><div class="footer-brand-tag">Licensed plumbers · Timmins, Ontario · Est. 2018</div><a href="tel:7057001234" class="footer-brand-phone">(705) 700-1234</a><div class="footer-brand-email">info@totaltradessolutions.ca</div></div><div><div class="footer-col-title">Services</div><div class="footer-links"><a href="/emergency" class="footer-link">Emergency 24/7</a><a href="/hot-water" class="footer-link">Hot Water Systems</a><a href="/blocked-drains" class="footer-link">Blocked Drains</a><a href="/bathroom-renovations" class="footer-link">Bathroom Renovations</a><a href="/leak-detection" class="footer-link">Leak Detection</a><a href="/gas-plumbing" class="footer-link">Gas Plumbing</a><a href="/pipe-repair" class="footer-link">Pipe Repair</a><a href="/water-filtration" class="footer-link">Water Filtration</a><a href="/roofing" class="footer-link">Roofing</a><a href="/electrical" class="footer-link">Electrical</a><a href="/hvac" class="footer-link">Furnace &amp; HVAC</a><a href="/siding" class="footer-link">Siding</a><a href="/stucco" class="footer-link">Stucco</a><a href="/brick" class="footer-link">Brick</a><a href="/windows" class="footer-link">Windows</a><a href="/doors" class="footer-link">Doors</a><a href="/garage-doors" class="footer-link">Garage Doors</a><a href="/patio-doors" class="footer-link">Patio Doors</a><a href="/decks-fencing" class="footer-link">Decks &amp; Fencing</a><a href="/space-conversions" class="footer-link">Space Conversions</a><a href="/home-additions" class="footer-link">Home Additions</a></div></div><div><div class="footer-col-title">Company</div><div class="footer-links"><a href="/about" class="footer-link">About Us</a><a href="/reviews" class="footer-link">Reviews</a><a href="/our-guarantee" class="footer-link">Our Guarantee</a><a href="/blog" class="footer-link">Blog</a><a href="/faq" class="footer-link">FAQ</a><a href="/book" class="footer-link">Book Appointment</a><a href="/privacy" class="footer-link">Privacy Policy</a></div></div><div><div class="footer-col-title">Service Areas</div><div class="footer-links"><a href="/timmins" class="footer-link">Timmins</a><a href="/cochrane" class="footer-link">Cochrane</a><a href="/south-porcupine" class="footer-link">South Porcupine</a><a href="/iroquois-falls" class="footer-link">Iroquois Falls</a><a href="/kapuskasing" class="footer-link">Kapuskasing</a><a href="/matheson" class="footer-link">Matheson</a><a href="/kirkland-lake" class="footer-link">Kirkland Lake</a></div></div></div><div class="footer-bottom"><span>© 2026 Total Trades Solutions. All rights reserved.</span><span>Licensed · Insured · Ontario College of Trades</span></div></div></footer>
+
+<div class="lead-grabber"><button class="lg-btn" id="lgBtn" onclick="toggleLG()"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg></button><span class="lg-label">Get help</span></div>
+<div class="lg-panel" id="lgPanel"><div class="lg-header"><div><div class="lg-header-title">Get help now</div><div class="lg-header-sub">Choose how to connect</div></div><button class="lg-close" onclick="toggleLG()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="lg-body"><div class="lg-options"><div class="lg-option selected" id="lgSpeak" onclick="selectLGMode('speak')"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.94-1.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 15z"/></svg><span>Call me back</span></div><div class="lg-option" id="lgEmail" onclick="selectLGMode('email')"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Email me</span></div></div><input class="lg-input" type="text" placeholder="Your name" id="lgName"><input class="lg-input" type="tel" placeholder="Phone — (705) 000-0000" id="lgPhone"><input class="lg-input" type="text" placeholder="What's the job?" id="lgJob"><button class="lg-submit" onclick="submitLG()">Send request</button></div></div>
+
+<div class="chat-widget"><div class="chat-panel" id="chatPanel"><div class="chat-panel-header"><div class="chat-header-info"><div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div><div class="chat-name">Total Trades Solutions Assistant</div><div class="chat-status">Online · questions welcome</div></div></div><button class="chat-close" onclick="toggleChat()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="chat-messages" id="chatMessages"><div class="chat-msg bot">Hi — I can answer questions about Total Trades Solutions, our team, or how we work. What would you like to know?</div></div><div class="chat-quick"><button class="chat-quick-btn" onclick="quickAsk('Is the owner still involved in the jobs?')">Owner involvement</button><button class="chat-quick-btn" onclick="quickAsk('How long has Total Trades Solutions been in Timmins?')">History</button><button class="chat-quick-btn" onclick="quickAsk('Do you have licensed plumbers on every job?')">Licensing</button></div><div class="chat-input-row"><input class="chat-input" type="text" placeholder="Ask about us…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div></div><button class="chat-bubble" id="chatBubble" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button></div>
+
+<div class="pixel-toast" id="pixelToast"><div class="pixel-toast-dot"></div><span id="pixelToastText">Pixel fired</span></div>
+
+<script>
+window.addEventListener('scroll',()=>{const nav=document.getElementById('mainNav');if(nav){if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled');}document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*0.9)el.classList.add('visible');});});
+document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight*0.9)el.classList.add('visible');});
+function toggleMobileMenu(){const m=document.getElementById('mobileMenu'),b=document.getElementById('mobileHamburger');const o=m.classList.toggle('open');b.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
+function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('mobileHamburger').classList.remove('open');document.body.style.overflow='';}
+let _score=0,_bucket='unclassified',_scrollDepth=0,_dwellStart=Date.now(),_toastTimeout;
+const _bp=['emergency','active','comparison','research','unclassified'];
+function firePixel(event,label,delta,bucket){_score=Math.min(_score+delta,100);if(bucket&&bucket!=='unclassified'){const c=_bp.indexOf(_bucket),n=_bp.indexOf(bucket);if(c===-1||n<c||_bucket==='unclassified')_bucket=bucket;}const t=document.getElementById('pixelToast');document.getElementById('pixelToastText').textContent=label+(delta>0?' +'+delta:'');t.classList.add('show');clearTimeout(_toastTimeout);_toastTimeout=setTimeout(()=>t.classList.remove('show'),2200);console.log('[ClearSky Pixel]',{event,score:_score,bucket:_bucket,delta,label});}
+window.addEventListener('scroll',()=>{const doc=document.documentElement.scrollHeight-window.innerHeight;if(doc<=0)return;const pct=Math.round((window.scrollY/doc)*100);if(pct>_scrollDepth){if(pct>=25&&_scrollDepth<25)firePixel('scroll_25','Scroll 25%',3,'research');if(pct>=50&&_scrollDepth<50)firePixel('scroll_50','Scroll 50%',6,'comparison');if(pct>=75&&_scrollDepth<75)firePixel('scroll_75','Scroll 75%',7,'comparison');if(pct>=90&&_scrollDepth<90)firePixel('scroll_90','Scroll 90%',8,'comparison');_scrollDepth=pct;}});
+let _d30=false,_d60=false,_d120=false;
+setInterval(()=>{const s=Math.round((Date.now()-_dwellStart)/1000);if(s>=30&&!_d30){_d30=true;firePixel('dwell_30','30s dwell',4,'research');}if(s>=60&&!_d60){_d60=true;firePixel('dwell_60','60s dwell — about page reader',8,'comparison');}if(s>=120&&!_d120){_d120=true;firePixel('dwell_120','2min dwell — Comparison signal strong',10,'comparison');}},1000);
+const _obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,evt=el.dataset.pixelEvent;if(evt){firePixel(evt,el.dataset.pixelLabel||evt,parseInt(el.dataset.pixelDelta||'0'),el.dataset.pixelBucket||'comparison');_obs.unobserve(el);}}});},{threshold:0.3});
+document.querySelectorAll('[data-pixel-event]').forEach(el=>_obs.observe(el));
+/* About page visit is a Comparison bucket rule trigger — "visited about page" */
+firePixel('page_load','About page — Comparison bucket signal',5,'comparison');
+const _ne=document.getElementById('navEmergencyBtn'),_nb=document.getElementById('navBookBtn'),_hc=document.getElementById('heroCallBtn'),_cb=document.getElementById('ctaBookBtn');
+if(_ne)_ne.addEventListener('click',()=>firePixel('nav_emergency','Nav: Emergency',15,'emergency'));
+if(_nb)_nb.addEventListener('click',()=>firePixel('nav_book','Nav: Book Now',10,'active'));
+if(_hc)_hc.addEventListener('click',()=>firePixel('hero_call','About: hero call',15,'active'));
+if(_cb)_cb.addEventListener('click',()=>firePixel('cta_book','About: get a quote CTA',12,'active'));
+let _lgOpen=false,_lgMode='speak';
+function toggleLG(){_lgOpen=!_lgOpen;document.getElementById('lgPanel').classList.toggle('open',_lgOpen);if(_lgOpen)firePixel('lg_open','Lead Grabber opened',8,'active');}
+function selectLGMode(mode){_lgMode=mode;document.getElementById('lgSpeak').classList.toggle('selected',mode==='speak');document.getElementById('lgEmail').classList.toggle('selected',mode==='email');const p=document.getElementById('lgPhone');if(mode==='speak'){p.placeholder='Phone — (705) 000-0000';p.type='tel';}else{p.placeholder='Email address';p.type='email';}}
+function submitLG(){firePixel('lg_submit','Lead Grabber submitted',15,'active');const btn=document.querySelector('.lg-submit');btn.textContent='Request sent ✓';btn.style.background='var(--green)';setTimeout(()=>{btn.textContent='Send request';btn.style.background='';},3000);}
+let _chatOpen=false;
+function toggleChat(){_chatOpen=!_chatOpen;document.getElementById('chatPanel').classList.toggle('open',_chatOpen);if(_chatOpen)firePixel('chat_open','AI Chat opened',6,'comparison');}
+function quickAsk(q){_addChatMsg(q,'user');firePixel('chat_question','About chat: '+q.substring(0,30),8,'comparison');const r={'Is the owner still involved in the jobs?':'Yes — James still takes jobs. He doesn\'t just run the business from an office. On any job that gets complicated, or on emergency callouts, there\'s a good chance you\'ll deal with the owner directly. That accountability is part of how Total Trades Solutions operates.','How long has Total Trades Solutions been in Timmins?':'Total Trades Solutions was founded in 2018 — 8 years in Timmins. Started as one licensed plumber and a truck, grew to a two-plumber team with an office person by 2022. All growth has been through referrals and word of mouth.','Do you have licensed plumbers on every job?':'Every technical job is performed by a licensed 306A journeyperson. We don\'t send unlicensed helpers to do technical work. Both James and Kevin hold current Ontario College of Trades certification and TSSA gas certification. Licence numbers available on request.'};setTimeout(()=>_addChatMsg(r[q]||'Our team can answer that directly. Call (705) 700-1234 or send a message through the Contact page.','bot'),800);}
+function sendChat(){const inp=document.getElementById('chatInput');if(!inp.value.trim())return;_addChatMsg(inp.value,'user');firePixel('chat_question','About chat question',8,'comparison');inp.value='';setTimeout(()=>_addChatMsg('Our team will follow up. For immediate questions call (705) 700-1234.','bot'),800);}
+function _addChatMsg(text,type){const msgs=document.getElementById('chatMessages');const div=document.createElement('div');div.className='chat-msg '+type;div.textContent=text;msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
+</script>
+</body>
+</html>

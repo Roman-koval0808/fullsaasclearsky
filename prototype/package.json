@@ -1,0 +1,24 @@
+{
+  "name": "clearsky-prototype",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Journey simulator — runs the Denise & Barry customer journeys through the ClearSky pipeline as executable acceptance tests.",
+  "scripts": {
+    "sim": "tsx src/harness/cli.ts",
+    "demo": "tsx src/harness/build-demo.ts",
+    "serve": "npm run demo && tsx src/harness/serve.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0"
+  }
+}

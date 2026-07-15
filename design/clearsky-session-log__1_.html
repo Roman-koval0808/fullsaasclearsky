@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearSky — Session Log · RightFlush Plumbing</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f5f6f8;--bg2:#ffffff;--bg3:#f0f1f4;
+  --border:#e2e5ea;--border2:#cdd0d8;
+  --text:#0f1117;--text2:#4b5263;--text3:#9099aa;
+  --green:#0a7c45;--green-bg:#eaf7f0;--green-bd:#b6e5cf;
+  --red:#c0392b;--red-bg:#fdecea;--red-bd:#f5b8b3;
+  --amber:#92600a;--amber-bg:#fff8ec;--amber-bd:#f5d99a;
+  --blue:#1a56a0;--blue-bg:#eaf1fb;--blue-bd:#b3cff0;
+  --teal:#0d7f78;--teal-bg:#e8f7f6;--teal-bd:#9de0db;
+  --purple:#6d28d9;--purple-bg:#f5f3ff;--purple-bd:#c4b5fd;
+  --mono:'IBM Plex Mono',monospace;--sans:'Inter',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;font-size:13px;line-height:1.5;}
+
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;border-bottom:1px solid var(--border);background:var(--bg2);position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.header-left{display:flex;align-items:center;gap:16px;}
+.logo{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--green);letter-spacing:.1em;text-transform:uppercase;}
+.logo span{color:var(--text3);}
+.header-title{font-size:12px;color:var(--text2);padding-left:16px;border-left:1px solid var(--border2);}
+.live-badge{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:500;color:var(--green);letter-spacing:.08em;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.6s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+
+/* STAT STRIP */
+.stat-strip{display:grid;grid-template-columns:repeat(7,1fr);background:var(--bg2);border-bottom:1px solid var(--border);}
+.stat{padding:12px 16px;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.stat-val{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--text);line-height:1;margin-bottom:3px;}
+.stat-val.green{color:var(--green);}
+.stat-val.red{color:var(--red);}
+.stat-val.blue{color:var(--blue);}
+.stat-val.amber{color:var(--amber);}
+.stat-val.purple{color:var(--purple);}
+.stat-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;}
+
+/* RECONCILE BANNER */
+.reconcile-banner{padding:7px 24px;background:var(--teal-bg);border-bottom:1px solid var(--teal-bd);font-size:11px;color:var(--teal);font-family:var(--mono);display:flex;align-items:center;gap:8px;}
+.reconcile-banner strong{font-weight:500;}
+
+/* TOOLBAR */
+.toolbar{display:flex;align-items:center;gap:8px;padding:10px 20px;border-bottom:1px solid var(--border);background:var(--bg2);flex-wrap:wrap;}
+.toolbar-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-right:2px;}
+select,input[type=text]{font-family:var(--mono);font-size:11px;padding:5px 10px;background:var(--bg);border:1px solid var(--border2);border-radius:5px;color:var(--text);outline:none;transition:border-color .15s;}
+select:focus,input[type=text]:focus{border-color:var(--green);}
+input[type=text]{width:200px;}
+input[type=text]::placeholder{color:var(--text3);}
+.toolbar-spacer{flex:1;}
+.count-label{font-family:var(--mono);font-size:10px;color:var(--text3);}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead th{font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--bg3);position:sticky;top:52px;z-index:10;}
+thead th:first-child{padding-left:20px;}
+
+.session-group{border-bottom:1px solid var(--border);}
+.main-row{cursor:pointer;transition:background .1s;}
+.main-row:hover{background:#f8f9fb;}
+.main-row.is-expanded{background:#f8f9fb;}
+.main-row.is-live{border-left:3px solid var(--green);}
+.main-row.is-live td:first-child{padding-left:17px;}
+.main-row.is-demoted{border-left:3px solid var(--red);}
+.main-row.is-demoted td:first-child{padding-left:17px;}
+.main-row td{padding:9px 12px;vertical-align:middle;white-space:nowrap;}
+.main-row td:first-child{padding-left:20px;}
+
+/* identity cell */
+.id-block{}
+.sess-id{font-family:var(--mono);font-size:11px;color:var(--text2);}
+.fp-id{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px;}
+.live-tag{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;color:var(--green);margin-top:2px;}
+.live-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 1.6s ease-in-out infinite;}
+.returning-tag{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;color:var(--teal);margin-top:2px;}
+
+/* time */
+.entry-time{font-size:12px;font-weight:500;color:var(--text);}
+.entry-date{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:2px;}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10px;font-weight:500;padding:3px 8px;border-radius:4px;white-space:nowrap;}
+.pill-emg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.pill-active{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd);}
+.pill-comp{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+.pill-res{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.pill-sys{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd);}
+
+/* dual score */
+.score-cell{}
+.score-dual{display:flex;align-items:baseline;gap:5px;margin-bottom:3px;}
+.score-live{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--text);}
+.score-raw{font-family:var(--mono);font-size:10px;color:var(--text3);}
+.score-bar-wrap{position:relative;width:52px;height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.score-bar-raw-fill{position:absolute;left:0;top:0;height:100%;border-radius:3px;opacity:0.2;}
+.score-bar-live-fill{position:absolute;left:0;top:0;height:100%;border-radius:3px;}
+.fill-emg{background:var(--red);}
+.fill-active{background:#d4840f;}
+.fill-comp{background:var(--blue);}
+.fill-res{background:var(--green);}
+.decay-tag{font-family:var(--mono);font-size:8px;color:var(--red);margin-top:2px;display:block;}
+.grace-tag{font-family:var(--mono);font-size:8px;color:var(--green);margin-top:2px;display:block;}
+
+/* velocity */
+.vel-cell{display:flex;flex-direction:column;gap:3px;}
+.vel-label{font-size:10px;font-weight:500;}
+.vel-up{color:var(--green);}
+.vel-dn{color:var(--red);}
+.vel-flat{color:var(--text3);}
+.sparkline{display:flex;align-items:flex-end;gap:1px;height:14px;}
+.spark-bar{width:4px;border-radius:1px;min-height:1px;}
+
+/* trajectory */
+.traj-cell{font-size:10px;}
+.traj-up{color:var(--green);font-weight:500;}
+.traj-dn{color:var(--red);font-weight:500;}
+.traj-flat{color:var(--text3);}
+
+/* pages */
+.pages-wrap{display:flex;gap:3px;flex-wrap:wrap;max-width:220px;}
+.page-chip{font-family:var(--mono);font-size:9px;background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:2px 5px;color:var(--text2);}
+
+/* scroll */
+.scroll-wrap{display:flex;align-items:center;gap:5px;}
+.scroll-track{width:36px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.scroll-track-fill{height:100%;background:var(--teal);border-radius:2px;}
+.scroll-pct{font-family:var(--mono);font-size:10px;color:var(--text2);min-width:26px;}
+
+/* device */
+.device-icon{color:var(--text3);vertical-align:middle;}
+
+/* profile */
+.profile-named{font-family:var(--mono);font-size:10px;color:var(--blue);font-weight:500;}
+.profile-anon{font-family:var(--mono);font-size:10px;color:var(--text3);font-style:italic;}
+
+/* conversions */
+.conv-wrap{display:flex;gap:3px;flex-wrap:wrap;}
+.conv-tag{font-family:var(--mono);font-size:9px;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd);border-radius:3px;padding:2px 5px;}
+
+/* demotion badge */
+.demote-tag{font-family:var(--mono);font-size:8px;color:var(--red);background:var(--red-bg);border:1px solid var(--red-bd);border-radius:3px;padding:2px 6px;display:inline-block;margin-top:3px;}
+
+/* expand */
+.expand-btn{background:none;border:1px solid var(--border2);border-radius:4px;color:var(--text3);font-family:var(--mono);font-size:10px;padding:3px 8px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.expand-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-bg);}
+
+/* DRAWER */
+.event-drawer{display:none;}
+.event-drawer.open{display:table-row;}
+.event-drawer td{padding:0;}
+.drawer-inner{background:#f8f9fb;border-top:1px solid var(--border);padding:0 0 0 32px;}
+.drawer-table{width:100%;border-collapse:collapse;}
+.drawer-table th{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);background:none;position:static;font-weight:500;}
+.drawer-table td{padding:6px 10px;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap;}
+.drawer-table tr:last-child td{border-bottom:none;}
+.drawer-table tr.ev-neg td{background:#fef9f9;}
+.drawer-table tr.ev-sys td{background:#f0fbfa;}
+.drawer-table tr.ev-demote td{background:#fef2f2;}
+.ev-time{font-family:var(--mono);font-size:10px;color:var(--text3);}
+.ev-name{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--text);}
+.ev-name.neg{color:var(--red);}
+.ev-name.sys{color:var(--teal);}
+.ev-detail{font-size:11px;color:var(--text2);}
+.ev-path{font-size:10px;color:var(--purple);font-style:italic;}
+.ev-page{font-family:var(--mono);font-size:10px;color:var(--text3);}
+.delta-pill{font-family:var(--mono);font-size:10px;font-weight:500;padding:2px 6px;border-radius:3px;white-space:nowrap;}
+.d-emg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.d-pos{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd);}
+.d-active{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd);}
+.d-comp{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd);}
+.d-neg{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd);}
+.d-sys{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-bd);}
+.friction-flag{font-family:var(--mono);font-size:9px;color:var(--red);margin-left:4px;}
+.multiplier-tag{font-family:var(--mono);font-size:8px;color:var(--purple);background:var(--purple-bg);border-radius:2px;padding:1px 4px;margin-left:4px;}
+
+.empty-state{padding:60px;text-align:center;color:var(--text3);font-family:var(--mono);font-size:12px;}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo">Clear<span>Sky</span></div>
+    <div class="header-title">Session Log — RightFlush Plumbing · Timmins ON</div>
+  </div>
+  <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+</header>
+
+<div class="reconcile-banner">
+  <strong>Profile reconciliation active</strong> — anonymous sessions stitch to named hub profiles on conversion &middot; fingerprint links desktop + mobile into single hub ID &middot; score decays while idle
+</div>
+
+<div class="stat-strip">
+  <div class="stat"><div class="stat-val" id="sAll">0</div><div class="stat-label">Total sessions</div></div>
+  <div class="stat"><div class="stat-val green" id="sLive">0</div><div class="stat-label">Live now</div></div>
+  <div class="stat"><div class="stat-val red" id="sEmg">0</div><div class="stat-label">Emergency</div></div>
+  <div class="stat"><div class="stat-val blue" id="sNamed">0</div><div class="stat-label">Named profiles</div></div>
+  <div class="stat"><div class="stat-val amber" id="sNeg">0</div><div class="stat-label">Friction events</div></div>
+  <div class="stat"><div class="stat-val red" id="sDemote">0</div><div class="stat-label">Demotions</div></div>
+  <div class="stat"><div class="stat-val purple" id="sReturning">0</div><div class="stat-label">Returning FP</div></div>
+</div>
+
+<div class="toolbar">
+  <span class="toolbar-label">Filter</span>
+  <select id="fBucket" onchange="render()">
+    <option value="">All buckets</option>
+    <option value="emergency">Emergency</option>
+    <option value="active">Active</option>
+    <option value="comparison">Comparison</option>
+    <option value="research">Research</option>
+  </select>
+  <select id="fDevice" onchange="render()">
+    <option value="">All devices</option>
+    <option value="mobile">Mobile</option>
+    <option value="desktop">Desktop</option>
+  </select>
+  <select id="fProfile" onchange="render()">
+    <option value="">All profiles</option>
+    <option value="named">Named</option>
+    <option value="anon">Anonymous</option>
+  </select>
+  <select id="fTraj" onchange="render()">
+    <option value="">All trajectories</option>
+    <option value="rising">Rising</option>
+    <option value="stalled">Stalled</option>
+    <option value="cooling">Cooling</option>
+  </select>
+  <input type="text" id="fSearch" placeholder="Search session, fingerprint, or page…" oninput="render()">
+  <div class="toolbar-spacer"></div>
+  <div class="count-label" id="countLabel">— sessions</div>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Session ID · Fingerprint</th>
+        <th>Entry time</th>
+        <th>Bucket</th>
+        <th>Score (live / raw)</th>
+        <th>Velocity</th>
+        <th>Pages visited</th>
+        <th>Max scroll</th>
+        <th>Device</th>
+        <th>Profile</th>
+        <th>Conversions</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="logBody"></tbody>
+  </table>
+  <div id="emptyState" class="empty-state" style="display:none;">— no sessions match current filters —</div>
+</div>
+
+<script>
+// ── DATA ────────────────────────────────────────────────────
+const sessions = [
+  {
+    id:'cffb4487…f84648',
+    fp:'fp_a3b1…e920',
+    hubId:null,
+    entry:'11:07 PM', entryFull:'Today · 23:07:31',
+    live:true, returning:false,
+    bucket:'emergency',
+    scoreRaw:100, scoreLive:100, decayPct:0, inGrace:true,
+    trajectory:'rising',
+    deltaHistory:[20,15,20,20,20],
+    device:'mobile',
+    pages:['/burst-pipe','/emergency','/contact'],
+    scroll:75, profile:'anon',
+    conversions:['hero_call_click'],
+    frictionCount:0, demoted:false,
+    events:[
+      {time:'23:08:44',name:'hero_call_click',detail:'Call CTA — hero',page:'/emergency',delta:'+20',deltaNum:20,bucket:'emergency',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'23:08:31',name:'scroll_25',detail:'Scroll 25%',page:'/emergency',delta:'+20',deltaNum:20,bucket:'emergency',scroll:25,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'23:08:19',name:'page_load',detail:'Emergency — session started',page:'/emergency',delta:'+20',deltaNum:20,bucket:'emergency',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'23:07:58',name:'nav_emergency',detail:'Nav: Emergency clicked',page:'/burst-pipe',delta:'+15',deltaNum:15,bucket:'emergency',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'23:07:44',name:'scroll_25',detail:'Scroll 25%',page:'/burst-pipe',delta:'+20',deltaNum:20,bucket:'emergency',scroll:25,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'23:07:31',name:'page_load',detail:'Burst pipe — emergency bucket',page:'/burst-pipe',delta:'+20',deltaNum:20,bucket:'emergency',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+    ]
+  },
+  {
+    id:'7175d709…cb5077',
+    fp:'fp_d4c2…f103',
+    hubId:'hub_rf_0291',
+    entry:'10:44 PM', entryFull:'Today · 22:44:18',
+    live:true, returning:true,
+    bucket:'comparison',
+    scoreRaw:57, scoreLive:52, decayPct:9, inGrace:false,
+    trajectory:'stalled',
+    deltaHistory:[3,6,10,7,5,8,-4,5,7,8],
+    device:'desktop',
+    pages:['/blog','/bathroom-renovations','/before-after'],
+    scroll:90, profile:'named',
+    conversions:[],
+    frictionCount:1, demoted:false,
+    events:[
+      {time:'22:51:20',name:'ba_slider_drag',detail:'Before/after slider used',page:'/before-after',delta:'+16',deltaNum:16,bucket:'comparison',scroll:null,pathCtx:'Post-gallery review check',multiplier:2.0,isSys:false,isNeg:false},
+      {time:'22:50:44',name:'gallery_filter',detail:'Gallery filter: bathroom',page:'/before-after',delta:'+5',deltaNum:5,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:49:30',name:'form_abandon',detail:'Form abandoned mid-completion',page:'/before-after',delta:'-4',deltaNum:-4,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:true},
+      {time:'22:49:11',name:'dwell_60',detail:'60s dwell',page:'/before-after',delta:'+7',deltaNum:7,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:46:32',name:'page_load',detail:'Bathroom renos — session started',page:'/bathroom-renovations',delta:'+6',deltaNum:6,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:45:10',name:'scroll_90',detail:'Scroll 90%',page:'/blog',delta:'+10',deltaNum:10,bucket:'comparison',scroll:90,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:44:18',name:'page_load',detail:'Blog — session started',page:'/blog',delta:'+3',deltaNum:3,bucket:'research',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:44:00',name:'returning_visitor_detected',detail:'Fingerprint matched · prior score 31 restored · COMP bucket held',page:'—',delta:'—',deltaNum:0,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:true,isNeg:false},
+    ]
+  },
+  {
+    id:'a9f21c44…d30091',
+    fp:'fp_b7f9…1122',
+    hubId:null,
+    entry:'11:02 PM', entryFull:'Today · 23:02:47',
+    live:true, returning:false,
+    bucket:'research',
+    scoreRaw:14, scoreLive:14, decayPct:0, inGrace:true,
+    trajectory:'rising',
+    deltaHistory:[6,5,4],
+    device:'desktop',
+    pages:['/hot-water','/faq'],
+    scroll:50, profile:'anon',
+    conversions:[],
+    frictionCount:0, demoted:false,
+    events:[
+      {time:'23:05:09',name:'faq_open',detail:'How long do water heaters last',page:'/faq',delta:'+4',deltaNum:4,bucket:'research',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'23:03:14',name:'scroll_50',detail:'Scroll 50%',page:'/hot-water',delta:'+5',deltaNum:5,bucket:'research',scroll:50,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'23:02:47',name:'page_load',detail:'Hot water — session started',page:'/hot-water',delta:'+6',deltaNum:6,bucket:'research',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+    ]
+  },
+  {
+    id:'f301aa88…12bc44',
+    fp:'fp_e8a0…7731',
+    hubId:'hub_rf_0104',
+    entry:'10:12 PM', entryFull:'Today · 22:12:05',
+    live:false, returning:true,
+    bucket:'active',
+    scoreRaw:82, scoreLive:78, decayPct:5, inGrace:false,
+    trajectory:'rising',
+    deltaHistory:[6,7,12,20,20],
+    device:'mobile',
+    pages:['/specials','/contact'],
+    scroll:100, profile:'named',
+    conversions:['spl_apt_submit','lg_submit'],
+    frictionCount:0, demoted:false,
+    events:[
+      {time:'22:18:50',name:'profile_resolved',detail:'Identity resolved → Karen Mitchell · hub_rf_0104',page:'—',delta:'—',deltaNum:0,bucket:'active',scroll:null,pathCtx:null,multiplier:1,isSys:true,isNeg:false},
+      {time:'22:18:44',name:'lg_submit',detail:'Lead grabber submitted',page:'/contact',delta:'+20',deltaNum:20,bucket:'active',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:17:01',name:'spl_apt_submit',detail:'Appointment booked — Spring Prep',page:'/specials',delta:'+20',deltaNum:20,bucket:'active',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:15:30',name:'spl_claim_click',detail:'Claim: Spring Prep Package',page:'/specials',delta:'+12',deltaNum:12,bucket:'active',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:13:22',name:'scroll_75',detail:'Scroll 75%',page:'/specials',delta:'+7',deltaNum:7,bucket:'comparison',scroll:75,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:12:05',name:'page_load',detail:'Specials — session started',page:'/specials',delta:'+6',deltaNum:6,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+    ]
+  },
+  {
+    id:'b8820e11…9f3311',
+    fp:'fp_c3d5…4480',
+    hubId:null,
+    entry:'9:55 PM', entryFull:'Today · 21:55:18',
+    live:false, returning:false,
+    bucket:'research',
+    scoreRaw:22, scoreLive:18, decayPct:18, inGrace:false,
+    trajectory:'cooling',
+    deltaHistory:[3,10,5,-3],
+    device:'desktop',
+    pages:['/blog','/faq'],
+    scroll:60, profile:'anon',
+    conversions:[],
+    frictionCount:1, demoted:false,
+    events:[
+      {time:'22:01:10',name:'contentradar_submit',detail:'How do I prevent frozen pipes',page:'/blog',delta:'+5',deltaNum:5,bucket:'research',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:00:20',name:'dead_click',detail:'Click on non-interactive element',page:'/blog',delta:'-3',deltaNum:-3,bucket:'research',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:true},
+      {time:'21:59:44',name:'dwell_120',detail:'2 min dwell',page:'/blog',delta:'+10',deltaNum:10,bucket:'research',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'21:55:18',name:'page_load',detail:'Blog — session started',page:'/blog',delta:'+3',deltaNum:3,bucket:'research',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+    ]
+  },
+  {
+    id:'cc99d301…a1f099',
+    fp:'fp_9f2c…bb01',
+    hubId:null,
+    entry:'9:31 PM', entryFull:'Today · 21:31:02',
+    live:false, returning:false,
+    bucket:'emergency',
+    scoreRaw:100, scoreLive:72, decayPct:28, inGrace:false,
+    trajectory:'cooling',
+    deltaHistory:[20,20,20],
+    device:'mobile',
+    pages:['/emergency'],
+    scroll:30, profile:'anon',
+    conversions:['hero_call_click'],
+    frictionCount:0, demoted:false,
+    events:[
+      {time:'21:31:44',name:'hero_call_click',detail:'Call CTA — hero',page:'/emergency',delta:'+20',deltaNum:20,bucket:'emergency',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'21:31:22',name:'scroll_25',detail:'Scroll 25%',page:'/emergency',delta:'+20',deltaNum:20,bucket:'emergency',scroll:25,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'21:31:02',name:'page_load',detail:'Emergency — session started',page:'/emergency',delta:'+20',deltaNum:20,bucket:'emergency',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+    ]
+  },
+  {
+    id:'d44521bc…7e1200',
+    fp:'fp_f1a3…5509',
+    hubId:null,
+    entry:'8:47 PM', entryFull:'Today · 20:47:33',
+    live:false, returning:false,
+    bucket:'research',
+    scoreRaw:44, scoreLive:22, decayPct:50, inGrace:false,
+    trajectory:'cooling',
+    deltaHistory:[4,4,4,5,-8,3],
+    device:'desktop',
+    pages:['/reviews','/about','/service-areas'],
+    scroll:80, profile:'anon',
+    conversions:[],
+    frictionCount:1, demoted:true,
+    events:[
+      {time:'21:10:00',name:'bucket_demotion',detail:'Score decayed below threshold · COMP → RES',page:'—',delta:'—',deltaNum:0,bucket:'research',scroll:null,pathCtx:null,multiplier:1,isSys:true,isNeg:false},
+      {time:'20:55:11',name:'area_click',detail:'Service area: Cochrane',page:'/service-areas',delta:'+3',deltaNum:3,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'20:53:00',name:'form_abandon',detail:'Form abandoned mid-completion',page:'/service-areas',delta:'-8',deltaNum:-8,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:true},
+      {time:'20:52:14',name:'scroll_50',detail:'Scroll 50%',page:'/about',delta:'+5',deltaNum:5,bucket:'comparison',scroll:50,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'20:50:01',name:'page_load',detail:'About — session started',page:'/about',delta:'+4',deltaNum:4,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'20:48:20',name:'dwell_30',detail:'30s dwell',page:'/reviews',delta:'+4',deltaNum:4,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'20:47:33',name:'page_load',detail:'Reviews — session started',page:'/reviews',delta:'+4',deltaNum:4,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+    ]
+  },
+  {
+    id:'e90f12cc…3301ab',
+    fp:'fp_7b8d…2290',
+    hubId:null,
+    entry:'10:22 PM', entryFull:'Today · 22:22:10',
+    live:false, returning:false,
+    bucket:'comparison',
+    scoreRaw:61, scoreLive:55, decayPct:10, inGrace:false,
+    trajectory:'rising',
+    deltaHistory:[4,4,8,4,5,16,8],
+    device:'desktop',
+    pages:['/reviews','/before-after','/service-areas','/contact'],
+    scroll:90, profile:'anon',
+    conversions:[],
+    frictionCount:0, demoted:false,
+    events:[
+      {time:'22:38:10',name:'scroll_90',detail:'Scroll 90%',page:'/contact',delta:'+10',deltaNum:10,bucket:'comparison',scroll:90,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:35:00',name:'review_read',detail:'Read customer review',page:'/reviews',delta:'+16',deltaNum:16,bucket:'comparison',scroll:null,pathCtx:'Comparison finaliser',multiplier:3.0,isSys:false,isNeg:false},
+      {time:'22:33:20',name:'area_click',detail:'Service area: Timmins',page:'/service-areas',delta:'+3',deltaNum:3,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:30:10',name:'ba_slider_drag',detail:'Before/after slider used',page:'/before-after',delta:'+8',deltaNum:8,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:28:00',name:'dwell_60',detail:'60s dwell',page:'/before-after',delta:'+7',deltaNum:7,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:25:00',name:'scroll_75',detail:'Scroll 75%',page:'/reviews',delta:'+7',deltaNum:7,bucket:'comparison',scroll:75,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+      {time:'22:22:10',name:'page_load',detail:'Reviews — session started',page:'/reviews',delta:'+4',deltaNum:4,bucket:'comparison',scroll:null,pathCtx:null,multiplier:1,isSys:false,isNeg:false},
+    ]
+  },
+];
+
+// ── HELPERS ─────────────────────────────────────────────────
+let expanded={};
+
+function pClass(b){return{emergency:'pill-emg',active:'pill-active',comparison:'pill-comp',research:'pill-res'}[b]||'pill-res';}
+function fClass(b){return{emergency:'fill-emg',active:'fill-active',comparison:'fill-comp',research:'fill-res'}[b]||'fill-res';}
+function bLabel(b){return{emergency:'EMG',active:'ACTIVE',comparison:'COMP',research:'RES'}[b]||b.toUpperCase();}
+function dClass(e){
+  if(e.isSys) return 'd-sys';
+  if(e.isNeg) return 'd-neg';
+  return{emergency:'d-emg',active:'d-active',comparison:'d-comp',research:'d-pos'}[e.bucket]||'d-pos';
+}
+
+function velInfo(deltas){
+  if(!deltas||!deltas.length) return{label:'—',cls:'vel-flat',dir:'→'};
+  const avg=deltas.slice(-5).reduce((a,b)=>a+b,0)/Math.min(5,deltas.length);
+  if(avg>=6) return{label:'Rising fast',cls:'vel-up',dir:'↑↑'};
+  if(avg>=2) return{label:'Rising',cls:'vel-up',dir:'↑'};
+  if(avg>=-1) return{label:'Stalled',cls:'vel-flat',dir:'→'};
+  if(avg>=-5) return{label:'Cooling',cls:'vel-dn',dir:'↓'};
+  return{label:'Dropping',cls:'vel-dn',dir:'↓↓'};
+}
+
+function sparkHTML(deltas,fillCls){
+  if(!deltas||!deltas.length) return '';
+  const max=Math.max(...deltas.map(Math.abs),1);
+  const colorMap={
+    'fill-emg':'var(--red)','fill-active':'#d4840f',
+    'fill-comp':'var(--blue)','fill-res':'var(--green)','fill-':'var(--text3)'
+  };
+  const col=colorMap[fillCls]||'var(--green)';
+  return deltas.map(d=>{
+    const h=Math.max(2,Math.round((Math.abs(d)/max)*14));
+    const c=d<0?'var(--red)':col;
+    return `<div class="spark-bar" style="height:${h}px;background:${c};opacity:${d<0?0.9:0.65};"></div>`;
+  }).join('');
+}
+
+function deviceSVG(d){
+  return d==='mobile'
+    ?'<svg class="device-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="2" width="10" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg>'
+    :'<svg class="device-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>';
+}
+
+function toggle(id){expanded[id]=!expanded[id];render();}
+
+// ── RENDER ──────────────────────────────────────────────────
+function render(){
+  const fB=document.getElementById('fBucket').value;
+  const fD=document.getElementById('fDevice').value;
+  const fP=document.getElementById('fProfile').value;
+  const fT=document.getElementById('fTraj').value;
+  const fS=document.getElementById('fSearch').value.toLowerCase();
+
+  const filtered=sessions.filter(s=>{
+    if(fB && s.bucket!==fB) return false;
+    if(fD && s.device!==fD) return false;
+    if(fP==='named' && s.profile!=='named') return false;
+    if(fP==='anon' && s.profile!=='anon') return false;
+    if(fT && s.trajectory!==fT) return false;
+    if(fS && !s.id.toLowerCase().includes(fS) && !s.fp.toLowerCase().includes(fS) && !s.pages.some(p=>p.includes(fS))) return false;
+    return true;
+  });
+
+  // Stats
+  document.getElementById('sAll').textContent=sessions.length;
+  document.getElementById('sLive').textContent=sessions.filter(s=>s.live).length;
+  document.getElementById('sEmg').textContent=sessions.filter(s=>s.bucket==='emergency').length;
+  document.getElementById('sNamed').textContent=sessions.filter(s=>s.profile==='named').length;
+  document.getElementById('sNeg').textContent=sessions.reduce((a,s)=>a+s.frictionCount,0);
+  document.getElementById('sDemote').textContent=sessions.filter(s=>s.demoted).length;
+  document.getElementById('sReturning').textContent=sessions.filter(s=>s.returning).length;
+  document.getElementById('countLabel').textContent=`${filtered.length} sessions`;
+
+  const body=document.getElementById('logBody');
+  const empty=document.getElementById('emptyState');
+  if(!filtered.length){body.innerHTML='';empty.style.display='';return;}
+  empty.style.display='none';
+
+  body.innerHTML=filtered.map(s=>{
+    const isExp=!!expanded[s.id];
+    const fc=fClass(s.bucket);
+    const vel=velInfo(s.deltaHistory);
+
+    // Identity cell
+    const idCell=`
+      <div class="id-block">
+        <div class="sess-id">${s.id}</div>
+        <div class="fp-id">${s.fp}</div>
+        ${s.live?'<div class="live-tag"><div class="live-tag-dot"></div>live</div>':''}
+        ${s.returning?'<div class="returning-tag">↩ returning FP</div>':''}
+        ${s.demoted?'<div class="demote-tag">▼ bucket demoted</div>':''}
+      </div>`;
+
+    // Dual score cell
+    const scoreCell=`
+      <div class="score-cell">
+        <div class="score-dual">
+          <span class="score-live">${s.scoreLive}</span>
+          <span class="score-raw">/ ${s.scoreRaw} raw</span>
+        </div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-raw-fill ${fc}" style="width:${s.scoreRaw}%"></div>
+          <div class="score-bar-live-fill ${fc}" style="width:${s.scoreLive}%"></div>
+        </div>
+        ${s.inGrace?'<span class="grace-tag">● grace period</span>':s.decayPct>0?`<span class="decay-tag">↓ ${s.decayPct}% decayed</span>`:''}
+      </div>`;
+
+    // Velocity cell
+    const velCell=`
+      <div class="vel-cell">
+        <div class="vel-label ${vel.cls}">${vel.dir} ${vel.label}</div>
+        <div class="sparkline">${sparkHTML(s.deltaHistory,fc)}</div>
+      </div>`;
+
+    // Profile cell
+    const profileCell=s.profile==='named'
+      ?`<div class="profile-named">✓ ${s.hubId}</div>`
+      :`<div class="profile-anon">anonymous</div>`;
+
+    // Conversions
+    const convCell=s.conversions.length
+      ?`<div class="conv-wrap">${s.conversions.map(c=>`<span class="conv-tag">${c}</span>`).join('')}</div>`
+      :`<span style="color:var(--text3);font-family:var(--mono);font-size:10px;">—</span>`;
+
+    // Scroll
+    const scrollCell=`<div class="scroll-wrap"><div class="scroll-track"><div class="scroll-track-fill" style="width:${s.scroll}%"></div></div><span class="scroll-pct">${s.scroll}%</span></div>`;
+
+    // Event drawer
+    const drawerRows=s.events.map(e=>{
+      const rowCls=e.isSys&&e.name==='bucket_demotion'?'ev-demote':e.isSys?'ev-sys':e.isNeg?'ev-neg':'';
+      const deltaDisp=e.deltaNum===0?'—':`${e.deltaNum>=0?'+':''}${e.deltaNum}`;
+      const frictionFlag=e.isNeg?'<span class="friction-flag">⚠</span>':'';
+      const multiplierTag=e.multiplier>1?`<span class="multiplier-tag">${e.multiplier}x</span>`:'';
+      const scrollCell2=e.scroll!==null
+        ?`<div class="scroll-wrap"><div class="scroll-track"><div class="scroll-track-fill" style="width:${e.scroll}%"></div></div><span class="scroll-pct">${e.scroll}%</span></div>`
+        :`<span style="color:var(--text3)">—</span>`;
+      return `<tr class="${rowCls}">
+        <td class="ev-time">${e.time}</td>
+        <td><div class="ev-name${e.isSys?' sys':e.isNeg?' neg':''}">${e.name}${frictionFlag}</div>
+            ${e.pathCtx?`<div class="ev-path">⬡ ${e.pathCtx}</div>`:''}</td>
+        <td class="ev-detail">${e.detail}</td>
+        <td class="ev-page">${e.page}</td>
+        <td>${scrollCell2}</td>
+        <td><span class="delta-pill ${dClass(e)}">${deltaDisp}</span>${multiplierTag}</td>
+        <td><span class="pill ${pClass(e.bucket)}" style="font-size:9px;padding:2px 5px;">${bLabel(e.bucket)}</span></td>
+      </tr>`;
+    }).join('');
+
+    const drawer=isExp?`
+      <tr class="event-drawer open"><td colspan="11">
+        <div class="drawer-inner">
+          <table class="drawer-table">
+            <thead><tr><th>Time</th><th>Event · Path context</th><th>Detail</th><th>Page</th><th>Scroll</th><th>Delta · Multiplier</th><th>Bucket</th></tr></thead>
+            <tbody>${drawerRows}</tbody>
+          </table>
+        </div>
+      </td></tr>`:'';
+
+    const rowCls=[
+      'main-row',
+      s.live?'is-live':'',
+      s.demoted?'is-demoted':'',
+      isExp?'is-expanded':'',
+    ].filter(Boolean).join(' ');
+
+    return `<tbody class="session-group">
+      <tr class="${rowCls}" onclick="toggle('${s.id}')">
+        <td>${idCell}</td>
+        <td><div class="entry-time">${s.entry}</div><div class="entry-date">${s.entryFull}</div></td>
+        <td><span class="pill ${pClass(s.bucket)}">${bLabel(s.bucket)}</span></td>
+        <td>${scoreCell}</td>
+        <td>${velCell}</td>
+        <td><div class="pages-wrap">${s.pages.map(p=>`<span class="page-chip">${p}</span>`).join('')}</div></td>
+        <td>${scrollCell}</td>
+        <td>${deviceSVG(s.device)}</td>
+        <td>${profileCell}</td>
+        <td>${convCell}</td>
+        <td><button class="expand-btn" onclick="event.stopPropagation();toggle('${s.id}')">${isExp?'▲':'▼'} ${s.events.length}</button></td>
+      </tr>
+      ${drawer}
+    </tbody>`;
+  }).join('');
+}
+
+render();
+</script>
+</body>
+</html>
