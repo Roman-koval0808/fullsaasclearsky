@@ -8,6 +8,7 @@
     "dev": "node scripts/serve-local.mjs",
     "start": "node scripts/serve-local.mjs",
     "build": "node scripts/build-site.mjs",
+    "postbuild": "pm2 restart fullsaasclearsky",
     "replay": "npm --prefix prototype run demo",
     "test": "npm --prefix prototype test"
   },
